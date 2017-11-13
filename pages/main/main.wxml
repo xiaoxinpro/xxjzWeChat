@@ -1,0 +1,121 @@
+<view class="page">
+  <!--本月总结-->
+  <view class="page__bd">
+    <view class="weui-cells__title">
+      <text class="">{{header_month}}</text>
+      <text class="">月份</text>
+      <text style="font-size:12px"> / </text>
+      <text style="font-size:10px">{{header_year}}</text>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <text class="iconfont icon-tianjiajingdian"></text> 本月收入
+        </view>
+        <view class="weui-cell__ft">￥{{month_in_money}}</view>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <text class="iconfont icon-jianqujingdian"></text> 本月支出
+        </view>
+        <view class="weui-cell__ft">￥{{month_out_money}}</view>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <text class="iconfont icon-icon"></text> 本月剩余
+        </view>
+        <view class="weui-cell__ft">￥{{month_over_money}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!--记账入口-->
+  <view class="main-list-content-padded">
+    <button class="weui-btn weui-btn-warning" bindtap="btnAdd">
+      <span class="iconfont icon--bianji" style="font-size:18px"></span> 
+      <text> 记一笔</text>
+    </button>
+  </view>
+
+  <!-- <button class="weui-btn" bindtap="bindTest">日期图标测试按钮</button> -->
+
+  <!--首页统计-->
+  <view class="weui-cells weui-cells_after-title">
+    <!--今日统计-->
+    <navigator url="../list/day?year={{header_year}}&month={{header_month}}&day={{header_day}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd" style="position: relative;margin-right: 10px; ">
+        <text class="iconfont icon-rili-{{header_day}}" style="font-size: 36px;"></text>
+      </view>
+      <view class="weui-cell__bd">
+        <view>今日</view>
+        <view class="main-list-text-bd">{{header_year}}年{{header_month}}月{{header_day}}日</view>
+      </view>
+      <view class="weui-cell__ft">
+        <view class="main-list-text-ft">
+          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{day_in_money}}
+        </view>
+        <view class="main-list-text-ft">
+          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{day_out_money}}
+        </view>
+      </view>
+    </navigator>
+    <!--本月统计-->
+    <navigator url="../list/month?year={{header_year}}&month={{header_month}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <text class="iconfont icon-rili-{{header_month}}" style="font-size: 36px;"></text>
+      </view>
+      <view class="weui-cell__bd">
+        <view>本月</view>
+        <view class="main-list-text-bd">{{header_year}}年{{header_month}}月份</view>
+      </view>
+      <view class="weui-cell__ft">
+        <view class="main-list-text-ft">
+          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{month_in_money}}
+        </view>
+        <view class="main-list-text-ft">
+          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{month_out_money}}
+        </view>
+      </view>
+    </navigator>
+    <!--今年统计-->
+    <navigator url="../list/year?year={{header_year}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <text class="iconfont icon-licai" style="font-size: 36px;"></text>
+      </view>
+      <view class="weui-cell__bd">
+        <view>今年</view>
+        <view class="main-list-text-bd">{{header_year}}年</view>
+      </view>
+      <view class="weui-cell__ft">
+        <view class="main-list-text-ft">
+          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{year_in_money}}
+        </view>
+        <view class="main-list-text-ft">
+          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{year_out_money}}
+        </view>
+      </view>
+    </navigator>
+    <!--历年统计-->
+    <navigator url="../list/all" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <text class="iconfont icon-piaofang" style="font-size: 36px;"></text>
+      </view>
+      <view class="weui-cell__bd">
+        <view>历年</view>
+        <view class="main-list-text-bd">所有年份</view>
+      </view>
+      <view class="weui-cell__ft">
+        <view class="main-list-text-ft">
+          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text>
+          {{all_in_money}}
+        </view>
+        <view class="main-list-text-ft">
+          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text>
+          {{all_out_money}}
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>

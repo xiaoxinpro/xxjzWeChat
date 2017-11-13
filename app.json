@@ -1,0 +1,58 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/main/main",
+    "pages/main/add",
+    "pages/main/find",
+    "pages/main/user",
+    "pages/list/day",
+    "pages/list/month",
+    "pages/list/year",
+    "pages/list/all",
+    "pages/list/edit",
+    "pages/list/more",
+    "pages/list/find",
+    "pages/user/user",
+    "pages/user/class",
+    "pages/user/about"
+  ],
+  "tabBar": {
+    "color": "#919191",
+    "selectedColor": "#03a9f4",
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "iconPath": "image/icon-index.png",
+        "selectedIconPath": "image/icon-index-select.png",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/main/add",
+        "iconPath": "image/icon-add.png",
+        "selectedIconPath": "image/icon-add-select.png",
+        "text": "记账"
+      },
+      {
+        "pagePath": "pages/main/find",
+        "iconPath": "image/icon-search.png",
+        "selectedIconPath": "image/icon-search-select.png",
+        "text": "查询"
+      },
+      {
+        "pagePath": "pages/main/user",
+        "iconPath": "image/icon-my.png",
+        "selectedIconPath": "image/icon-my-select.png",
+        "text": "我的"
+      }
+    ],
+    "position": "bottom"
+  },
+  "window": {
+    "backgroundColor": "#03a9f4",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#03a9f4",
+    "navigationBarTitleText": "小歆记账",
+    "navigationBarTextStyle": "white"
+  }
+}

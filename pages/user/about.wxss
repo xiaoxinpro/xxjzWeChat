@@ -1,0 +1,48 @@
+/* about.wxss */
+
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 64rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.about-avatar {
+  width: 384rpx;
+  height: 384rpx;
+  margin: 1rpx;
+}
+
+.about-title {
+  font-size: 1rem;
+  align-self: flex-start;
+  padding: 0.5rem 0.75rem;
+  color: #212121;
+}
+
+.about-content {
+  position: relative;
+  align-self: flex-start;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  color: #212121;
+}
+
+about-content-button {
+  align-self: flex-start;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  color: #212121;
+  height: 3rem;
+  line-height: 3rem;
+  overflow: hidden;
+}

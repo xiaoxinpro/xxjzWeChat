@@ -1,0 +1,61 @@
+.weui-btn-primary {
+	color: #ffffff;
+	background-color: #00bcd4;
+}
+.weui-btn-primary:active {
+	color: #ffffff;
+	background-color: #00acc1;
+}
+.weui-btn-success {
+	color: #ffffff;
+	background-color: #009688;
+}
+.weui-btn-success:active {
+	color: #fff;
+	background-color: #00897b;
+}
+.weui-btn-info {
+	color: #ffffff !important;
+	background-color: #03a9f4 !important;
+}
+.weui-btn-info:active {
+	color: #fff !important;
+	background-color: #039be5 !important;
+}
+.weui-btn-warning {
+	color: #ffffff !important;
+	background-color: #ffc107 !important;
+}
+.weui-btn-warning:active {
+	color: #ffffff !important;
+	background-color: #ffb300 !important;
+}
+.weui-btn-danger {
+	color: #ffffff !important;
+	background-color: #e51c23 !important;
+}
+.weui-btn-danger:active {
+	color: #ffffff !important;
+	background-color: #dd191b !important;
+}
+
+.weui-icon-checkbox_success-info {
+  margin-left: 4.6px;
+  margin-right: 4.6px;
+  color: #03a9f4 !important;
+}
+
+.weui-input-null {
+  height: 2.58823529em;
+  min-height: 2.58823529em;
+  line-height: 2.58823529em;
+  color: #838383;
+}
+
+.weui-navbar__item.weui-bar__item_on {
+  color: #03a9f4 !important;
+}
+
+.weui-navbar__slider {
+  background-color: #03a9f4 !important;
+}

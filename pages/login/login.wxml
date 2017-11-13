@@ -1,0 +1,18 @@
+<!--login.wxml-->
+<!--<view class="login-title">{{title}}</view>-->
+<view class="login-title">
+    <image style="width: 72px; height: 72px;" mode="aspectFit" src="../../image/login_logo.png" />
+</view>
+<view class="login-from">
+    <form bindsubmit="formSubmit">
+        <view class="login-item login-input">
+            <input name="username" placeholder="{{username}}"  value="{{username_value}}" />
+        </view>
+        <view class="login-item login-input">
+            <input name="password" placeholder="{{password}}" password value="{{password_value}}" />
+        </view>
+        <view class="login-item">
+            <button class="weui-btn-info" formType="submit">{{submit}}</button>
+        </view>
+    </form>
+</view>

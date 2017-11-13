@@ -1,0 +1,65 @@
+<!--user.wxml-->
+<view class="page">
+  <!-- 头像 -->
+  <view class="page__hd" style="padding-top: 1rem;">
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__bd">
+        <navigator url="../user/user" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+            <image class="weui-media-box__thumb" src="{{avatarPath}}" background-size="cover"></image>
+          </view>
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title">{{uname}}</view>
+            <view class="weui-media-box__desc">{{email}}</view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
+  <!-- 帐号相关 -->
+  <view class="page__bd">
+    <view class="weui-cells__title"></view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="../user/user" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">帐号与安全</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+  </view>
+
+  <!-- 记账相关 -->
+  <view class="page__bd">
+    <view class="weui-cells__title"></view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="../user/class" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">分类管理</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../list/all" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">年度统计</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+  </view>
+
+  <!-- APP相关 -->
+  <view class="page__bd">
+    <view class="weui-cells__title"></view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="bindOpenFeedback">
+        <view class="weui-cell__bd">意见反馈</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+      <navigator url="../user/about" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">关于我们</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+  </view>
+
+  <!-- 退出 -->
+  <view style="padding: 1rem;">
+    <button type="warn" bindtap="btnLogout">退出</button>
+  </view>
+</view>

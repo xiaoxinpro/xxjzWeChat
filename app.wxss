@@ -1,0 +1,38 @@
+/**app.wxss**/
+@import 'weui.wxss';
+@import 'weuiPuls.wxss';
+@import 'iconfont.wxss';
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+
+/* 卡片列表区域*/
+.xxjz-card-list  {
+  position: relative;
+  margin-bottom: 0.75rem;
+  background: #ffffff;
+}
+
+/* 卡片列表头部区域*/
+.xxjz-card-list-header {
+  margin-top:0px;
+	font-size: 0.8rem;
+	color: #212121;
+  border-bottom-style: solid;
+  border-bottom-color: #f5f5f5;
+  border-bottom-width: 2px;
+}
+
+/* 卡片列表内容区域*/
+.xxjz-card-list-content,
+.xxjz-card-list-content-padded {
+	font-size: 0.7rem;
+	color: #212121;
+}

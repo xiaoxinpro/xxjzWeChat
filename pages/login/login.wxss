@@ -1,0 +1,19 @@
+
+.login-title {
+  margin-top: 100rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+  font-size: 56rpx;
+}
+.login-from {
+  display: flex;
+  flex-direction: column;
+  padding: 40rpx;
+}
+.login-item {
+  margin: 40rpx;
+  padding: 20rpx;
+}
+.login-input {
+  outline: #EEEEEE solid thin;
+}

@@ -1,0 +1,13 @@
+/* more.wxss */
+
+.Page-Date{
+  margin: 0.75rem;
+}
+
+picker-view{
+  margin: 0.75rem;
+}
+
+button{
+  margin: 0.75rem;
+}

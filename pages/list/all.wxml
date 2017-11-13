@@ -1,0 +1,50 @@
+<!--all.wxml-->
+<view class="page">
+  <!--列表页头-->
+  <view class="list-card">
+    <view class="list-card-title-h1">{{overMoney}}</view>
+    <view class="list-card-text">￥剩余</view>
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <view class="list-card-title-h2">{{outMoney}}</view>
+        <view class="list-card-text">￥支出</view>
+      </view>
+      <view class="weui-flex__item">
+        <view class="list-card-title-h2">{{inMoney}}</view>
+        <view class="list-card-text">￥收入</view>
+      </view>
+    </view>
+  </view>
+
+  <!--列表页账单-->
+  <view wx:for="{{inMoneyList}}" wx:key="*this">
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="./year?year={{index}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+
+        <!--<view class="weui-cell">-->
+        <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+          <text class="iconfont icon-rili-{{index}}" style="font-size: 36px;"></text>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="list-item-title">{{index}}月份</view>
+          <view class="list-item-mark">剩余：{{overMoneyList[index]}}</view>
+        </view>
+        <view class="weui-cell__ft">
+          <view class="list-item-mark">
+            <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.7rem; font-weight: bold;"></text> {{inMoneyList[index]}}
+          </view>
+          <view class="list-item-mark">
+            <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.7rem; font-weight: bold;"></text> {{outMoneyList[index]}}
+          </view>
+        </view>
+
+      </navigator>
+    </view>
+  </view>
+
+  <view class="view-loading">
+    <image wx:if="{{isLoadMore}}" class="image-loading" src="../../image/loading.gif"></image>
+    <!-- <button wx:else class="weui-btn" type="default" bindtap="bindLoadMore">更多账单</button> -->
+  </view>
+
+</view>

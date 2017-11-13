@@ -1,0 +1,20 @@
+<!--about.wxml-->
+<view class="about-page">
+  <view class="about">
+    <image class="about-avatar" src="../../image/about_logo.png" background-size="cover"></image>
+  </view>
+  <view class="about-title">小歆记账 for 微信小程序</view>
+  <view class="about-content">
+    小歆记账是一款轻量级的云记账工具。
+  </view>
+  <view class="about-content">
+    小歆记账 for 微信小程序为小歆记账开源项目中的一个子项目，采用微信小程序 + WeUI构建完成的，兼容可使用微信小程序的设备。
+  </view>
+  <view class="about-content">
+    小歆记账 for 微信小程序的数据部分存储在云端，与小歆记账WebApp数据共用，通过小程序的Request与小歆记账WebApp后台通信。
+  </view>
+  <view class="about-content">
+    Github：{{url}}
+  </view>
+  <button size="mini" type="primary" bindtap="bindCopyUrl">复制链接</button>
+</view>

@@ -1,0 +1,20 @@
+
+.main-list-content-padded {
+	position: relative;
+	padding: 0.5rem 0.75rem;
+}
+
+.main-list-image {
+  width: 50px; 
+  height: 50px; 
+  display: block;
+}
+
+.main-list-text-bd {
+  font-size: 0.7rem;
+  color: #888888;
+}
+
+.main-list-text-ft {
+  font-size: 0.9rem;
+}
