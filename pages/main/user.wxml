@@ -21,8 +21,12 @@
   <view class="page__bd">
     <view class="weui-cells__title"></view>
     <view class="weui-cells weui-cells_after-title">
-      <navigator url="../user/user" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">帐号与安全</view>
+      <navigator url="../user/user?type=1" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">密码安全</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+      <navigator url="../user/user?type=2" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">邮箱设置</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </navigator>
     </view>
@@ -60,6 +64,6 @@
 
   <!-- 退出 -->
   <view style="padding: 1rem;">
-    <button type="warn" bindtap="btnLogout">退出</button>
+    <button type="warn" bindtap="btnLogout">安全退出</button>
   </view>
 </view>

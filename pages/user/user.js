@@ -28,11 +28,13 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    var frmType = options.type ? options.type : 0;
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
           sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+          sliderOffset: res.windowWidth / that.data.tabs.length * frmType,
+          activeIndex: frmType
         });
       }
     });
