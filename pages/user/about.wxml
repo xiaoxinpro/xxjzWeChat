@@ -8,10 +8,10 @@
     小歆记账是一款轻量级的云记账工具。
   </view>
   <view class="about-content">
-    小歆记账 for 微信小程序为小歆记账开源项目中的一个子项目，采用微信小程序 + WeUI构建完成的，兼容可使用微信小程序的设备。
+    该项目为小歆记账开源项目中的一个子项目，采用微信小程序 + WeUI构建完成的，兼容可使用微信小程序的设备，以下简称小歆记账WeChat。
   </view>
   <view class="about-content">
-    小歆记账 for 微信小程序的数据部分存储在云端，与小歆记账WebApp数据共用，通过小程序的Request与小歆记账WebApp后台通信。
+    小歆记账WeChat的数据部分存储在云端，与小歆记账WebApp数据共用，通过小程序的Request与小歆记账WebApp后台通信。其中使用WeUI作为前端框架，WeChat负责逻辑处理和编译任务。
   </view>
   <view class="about-content">
     Github：{{url}}
