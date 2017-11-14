@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    url: 'https://github.com/xiaoxinpro/xxjzWeb',
+    url: 'https://github.com/xiaoxinpro/xxjzWeChat',
   },
 
   bindCopyUrl: function(){
