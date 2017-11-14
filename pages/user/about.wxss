@@ -17,8 +17,8 @@
 }
 
 .about-avatar {
-  width: 384rpx;
-  height: 384rpx;
+  width: 320rpx;
+  height: 320rpx;
   margin: 1rpx;
 }
 
