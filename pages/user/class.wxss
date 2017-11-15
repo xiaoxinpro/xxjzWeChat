@@ -1,1 +1,19 @@
 /* class.wxss */
+page,
+.page,
+.page__bd{
+  height: 100%;
+}
+.page__bd{
+  padding-bottom: 0;
+}
+.page__list{
+  padding-top: 20px;
+}
+.weui-tab__content{
+  position: relative;
+  margin-top: 1.17647059em;
+  background-color: #FFFFFF;
+  line-height: 1.41176471;
+  font-size: 17px;
+}

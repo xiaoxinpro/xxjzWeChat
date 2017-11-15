@@ -1,2 +1,51 @@
 <!--class.wxml-->
-<text>class.wxml</text>
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <!-- 支出分类表单 -->
+          <form class="page__form" bindsubmit="submit_outClass">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">分类名称</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" name="class_name" value="{{outClass}}" placeholder="输入支出分类名称" />
+              </view>
+            </view>
+            <view class="weui-btn-area">
+              <button class="weui-btn weui-btn-info" formType="submit">添加</button>
+            </view>
+          </form>
+          <!-- 支出分类列表 -->
+          <view class='page__list'>
+            <view class="weui-cells__title">支出分类列表</view>
+            <view class="weui-cells weui-cells_after-title">
+              <view class="weui-cell">
+                <view class="weui-cell__bd">分类名称</view>
+                <view class="weui-cell__ft">
+                  <button size="mini" data-id="12" type="primary" bindtap="btnOutClassEdit">编辑</button>
+                  <text>\t</text>
+                  <button size="mini" data-id="13" type="warn" bindtap="btnOutClassChange">转移</button>
+                  <text>\t</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          收入分类管理
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
