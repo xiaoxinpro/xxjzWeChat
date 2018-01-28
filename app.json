@@ -15,7 +15,8 @@
     "pages/list/find",
     "pages/user/user",
     "pages/user/class",
-    "pages/user/about"
+    "pages/user/about",
+    "pages/login/regist"
   ],
   "tabBar": {
     "color": "#919191",

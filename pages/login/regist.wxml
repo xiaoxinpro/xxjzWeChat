@@ -1,0 +1,21 @@
+<!--pages/login/regist.wxml-->
+<!-- <text>pages/login/regist.wxml</text> -->
+<view class="regist-title">
+    <image style="width: 72px; height: 72px;" mode="aspectFit" src="../../image/login_logo.png" />
+</view>
+<view class="regist-from">
+    <form bindsubmit="formSubmit">
+        <view class="regist-item regist-input">
+            <input name="username" placeholder="{{username}}"  value="{{username_value}}" />
+        </view>
+        <view class="regist-item regist-input">
+            <input name="password" placeholder="{{password}}" password value="{{password_value}}" />
+        </view>
+        <view class="regist-item regist-input">
+            <input name="email" placeholder="{{email}}"  value="{{email_value}}" />
+        </view>
+        <view class="regist-item">
+            <button class="weui-btn-info" formType="submit">{{submit}}</button>
+        </view>
+    </form>
+</view>

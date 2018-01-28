@@ -1,0 +1,20 @@
+/* pages/login/regist.wxss */
+
+.regist-title {
+  margin-top: 100rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+  font-size: 56rpx;
+}
+.regist-from {
+  display: flex;
+  flex-direction: column;
+  padding: 40rpx;
+}
+.regist-item {
+  margin: 40rpx;
+  padding: 20rpx;
+}
+.regist-input {
+  outline: #EEEEEE solid thin;
+}
