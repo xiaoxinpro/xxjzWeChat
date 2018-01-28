@@ -39,9 +39,6 @@ Page({
     // 清除PHPSESSID
     wx.removeStorageSync('PHPSESSID');
 
-    // 尝试登陆
-    Login(that);
-
     //获取登陆用户数据
     // let user = wx.getStorageSync('user');
     // if (user && user.uid > 0) {
@@ -82,14 +79,18 @@ Page({
         }
       })
       console.log('加载用户信息：', userInfo);
+      // 尝试登陆
+      Login(that);
     })
   }
 })
 
 function LoadDone(that) {
   wx.hideLoading();
-  that.setData({
-    lock: false
+  setTimeout(function (){
+    that.setData({
+      lock: false
+    },2000);
   });
 }
 
