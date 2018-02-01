@@ -17,3 +17,9 @@ page,
   line-height: 1.41176471;
   font-size: 17px;
 }
+modal input{
+  border-style: solid; 
+  border-width: 1px;
+  border-color: #EAEAEA;
+  padding-left: 5px;
+}
