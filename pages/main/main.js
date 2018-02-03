@@ -42,17 +42,12 @@ Page({
     that = this;
 
     // 获取用户信息
-    wx.getStorage({
-      key: 'user',
-      success: function(res) {
-        let user = res.data;
-        if (user.hasOwnProperty('uid') && user.hasOwnProperty('username')) {
-          uid = user.uid;
-        } else {
-          Logout();
-        }
-      },
-    });
+    var user = wx.getStorageSync('user');
+    if (user.hasOwnProperty('uid') && user.hasOwnProperty('username')) {
+      uid = user.uid;
+    } else {
+      Logout();
+    }
     
     // 获取分类数据
     getClassData();
@@ -130,58 +125,32 @@ function getData(callback) {
 
 /** 获取分类数据 */
 function getClassData(){
-  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
-  if (session_id != "" && session_id != null) {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
-  } else {
-    var header = { 'content-type': 'application/x-www-form-urlencoded' }
-  } 
-  wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/aclass',
-    data: { type: 'get' },
-    header: header,
-    success: function (res) {
-      console.log('获取分类数据:', res);
-      if (res.hasOwnProperty('data')) {
-        let ret = res['data'];
-        if (ret['uid'] == uid) {
-          let data = ret['data'];
-          wx.setStorage({
-            key: 'inClass',
-            data: data.in
-          });
-          wx.setStorage({
-            key: 'outClass',
-            data: data.out
-          });
-          wx.setStorage({
-            key: 'allClass',
-            data: data.all
-          });
-          if(!data.all){
-            wx.showModal({
-              title: '欢迎使用',
-              content: '请先添加收支分类！',
-              confirmText: '添加分类',
-              cancelText: '稍后提醒',
-              success: function(res){
-                if(res.confirm){
-                  //进入到分类添加页面
-                }
-              }
-            })
-          }
-        } else {
-          wx.showModal({
-            title: '重新登录',
-            content: '登录验证已过期，请重新登录。',
-            showCancel: false,
-            success: function () {
-              Logout();
+  getApp().GetClassData(parseInt(uid), function (ret, len, data) {
+    console.log('获取分类完成', ret, len, data);
+    if(ret) {
+      if (!data.all) {
+        wx.showModal({
+          title: '欢迎使用',
+          content: '请先添加收支分类！',
+          confirmText: '添加分类',
+          cancelText: '稍后提醒',
+          success: function (res) {
+            if (res.confirm) {
+              //进入到分类添加页面
+              //wx.navigateTo({ url: "../user/class" });
             }
-          });
-        }
+          }
+        })
       }
+    } else {
+      wx.showModal({
+        title: '重新登录',
+        content: '登录验证已过期，请重新登录。',
+        showCancel: false,
+        success: function () {
+          Logout();
+        }
+      });
     }
   });
 }
