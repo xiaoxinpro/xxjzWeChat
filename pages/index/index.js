@@ -111,7 +111,6 @@ function Login(that) {
           },
           method: 'GET',
           success: function (res) {
-            LoadDone(that);
             console.log('提交登陆完成：', res.data);
             //保存sessionid
             if (res.data.hasOwnProperty('sessionid')) {
