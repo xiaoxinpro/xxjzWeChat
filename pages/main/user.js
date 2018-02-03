@@ -77,7 +77,7 @@ Page({
             that.setData({
               uid: user.uid,
               uname: user.username,
-              email: user.email,
+              email: user.email ? user.email : '',
               avatarPath: avatarPath,
             });
           },
