@@ -48,6 +48,22 @@ Page({
     var className = e.detail.value.class_name;
     cmdAddClass(2, className);
     console.log("添加支出分类：", e.detail.value);
+    this.setData({
+      outClass: ""
+    });
+  },
+
+  /**
+   * 添加收入分类
+   */
+  submit_inClass: function (e) {
+    that = this;
+    var className = e.detail.value.class_name;
+    cmdAddClass(1, className);
+    console.log("添加收入分类：", e.detail.value);
+    this.setData({
+      inClass: ""
+    });
   },
 
   /**
@@ -61,7 +77,7 @@ Page({
     console.log("转移分类：", e.target.dataset);
     var typeId = 0;
     var typeName = "";
-    if(classType == 1){
+    if(classType == 'in'){
       typeId = 2;
       typeName = "支出";
     } else {
