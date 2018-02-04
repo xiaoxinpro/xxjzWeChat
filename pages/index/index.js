@@ -135,10 +135,8 @@ function Login(that) {
                   username: uname,
                 },
                 success: function(){
-                  setTimeout(function () {
-                    //跳转到用户主页
-                    wx.reLaunch({ url: "../main/main?uid=" + uid + "&uname=" + uname });
-                  }, 500);
+                  //跳转到用户主页
+                  wx.reLaunch({ url: "../main/main?uid=" + uid + "&uname=" + uname });
                 }
               });
             }
