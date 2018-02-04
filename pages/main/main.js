@@ -48,9 +48,6 @@ Page({
     } else {
       Logout();
     }
-    
-    // 获取分类数据
-    getClassData();
   },
 
   onShow: function(){
@@ -58,7 +55,10 @@ Page({
     wx.showLoading({
       title: '加载中',
       success: function () {
+        // 初始化数据
         initData(function () {
+          // 获取分类数据
+          getClassData();
           wx.hideLoading();
         });
       }
