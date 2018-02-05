@@ -15,4 +15,7 @@
             <button class="weui-btn-info" formType="submit">{{submit}}</button>
         </view>
     </form>
+    <view class="login-wexin">
+      <button type="primary" bindtap="btnWexinLogin">微信登陆</button>
+    </view>
 </view>

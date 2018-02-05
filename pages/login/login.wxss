@@ -17,3 +17,7 @@
 .login-input {
   outline: #EEEEEE solid thin;
 }
+.login-wexin {
+  margin: 0 40rpx;
+  padding: 0 20rpx;
+}

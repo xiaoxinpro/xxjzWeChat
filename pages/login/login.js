@@ -2,16 +2,16 @@
 
 var isAutoLogin = false;
 var userLogin = {};
-var user = {uid:"",username:"",password:""};
+var user = { uid: "", username: "", password: "" };
 
 Page({
   data: {
-    title:"登陆帐号",
-    username:"用户名",
-    password:"密码",
-    submit:"登陆",
-    username_value:"",
-    password_value:"",
+    title: "登陆帐号",
+    username: "用户名",
+    password: "密码",
+    submit: "登陆",
+    username_value: "",
+    password_value: "",
   },
 
   formSubmit: function (e) {
@@ -20,14 +20,20 @@ Page({
     LoginProcess(username, password);
   },
 
+  btnWexinLogin: function (e) {
+    getApp().Logout(function (path) {
+      wx.redirectTo(path);
+    });
+  },
+
   onLoad: function (option) {
     var tmpUser = wx.getStorageSync('user');
-    if(tmpUser){
+    if (tmpUser) {
       user = tmpUser;
     }
-    wx.setNavigationBarTitle({title: '登陆帐号'});
+    wx.setNavigationBarTitle({ title: '登陆帐号' });
     if (option.hasOwnProperty('password')) {
-      this.setData({ 
+      this.setData({
         username_value: option.username,
         password_value: option.password,
       });
@@ -43,10 +49,10 @@ Page({
       }
     }
   },
-  
+
   onShow: function () {
     console.log("显示登陆页面：", isAutoLogin, userLogin);
-    if(isAutoLogin === true){
+    if (isAutoLogin === true) {
       isAutoLogin = false;
       LoginProcess(userLogin.username, userLogin.password);
     }
@@ -58,7 +64,7 @@ function LoginProcess(username, password) {
   wx.showLoading({
     title: '登陆中',
     mask: true,
-    success: function(){
+    success: function () {
       if (username.length < 2 || password.length < 6) {
         wx.hideLoading();
         wx.showModal({
@@ -123,7 +129,7 @@ function sendPostLogin(username, password, callback) {
     var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
   } else {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
-  }  
+  }
   wx.request({
     url: getApp().URL + '/xxjzApp/index.php?s=/Home/Login/login_api',
     data: {
@@ -132,7 +138,7 @@ function sendPostLogin(username, password, callback) {
       submit: 'xxjzAUI'
     },
     method: 'GET',
-    success: function (res) { 
+    success: function (res) {
       callback(res.data);
     },
     fail: function () {
