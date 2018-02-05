@@ -54,7 +54,9 @@ Page({
       confirmColor: "#FF0000",
       success: function (res) {
         if (res.confirm) {
-          app.Logout();
+          getApp().Logout(function (path) {
+            wx.redirectTo({ url: "/pages/login/login" });
+          });
         }
       }
     });
