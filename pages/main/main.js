@@ -137,7 +137,7 @@ function getClassData(){
           success: function (res) {
             if (res.confirm) {
               //进入到分类添加页面
-              //wx.navigateTo({ url: "../user/class" });
+              wx.navigateTo({ url: "../user/class" });
             }
           }
         })
