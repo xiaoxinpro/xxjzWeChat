@@ -71,7 +71,7 @@ Page({
     var day = date.getDate()
     this.setData({
       date: e.detail.value,
-      dateStr: ""+year+"年"+month+"月"+day+"日"
+      dateStr: "" + year + "年" + month + "月" + day + "日"
     })
   },
 
@@ -258,6 +258,20 @@ function getClass(type, that) {
     ClassIndex: 0,
     ClassList: ClassList,
   });
+  if (!ClassObj) {
+    wx.showModal({
+      title: '未添加' + type + '分类',
+      content: '请先添加' + type + '分类！',
+      confirmText: '添加分类',
+      cancelText: '稍后提醒',
+      success: function (res) {
+        if (res.confirm) {
+          //进入到分类添加页面
+          wx.navigateTo({ url: ('../user/class?type=' + (type == '收入' ? '1' : '0'))});
+        }
+      }
+    })
+  }
 }
 
 // /** 校验输入金额 */
