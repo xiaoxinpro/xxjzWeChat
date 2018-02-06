@@ -21,6 +21,14 @@ App({
             success: function (res) {
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo)
+            },
+            fail: function () {
+              console.log("未获取的登陆权限。");
+              // wx.openSetting({
+              //   success: (res) => {
+              //     console.log("权限：", res.authSetting);
+              //   }
+              // })
             }
           })
         }

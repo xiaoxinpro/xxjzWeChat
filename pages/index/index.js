@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 var app = getApp();
+var that = this;
 var code = "";
 Page({
   data: {
@@ -8,6 +9,7 @@ Page({
     login: '绑定已有帐号',
     regist: '新建帐号',
     lock: true,
+    refresh: true,
     userInfo: {}
   },
   //事件处理函数
@@ -25,65 +27,74 @@ Page({
     wx.navigateTo({
       url: '../login/regist?code=' + code,
     })
-    // wx.showModal({
-    //   title: '暂不支持注册',
-    //   content: '微信小程序暂不支持小歆记账新用户注册，请到小歆记账官网注册后再来登陆！',
-    //   showCancel: false,
-    //   confirmText: '知道了'
-    // })
   },
-  onLoad: function () {
-    console.log('加载小程序，检测URL：', getApp().URL);
-    var that = this
-
-    // 清除PHPSESSID
-    wx.removeStorageSync('PHPSESSID');
-
-    //获取登陆用户数据
-    // let user = wx.getStorageSync('user');
-    // if (user && user.uid > 0) {
-    //   wx.navigateTo({
-    //     url: '../login/login?username=' + user.username + '&password=' + user.password,
-    //   });
-    //   return;
-    // }
-
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
-      //更新数据
-      that.setData({
-        userInfo:userInfo
-      })
-      //缓存用户信息
-      wx.setStorage({
-        key: 'userInfo',
-        data: userInfo
-      })
-      //缓存用户头像
-      wx.downloadFile({
-        url: userInfo.avatarUrl,
-        success: function(res){
-          var path = res.tempFilePath;
-          console.log('头像临时路径', path);
-          wx.saveFile({
-            tempFilePath: path,
-            success: function(res){
-              path = res.savedFilePath;
-              console.log('头像永久路径', path);
-              wx.setStorage({
-                key: 'avatarPath',
-                data: path,
-              })
+  bindViewRefresh: function() {
+    that = this;
+    wx.getSetting({
+      success: (res) => {
+        console.log("授权信息：", res.authSetting);
+        if(res.authSetting["scope.userInfo"]) {
+          InitApp();
+        } else {
+          wx.openSetting({
+            success: (res) => {
+              console.log("授权信息：", res.authSetting);
+              if (res.authSetting["scope.userInfo"]) {
+                InitApp();
+              }
             }
           })
         }
-      })
-      console.log('加载用户信息：', userInfo);
-      // 尝试登陆
-      Login(that);
-    })
+      }
+    });
+  },
+  onLoad: function () {
+    that = this;
+    console.log('加载小程序，检测URL：', getApp().URL);
+    InitApp();
   }
 })
+
+function InitApp() {
+  // 清除PHPSESSID
+  wx.removeStorageSync('PHPSESSID');
+
+  //调用应用实例的方法获取全局数据
+  app.getUserInfo(function (userInfo) {
+    //更新数据
+    that.setData({
+      userInfo: userInfo,
+      refresh: false
+    })
+    //缓存用户信息
+    wx.setStorage({
+      key: 'userInfo',
+      data: userInfo
+    })
+    //缓存用户头像
+    wx.downloadFile({
+      url: userInfo.avatarUrl,
+      success: function (res) {
+        var path = res.tempFilePath;
+        console.log('头像临时路径', path);
+        wx.saveFile({
+          tempFilePath: path,
+          success: function (res) {
+            path = res.savedFilePath;
+            console.log('头像永久路径', path);
+            wx.setStorage({
+              key: 'avatarPath',
+              data: path,
+            })
+          }
+        })
+      }
+    })
+    console.log('加载用户信息：', userInfo);
+    // 尝试登陆
+    Login(that);
+  })
+}
 
 function LoadDone(that) {
   wx.hideLoading();
