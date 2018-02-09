@@ -16,7 +16,8 @@
     "pages/user/user",
     "pages/user/class",
     "pages/user/about",
-    "pages/login/regist"
+    "pages/login/regist",
+    "pages/user/fastClass"
   ],
   "tabBar": {
     "color": "#919191",
