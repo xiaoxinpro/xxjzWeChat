@@ -21,7 +21,7 @@
     <view class="weui-cells">
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入支出分类名" />
+          <input class="weui-input" placeholder="请输入支出分类名"  value="{{addClassName}}"bindinput="inputAddClassName" />
         </view>
         <view class="weui-cell__ft">
           <button size="mini" class="weui-btn-info" data-type="out" bindtap="btnClassAdd">添加</button>
