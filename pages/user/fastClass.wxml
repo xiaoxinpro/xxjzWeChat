@@ -1,2 +1,46 @@
 <!--pages/user/fastClass.wxml-->
-<text>pages/user/fastClass.wxml</text>
+<modal hidden="{{hiddenmodalput}}" title="编辑分类名称" confirm-text="编辑" cancel-text="取消" bindcancel="btnEditClassNameCancel" bindconfirm="btnEditClassNameConfirm">
+  <input type='text' name="ClassName" value="{{editClassName}}" bindinput='inputEditClassName' auto-focus/>
+</modal>
+<!-- 快速添加分类向导 -->
+<view class="page">
+  <!-- 1、添加支出分类  -->
+  <view hidden="{{Step == 1 ? false : true}}" class="page__bd">
+    <view class="weui-cells__title">支出分类</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view wx:for="{{OutClassList}}" wx:key="key" class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <label>{{item.name}}</label>
+        </view>
+        <view class="weui-cell__ft">
+          <button size="mini" class="weui-btn-warning" data-key="{{item.key}}" data-name="{{item.name}}" data-type="out" bindtap="btnClassEdit">编辑</button>
+          <button size="mini" class="weui-btn-danger" data-key="{{item.key}}" data-name="{{item.name}}" data-type="out" bindtap="btnClassDelete">删除</button>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入支出分类名" />
+        </view>
+        <view class="weui-cell__ft">
+          <button size="mini" class="weui-btn-info" data-type="out" bindtap="btnClassAdd">添加</button>
+        </view>
+      </view>
+    </view>
+    <view class='btn-step-next'>
+      <button class="weui-btn-primary" data-step="{{Step}}" bindtap="btnStepNext">下一步</button>
+    </view>
+  </view>
+
+  <!-- 2、添加收入分类  -->
+  <view hidden="{{Step == 2 ? false : true}}" class="page__bd">
+    <text>2、添加收入分类</text>
+  </view>
+
+  <!-- 3、提交数据  -->
+  <view hidden="{{Step == 3 ? false : true}}" class="page__bd">
+    <text>3、提交数据</text>
+  </view>
+
+</view>
