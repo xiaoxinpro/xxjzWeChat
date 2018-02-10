@@ -1,10 +1,10 @@
 .weui-btn-primary {
 	color: #ffffff;
-	background-color: #00bcd4;
+	background-color: #1aad19;
 }
 .weui-btn-primary:active {
 	color: #ffffff;
-	background-color: #00acc1;
+	background-color: #179b16;
 }
 .weui-btn-success {
 	color: #ffffff;
