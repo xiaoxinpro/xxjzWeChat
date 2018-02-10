@@ -129,18 +129,19 @@ function getClassData(){
     console.log('获取分类完成', ret, len, data);
     if(ret) {
       if (!data.all) {
-        wx.showModal({
-          title: '欢迎使用',
-          content: '请先添加收支分类！',
-          confirmText: '添加分类',
-          cancelText: '稍后提醒',
-          success: function (res) {
-            if (res.confirm) {
-              //进入到分类添加页面
-              wx.navigateTo({ url: "../user/class" });
-            }
-          }
-        })
+        wx.reLaunch({ url: "../user/fastClass" });
+        // wx.showModal({
+        //   title: '欢迎使用',
+        //   content: '请先添加收支分类！',
+        //   confirmText: '添加分类',
+        //   cancelText: '稍后提醒',
+        //   success: function (res) {
+        //     if (res.confirm) {
+        //       //进入到分类添加页面
+        //       wx.reLaunch({ url: "../user/fastClass" });
+        //     }
+        //   }
+        // })
       }
     } else {
       wx.showModal({
