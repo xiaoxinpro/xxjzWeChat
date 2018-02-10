@@ -2,6 +2,10 @@
 var that = this;
 var strEditClassName = "";
 var strAddClassName = "";
+
+var Base64 = require('../../utils/base64.js')
+var util = require('../../utils/util.js')
+
 Page({
 
   /**
@@ -122,12 +126,24 @@ Page({
    */
   btnStepNext: function (e) {
     console.log("下一步：", e.target.dataset);
-    var step = e.target.dataset.step;
+    var step = e.target.dataset.step + 1;
     this.setData({
-      Step: step + 1,
+      Step: step,
     });
     strEditClassName = "";
     strAddClassName = "";
+    if (step >= 3) {
+      that = this;
+      cmdSubmit(function (res) {
+        if (res) {
+          wx.reLaunch({url: '../main/main'});
+        } else {
+          getApp().Logout(function (path) {
+            wx.redirectTo(path);
+          });
+        }
+      });
+    }
   },
 
   /**
@@ -135,9 +151,9 @@ Page({
    */
   btnStepPrevious: function (e) {
     console.log("返回：", e.target.dataset);
-    var step = e.target.dataset.step;
+    var step = e.target.dataset.step - 1;
     this.setData({
-      Step: step - 1,
+      Step: step,
     });
     strEditClassName = "";
     strAddClassName = "";
@@ -371,4 +387,90 @@ function setClassProcess(classType, classList) {
       OutClassList: classList,
     })
   }
+}
+
+/**
+ * 提交数据
+ */
+function cmdSubmit(callback) {
+  var fastData = [];
+  var inClassList = that.data.InClassList;
+  var outClassList = that.data.OutClassList;
+  for (var i in inClassList) {
+    fastData.push({ 'classname': inClassList[i].name, 'classtype': 1 });
+  }
+  for (var i in outClassList) {
+    fastData.push({ 'classname': outClassList[i].name, 'classtype': 2 });
+  }
+
+  //数据加密
+  console.log(JSON.stringify(fastData));
+  var strData = Base64.encoder(JSON.stringify(fastData));
+
+  //发送数据
+  wx.showLoading({
+    title: '提交中',
+    success: function () {
+      sendClassData(strData, 'addall', function (ret) {
+        wx.hideLoading();
+        if (ret.hasOwnProperty('uid') && (ret.uid > 0)) {
+          if (ret.hasOwnProperty('data') && ret.data[0]) {
+            //添加分类向导完成
+            wx.showToast({
+              title: '完成',
+            });
+            console.log('添加分类向导完成', ret);
+            setTimeout(function(){
+              callback(true);
+            },1000);
+          } else {
+            //添加分类向导失败
+            wx.showModal({
+              title: '提交失败',
+              content: ret.data[1] ? ret.data[1] : '未知错误？',
+              showCancel: false,
+              success: function () {
+                callback(false);
+              }
+            })
+          }
+        } else {
+          //未登陆
+          getApp().Logout(function (path) {
+            wx.redirectTo(path);
+          });
+        }
+      });
+    }
+  });
+}
+
+/** 
+ * 发送分类数据(data数组, 回调函数) 
+ */
+function sendClassData(data, type, callback) {
+  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  if (session_id != "" && session_id != null) {
+    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+  } else {
+    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+  }
+  wx.request({
+    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/aclass',
+    method: 'POST',
+    data: { type: type, data: data },
+    header: header,
+    success: function (res) {
+      console.log('发送分类POST：', res);
+      if (res.hasOwnProperty('data')) {
+        let ret = res['data'];
+        callback(ret);
+      } else {
+        callback({
+          uid: 0,
+          data: err['msg'] + '（请联系管理员）'
+        });
+      }
+    }
+  });
 }

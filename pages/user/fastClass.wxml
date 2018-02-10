@@ -67,7 +67,7 @@
 
   <!-- 3、提交数据  -->
   <view hidden="{{Step == 3 ? false : true}}" class="page__bd">
-    <text>3、提交数据</text>
+
   </view>
 
 </view>
