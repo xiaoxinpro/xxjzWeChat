@@ -121,10 +121,23 @@ Page({
    * 下一步按钮
    */
   btnStepNext: function (e) {
-    console.log("下一步", e.target.dataset);
+    console.log("下一步：", e.target.dataset);
     var step = e.target.dataset.step;
     this.setData({
       Step: step + 1,
+    });
+    strEditClassName = "";
+    strAddClassName = "";
+  },
+
+  /**
+   * 返回按钮
+   */
+  btnStepPrevious: function (e) {
+    console.log("返回：", e.target.dataset);
+    var step = e.target.dataset.step;
+    this.setData({
+      Step: step - 1,
     });
     strEditClassName = "";
     strAddClassName = "";
@@ -198,7 +211,7 @@ function InitData() {
   var key = 0;
   //初始化收入分类列表
   key = 0;
-  key = 0;// 工资
+  inClassJson.push({ key: key++, name: "工资" });// 工资
   inClassJson.push({ key: key++, name: "补贴" });// 补贴
   inClassJson.push({ key: key++, name: "奖金" });// 奖金
   // -----

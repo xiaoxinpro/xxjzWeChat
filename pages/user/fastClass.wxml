@@ -21,7 +21,7 @@
     <view class="weui-cells">
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入支出分类名"  value="{{addClassName}}"bindinput="inputAddClassName" />
+          <input class="weui-input" placeholder="请输入支出分类名" value="{{addClassName}}" bindinput="inputAddClassName" />
         </view>
         <view class="weui-cell__ft">
           <button size="mini" class="weui-btn-info" data-type="out" bindtap="btnClassAdd">添加</button>
@@ -35,7 +35,34 @@
 
   <!-- 2、添加收入分类  -->
   <view hidden="{{Step == 2 ? false : true}}" class="page__bd">
-    <text>2、添加收入分类</text>
+    <view class="weui-cells__title">收入分类</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view wx:for="{{InClassList}}" wx:key="key" class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <label>{{item.name}}</label>
+        </view>
+        <view class="weui-cell__ft">
+          <button size="mini" class="weui-btn-warning" data-key="{{item.key}}" data-name="{{item.name}}" data-type="in" bindtap="btnClassEdit">编辑</button>
+          <button size="mini" class="weui-btn-danger" data-key="{{item.key}}" data-name="{{item.name}}" data-type="in" bindtap="btnClassDelete">删除</button>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入收入分类名" value="{{addClassName}}" bindinput="inputAddClassName" />
+        </view>
+        <view class="weui-cell__ft">
+          <button size="mini" class="weui-btn-info" data-type="in" bindtap="btnClassAdd">添加</button>
+        </view>
+      </view>
+    </view>
+    <view class='btn-step-next'>
+      <button class="weui-btn-primary" data-step="{{Step}}" bindtap="btnStepNext">下一步</button>
+    </view>
+    <view class="btn-step-next">
+      <button class="weui-btn-default" data-step="{{Step}}" bindtap="btnStepPrevious">返回</button>
+    </view>
   </view>
 
   <!-- 3、提交数据  -->

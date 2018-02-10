@@ -15,5 +15,5 @@ modal input{
   margin-top: 22px;
   margin-left: 5px;
   margin-right: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 }
