@@ -91,7 +91,7 @@ App({
                 key: 'allClass',
                 data: data.all
               });
-              callback(true, Object.getOwnPropertyNames(data.all).length, data);
+              callback(true, data.all ? Object.getOwnPropertyNames(data.all).length : 0, data);
             } else {
               callback(false, 0, "登录验证已过期，请重新登录。");
             }
