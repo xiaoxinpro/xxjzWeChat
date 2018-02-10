@@ -1,25 +1,37 @@
 /* class.wxss */
-page,
-.page,
-.page__bd{
+
+page, .page, .page__bd {
   height: 100%;
 }
-.page__bd{
+
+.page__bd {
   padding-bottom: 0;
 }
-.page__list{
+
+.page__list {
   padding-top: 20px;
 }
-.weui-tab__content{
+
+.weui-tab__content {
   position: relative;
   margin-top: 1.17647059em;
-  background-color: #FFFFFF;
+  background-color: #fff;
   line-height: 1.41176471;
   font-size: 17px;
 }
-modal input{
-  border-style: solid; 
+
+.weui-cell__ft button {
+  margin-top: 6px;
+  margin-left: 8px;
+}
+
+.weui-navbar {
+  background-color: #fff;
+}
+
+modal input {
+  border-style: solid;
   border-width: 1px;
-  border-color: #EAEAEA;
+  border-color: #eaeaea;
   padding-left: 5px;
 }
