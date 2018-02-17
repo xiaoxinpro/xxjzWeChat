@@ -3,6 +3,7 @@
 var isAutoLogin = false;
 var userLogin = {};
 var user = { uid: "", username: "", password: "" };
+var code = '';
 
 Page({
   data: {
@@ -46,6 +47,9 @@ Page({
         this.setData({
           username_value: userInfo.nickName
         });
+      }
+      if (option.hasOwnProperty('code')) {
+        code = option.code;
       }
     }
   },
@@ -124,20 +128,24 @@ function LoginProcess(username, password) {
 
 /** 发送登录命令 */
 function sendPostLogin(username, password, callback) {
+  var url = getApp().URL + '/xxjzApp/index.php?s=/Home/Login/login_api';
+  var data = {username: username,password: password,submit: 'xxjzAUI'};
   var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
   if (session_id != "" && session_id != null) {
     var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
   } else {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
+  if(code) {
+    url = getApp().URL + '/xxjzApp/index.php?s=/Home/Login/bind_weixin';
+    data.js_code = code;
+    data.submit = 'weixin';
+  }
   wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Login/login_api',
-    data: {
-      username: username,
-      password: password,
-      submit: 'xxjzAUI'
-    },
+    url: url,
+    data: data,
     method: 'GET',
+    header: header,
     success: function (res) {
       callback(res.data);
     },
