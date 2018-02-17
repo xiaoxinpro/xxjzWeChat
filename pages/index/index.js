@@ -96,12 +96,10 @@ function InitApp() {
   })
 }
 
-function LoadDone(that) {
+function LoadDone() {
   wx.hideLoading();
-  setTimeout(function (){
-    that.setData({
-      lock: false
-    },2000);
+  that.setData({
+    lock: false
   });
 }
 
@@ -150,16 +148,18 @@ function Login(that) {
                   wx.reLaunch({ url: "../main/main?uid=" + uid + "&uname=" + uname });
                 }
               });
+            } else {
+              LoadDone();
             }
           }
         });
       } else {
-        LoadDone(that);
+        LoadDone();
         console.log('获取用户登录态失败！' + res.errMsg)
       }
     },
     fail: function () {
-      LoadDone(that);
+      LoadDone();
     }
   });
 }
