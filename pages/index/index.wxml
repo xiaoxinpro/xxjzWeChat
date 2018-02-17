@@ -8,9 +8,9 @@
     <button bindtap="bindViewRefresh" type="default" hidden="{{refresh ? false : true}}">刷新</button>
   </view>
   <view class="userlink">
-    <button bindtap="bindViewRegist" type="primary" size="default" disabled="{{lock}}">{{regist}}</button>
+    <button bindtap="bindViewRegist" type="primary" size="default" disabled="{{lock}}">\t{{regist}}\t</button>
   </view>
   <view class="userlink">
-    <button bindtap="bindViewLogin" type="default" size="mini" disabled="{{lock}}">{{login}}</button>
+    <button bindtap="bindViewLogin" type="default" size="mini" disabled="{{lock}}">\t{{login}}\t</button>
   </view>
 </view>
