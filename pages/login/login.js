@@ -3,7 +3,7 @@
 var isAutoLogin = false;
 var userLogin = {};
 var user = { uid: "", username: "", password: "" };
-var code = '';
+var code = null;
 
 Page({
   data: {
