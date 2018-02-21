@@ -83,7 +83,9 @@ Page({
 
     //获取表单并转换数据
     var DataObj = e.detail.value;
+    DataObj['add_classname'] = _that.data.ClassList.name[DataObj['add_class']];
     DataObj['add_class'] = _that.data.ClassList.value[DataObj['add_class']];
+    DataObj['add_typename'] = _that.data.typeValue;
     if (_that.data.typeValue == '收入') {
       DataObj['add_type'] = 1;
     } else if (_that.data.typeValue == '支出') {
@@ -91,6 +93,9 @@ Page({
     } else {
       DataObj['add_type'] = 0;
     }
+
+    //上报事件表单
+    wx.reportAnalytics('xxjz_main_add', DataObj);
 
     //整理发送内容
     var AddData = {};
