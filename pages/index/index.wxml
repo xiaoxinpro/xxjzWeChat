@@ -4,13 +4,13 @@
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
-  <view class="usermotto">
-    <button bindtap="bindViewRefresh" type="default" hidden="{{refresh ? false : true}}">刷新</button>
-  </view>
-  <view class="userlink">
-    <button bindtap="bindViewRegist" type="primary" size="default" disabled="{{lock}}">\t{{regist}}\t</button>
-  </view>
-  <view class="userlink">
-    <button bindtap="bindViewLogin" type="default" size="mini" disabled="{{lock}}">\t{{login}}\t</button>
-  </view>
+</view>
+<view class="usermotto">
+  <button bindtap="bindViewRefresh" type="default" hidden="{{refresh ? false : true}}">刷新</button>
+</view>
+<view class="userlink">
+  <button bindtap="bindViewRegist" type="primary" size="default" disabled="{{lock}}">\t{{regist}}\t</button>
+</view>
+<view class="userlink">
+  <button bindtap="bindViewLogin" type="default" size="default" disabled="{{lock}}">\t{{login}}\t</button>
 </view>
