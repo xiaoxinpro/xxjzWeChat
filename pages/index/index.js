@@ -13,27 +13,27 @@ Page({
     userInfo: {}
   },
   //事件处理函数
-  bindViewTap: function() {
+  bindViewTap: function () {
     // wx.navigateTo({
     //   url: '../logs/logs'
     // })
   },
-  bindViewLogin: function() {
+  bindViewLogin: function () {
     wx.navigateTo({
       url: '../login/login?code=' + code,
     })
   },
-  bindViewRegist: function() {
+  bindViewRegist: function () {
     wx.navigateTo({
       url: '../login/regist?code=' + code,
     })
   },
-  bindViewRefresh: function() {
+  bindViewRefresh: function () {
     that = this;
     wx.getSetting({
       success: (res) => {
         console.log("授权信息：", res.authSetting);
-        if(res.authSetting["scope.userInfo"]) {
+        if (res.authSetting["scope.userInfo"]) {
           InitApp();
         } else {
           wx.openSetting({
@@ -51,7 +51,14 @@ Page({
   onLoad: function () {
     that = this;
     console.log('加载小程序，检测URL：', getApp().URL);
-    InitApp();
+    var sessid = wx.getStorageSync('PHPSESSID');
+    var user = wx.getStorageSync('user');
+    if (sessid && user) {
+      console.log('加载用户信息：', user, sessid);
+      wx.reLaunch({ url: "../main/main?uid=" + user.uid + "&uname=" + user.username });
+    } else {
+      InitApp();
+    }
   }
 })
 
@@ -143,7 +150,7 @@ function Login(that) {
                   uid: uid,
                   username: uname,
                 },
-                success: function(){
+                success: function () {
                   //跳转到用户主页
                   wx.reLaunch({ url: "../main/main?uid=" + uid + "&uname=" + uname });
                 }
