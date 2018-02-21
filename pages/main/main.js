@@ -158,6 +158,7 @@ function getClassData(){
 
 /** 退出登陆 */
 function Logout() {
-  wx.removeStorageSync('user');
-  wx.reLaunch({ url: "../index/index" });
+  getApp().Logout(function (path) {
+    wx.redirectTo(path);
+  });
 }
