@@ -17,6 +17,7 @@
   </view>
 
   <!--列表页账单-->
+  <view class="weui-cells__title">{{year}}年度月账单</view>
   <view wx:for="{{inMoneyList}}" wx:key="*this">
     <view class="weui-cells weui-cells_after-title">
       <navigator url="./month?month={{index}}&year={{year}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
