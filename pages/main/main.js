@@ -109,14 +109,7 @@ function getData(callback) {
         if (ret['uid'] == uid) {
           callback(ret['data']);
         } else {
-          wx.showModal({
-            title: '重新登录',
-            content: '登录验证已过期，请重新登录。',
-            showCancel: false,
-            success: function(){
-              Logout();
-            }
-          });
+          Logout();
         }
       }
     }
@@ -130,28 +123,9 @@ function getClassData(){
     if(ret) {
       if (!data.all) {
         wx.reLaunch({ url: "../user/fastClass" });
-        // wx.showModal({
-        //   title: '欢迎使用',
-        //   content: '请先添加收支分类！',
-        //   confirmText: '添加分类',
-        //   cancelText: '稍后提醒',
-        //   success: function (res) {
-        //     if (res.confirm) {
-        //       //进入到分类添加页面
-        //       wx.reLaunch({ url: "../user/fastClass" });
-        //     }
-        //   }
-        // })
       }
     } else {
-      wx.showModal({
-        title: '重新登录',
-        content: '登录验证已过期，请重新登录。',
-        showCancel: false,
-        success: function () {
-          Logout();
-        }
-      });
+      Logout();
     }
   });
 }
