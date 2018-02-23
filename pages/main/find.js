@@ -99,12 +99,20 @@ Page({
 
     //整理发送内容
     var FindData = {};
-    FindData.jiid = wx.getStorageSync('user').uid;
+    var user = wx.getStorageSync('user');
+    FindData.jiid = user.uid;
+    DataObj['find_uid'] = user.uid;
+    DataObj['find_username'] = user.username;
     if (DataObj['find_type'] !== 0) {
       FindData.zhifu = parseInt(DataObj['find_type']);
       if (DataObj['find_class'] !== 0) {
         FindData.acclassid = parseInt(DataObj['find_class']);
+      } else {
+        DataObj['find_class'] = '全部';
       }
+    } else {
+      DataObj['find_type'] = '全部';
+      DataObj['find_class'] = '全部';
     }
     if (DataObj['find_start_time']) {
       FindData.starttime = DataObj['find_start_time'];
@@ -117,6 +125,10 @@ Page({
     }
     console.log('搜索表单处理后结果：', FindData);
 
+    //上报事件表单
+    wx.reportAnalytics('xxjz_main_find', DataObj);
+
+    //数据加密并发送
     var strData = Base64.encoder(JSON.stringify(FindData));
     strData = strData.replace(/=/g,';');
     console.log('搜索表单数据串：'+ strData);
