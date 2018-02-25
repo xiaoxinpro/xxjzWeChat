@@ -141,9 +141,9 @@ function getListData(callback) {
           inMoney: ListData.InSumMoney.toFixed(2),
           outMoney: ListData.OutSumMoney.toFixed(2),
           overMoney: (ListData.InSumMoney - ListData.OutSumMoney).toFixed(2),
-          inMoneyList: ValueToMoney(ListData.InMoney),
-          outMoneyList: ValueToMoney(ListData.OutMoney),
-          overMoneyList: ValueToMoney(ListData.SurplusMoney),
+          inMoneyList: getApp().ValueToMoney(ListData.InMoney),
+          outMoneyList: getApp().ValueToMoney(ListData.OutMoney),
+          overMoneyList: getApp().ValueToMoney(ListData.SurplusMoney),
           isLoadMore: false,
         });
         if (callback) {
@@ -184,23 +184,4 @@ function getData(jsonData, callback) {
       }
     }
   });
-}
-
-/** 数值转化为货币格式 */
-function ValueToMoney(val) {
-  if (val) {
-    if (typeof val == "object") {
-      var ret = {};
-      for (var i in val) {
-        ret[i] = val[i].toFixed(2);
-      }
-      return ret;
-    } else if (typeof val == "function") {
-      return val;
-    } else {
-      return val.toFixed(2);
-    }
-  } else {
-    return val;
-  }
 }

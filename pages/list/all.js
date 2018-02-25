@@ -123,9 +123,9 @@ function getListData(callback) {
           inMoney: ListData.InSumMoney.toFixed(2),
           outMoney: ListData.OutSumMoney.toFixed(2),
           overMoney: (ListData.InSumMoney - ListData.OutSumMoney).toFixed(2),
-          inMoneyList: ListData.InMoney,
-          outMoneyList: ListData.OutMoney,
-          overMoneyList: ListData.SurplusMoney,
+          inMoneyList: getApp().ValueToMoney(ListData.InMoney),
+          outMoneyList: getApp().ValueToMoney(ListData.OutMoney),
+          overMoneyList: getApp().ValueToMoney(ListData.SurplusMoney),
           isLoadMore: false,
         });
         if (callback) {

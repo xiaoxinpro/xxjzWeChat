@@ -1,8 +1,8 @@
 //app.js
 App({
   //全局变量
-  URL: 'https://ide.xxgzs.org',
-  // URL: 'https://jz.xxgzs.org',
+  // URL: 'https://ide.xxgzs.org',
+  URL: 'https://jz.xxgzs.org',
 
   onLaunch: function () {
 
@@ -107,6 +107,25 @@ App({
   Logout: function(callback) {
     wx.clearStorage();
     callback({ url: "/pages/index/index" });
+  },
+
+  // 数值转化为货币格式
+  ValueToMoney: function (val) {
+    if(val) {
+      if (typeof val == "object") {
+        var ret = {};
+        for (var i in val) {
+          ret[i] = val[i].toFixed(2);
+        }
+        return ret;
+      } else if (typeof val == "function") {
+        return val;
+      } else {
+        return val.toFixed(2);
+      }
+    } else {
+      return val;
+    }
   },
 
   globalData:{
