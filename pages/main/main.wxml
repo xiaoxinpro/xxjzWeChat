@@ -32,11 +32,13 @@
   </view>
 
   <!--记账入口-->
-  <view class="main-list-content-padded">
-    <button class="weui-btn weui-btn-warning" bindtap="btnAdd">
-      <span class="iconfont icon--bianji" style="font-size:18px"></span> 
-      <text> 记一笔</text>
-    </button>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="main-list-content-padded">
+      <button class="weui-btn weui-btn-warning" bindtap="btnAdd">
+        <span class="iconfont icon--bianji" style="font-size:18px"></span>
+        <text> 记一笔</text>
+      </button>
+    </view>
   </view>
 
   <!-- <button class="weui-btn" bindtap="bindTest">日期图标测试按钮</button> -->
@@ -108,12 +110,10 @@
       </view>
       <view class="weui-cell__ft">
         <view class="main-list-text-ft">
-          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text>
-          {{all_in_money}}
+          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{all_in_money}}
         </view>
         <view class="main-list-text-ft">
-          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text>
-          {{all_out_money}}
+          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{all_out_money}}
         </view>
       </view>
     </navigator>
