@@ -14,17 +14,17 @@ Page({
     day_out_money: 0.00,
     year_in_money: 0.00,
     year_out_money: 0.00,
-    all_in_money:0.00,
+    all_in_money: 0.00,
     all_out_money: 0.00,
   },
 
   btnAdd: function () {
-    wx.switchTab({url: 'add'});
+    wx.switchTab({ url: 'add' });
   },
 
-  bindTest: function(){
+  bindTest: function () {
     var day = this.data.header_day;
-    if(++day > 31){
+    if (++day > 31) {
       day = 1;
     }
     this.setData({
@@ -50,7 +50,7 @@ Page({
     }
   },
 
-  onShow: function(){
+  onShow: function () {
     // 获取统计数据
     wx.showLoading({
       title: '加载中',
@@ -68,9 +68,17 @@ Page({
 
 /** 初始化页面数据 */
 function initData(callback) {
-  getData(function (data) {
+  var valType = "all";
+  if(getNowFormatDate() != wx.getStorageSync('getDataTime')){
+    valType = "retime";
+  }
+  getData("all", function (data) {
     var now = new Date();
     var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
+    wx.setStorage({
+      key: 'getDataTime',
+      data: getNowFormatDate(),
+    });
     that.setData({
       header_day: now.getDate(),
       header_month: now.getMonth() + 1,
@@ -91,18 +99,18 @@ function initData(callback) {
 
 
 /** 获取主页数据 */
-function getData(callback) {
+function getData(valType, callback) {
   var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
   if (session_id != "" && session_id != null) {
     var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
   } else {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
-  } 
+  }
   wx.request({
     url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/statistic',
-    data: { type: 'all'},
+    data: { type: valType },
     header: header,
-    success: function(res){
+    success: function (res) {
       console.log('获取主页数据:', res);
       if (res.hasOwnProperty('data')) {
         let ret = res['data'];
@@ -117,10 +125,10 @@ function getData(callback) {
 }
 
 /** 获取分类数据 */
-function getClassData(){
+function getClassData() {
   getApp().GetClassData(parseInt(uid), function (ret, len, data) {
     console.log('获取分类完成', ret, len, data);
-    if(ret) {
+    if (ret) {
       if (!data.all) {
         wx.reLaunch({ url: "../user/fastClass" });
       }
@@ -128,6 +136,23 @@ function getClassData(){
       Logout();
     }
   });
+}
+
+/** 获取当前时间，格式YYYY-MM-DD */
+function getNowFormatDate() {
+  var date = new Date();
+  var seperator1 = "-";
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var strDate = date.getDate();
+  if (month >= 1 && month <= 9) {
+    month = "0" + month;
+  }
+  if (strDate >= 0 && strDate <= 9) {
+    strDate = "0" + strDate;
+  }
+  var currentdate = year + seperator1 + month + seperator1 + strDate;
+  return currentdate;
 }
 
 /** 退出登陆 */
