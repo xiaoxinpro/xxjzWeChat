@@ -1,7 +1,7 @@
 <!--class.wxml-->
-<modal hidden="{{hiddenmodalput}}" title="编辑分类名称" confirm-text="编辑" cancel-text="取消" bindcancel="btnEditClassNameCancel" bindconfirm="btnEditClassNameConfirm">
-  <input type='text' name="ClassName" value="{{editClassName}}" bindinput='inputEditClassName' auto-focus/>
-</modal>
+ <modal hidden="{{hiddenmodalput}}" title="编辑分类名称" confirm-text="编辑" cancel-text="取消" bindcancel="btnEditClassNameCancel" bindconfirm="btnEditClassNameConfirm">
+   <input type='text' name="ClassName" value="{{editClassName}}" bindinput='inputEditClassName'/> 
+</modal> 
 <view class="page">
   <view class="page__bd">
     <view class="weui-tab">
