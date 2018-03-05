@@ -34,6 +34,7 @@ Page({
 
   onPullDownRefresh: function () {
     initData(function () {
+      updataPageData(data);
       wx.stopPullDownRefresh();
     });
   },
@@ -56,11 +57,12 @@ Page({
       title: '加载中',
       success: function () {
         // 初始化数据
-        initData(function () {
-          // 获取分类数据
-          getClassData();
+        initData(function (data) {
+          updataPageData(data);
           wx.hideLoading();
         });
+        // 获取分类数据
+        getClassData();
       }
     });
   }
@@ -69,37 +71,49 @@ Page({
 /** 初始化页面数据 */
 function initData(callback) {
   var valType = "all";
+  var tmpData = wx.getStorageSync('mainPageData');
   if(getNowFormatDate() != wx.getStorageSync('getDataTime')){
     valType = "retime";
+  } else if (tmpData) {
+    console.log("缓存主页数据:",tmpData);
+    callback(tmpData);
   }
   getData("all", function (data) {
-    var now = new Date();
-    var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
     wx.setStorage({
       key: 'getDataTime',
       data: getNowFormatDate(),
     });
-    that.setData({
-      header_day: now.getDate(),
-      header_month: now.getMonth() + 1,
-      header_year: now.getFullYear(),
-      month_in_money: data['MonthInMoney'].toFixed(2),
-      month_out_money: data['MonthOutMoney'].toFixed(2),
-      month_over_money: MonthOverMoney.toFixed(2),
-      day_in_money: data['TodayInMoney'].toFixed(2),
-      day_out_money: data['TodayOutMoney'].toFixed(2),
-      year_in_money: data['YearInMoney'].toFixed(2),
-      year_out_money: data['YearOutMoney'].toFixed(2),
-      all_in_money: data['SumInMoney'].toFixed(2),
-      all_out_money: data['SumOutMoney'].toFixed(2),
-    });
-    callback();
+    wx.setStorage({
+      key: 'mainPageData',
+      data: data,
+    })
+    callback(data);
   });
 }
 
+/** 更新页面数据 */
+function updataPageData(data) {
+  var now = new Date();
+  var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
+  that.setData({
+    header_day: now.getDate(),
+    header_month: now.getMonth() + 1,
+    header_year: now.getFullYear(),
+    month_in_money: data['MonthInMoney'].toFixed(2),
+    month_out_money: data['MonthOutMoney'].toFixed(2),
+    month_over_money: MonthOverMoney.toFixed(2),
+    day_in_money: data['TodayInMoney'].toFixed(2),
+    day_out_money: data['TodayOutMoney'].toFixed(2),
+    year_in_money: data['YearInMoney'].toFixed(2),
+    year_out_money: data['YearOutMoney'].toFixed(2),
+    all_in_money: data['SumInMoney'].toFixed(2),
+    all_out_money: data['SumOutMoney'].toFixed(2),
+  });
+}
 
 /** 获取主页数据 */
 function getData(valType, callback) {
+  valType = valType || "all"; //设置参数默认值
   var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
   if (session_id != "" && session_id != null) {
     var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
