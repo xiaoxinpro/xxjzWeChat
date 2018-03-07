@@ -69,8 +69,9 @@ Page({
     //自动复制文本
     wx.getStorage({
       key: 'autoCopyString',
-      success: function(res) {
+      success: function (res) {
         console.log("自动复制文本: ", res);
+        wx.setClipboardData({ data: res });
       },
     })
   }
@@ -80,10 +81,10 @@ Page({
 function initData(callback) {
   var valType = "all";
   var tmpData = wx.getStorageSync('mainPageData');
-  if(getNowFormatDate() != wx.getStorageSync('getDataTime')){
+  if (getNowFormatDate() != wx.getStorageSync('getDataTime')) {
     valType = "retime";
   } else if (tmpData) {
-    console.log("缓存主页数据:",tmpData);
+    console.log("缓存主页数据:", tmpData);
     callback(tmpData);
   }
   getData("all", function (data) {
