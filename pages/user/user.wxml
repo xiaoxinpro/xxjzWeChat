@@ -1,4 +1,7 @@
 <!--user.wxml-->
+<modal hidden="{{hiddenModal}}" title="{{titleModal}}" confirm-text="确定" cancel-text="取消" bindcancel="btnModalCancel" bindconfirm="btnModalConfirm">
+  <input type='text' name="InputName" value="{{inputName}}" bindinput='inputModal' />
+</modal>
 <view class="page">
   <view class="page__bd">
     <view class="weui-tab">
@@ -14,6 +17,7 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
           <!-- 帐号和头像 -->
           帐号和头像
+          <button bindtap='openModal' data-type='test' data-title='测试窗体' type='primary'>弹窗测试</button>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
           <!-- 密码修改 -->
