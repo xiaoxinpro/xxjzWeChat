@@ -40,6 +40,7 @@ Page({
     strModalType = e.target.dataset.type;
     this.setData({
       titleModal: title || "",
+      inputName: "",
       hiddenModal: false,
     })
   },
