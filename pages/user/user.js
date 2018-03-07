@@ -1,16 +1,25 @@
 // user.js
 var that = this;
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+var strModalInput = "";
+var strModalType = "";
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    //页面相关
     tabs: ["帐号相关", "密码修改", "邮箱变更"],
     activeIndex: 0,
     sliderOffset: 0,
-    sliderLeft: 0
+    sliderLeft: 0,
+
+    //Modal相关
+    hiddenModal: true,
+    titleModal: "标题",
+    inputName: "",
+
   },
 
   /**
@@ -22,6 +31,48 @@ Page({
       activeIndex: e.currentTarget.id
     });
   },
+
+  /**
+   * 打开Modal弹窗
+   */
+  openModal: function (e) {
+    var title = e.target.dataset.title;
+    strModalType = e.target.dataset.type;
+    this.setData({
+      titleModal: title || "",
+      hiddenModal: false,
+    })
+  },
+
+  /**
+   * Modal弹窗确定按钮事件
+   */
+  btnModalConfirm: function () {
+    that = this;
+    console.log("Modal弹窗确定按钮事件", strModalInput);
+    this.setData({
+      hiddenModal: true
+    });
+  },
+
+  /**
+   * Modal弹窗取消按钮事件
+   */
+  btnModalCancel: function () {
+    console.log("Modal弹窗取消按钮");
+    strModalInput = "";
+    this.setData({
+      hiddenModal: true
+    });
+  },
+
+  /**
+   * Modal弹窗输入框
+   */
+  inputModal: function (e) {
+    strModalInput = e.detail.value;
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
