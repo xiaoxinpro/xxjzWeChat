@@ -65,6 +65,14 @@ Page({
         getClassData();
       }
     });
+
+    //自动复制文本
+    wx.getStorage({
+      key: 'autoCopyString',
+      success: function(res) {
+        console.log("自动复制文本: ", res);
+      },
+    })
   }
 })
 
