@@ -10,3 +10,9 @@ page,
 .weui-tab__content{
     padding-top: 10px;
 }
+modal input {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #eaeaea;
+  padding-left: 5px;
+}
