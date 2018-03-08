@@ -70,8 +70,10 @@ Page({
     wx.getStorage({
       key: 'autoCopyString',
       success: function (res) {
-        console.log("自动复制文本: ", res);
-        wx.setClipboardData({ data: res });
+        console.log("自动复制文本: ", res.data);
+        if (res.data.enable) {
+          wx.setClipboardData({ data: res.data.strData });
+        }
       },
     })
   }
