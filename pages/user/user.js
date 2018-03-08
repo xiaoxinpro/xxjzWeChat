@@ -20,6 +20,11 @@ Page({
     titleModal: "标题",
     inputName: "",
 
+    //账号相关
+    avatarPath: "",
+    userName: "",
+    email: "",
+    autoCopy: "",
   },
 
   /**
@@ -79,8 +84,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
     var frmType = options.type ? options.type : 0;
+    that = this;
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -103,7 +108,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    that = this;
+    initPage();
   },
 
   /**
@@ -141,3 +147,18 @@ Page({
 
   }
 })
+
+/**
+ * 初始化页面
+ */
+function initPage() {
+  var avatarPath = wx.getStorageSync('avatarPath');
+  var user = wx.getStorageSync('user');
+  var autoCopy = wx.getStorageSync('autoCopyString') || "";
+  that.setData({
+    avatarPath: avatarPath,
+    userName: user.username,
+    email: user.email,
+    autoCopy: autoCopy,
+  });
+}
