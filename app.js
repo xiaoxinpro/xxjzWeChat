@@ -3,6 +3,7 @@ App({
   //全局变量
   // URL: 'https://ide.xxgzs.org',
   URL: 'https://jz.xxgzs.org',
+  AdminUid: 3,
 
   onLaunch: function () {
 
