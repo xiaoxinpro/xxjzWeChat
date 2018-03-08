@@ -1,4 +1,5 @@
 var that = this;
+var user = {};
 var autoCopyString = {};
 
 Page({
@@ -10,35 +11,52 @@ Page({
     enable: false,
     strData: "",
     autoGetData: true,
+    isAdmin: false,
   },
 
   /**
    * switchEnable
    */
   switchEnable: function (e) {
+    that = this;
     autoCopyString.enable = e.detail.value;
-    this.setData(autoCopyString);
+    setCopyData();
   },
 
   /**
    * switchAutoGet
    */
   switchAutoGet: function (e) {
+    that = this;
     autoCopyString.autoGetData = e.detail.value;
-    this.setData(autoCopyString);
+    setCopyData();
+  },
+
+  /**
+   * submitData
+   */
+  submitData: function (e) {
+    that = this;
+    autoCopyString.strData = e.detail.value;
+    setCopyData();
+  },
+
+  /**
+   * 上传文本内容（管理员功能）
+   */
+  updataString: function (e) {
+    console.log("上传文本内容（管理员功能）", e);
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.getStorage({
-      key: 'autoCopyString',
-      success: function (res) {
-        autoCopyString = res || this.data;
-        this.setData(autoCopyString);
-      },
-    })
+    that = this;
+    user = wx.getStorageSync('user');
+    autoCopyString = wx.getStorageSync('autoCopyString') || that.data;
+    autoCopyString.isAdmin = (user.uid == getApp().AdminUid) ? true : false;
+    that.setData(autoCopyString);
   },
 
   /**
@@ -90,3 +108,14 @@ Page({
 
   }
 })
+
+/**
+ * 设置复制数据
+ */
+function setCopyData() {
+  that.setData(autoCopyString);
+  wx.setStorage({
+    key: 'autoCopyString',
+    data: autoCopyString,
+  });
+}
