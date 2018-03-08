@@ -33,7 +33,7 @@ Page({
   },
 
   onPullDownRefresh: function () {
-    initData(function () {
+    initData(function (data) {
       updataPageData(data);
       wx.stopPullDownRefresh();
     });
