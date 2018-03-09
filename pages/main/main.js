@@ -53,18 +53,12 @@ Page({
 
   onShow: function () {
     // 获取统计数据
-    wx.showLoading({
-      title: '加载中',
-      success: function () {
-        // 初始化数据
-        initData(function (data) {
-          updataPageData(data);
-          wx.hideLoading();
-        });
-        // 获取分类数据
-        getClassData();
-      }
+    initData(function (data) {
+      updataPageData(data);
     });
+
+    // 获取分类数据
+    getClassData();
 
     //自动复制文本
     wx.getStorage({
@@ -85,11 +79,12 @@ function initData(callback) {
   var tmpData = wx.getStorageSync('mainPageData');
   if (getNowFormatDate() != wx.getStorageSync('getDataTime')) {
     valType = "retime";
+    wx.showLoading({ title: '加载中' });
   } else if (tmpData) {
     console.log("缓存主页数据:", tmpData);
     callback(tmpData);
   }
-  getData("all", function (data) {
+  getData(valType, function (data) {
     wx.setStorage({
       key: 'getDataTime',
       data: getNowFormatDate(),
@@ -99,6 +94,9 @@ function initData(callback) {
       data: data,
     })
     callback(data);
+    setTimeout(function(){
+      wx.hideLoading();
+    },500);
   });
 }
 
