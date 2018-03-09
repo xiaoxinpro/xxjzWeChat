@@ -38,14 +38,31 @@ Page({
   },
 
   /**
+   * 跳转到邮箱标签
+   */
+  tabEmail: function (e) {
+    that = this;
+    goTab(2);
+  },
+
+  /**
+   * 修改用户名
+   */
+  changeUsername: function (strData) {
+    console.log("修改用户名：", strData);
+  },
+
+  /**
    * 打开Modal弹窗
    */
   openModal: function (e) {
-    var title = e.target.dataset.title;
-    strModalType = e.target.dataset.type;
+    console.log("打开Modal弹窗", e.currentTarget.dataset);
+    var title = e.currentTarget.dataset.title || "";
+    strModalInput = e.currentTarget.dataset.value || "";
+    strModalType = e.currentTarget.dataset.type;
     this.setData({
-      titleModal: title || "",
-      inputName: "",
+      titleModal: title,
+      inputName: strModalInput,
       hiddenModal: false,
     })
   },
@@ -59,6 +76,7 @@ Page({
     this.setData({
       hiddenModal: true
     });
+    this[strModalType](strModalInput);
   },
 
   /**
@@ -84,17 +102,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var frmType = options.type ? options.type : 0;
     that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * frmType,
-          activeIndex: frmType
-        });
-      }
-    });
+    goTab(options.type ? options.type : 0);
   },
 
   /**
@@ -162,3 +171,19 @@ function initPage() {
     autoCopy: autoCopy,
   });
 }
+
+/**
+ * 转到指定标签
+ */
+function goTab(frmType) {
+  wx.getSystemInfo({
+    success: function (res) {
+      that.setData({
+        sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+        sliderOffset: res.windowWidth / that.data.tabs.length * frmType,
+        activeIndex: frmType
+      });
+    }
+  });
+}
+
