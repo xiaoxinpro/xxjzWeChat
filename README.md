@@ -11,7 +11,9 @@
 > 注意：小歆记账WeChat必须与[小歆记账WebApp项目](https://github.com/xiaoxinpro/xxjzWeb)配套使用，不能单独工作。
 
 ## 体验版
+
 使用微信扫描下面的二维码，进入小歆记账主界面。
+
 ![小歆记账 体验版](http://upload-images.jianshu.io/upload_images/1568014-a2cbc92620efb459.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 安装说明
