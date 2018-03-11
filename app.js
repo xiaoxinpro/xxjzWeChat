@@ -10,11 +10,11 @@ App({
   },
 
   // 获取用户信息
-  getUserInfo:function(cb){
+  getUserInfo: function (cb) {
     var that = this
-    if(this.globalData.userInfo){
+    if (this.globalData.userInfo) {
       typeof cb == "function" && cb(this.globalData.userInfo)
-    }else{
+    } else {
       //调用登录接口
       wx.login({
         success: function () {
@@ -38,7 +38,7 @@ App({
   },
 
   // 保存用户头像，并返回本地路径
-  saveUserAvatar: function(url, callback) {
+  saveUserAvatar: function (url, callback) {
     wx.downloadFile({
       url: url,
       success: function (res) {
@@ -61,15 +61,15 @@ App({
   },
 
   // 获取分类数据
-  GetClassData: function(uid, callback) {
+  GetClassData: function (uid, callback) {
     //console.log('uid:',uid)
-    if(uid > 0) {
+    if (uid > 0) {
       var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
       if (session_id != "" && session_id != null) {
         var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
       } else {
         callback(false, 0, "内存数据出错，请登陆后再试。");
-      } 
+      }
       wx.request({
         url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/aclass',
         data: { type: 'get' },
@@ -105,14 +105,23 @@ App({
   },
 
   // 退出登陆
-  Logout: function(callback) {
-    wx.clearStorage();
+  Logout: function (callback) {
+    // wx.clearStorage();
+    wx.removeStorage({ key: 'user' });
+    wx.removeStorage({ key: 'PHPSESSID' });
+    wx.removeStorage({ key: 'userInfo' });
+    wx.removeStorage({ key: 'avatarPath' });
+    wx.removeStorage({ key: 'getDataTime' });
+    wx.removeStorage({ key: 'mainPageData' });
+    wx.removeStorage({ key: 'inClass' });
+    wx.removeStorage({ key: 'outClass' });
+    wx.removeStorage({ key: 'allClass' });
     callback({ url: "/pages/index/index" });
   },
 
   // 数值转化为货币格式
   ValueToMoney: function (val) {
-    if(val) {
+    if (val) {
       if (typeof val == "object") {
         var ret = {};
         for (var i in val) {
@@ -129,7 +138,7 @@ App({
     }
   },
 
-  globalData:{
-    userInfo:null
+  globalData: {
+    userInfo: null
   }
 })
