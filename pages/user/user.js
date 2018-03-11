@@ -162,8 +162,9 @@ Page({
  */
 function initPage() {
   var avatarPath = wx.getStorageSync('avatarPath');
+  var autoCopyString = wx.getStorageSync('autoCopyString');
   var user = wx.getStorageSync('user');
-  var autoCopy = (wx.getStorageSync('autoCopyString').enable || false) ? "已开启" : "未开启";
+  var autoCopy = (autoCopyString.enable || autoCopyString.enablePullDown) ? "已开启" : "未开启";
   that.setData({
     avatarPath: avatarPath,
     userName: user.username,
