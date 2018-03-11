@@ -9,9 +9,15 @@
           <switch bindchange="switchEnable" checked="{{enable}}" />
         </view>
       </view>
+      <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">下拉复制文本</view>
+        <view class="weui-cell__ft">
+          <switch bindchange="switchEnablePullDown" checked="{{enablePullDown}}" />
+        </view>
+      </view>
     </view>
 
-    <view hidden="{{enable == false}}">
+    <view hidden="{{(enable == false)&&(enablePullDown == false)}}">
       <view class="weui-cells__title">文本内容</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
