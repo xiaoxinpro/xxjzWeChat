@@ -9,6 +9,7 @@ Page({
    */
   data: {
     enable: false,
+    enablePullDown: false,
     strData: "",
     autoGetData: true,
     isAdmin: false,
@@ -20,6 +21,15 @@ Page({
   switchEnable: function (e) {
     that = this;
     autoCopyString.enable = e.detail.value;
+    setCopyData();
+  },
+
+  /**
+   * switchEnablePullDown
+   */
+  switchEnablePullDown: function (e) {
+    that = this;
+    autoCopyString.enablePullDown = e.detail.value;
     setCopyData();
   },
 
