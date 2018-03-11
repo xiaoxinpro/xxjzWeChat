@@ -1,5 +1,6 @@
 var uid = 0;
-var that;
+var that = this;
+var autoCopyString = {};
 Page({
   data: {
     uid: 0,
@@ -33,6 +34,12 @@ Page({
   },
 
   onPullDownRefresh: function () {
+    //下拉复制文本
+    if (autoCopyString.enablePullDown){
+      wx.setClipboardData({ data: autoCopyString.strData });
+    }
+
+    //重新获取数据
     initData(function (data) {
       updataPageData(data);
       wx.stopPullDownRefresh();
@@ -64,9 +71,10 @@ Page({
     wx.getStorage({
       key: 'autoCopyString',
       success: function (res) {
-        console.log("自动复制文本: ", res.data);
-        if (res.data.enable) {
-          wx.setClipboardData({ data: res.data.strData });
+        autoCopyString = res.data;
+        console.log("自动复制文本: ", autoCopyString);
+        if (autoCopyString.enable) {
+          wx.setClipboardData({ data: autoCopyString.strData });
         }
       },
     })
