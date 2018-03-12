@@ -80,6 +80,11 @@ App({
             let ret = res['data'];
             if (ret['uid'] == uid) {
               let data = ret['data'];
+              // var arrClass = wx.getStorageSync('allClass');
+              // for (var i in data.all) {
+              //   arrClass[i] = {name: data.all[i], icon:getApp().GetClassIcon(0, data.all[i])};
+              // }
+              // console.log("arrClass:", arrClass);
               wx.setStorage({
                 key: 'inClass',
                 data: data.in
@@ -102,6 +107,44 @@ App({
     } else {
       callback(false, 0, "用户登陆超时，请重新登陆。");
     }
+  },
+
+  // 获取分类图标名称
+  GetClassIcon(calssType, className) {
+    var iconName = 'other.png';
+    switch(className) {
+      case '吃饭':
+      case '食物':
+        iconName = 'food.png';
+        break;
+      case '电子':
+      case '电器':
+        iconName = 'electric.png';
+        break;
+      case '衣服':
+      case '服装':
+        iconName = 'clothes.png';
+        break;
+      case '生活':
+      case '生活用品':
+        iconName = 'life.png';
+        break;
+      case '送礼':
+      case '红包':
+        iconName = 'gifts.png';
+        break;
+      case '交通':
+      case '公交':
+      case '出行':
+      case '地铁':
+      case '路费                         ':
+        iconName = 'traffic.png';
+        break;
+      default:
+        iconName = 'other.png';
+        break;
+    }
+    return iconName;
   },
 
   // 退出登陆
