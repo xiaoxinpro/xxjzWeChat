@@ -45,8 +45,7 @@
 
         <!--<view class="weui-cell">-->
         <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-          <image wx:if="{{item.type == '收入'}}" src="../../image/icon_in.png" style="width: 50px; height: 50px; display: block" />
-          <image wx:else src="../../image/icon_out.png" style="width: 50px; height: 50px; display: block" />
+          <image src="../../image/icon_class/{{item.icon}}" style="width: 50px; height: 50px; display: block; border-radius:50%; " />
         </view>
         <view class="weui-cell__bd">
           <view class="list-item-title">{{item.class}}</view>

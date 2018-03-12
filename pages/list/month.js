@@ -30,7 +30,7 @@ Page({
   /**
    * 更多按钮
    */
-  bindLoadMore: function(){
+  bindLoadMore: function () {
     var prevYear = varYear;
     var nextYear = varYear;
     var prevMonth = (parseInt(varMonth) - 1);
@@ -51,8 +51,8 @@ Page({
         nextYear + '年' + nextMonth + '月账单（下月）' //0
       ],
       success: function (res) {
-        switch (res.tapIndex){
-          case 0: 
+        switch (res.tapIndex) {
+          case 0:
             wx.redirectTo({
               url: './year?year=' + varYear,
             })
@@ -193,7 +193,7 @@ function initData() {
   });
 
   //获取列表数据
-  getListData(varPage, function () { 
+  getListData(varPage, function () {
     wx.stopPullDownRefresh();
   });
 }
@@ -212,7 +212,7 @@ function getListData(p, callback) {
   }));
 
   //获取网络数据
-  getData(jsonData, function(ret){
+  getData(jsonData, function (ret) {
     if (ret) {
       if (ret.uid) {
         var ListData = ret.data;
@@ -227,7 +227,7 @@ function getListData(p, callback) {
         that.setData({
           isLoadMore: (varPage < varPageMax)
         });
-        if(callback){
+        if (callback) {
           callback();
         }
       } else {
@@ -274,7 +274,7 @@ function JsonToList(ListData) {
   var arrClass = wx.getStorageSync('allClass');
   var key = that.data.arrList.length;
 
-  if(ListData.length <= 0){
+  if (ListData.length <= 0) {
     that.setData({
       isLoadMore: false,
       isAddData: true
@@ -286,11 +286,11 @@ function JsonToList(ListData) {
     strDate = util.strDateFormat(ListData[i].actime, 'yyyy年m月d日 星期w ');
 
     //添加日期头
-    if (lastListDate != ListData[i].actime){
+    if (lastListDate != ListData[i].actime) {
       //设置上个日期头的合计金额
       var titleIndex = json.length;
       while (titleIndex-- > 0) {
-        if(json[titleIndex].isTitle == true) {
+        if (json[titleIndex].isTitle == true) {
           json[titleIndex].overMoney = addMoney.toFixed(2);
           break;
         }
@@ -304,21 +304,25 @@ function JsonToList(ListData) {
         date: strDate,
         overMoney: 0.00
       });
-    } 
-    
+    }
+
     //添加账单数据
+    var classType = ListData[i].zhifu == "1" ? "收入" : "支出";
+    var className = arrClass[ListData[i].acclassid];
+    var classIcon = getApp().GetClassIcon(classType, className);
     json.push({
       key: key++,
       isTitle: false,
       id: ListData[i].acid,
-      type: ListData[i].zhifu=="1"?"收入":"支出",
-      class: arrClass[ListData[i].acclassid],
+      type: classType,
+      class: className,
       money: ListData[i].acmoney,
       mark: ListData[i].acremark,
+      icon: classIcon,
     });
 
     //计算合计金额
-    if(ListData[i].zhifu == "1"){
+    if (ListData[i].zhifu == "1") {
       addMoney += parseFloat(ListData[i].acmoney);
     } else {
       addMoney -= parseFloat(ListData[i].acmoney);
@@ -333,11 +337,11 @@ function JsonToList(ListData) {
     gettype: "day",
     year: varYear,
     month: varMonth,
-    day: util.strDateFormat(ListData[ListData.length-1].actime, 'd'),
+    day: util.strDateFormat(ListData[ListData.length - 1].actime, 'd'),
     page: 0
   }));
   getData(jsonData, function (ret) {
-    if(ret.uid > 0){
+    if (ret.uid > 0) {
       var titleIndex = json.length;
       while (titleIndex-- > 0) {
         if (json[titleIndex].isTitle == true) {
@@ -345,7 +349,7 @@ function JsonToList(ListData) {
           break;
         }
       }
-      console.log("新增arrList数据：",json);
+      console.log("新增arrList数据：", json);
 
       that.setData({
         arrList: that.data.arrList.concat(json)

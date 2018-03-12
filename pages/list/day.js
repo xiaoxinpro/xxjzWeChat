@@ -297,14 +297,18 @@ function JsonToList(ListData) {
     }
 
     //添加账单数据
+    var classType = ListData[i].zhifu == "1" ? "收入" : "支出";
+    var className = arrClass[ListData[i].acclassid];
+    var classIcon = getApp().GetClassIcon(classType, className);
     json.push({
       key: key++,
       isTitle: false,
       id: ListData[i].acid,
-      type: ListData[i].zhifu == "1" ? "收入" : "支出",
-      class: arrClass[ListData[i].acclassid],
+      type: classType,
+      class: className,
       money: ListData[i].acmoney,
       mark: ListData[i].acremark,
+      icon: classIcon,
     });
 
     //计算合计金额
