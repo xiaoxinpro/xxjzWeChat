@@ -80,11 +80,6 @@ App({
             let ret = res['data'];
             if (ret['uid'] == uid) {
               let data = ret['data'];
-              // var arrClass = wx.getStorageSync('allClass');
-              // for (var i in data.all) {
-              //   arrClass[i] = {name: data.all[i], icon:getApp().GetClassIcon(0, data.all[i])};
-              // }
-              // console.log("arrClass:", arrClass);
               wx.setStorage({
                 key: 'inClass',
                 data: data.in
@@ -93,9 +88,13 @@ App({
                 key: 'outClass',
                 data: data.out
               });
+              var arrClass = wx.getStorageSync('allClass') || {};
+              for (var i in data.all) {
+                arrClass[i] = {name: data.all[i], icon:getApp().GetClassIcon(0, data.all[i])};
+              }
               wx.setStorage({
                 key: 'allClass',
-                data: data.all
+                data: arrClass
               });
               callback(true, data.all ? Object.getOwnPropertyNames(data.all).length : 0, data);
             } else {

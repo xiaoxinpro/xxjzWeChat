@@ -244,8 +244,8 @@ function JsonToList(ListData) {
 
     //添加账单数据
     var classType = ListData[i].zhifu == "1" ? "收入" : "支出";
-    var className = arrClass[ListData[i].acclassid];
-    var classIcon = getApp().GetClassIcon(classType, className);
+    var className = arrClass[ListData[i].acclassid].name;
+    var classIcon = arrClass[ListData[i].acclassid].icon;
     json.push({
       key: key++,
       isTitle: false,
