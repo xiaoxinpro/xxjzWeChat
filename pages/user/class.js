@@ -479,13 +479,15 @@ function getClassData(callback) {
  * 分类数据处理
  */
 function classDataProcess(classList) {
+  var allClass = wx.getStorageSync('allClass');
   var classJson = [];
   var key = 0;
   for (var i in classList) {
     classJson.push({
       key: key++,
       id: parseInt(i),
-      name: classList[i]
+      name: classList[i],
+      icon: allClass[i].icon
     });
   }
   return classJson;

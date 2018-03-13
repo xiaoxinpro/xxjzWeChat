@@ -1,7 +1,7 @@
 <!--class.wxml-->
- <modal hidden="{{hiddenmodalput}}" title="编辑分类名称" confirm-text="编辑" cancel-text="取消" bindcancel="btnEditClassNameCancel" bindconfirm="btnEditClassNameConfirm">
-   <input type='text' name="ClassName" value="{{editClassName}}" bindinput='inputEditClassName'/> 
-</modal> 
+<modal hidden="{{hiddenmodalput}}" title="编辑分类名称" confirm-text="编辑" cancel-text="取消" bindcancel="btnEditClassNameCancel" bindconfirm="btnEditClassNameConfirm">
+  <input type='text' name="ClassName" value="{{editClassName}}" bindinput='inputEditClassName' />
+</modal>
 <view class="page">
   <view class="page__bd">
     <view class="weui-tab">
@@ -36,6 +36,9 @@
             <view class="weui-cells__title">支出分类列表</view>
             <view class="weui-cells weui-cells_after-title">
               <view class="weui-cell" wx:for="{{outClassList}}" wx:key="key">
+                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                  <image src="../../image/icon_class/{{item.icon}}" style="width: 37px; height: 37px; display: block; border-radius:50%; " />
+                </view>
                 <view class="weui-cell__bd">{{item.name}}</view>
                 <view class="weui-cell__ft">
                   <button size="mini" data-type="out" data-id="{{item.id}}" data-name="{{item.name}}" type="primary" bindtap="btnClassEdit">编辑</button>
@@ -67,6 +70,9 @@
             <view class="weui-cells__title">收入分类列表</view>
             <view class="weui-cells weui-cells_after-title">
               <view class="weui-cell" wx:for="{{inClassList}}" wx:key="key">
+                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                  <image src="../../image/icon_class/{{item.icon}}" style="width: 37px; height: 37px; display: block; border-radius:50%; " />
+                </view>
                 <view class="weui-cell__bd">{{item.name}}</view>
                 <view class="weui-cell__ft">
                   <button size="mini" data-type="in" data-id="{{item.id}}" data-name="{{item.name}}" type="primary" bindtap="btnClassEdit">编辑</button>
@@ -78,6 +84,7 @@
             </view>
           </view>
         </view>
+        <view style="margin:20px;"></view>
       </view>
     </view>
   </view>
