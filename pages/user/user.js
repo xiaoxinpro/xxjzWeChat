@@ -10,7 +10,7 @@ Page({
    */
   data: {
     //页面相关
-    tabs: ["帐号相关", "密码修改", "邮箱变更"],
+    tabs: ["帐号相关"], //, "密码修改", "邮箱变更"
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -42,7 +42,7 @@ Page({
    */
   tabEmail: function (e) {
     that = this;
-    goTab(2);
+    // goTab(2);
   },
 
   /**
@@ -50,6 +50,12 @@ Page({
    */
   changeUsername: function (strData) {
     console.log("修改用户名：", strData);
+    wx.showModal({
+      title: '修改失败',
+      content: '请联系管理员或前往Web端修改。',
+      showCancel: false,
+      confirmText: '知道了'
+    })
   },
 
   /**
