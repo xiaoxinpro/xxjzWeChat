@@ -64,6 +64,6 @@
 
   <!-- 退出 -->
   <view style="padding: 1rem;">
-    <button type="warn" bindtap="btnLogout">安全退出</button>
+    <button type="warn" bindtap="btnLogout">退出登陆</button>
   </view>
 </view>
