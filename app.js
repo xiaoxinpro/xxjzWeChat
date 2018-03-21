@@ -1,8 +1,8 @@
 //app.js
 App({
   //全局变量
-  // URL: 'https://ide.xxgzs.org',
-  URL: 'https://jz.xxgzs.org',
+  URL: 'https://ide.xxgzs.org',
+  // URL: 'https://jz.xxgzs.org',
   AdminUid: 3,
 
   onLaunch: function () {
@@ -113,6 +113,7 @@ App({
     var iconName = 'other.png';
     switch(className) {
       case '吃饭':
+      case '饮食':
       case '食物':
         iconName = 'food.png';
         break;
@@ -122,6 +123,7 @@ App({
         break;
       case '衣服':
       case '服装':
+      case '服饰':
         iconName = 'clothes.png';
         break;
       case '生活':
@@ -130,6 +132,7 @@ App({
         break;
       case '送礼':
       case '红包':
+      case '奖金':
         iconName = 'gifts.png';
         break;
       case '交通':
