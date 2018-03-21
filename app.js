@@ -166,9 +166,6 @@ App({
       case '医院':
         iconName = 'Injecting.png';
         break;
-      case '医院':
-        iconName = 'Injecting.png';
-        break;
       default:
         iconName = 'other.png';
         break;
