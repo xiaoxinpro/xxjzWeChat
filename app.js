@@ -1,8 +1,8 @@
 //app.js
 App({
   //全局变量
-  URL: 'https://ide.xxgzs.org',
-  // URL: 'https://jz.xxgzs.org',
+  // URL: 'https://ide.xxgzs.org',
+  URL: 'https://jz.xxgzs.org',
   AdminUid: 3,
 
   onLaunch: function () {
@@ -118,8 +118,10 @@ App({
         iconName = 'food.png';
         break;
       case '电子':
-      case '电器':
         iconName = 'electric.png';
+        break;
+      case '电器':
+        iconName = 'camera.png';
         break;
       case '衣服':
       case '服装':
@@ -130,17 +132,42 @@ App({
       case '生活用品':
         iconName = 'life.png';
         break;
+      case '工资':
+        iconName = 'jobs.png';
+        break;
       case '送礼':
+        iconName = 'gift.png';
+        break;
       case '红包':
-      case '奖金':
+      case '礼金':
         iconName = 'gifts.png';
+        break;
+      case '奖金':
+        iconName = 'prize.png';
         break;
       case '交通':
       case '公交':
       case '出行':
       case '地铁':
-      case '路费                         ':
+      case '路费':
         iconName = 'traffic.png';
+        break;
+      case '住宿':
+      case '房租':
+      case '房子':
+        iconName = 'house.png';
+        break;
+      case '药品':
+        iconName = 'drug.png';
+        break;
+      case '健身':
+        iconName = 'fitness.png';
+        break;
+      case '医院':
+        iconName = 'Injecting.png';
+        break;
+      case '医院':
+        iconName = 'Injecting.png';
         break;
       default:
         iconName = 'other.png';
