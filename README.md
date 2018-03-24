@@ -10,13 +10,13 @@
 
 > 注意：小歆记账WeChat必须与[小歆记账WebApp项目](https://github.com/xiaoxinpro/xxjzWeb)配套使用，不能单独工作。
 
-## 安装使用
+## 下载使用
 
-使用微信扫描下面的二维码，进入小歆记账主界面。
+使用微信扫描下面的小程序码，进入小歆记账主界面。
 
 ![小歆记账 发布版](https://upload-images.jianshu.io/upload_images/1568014-3075dc803a41c5d0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 安装说明
+## 项目说明
 
 小歆记账WeChat基于微信开发者工具开发，安装与使用请参见微信官方资料。
 
@@ -26,3 +26,31 @@
 
 ## 目录结构
 
+  xxjzWeChat  微信小程序目录
+      ├─image                                图片目录
+      │  └─icon_class                        分类图标目录
+      ├─pages                                页面目录
+      │  ├─index                             首页目录
+      │  ├─list                              列表页目录
+      │  ├─login                             登陆页目录
+      │  ├─main                              主页目录
+      │  └─user                              用户页目录
+      ├─utils                                公共目录
+      │  ├─base64.js                         加密解密库
+      │  ├─countUp.js                        计数效果库
+      │  └─util.js                           公共函数库
+      ├─app.js                               小程序逻辑
+      ├─app.json                             小程序公共设置
+      ├─app.wxss                             小程序公共样式表
+      ├─iconfont.wxss                        字体图标样式
+      ├─weui.wxss                            WeUI样式
+      ├─weuiPuls.wxss                        WeUI增强样式
+      └─README.md                            描述文件
+
+## 参考
+
+* [Base64](http://en.wikipedia.org/wiki/Base64)
+* [iconfont](http://www.iconfont.cn/)
+* [xxjzWeb](https://github.com/xiaoxinpro/xxjzWeb)
+* [WeChat](https://mp.weixin.qq.com/debug/wxadoc/dev/index.html)
+* [WeUI](https://github.com/Tencent/weui)
