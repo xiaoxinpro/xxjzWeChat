@@ -14,7 +14,7 @@
 
 使用微信扫描下面的小程序码，进入小歆记账主界面。
 
-![小歆记账 发布版](https://upload-images.jianshu.io/upload_images/1568014-3075dc803a41c5d0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![小歆记账 发布版](https://upload-images.jianshu.io/upload_images/1568014-ca759146496e4773.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 项目说明
 
