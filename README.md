@@ -37,7 +37,6 @@
         │ └─user 用户页目录
         ├─utils 公共目录
         │ ├─base64.js 加密解密库
-        │ ├─countUp.js 计数效果库
         │ └─util.js 公共函数库
         ├─app.js 小程序逻辑
         ├─app.json 小程序公共设置
