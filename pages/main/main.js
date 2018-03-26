@@ -76,15 +76,17 @@ Page({
         if (autoCopyString.enable) {
           wx.setClipboardData({ data: autoCopyString.strData });
         }
-        getApp().GetAutoCopyData(function (res) {
-          for (var i in res) {
-            autoCopyString[i] = res[i];
-          }
-          wx.setStorage({
-            key: 'autoCopyString',
-            data: autoCopyString,
-          })
-        });
+        if (autoCopyString.autoGetData) {
+          getApp().GetAutoCopyData(function (res) {
+            for (var i in res) {
+              autoCopyString[i] = res[i];
+            }
+            wx.setStorage({
+              key: 'autoCopyString',
+              data: autoCopyString,
+            })
+          });
+        }
       },
     })
   }
