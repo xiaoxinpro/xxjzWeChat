@@ -35,7 +35,7 @@ Page({
 
   onPullDownRefresh: function () {
     //下拉复制文本
-    if (autoCopyString.enablePullDown){
+    if (autoCopyString.enablePullDown) {
       wx.setClipboardData({ data: autoCopyString.strData });
     }
 
@@ -76,6 +76,15 @@ Page({
         if (autoCopyString.enable) {
           wx.setClipboardData({ data: autoCopyString.strData });
         }
+        getApp().GetAutoCopyData(function (res) {
+          for (var i in res) {
+            autoCopyString[i] = res[i];
+          }
+          wx.setStorage({
+            key: 'autoCopyString',
+            data: autoCopyString,
+          })
+        });
       },
     })
   }
@@ -102,9 +111,9 @@ function initData(callback) {
       data: data,
     })
     callback(data);
-    setTimeout(function(){
+    setTimeout(function () {
       wx.hideLoading();
-    },500);
+    }, 500);
   });
 }
 

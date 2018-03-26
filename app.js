@@ -90,7 +90,7 @@ App({
               });
               var arrClass = wx.getStorageSync('allClass') || {};
               for (var i in data.all) {
-                arrClass[i] = {name: data.all[i], icon:getApp().GetClassIcon(0, data.all[i])};
+                arrClass[i] = { name: data.all[i], icon: getApp().GetClassIcon(0, data.all[i]) };
               }
               wx.setStorage({
                 key: 'allClass',
@@ -111,7 +111,7 @@ App({
   // 获取分类图标名称
   GetClassIcon(calssType, className) {
     var iconName = 'other.png';
-    switch(className) {
+    switch (className) {
       case '吃饭':
       case '饮食':
       case '食物':
@@ -171,6 +171,28 @@ App({
         break;
     }
     return iconName;
+  },
+
+  // 获取自动复制文本
+  GetAutoCopyData: function (callback) {
+    var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+    if (session_id != "" && session_id != null) {
+      var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+    } else {
+      var header = { 'content-type': 'application/x-www-form-urlencoded' }
+    }
+    wx.request({
+      url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/autocopy',
+      method: 'GET',
+      data: { type: 'get' },
+      header: header,
+      success: function (res) {
+        console.log('获取自动复制文本：', res);
+        if (res.hasOwnProperty('data')) {
+          callback(res['data']);
+        }
+      }
+    });
   },
 
   // 退出登陆
