@@ -56,6 +56,18 @@ Page({
    */
   updataString: function (e) {
     console.log("上传文本内容（管理员功能）", e);
+    updataAutoCopyData(autoCopyString.strData, function (res) {
+      console.log(res);
+      if (res.strData == autoCopyString.strData) {
+        wx.showToast({title: '上传完成'});
+      } else {
+        wx.showModal({
+          title: '上传失败',
+          content: res.strData,
+          showCancel: false,
+        });
+      }
+    });
   },
 
   /**
@@ -127,5 +139,32 @@ function setCopyData() {
   wx.setStorage({
     key: 'autoCopyString',
     data: autoCopyString,
+  });
+}
+
+/** 
+ * 更新自动复制数据(文本数据, 回调函数) 
+ */
+function updataAutoCopyData(data, callback) {
+  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  if (session_id != "" && session_id != null) {
+    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+  } else {
+    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+  }
+  wx.request({
+    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/autocopy',
+    method: 'POST',
+    data: { type: 'updata', data: data },
+    header: header,
+    success: function (res) {
+      console.log('更新自动复制文本：', res);
+      if (res.hasOwnProperty('data')) {
+        let ret = res['data'];
+        callback(ret);
+      } else {
+        callback({strData:'访问服务器失败。'});
+      }
+    }
   });
 }
