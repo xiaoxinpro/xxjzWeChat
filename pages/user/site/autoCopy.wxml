@@ -36,7 +36,7 @@
         <view class="weui-cell weui-cell_switch">
           <view class="weui-cell__bd">自动获取文本</view>
           <view class="weui-cell__ft">
-            <switch bindchange="switchAutoGet" checked="autoGetData" />
+            <switch bindchange="switchAutoGet" checked="{{autoGetData}}" />
           </view>
         </view>
       </view>

@@ -79,6 +79,7 @@ Page({
     autoCopyString = wx.getStorageSync('autoCopyString') || that.data;
     autoCopyString.isAdmin = (user.uid == getApp().AdminUid) ? true : false;
     that.setData(autoCopyString);
+    console.log('获取页面数据：', autoCopyString);
   },
 
   /**
