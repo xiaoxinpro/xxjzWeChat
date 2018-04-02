@@ -38,6 +38,26 @@ Page({
   },
 
   /**
+   * 修改头像
+   */
+  changeAvatar: function (e) {
+    var that = this;
+    wx.chooseImage({
+      count: 1, // 最多可以选择的图片张数，默认9
+      sizeType: ['compressed'], // original 原图，compressed 压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
+      success: function (res) {
+        var avatarPath = res.tempFilePaths[0];
+        that.setData({avatarPath: avatarPath});
+        wx.setStorage({
+          key: 'avatarPath',
+          data: avatarPath,
+        })
+      },
+    });
+  },
+
+  /**
    * 跳转到邮箱标签
    */
   tabEmail: function (e) {
