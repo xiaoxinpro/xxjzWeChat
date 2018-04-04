@@ -66,6 +66,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     that = this;
     user = wx.getStorageSync('user');
     if (user.hasOwnProperty('uid') && user.hasOwnProperty('username')) {
@@ -105,42 +119,6 @@ Page({
     } else {
       app.Logout();
     }
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    that = this;
-    getUserData(user.uid, function (res) {
-      console.log('用户资料', res);
-      var userData = res;
-      wx.getStorage({
-        key: 'user',
-        success: function (res) {
-          var user = res.data;
-          user.username = userData.username;
-          user.email = userData.email;
-          wx.setStorage({
-            key: 'user',
-            data: user
-          });
-        },
-      });
-      setTimeout(function () {
-        that.setData({
-          uname: userData.username,
-          email: userData.email,
-        });
-      }, 500);
-    });
   },
 
   /**
