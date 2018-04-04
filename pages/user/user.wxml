@@ -5,59 +5,38 @@
 <view class="page">
   <view class="page__bd">
     <view class="weui-tab">
-       <view class="weui-navbar">
-        <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
+      <view class="weui-cells__title">帐号详情</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="changeAvatar">
+          <view class="weui-cell__bd">
+            <view style="display: inline-block; vertical-align: middle">头像</view>
           </view>
-        </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-      </view> 
-      <view class="weui-tab__panel">
-        <!-- 帐号和头像 -->
-        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view class="weui-cells__title">帐号详情</view>
-          <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="changeAvatar">
-              <view class="weui-cell__bd">
-                <view style="display: inline-block; vertical-align: middle">头像</view>
-              </view>
-              <view class="weui-cell__ft weui-cell__ft_in-access">
-                <image src="{{avatarPath}}" style="width: 50px; height: 50px; display: block" />
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="openModal" data-title="修改用户名" data-type="changeUsername" data-value="{{userName}}">
-              <view class="weui-cell__bd">
-                <view style="display: inline-block; vertical-align: middle">用户名</view>
-              </view>
-              <view class="weui-cell__ft weui-cell__ft_in-access">{{userName}}</view>
-            </view>
-            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="tabEmail">
-              <view class="weui-cell__bd">
-                <view style="display: inline-block; vertical-align: middle">邮箱</view>
-              </view>
-              <view class="weui-cell__ft weui-cell__ft_in-access">{{email}}</view>
-            </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">
+            <image src="{{avatarPath}}" style="width: 50px; height: 50px; display: block" />
           </view>
+        </view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="openModal" data-title="修改用户名" data-type="changeUsername" data-value="{{userName}}">
+          <view class="weui-cell__bd">
+            <view style="display: inline-block; vertical-align: middle">用户名</view>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">{{userName}}</view>
+        </view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="tabEmail">
+          <view class="weui-cell__bd">
+            <view style="display: inline-block; vertical-align: middle">邮箱</view>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">{{email}}</view>
+        </view>
+      </view>
 
-          <view class="weui-cells__title">常用功能</view>
-          <view class="weui-cells weui-cells_after-title">
-            <navigator url="./site/autoCopy" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-              <view class="weui-cell__bd">
-                <view style="display: inline-block; vertical-align: middle">自动复制文本</view>
-              </view>
-              <view class="weui-cell__ft weui-cell__ft_in-access">{{autoCopy}}</view>
-            </navigator>
+      <view class="weui-cells__title">常用功能</view>
+      <view class="weui-cells weui-cells_after-title">
+        <navigator url="./site/autoCopy" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">
+            <view style="display: inline-block; vertical-align: middle">自动复制文本</view>
           </view>
-        </view>
-        <!-- 密码修改 -->
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          密码修改
-        </view>
-        <!-- 邮箱变更 -->
-        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          邮箱变更
-        </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">{{autoCopy}}</view>
+        </navigator>
       </view>
     </view>
   </view>
