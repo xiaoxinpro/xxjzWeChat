@@ -1,6 +1,5 @@
 // user.js
 var that = this;
-var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 var strModalInput = "";
 var strModalType = "";
 Page({
@@ -9,11 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    //页面相关
-    tabs: ["帐号相关"], //, "密码修改", "邮箱变更"
-    activeIndex: 0,
-    sliderOffset: 0,
-    sliderLeft: 0,
 
     //Modal相关
     hiddenModal: true,
@@ -28,16 +22,6 @@ Page({
   },
 
   /**
-   * 点击标签事件
-   */
-  tabClick: function (e) {
-    this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
-    });
-  },
-
-  /**
    * 修改头像
    */
   changeAvatar: function (e) {
@@ -49,7 +33,7 @@ Page({
       success: function (res) {
         wx.saveFile({
           tempFilePath: res.tempFilePaths[0],
-          success: function(res) {
+          success: function (res) {
             var avatarPath = res.savedFilePath;
             that.setData({ avatarPath: avatarPath });
             wx.setStorage({
@@ -67,20 +51,32 @@ Page({
    */
   tabEmail: function (e) {
     that = this;
-    // goTab(2);
+    wx.showModal({
+      title: '邮箱不可修改',
+      content: '邮箱为验证用户的唯一标示，如要求修改请联系管理员。',
+      showCancel: false,
+      confirmText: '知道了'
+    });
   },
 
   /**
    * 修改用户名
    */
   changeUsername: function (strData) {
-    console.log("修改用户名：", strData);
-    wx.showModal({
-      title: '修改失败',
-      content: '请联系管理员或前往Web端修改。',
-      showCancel: false,
-      confirmText: '知道了'
-    })
+    that = this;
+    var pattern = /[A-Za-z0-9_\-\u4e00-\u9fa5]{2,12}/, str = strData;
+    console.log("修改用户名：", strData, pattern.test(str));
+    if (!pattern.test(str)) {
+      wx.showModal({
+        title: '修改失败',
+        content: '输入的用户名格式错误！',
+        showCancel: false,
+        confirmText: '知道了'
+      });
+    } else {
+      //跳转至修改页面
+    }
+
   },
 
   /**
@@ -134,7 +130,6 @@ Page({
    */
   onLoad: function (options) {
     that = this;
-    goTab(options.type ? options.type : 0);
   },
 
   /**
@@ -204,18 +199,4 @@ function initPage() {
   });
 }
 
-/**
- * 转到指定标签
- */
-function goTab(frmType) {
-  wx.getSystemInfo({
-    success: function (res) {
-      that.setData({
-        sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-        sliderOffset: res.windowWidth / that.data.tabs.length * frmType,
-        activeIndex: frmType
-      });
-    }
-  });
-}
 
