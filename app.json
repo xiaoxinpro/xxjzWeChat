@@ -18,7 +18,8 @@
     "pages/user/about",
     "pages/login/regist",
     "pages/user/fastClass",
-    "pages/user/site/autoCopy"
+    "pages/user/site/autoCopy",
+    "pages/user/site/username"
   ],
   "tabBar": {
     "color": "#919191",

@@ -1,0 +1,60 @@
+<view class="page">
+  <view class="page__bd">
+    <form class="weui-tab" bindsubmit="changeUsername">
+      <view class="weui-cells__title">修改用户名</view>
+      <view class="weui-cells weui-cells_after-title">
+        <!-- 旧用户名 -->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">旧用户名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="old_username" value="{{username}}" disabled />
+          </view>
+        </view>
+
+        <!-- 新用户名 -->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">新用户名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="new_username" placeholder="输入新的用户名" />
+          </view>
+        </view>
+
+        <!-- 验证密码 -->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">验证密码</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="txt_password" placeholder="输入登陆密码" password />
+          </view>
+        </view>
+
+        <!-- 验证邮箱 -->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">验证邮箱</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="txt_email" placeholder="输入注册时填写的邮箱" />
+          </view>
+        </view>
+      </view>
+
+      <!-- 提示语 -->
+      <view class="weui-cells__tips">
+        修改后将无法使用旧用户名，登陆时需使用新用户名。
+      </view>
+
+      <!-- 按钮 -->
+      <view class="weui-btn-area">
+        <button class="weui-btn weui-btn-info" formType="submit">修改</button>
+        <button class="weui-btn" bindtap="navigateBack">返回</button>
+      </view>
+
+    </form>
+  </view>
+</view>
