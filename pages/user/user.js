@@ -63,20 +63,20 @@ Page({
    * 修改用户名
    */
   changeUsername: function (strData) {
-    that = this;
-    var pattern = /[A-Za-z0-9_\-\u4e00-\u9fa5]{2,12}/, str = strData;
-    console.log("修改用户名：", strData, pattern.test(str));
-    if (!pattern.test(str)) {
-      wx.showModal({
-        title: '修改失败',
-        content: '输入的用户名格式错误！',
-        showCancel: false,
-        confirmText: '知道了'
-      });
-    } else {
-      //跳转至修改页面
-    }
-
+    // that = this;
+    // var pattern = /[A-Za-z0-9_\-\u4e00-\u9fa5]{2,12}/, str = strData;
+    // console.log("修改用户名：", strData, pattern.test(str));
+    // if (!pattern.test(str)) {
+    //   wx.showModal({
+    //     title: '修改失败',
+    //     content: '输入的用户名格式错误！',
+    //     showCancel: false,
+    //     confirmText: '知道了'
+    //   });
+    // } else {
+    // //跳转至修改名字页面
+    // wx.navigateTo({ url: './site/username' });
+    // }
   },
 
   /**
