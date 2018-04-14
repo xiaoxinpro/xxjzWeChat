@@ -60,6 +60,27 @@ Page({
         success: function () {
           changeUsername(user.uid, strData, function (res) {
             wx.hideLoading();
+            console.log("修改用户名结果：", res);
+            if (res.uid == user.uid) {
+              that.setData({ username: res.username });
+              wx.showToast({
+                title: '修改完成',
+                success: function () {
+                  setTimeout(function () {
+                    getApp().Logout(function (path) {
+                      wx.redirectTo(path);
+                    });
+                  }, 2000);
+                }
+              });
+            } else {
+              wx.showModal({
+                title: '修改失败',
+                content: res.username,
+                showCancel: false,
+                confirmText: '确定'
+              });
+            }
           });
         }
       });
@@ -153,7 +174,7 @@ function changeUsername(uid, data, callback) {
   wx.request({
     url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/user',
     method: 'POST',
-    data: { uid: uid, type: 'changeUsername', data: data },
+    data: { uid: uid, type: 'updataUsername', data: data },
     header: header,
     success: function (res) {
       console.log('发送修改用户名POST：', res);
