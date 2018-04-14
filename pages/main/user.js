@@ -66,7 +66,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -82,43 +82,18 @@ Page({
   onShow: function () {
     that = this;
     user = wx.getStorageSync('user');
-    if (user.hasOwnProperty('uid') && user.hasOwnProperty('username')) {
-      var userInfo = wx.getStorageSync('userInfo');
-      var avatarPath = wx.getStorageSync('avatarPath');
-      if (avatarPath) {
-        wx.getSavedFileInfo({
-          filePath: avatarPath,
-          success: function (res) {
-            console.log('获取到本地头像', res);
-            that.setData({
-              uid: user.uid,
-              uname: user.username,
-              email: user.email ? user.email : '',
-              avatarPath: avatarPath,
-            });
-          },
-          fail: function (res) {
-            console.log('本地头像不存在', res);
-            wx.removeStorageSync('avatarPath');
-            that.setData({
-              uid: user.uid,
-              uname: user.username,
-              email: user.email,
-            });
-            UpdataAvatar();
-          }
+    initData(user);
+    getUserData(user.uid, function (res) {
+      if ((user.username != res.username) || (user.email != res.email)) {
+        user.username = res.username || user.username;
+        user.email = res.email || user.email;
+        initData(user);
+        wx.setStorage({
+          key: 'user',
+          data: user,
         });
-      } else {
-        that.setData({
-          uid: user.uid,
-          uname: user.username,
-          email: user.email,
-        });
-        UpdataAvatar();
       }
-    } else {
-      app.Logout();
-    }
+    });
   },
 
   /**
@@ -157,6 +132,48 @@ Page({
   }
 })
 
+/** 初始化数据 */
+function initData(user) {
+  if (user.hasOwnProperty('uid') && user.hasOwnProperty('username')) {
+    var userInfo = wx.getStorageSync('userInfo');
+    var avatarPath = wx.getStorageSync('avatarPath');
+    if (avatarPath) {
+      wx.getSavedFileInfo({
+        filePath: avatarPath,
+        success: function (res) {
+          console.log('获取到本地头像', res);
+          that.setData({
+            uid: user.uid,
+            uname: user.username,
+            email: user.email ? user.email : '',
+            avatarPath: avatarPath,
+          });
+        },
+        fail: function (res) {
+          console.log('本地头像不存在', res);
+          wx.removeStorageSync('avatarPath');
+          that.setData({
+            uid: user.uid,
+            uname: user.username,
+            email: user.email,
+          });
+          UpdataAvatar();
+        }
+      });
+    } else {
+      that.setData({
+        uid: user.uid,
+        uname: user.username,
+        email: user.email,
+      });
+      UpdataAvatar();
+    }
+  } else {
+    app.Logout();
+  }
+}
+
+/** 退出账号 */
 function Logout() {
   wx.removeStorageSync('user');
   wx.reLaunch({ url: "../index/index" });
@@ -192,14 +209,14 @@ function getUserData(uid, callback) {
 
 /** 更新用户头像 */
 function UpdataAvatar() {
-  app.getUserInfo(function(res){
+  app.getUserInfo(function (res) {
     console.log(res);
     var avatarUrl = res.avatarUrl;
     wx.setStorage({
       key: 'userInfo',
       data: res,
     });
-    app.saveUserAvatar(avatarUrl,function(path){
+    app.saveUserAvatar(avatarUrl, function (path) {
       that.setData({
         avatarPath: path,
       });
