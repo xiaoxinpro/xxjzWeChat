@@ -70,7 +70,7 @@ Page({
                     getApp().Logout(function (path) {
                       wx.redirectTo(path);
                     });
-                  }, 2000);
+                  }, 1000);
                 }
               });
             } else {
