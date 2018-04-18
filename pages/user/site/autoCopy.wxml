@@ -48,9 +48,17 @@
         <view class="weui-cells__title">管理员功能</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell">
-            <button size="mini" type="primary" bindtap="updataString">上传文本内容</button>
+            <view class="weui-cell__bd">
+              <textarea class="weui-textarea" placeholder="请输入要上传服务器的文本" style="height: 3.5em" bindinput='submitWebData' value="{{strWebData}}" />
+            </view>
           </view>
         </view>
+
+        <view class="weui-cell-button">
+          <button size="mini" type="primary" bindtap="getString">获取服务器内容</button>
+          <button size="mini" type="primary" bindtap="updataString">上传文本内容</button>
+        </view>
+
       </view>
 
     </view>
