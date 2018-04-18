@@ -1,6 +1,7 @@
 var that = this;
 var user = {};
 var autoCopyString = {};
+var strWebData = "";
 
 Page({
 
@@ -13,6 +14,7 @@ Page({
     strData: "",
     autoGetData: true,
     isAdmin: false,
+    strWebData: "",
   },
 
   /**
@@ -52,13 +54,39 @@ Page({
   },
 
   /**
+   * submitWebData（管理员功能）
+   */
+  submitWebData: function(e) {
+    strWebData = e.detail.value;
+  },
+
+  /**
+   * 获取服务器文本内容（管理员功能）
+   */
+  getString: function(e) {
+    that = this;
+    wx.showLoading({
+      title: '获取中',
+      success: function(){
+        getApp().GetAutoCopyData(function (res) {
+          wx.hideLoading();
+          strWebData = res.strData;
+          that.setData({
+            strWebData: strWebData
+          });
+        });
+      }
+    })
+  },
+
+  /**
    * 上传文本内容（管理员功能）
    */
   updataString: function (e) {
-    console.log("上传文本内容（管理员功能）", e);
-    updataAutoCopyData(autoCopyString.strData, function (res) {
+    console.log("上传文本内容（管理员功能）", strWebData);
+    updataAutoCopyData(strWebData, function (res) {
       console.log(res);
-      if (res.strData == autoCopyString.strData) {
+      if (res.strData == strWebData) {
         wx.showToast({title: '上传完成'});
       } else {
         wx.showModal({
