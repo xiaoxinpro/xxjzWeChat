@@ -1,8 +1,8 @@
 //app.js
 App({
   //全局变量
-  // URL: 'https://ide.xxgzs.org',
-  URL: 'https://jz.xxgzs.org',
+  URL: 'https://ide.xxgzs.org',
+  // URL: 'https://jz.xxgzs.org',
   AdminUid: 3,
 
   onLaunch: function () {
@@ -23,8 +23,8 @@ App({
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo)
             },
-            fail: function () {
-              console.log("未获取的登陆权限。");
+            fail: function (res) {
+              console.log("未获取的登陆权限。", res);
               // wx.openSetting({
               //   success: (res) => {
               //     console.log("权限：", res.authSetting);

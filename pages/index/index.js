@@ -28,8 +28,12 @@ Page({
       url: '../login/regist?code=' + code,
     })
   },
-  bindViewRefresh: function () {
+  bindViewRefresh: function (res) {
     that = this;
+    console.log(res);
+    if (res.detail.errMsg == "getUserInfo:ok") {
+      InitApp();
+    } else {
     wx.getSetting({
       success: (res) => {
         console.log("授权信息：", res.authSetting);
@@ -47,6 +51,7 @@ Page({
         }
       }
     });
+    }
   },
   onLoad: function () {
     that = this;
@@ -56,8 +61,17 @@ Page({
     if (sessid && user) {
       console.log('加载用户信息：', user, sessid);
       wx.reLaunch({ url: "../main/main?uid=" + user.uid + "&uname=" + user.username });
-    } else {
-      InitApp();
+    }else{
+      wx.getSetting({
+        success: (res) => {
+          var auth = res.authSetting;
+          if (auth["scope.userInfo"] == true) {
+            InitApp();
+          } else {
+            console.log("初次使用需要用户授权访问");
+          }
+        }
+      });
     }
   }
 })
