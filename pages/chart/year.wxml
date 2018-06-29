@@ -1,8 +1,9 @@
 <!--pages/chart/year.wxml-->
-<view class="page">
-  <view class="page__bd">
-    <view class="container">
-      <ec-canvas id="chart-dom-year" canvas-id="chart-year" ec="{{ ec }}"></ec-canvas>
-    </view>
+
+<view class="container">
+  <ec-canvas id="chart-dom-year" canvas-id="chart-year" ec="{{ ec }}"></ec-canvas>
+  <view class="tooltip">
+    <text>年度总收入：{{InSumMoney}}元，总支出：{{OutSumMoney}}元，剩余：{{OverSumMoney}}元</text>
   </view>
 </view>
+

@@ -11,6 +11,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    InSumMoney: 0.00,
+    OutSumMoney: 0.00,
+    OverSumMoney: 0.00,
     ec: {
       lazyLoad: true
     }
@@ -24,27 +27,21 @@ Page({
     if (options.year) {
       year = options.year;
     }
-
-    getChartData();
-
-    setTimeout(function () {
-      //initChart();
-    }, 300);
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // 获取组件
-    this.ecComponent = this.selectComponent('#chart-dom-year');
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    that = this;
+    getChartData();
   },
 
   /**
@@ -83,8 +80,8 @@ Page({
   }
 })
 
-function getChartData(){
-  getData({type: 'year', date:(Date.parse(new Date(year,1,1))/1000)}, function(ret){
+function getChartData() {
+  getData({ type: 'year', date: (Date.parse(new Date(year, 1, 1)) / 1000) }, function (ret) {
     chartData.InMoney = objToArr(ret.InMoney);
     chartData.OutMoney = objToArr(ret.OutMoney);
     chartData.OverMoney = objToArr(ret.SurplusMoney);
@@ -97,10 +94,18 @@ function getChartData(){
     chartData.OverSumMoney = objToArr(ret.SurplusSumMoney);
     //console.log(chartData);
     initChart();
+
+    that.setData({
+      InSumMoney: chartData.InSumMoney.toFixed(2),
+      OutSumMoney: chartData.OutSumMoney.toFixed(2),
+      OverSumMoney: (chartData.InSumMoney - chartData.OutSumMoney).toFixed(2)
+    });
   });
 }
 
 function initChart() {
+  // 获取组件
+  that.ecComponent = that.selectComponent('#chart-dom-year');
   that.ecComponent.init((canvas, width, height) => {
     // 获取组件的 canvas、width、height 后的回调函数
     // 在这里初始化图表
@@ -119,6 +124,20 @@ function initChart() {
 }
 
 function setOption(chart) {
+
+  var labelBarOption = {
+    normal: {
+      show: true,
+      rotate: 90,
+      align: 'left',
+      verticalAlign: 'middle',
+      position: 'top',
+      distance: 3,
+      formatter: '{c}',
+      fontSize: 10
+    }
+  };
+
   const option = {
     title: {
       text: year + '年收入与支出金额汇总',
@@ -171,6 +190,7 @@ function setOption(chart) {
       name: '收入',
       type: 'bar',
       data: chartData.InMoney,
+      label: labelBarOption,
       animationDelay: function (idx) {
         return idx * 30;
       }
@@ -178,6 +198,7 @@ function setOption(chart) {
       name: '支出',
       type: 'bar',
       data: chartData.OutMoney,
+      label: labelBarOption,
       animationDelay: function (idx) {
         return idx * 30 + 30;
       }
