@@ -20,7 +20,8 @@
     "pages/user/fastClass",
     "pages/user/site/autoCopy",
     "pages/user/site/username",
-    "pages/user/site/password"
+    "pages/user/site/password",
+    "pages/chart/year"
   ],
   "tabBar": {
     "color": "#919191",
