@@ -1,0 +1,8 @@
+<!--pages/chart/year.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <view class="container">
+      <ec-canvas id="chart-dom-year" canvas-id="chart-year" ec="{{ ec }}"></ec-canvas>
+    </view>
+  </view>
+</view>
