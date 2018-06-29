@@ -31,6 +31,7 @@
         ├─image 图片目录
         │ └─icon_class 分类图标目录
         ├─pages 页面目录
+        │ ├─chart 图表目录
         │ ├─index 首页目录
         │ ├─list 列表页目录
         │ ├─login 登陆页目录
