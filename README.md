@@ -27,6 +27,7 @@
 ## 目录结构
 
     xxjzWeChat 微信小程序目录
+        ├─ec-canvas 图表控件
         ├─image 图片目录
         │ └─icon_class 分类图标目录
         ├─pages 页面目录
