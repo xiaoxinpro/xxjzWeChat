@@ -153,14 +153,14 @@ function setOption(chart) {
       "#dce775", //黄
       "#9575cd"  //紫
     ],
-    tooltip: {
-      trigger: 'axis',
-      extraCssText: 'text-align: left;',
-      //formatter: chartMainFormatter,
-      axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-      }
-    },
+    // tooltip: {
+    //   trigger: 'axis',
+    //   extraCssText: 'text-align: left;',
+    //   //formatter: chartMainFormatter,
+    //   axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+    //     type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    //   }
+    // },
     legend: {
       data: ['收入', '支出', '月剩余', '年剩余'],
       selected: {
