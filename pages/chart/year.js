@@ -11,9 +11,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ChartHeight: 500,
     InSumMoney: 0.00,
     OutSumMoney: 0.00,
     OverSumMoney: 0.00,
+    HiddenToolTip: true,
     ec: {
       lazyLoad: true
     }
@@ -27,6 +29,11 @@ Page({
     if (options.year) {
       year = options.year;
     }
+
+    var windowHeight = wx.getSystemInfoSync().windowHeight;
+    that.setData({
+      ChartHeight: windowHeight - 100
+    })
   },
 
   /**
@@ -81,25 +88,33 @@ Page({
 })
 
 function getChartData() {
-  getData({ type: 'year', date: (Date.parse(new Date(year, 1, 1)) / 1000) }, function (ret) {
-    chartData.InMoney = objToArr(ret.InMoney);
-    chartData.OutMoney = objToArr(ret.OutMoney);
-    chartData.OverMoney = objToArr(ret.SurplusMoney);
-    chartData.InClassMoney = objToArr(ret.InClassMoney);
-    chartData.OutClassMoney = objToArr(ret.OutClassMoney);
-    chartData.InSumMoney = ret.InSumMoney;
-    chartData.OutSumMoney = ret.OutSumMoney;
-    chartData.InSumClassMoney = objToKeyArr(ret.InSumClassMoney, 0);
-    chartData.OutSumClassMoney = objToKeyArr(ret.OutSumClassMoney, 0);
-    chartData.OverSumMoney = objToArr(ret.SurplusSumMoney);
-    //console.log(chartData);
-    initChart();
+  wx.showLoading({
+    title: '加载中',
+    success: function(){
+      getData({ type: 'year', date: (Date.parse(new Date(year, 1, 1)) / 1000) }, function (ret) {
+        chartData.InMoney = objToArr(ret.InMoney);
+        chartData.OutMoney = objToArr(ret.OutMoney);
+        chartData.OverMoney = objToArr(ret.SurplusMoney);
+        chartData.InClassMoney = objToArr(ret.InClassMoney);
+        chartData.OutClassMoney = objToArr(ret.OutClassMoney);
+        chartData.InSumMoney = ret.InSumMoney;
+        chartData.OutSumMoney = ret.OutSumMoney;
+        chartData.InSumClassMoney = objToKeyArr(ret.InSumClassMoney, 0);
+        chartData.OutSumClassMoney = objToKeyArr(ret.OutSumClassMoney, 0);
+        chartData.OverSumMoney = objToArr(ret.SurplusSumMoney);
+        //console.log(chartData);
+        initChart();
 
-    that.setData({
-      InSumMoney: chartData.InSumMoney.toFixed(2),
-      OutSumMoney: chartData.OutSumMoney.toFixed(2),
-      OverSumMoney: (chartData.InSumMoney - chartData.OutSumMoney).toFixed(2)
-    });
+        that.setData({
+          InSumMoney: chartData.InSumMoney.toFixed(2),
+          OutSumMoney: chartData.OutSumMoney.toFixed(2),
+          OverSumMoney: (chartData.InSumMoney - chartData.OutSumMoney).toFixed(2),
+          HiddenToolTip: false
+        });
+
+        wx.hideLoading();
+      });
+    }
   });
 }
 
