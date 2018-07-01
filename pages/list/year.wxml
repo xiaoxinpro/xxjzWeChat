@@ -7,8 +7,8 @@
         <view class="list-card-title-h1">{{overMoney}}</view>
         <view class="list-card-text">￥剩余</view>
       </view>
-      <view class="weui-flex__item">
-        <navigator class="list-card-title-h1 button-chart" url="../chart/year?year={{year}}" >
+      <view class="list-card-title-h1">
+        <navigator class="button-chart" url="../chart/year?year={{year}}">
           <text class="iconfont icon-licai" style="font-size: 36px;"></text>
         </navigator>
       </view>

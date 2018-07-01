@@ -59,6 +59,7 @@
 }
 
 .button-chart {
-  text-align: right;
+  text-align: center;
   padding-right: 12px;
+  padding-left: 12px;
 }
