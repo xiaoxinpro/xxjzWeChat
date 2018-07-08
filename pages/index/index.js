@@ -9,7 +9,7 @@ Page({
     login: '绑定已有帐号',
     regist: '新建帐号',
     lock: true,
-    refresh: true,
+    refresh: false,
     userInfo: {}
   },
   //事件处理函数
@@ -69,6 +69,9 @@ Page({
             InitApp();
           } else {
             console.log("初次使用需要用户授权访问");
+            that.setData({
+              refresh: true
+            });
           }
         }
       });
