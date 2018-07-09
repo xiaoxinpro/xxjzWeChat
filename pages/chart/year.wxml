@@ -6,3 +6,11 @@
     <text>年度收入：{{InSumMoney}}元，支出：{{OutSumMoney}}元，剩余：{{OverSumMoney}}元</text>
   </view>
 </view>
+
+<view class="echarts" style="height: {{ChartHeight / 2}}px;">
+  <ec-canvas id="chart-dom-inclass" canvas-id="chart-inclass" ec="{{ec_InClass}}"></ec-canvas>
+</view>
+
+<view class="echarts" style="height: {{ChartHeight / 2}}px;">
+  <ec-canvas id="chart-dom-outclass" canvas-id="chart-outclass" ec="{{ec_OutClass}}"></ec-canvas>
+</view>

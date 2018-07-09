@@ -18,7 +18,13 @@ Page({
     HiddenToolTip: true,
     ec: {
       lazyLoad: true
-    }
+    },
+    ec_InClass: {
+      lazyLoad: true
+    },
+    ec_OutClass: {
+      lazyLoad: true
+    },
   },
 
   /**
@@ -90,7 +96,7 @@ Page({
 function getChartData() {
   wx.showLoading({
     title: '加载中',
-    success: function(){
+    success: function () {
       getData({ type: 'year', date: (Date.parse(new Date(year, 1, 1)) / 1000) }, function (ret) {
         chartData.InMoney = objToArr(ret.InMoney);
         chartData.OutMoney = objToArr(ret.OutMoney);
@@ -120,25 +126,45 @@ function getChartData() {
 
 function initChart() {
   // 获取组件
-  that.ecComponent = that.selectComponent('#chart-dom-year');
-  that.ecComponent.init((canvas, width, height) => {
+  //that.ecComponent = that.selectComponent('#chart-dom-year');
+  that.selectComponent('#chart-dom-year').init((canvas, width, height) => {
     // 获取组件的 canvas、width、height 后的回调函数
     // 在这里初始化图表
     const chart = echarts.init(canvas, null, {
       width: width,
       height: height
     });
-    setOption(chart);
-
-    // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
-    that.chart = chart;
+    setOptionYear(chart);
 
     // 注意这里一定要返回 chart 实例，否则会影响事件处理等
     return chart;
   });
+
+  that.selectComponent('#chart-dom-inclass').init((canvas, width, height) => {
+    const chart = echarts.init(canvas, null, {
+      width: width,
+      height: height
+    });
+
+    setOptionInClass(chart);
+
+    return chart;
+  });
+
+  that.selectComponent('#chart-dom-outclass').init((canvas, width, height) => {
+    const chart = echarts.init(canvas, null, {
+      width: width,
+      height: height
+    });
+
+    setOptionOutClass(chart);
+
+    return chart;
+  });
 }
 
-function setOption(chart) {
+/** 设置年度收支汇总图表 */
+function setOptionYear(chart) {
 
   var labelBarOption = {
     normal: {
@@ -228,6 +254,134 @@ function setOption(chart) {
       smooth: true,
       data: chartData.OverSumMoney
     }]
+  };
+  chart.setOption(option);
+}
+
+/** 设置收入分类图表 */
+function setOptionInClass(chart) {
+  const option = {
+    title: {
+      text: year + '年收入分类汇总',
+      subtext: '总收入' + chartData.InSumMoney + '元',
+      x: 'center'
+    },
+    color: [
+      "#2ec7c9",
+      "#b6a2de",
+      "#5ab1ef",
+      "#ffb980",
+      "#d87a80",
+      "#8d98b3",
+      "#e5cf0d",
+      "#97b552",
+      "#95706d",
+      "#dc69aa",
+      "#07a2a4",
+      "#9a7fd1",
+      "#588dd5",
+      "#f5994e",
+      "#c05050",
+      "#59678c",
+      "#c9ab00",
+      "#7eb00a",
+      "#6f5553",
+      "#c14089"
+    ],
+    tooltip: {
+      trigger: 'item',
+      formatter: "{b} : ({d}%)<br/>{c} 元"
+    },
+    series: [
+      {
+        name: '收入分类',
+        type: 'pie',
+        radius: '55%',
+        center: ['50%', '60%'],
+        data: chartData.InSumClassMoney,
+        labelLine: {
+          normal: {
+            smooth: true
+          }
+        },
+        itemStyle: {
+          normal: {
+            borderColor: "#FFF",
+            borderWidth: 1
+          },
+          emphasis: {
+            borderWidth: 0,
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+  chart.setOption(option);
+}
+
+/** 设置支出分类图表 */
+function setOptionOutClass(chart) {
+  const option = {
+    title: {
+      text: year + '年支出分类汇总',
+      subtext: '总支出' + chartData.OutSumMoney + '元',
+      x: 'center'
+    },
+    color: [
+      "#2ec7c9",
+      "#b6a2de",
+      "#5ab1ef",
+      "#ffb980",
+      "#d87a80",
+      "#8d98b3",
+      "#e5cf0d",
+      "#97b552",
+      "#95706d",
+      "#dc69aa",
+      "#07a2a4",
+      "#9a7fd1",
+      "#588dd5",
+      "#f5994e",
+      "#c05050",
+      "#59678c",
+      "#c9ab00",
+      "#7eb00a",
+      "#6f5553",
+      "#c14089"
+    ],
+    tooltip: {
+      trigger: 'item',
+      formatter: "{b} : ({d}%)<br/>{c} 元"
+    },
+    series: [
+      {
+        name: '支出分类',
+        type: 'pie',
+        radius: '55%',
+        center: ['50%', '60%'],
+        data: chartData.OutSumClassMoney,
+        labelLine: {
+          normal: {
+            smooth: true
+          }
+        },
+        itemStyle: {
+          normal: {
+            borderColor: "#FFF",
+            borderWidth: 1
+          },
+          emphasis: {
+            borderWidth: 0,
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
   };
   chart.setOption(option);
 }
