@@ -298,6 +298,28 @@ function setOptionInClass(chart) {
         type: 'pie',
         radius: '55%',
         center: ['50%', '60%'],
+        label: {
+          normal: {
+            formatter: '  {b|{b}：}{c}  {per|{d}%}  ',
+            backgroundColor: '#eee',
+            borderColor: '#aaa',
+            borderWidth: 1,
+            borderRadius: 4,
+            rich: {
+              b: {
+                fontSize: 10,
+                lineHeight: 18
+              },
+              per: {
+                fontSize: 11,
+                color: '#eee',
+                backgroundColor: '#334455',
+                padding: [2, 4],
+                borderRadius: 2
+              }
+            }
+          }
+        },
         data: chartData.InSumClassMoney,
         labelLine: {
           normal: {
@@ -360,8 +382,30 @@ function setOptionOutClass(chart) {
       {
         name: '支出分类',
         type: 'pie',
-        radius: '55%',
+        radius: '50%',
         center: ['50%', '60%'],
+        label: {
+          normal: {
+            formatter: '  {b|{b}：}{c}  {per|{d}%}  ',
+            backgroundColor: '#eee',
+            borderColor: '#aaa',
+            borderWidth: 1,
+            borderRadius: 4,
+            rich: {
+              b: {
+                fontSize: 10,
+                lineHeight: 18
+              },
+              per: {
+                fontSize: 11,
+                color: '#eee',
+                backgroundColor: '#334455',
+                padding: [2, 4],
+                borderRadius: 2
+              }
+            }
+          }
+        },
         data: chartData.OutSumClassMoney,
         labelLine: {
           normal: {
