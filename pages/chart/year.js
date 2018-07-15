@@ -296,7 +296,7 @@ function setOptionInClass(chart) {
       {
         name: '收入分类',
         type: 'pie',
-        radius: '55%',
+        radius: '50%',
         center: ['50%', '60%'],
         label: {
           normal: {
@@ -382,7 +382,7 @@ function setOptionOutClass(chart) {
       {
         name: '支出分类',
         type: 'pie',
-        radius: '50%',
+        radius: '25%',
         center: ['50%', '60%'],
         label: {
           normal: {
