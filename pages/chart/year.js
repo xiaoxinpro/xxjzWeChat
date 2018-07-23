@@ -300,7 +300,7 @@ function setOptionInClass(chart) {
         center: ['50%', '60%'],
         label: {
           normal: {
-            formatter: '  {b|{b}：}{c}  {per|{d}%}  ',
+            formatter: ' {b|{b}：}{c} ',
             backgroundColor: '#eee',
             borderColor: '#aaa',
             borderWidth: 1,
@@ -310,13 +310,6 @@ function setOptionInClass(chart) {
                 fontSize: 10,
                 lineHeight: 18
               },
-              per: {
-                fontSize: 11,
-                color: '#eee',
-                backgroundColor: '#334455',
-                padding: [2, 4],
-                borderRadius: 2
-              }
             }
           }
         },
@@ -382,11 +375,11 @@ function setOptionOutClass(chart) {
       {
         name: '支出分类',
         type: 'pie',
-        radius: '25%',
+        radius: '50%',
         center: ['50%', '60%'],
         label: {
           normal: {
-            formatter: '  {b|{b}：}{c}  {per|{d}%}  ',
+            formatter: ' {b|{b}：}{c} ',
             backgroundColor: '#eee',
             borderColor: '#aaa',
             borderWidth: 1,
@@ -396,13 +389,6 @@ function setOptionOutClass(chart) {
                 fontSize: 10,
                 lineHeight: 18
               },
-              per: {
-                fontSize: 11,
-                color: '#eee',
-                backgroundColor: '#334455',
-                padding: [2, 4],
-                borderRadius: 2
-              }
             }
           }
         },
