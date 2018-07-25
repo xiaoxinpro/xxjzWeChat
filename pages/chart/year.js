@@ -296,11 +296,13 @@ function setOptionInClass(chart) {
       {
         name: '收入分类',
         type: 'pie',
+        minAngle: 15, //最小的扇区角度（0 ~ 360），用于防止某个值过小导致扇区太小影响交互
+        avoidLabelOverlap: true, //是否启用防止标签重叠策略
         radius: '50%',
         center: ['50%', '60%'],
         label: {
           normal: {
-            formatter: ' {b|{b}：}{c} ',
+            formatter: ' {b|{b}：}{c}元 ',
             backgroundColor: '#eee',
             borderColor: '#aaa',
             borderWidth: 1,
@@ -375,11 +377,13 @@ function setOptionOutClass(chart) {
       {
         name: '支出分类',
         type: 'pie',
+        minAngle: 15, //最小的扇区角度（0 ~ 360），用于防止某个值过小导致扇区太小影响交互
+        avoidLabelOverlap: true, //是否启用防止标签重叠策略
         radius: '50%',
         center: ['50%', '60%'],
         label: {
           normal: {
-            formatter: ' {b|{b}：}{c} ',
+            formatter: ' {b|{b}：}{c}元 ',
             backgroundColor: '#eee',
             borderColor: '#aaa',
             borderWidth: 1,
