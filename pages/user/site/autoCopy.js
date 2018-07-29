@@ -1,6 +1,8 @@
 var that = this;
 var user = {};
 var autoCopyString = {};
+var enableWeb = false;
+var enableWebPullDown = false;
 var strWebData = "";
 
 Page({
@@ -14,6 +16,8 @@ Page({
     strData: "",
     autoGetData: true,
     isAdmin: false,
+    enableWeb: false,
+    enableWebPullDown: false,
     strWebData: "",
   },
 
@@ -54,6 +58,21 @@ Page({
   },
 
   /**
+   * switchWebEnable（管理员功能）
+   */
+  switchWebEnable: function (e) {
+    enableWeb = e.detail.value;
+    console.log(enableWeb);
+  },
+
+  /**
+   * switchWebEnablePullDown（管理员功能）
+   */
+  switchWebEnablePullDown: function (e) {
+    enableWebPullDown = e.detail.value;
+  },
+
+  /**
    * submitWebData（管理员功能）
    */
   submitWebData: function(e) {
@@ -70,8 +89,12 @@ Page({
       success: function(){
         getApp().GetAutoCopyData(function (res) {
           wx.hideLoading();
+          enableWeb = res.enable ? res.enable : false;
+          enableWebPullDown = res.enablePullDown ? res.enablePullDown : false;
           strWebData = res.strData;
           that.setData({
+            enableWeb: enableWeb,
+            enableWebPullDown: enableWebPullDown,
             strWebData: strWebData
           });
         });
@@ -83,8 +106,13 @@ Page({
    * 上传文本内容（管理员功能）
    */
   updataString: function (e) {
-    console.log("上传文本内容（管理员功能）", strWebData);
-    updataAutoCopyData(strWebData, function (res) {
+    var webData = {
+      enable: enableWeb,
+      enablePullDown: enableWebPullDown,
+      data: strWebData
+    }
+    console.log("上传文本内容（管理员功能）", webData);
+    updataAutoCopyData(webData, function (res) {
       console.log(res);
       if (res.strData == strWebData) {
         wx.showToast({title: '上传完成'});
@@ -174,17 +202,18 @@ function setCopyData() {
 /** 
  * 更新自动复制数据(文本数据, 回调函数) 
  */
-function updataAutoCopyData(data, callback) {
+function updataAutoCopyData(webData, callback) {
   var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
   if (session_id != "" && session_id != null) {
     var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
   } else {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
+  webData.type = 'updata';
   wx.request({
     url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/autocopy',
     method: 'POST',
-    data: { type: 'updata', data: data },
+    data: webData,
     header: header,
     success: function (res) {
       console.log('更新自动复制文本：', res);

@@ -47,6 +47,18 @@
       <view wx:if="{{isAdmin}}">
         <view class="weui-cells__title">管理员功能</view>
         <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_switch">
+            <view class="weui-cell__bd">开启自动复制</view>
+            <view class="weui-cell__ft">
+              <switch bindchange="switchWebEnable" checked="{{enableWeb}}" />
+            </view>
+          </view>
+          <view class="weui-cell weui-cell_switch">
+            <view class="weui-cell__bd">开启下拉复制</view>
+            <view class="weui-cell__ft">
+              <switch bindchange="switchWebEnablePullDown" checked="{{enableWebPullDown}}" />
+            </view>
+          </view>
           <view class="weui-cell">
             <view class="weui-cell__bd">
               <textarea class="weui-textarea" placeholder="请输入要上传服务器的文本" style="height: 3.5em" bindinput='submitWebData' value="{{strWebData}}" />
