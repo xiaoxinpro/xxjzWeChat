@@ -56,10 +56,10 @@
       </view>
       <view class="weui-cell__ft">
         <view class="main-list-text-ft">
-          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{day_in_money}}
+          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{day_in_money}}
         </view>
         <view class="main-list-text-ft">
-          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{day_out_money}}
+          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{day_out_money}}
         </view>
       </view>
     </navigator>
@@ -74,10 +74,10 @@
       </view>
       <view class="weui-cell__ft">
         <view class="main-list-text-ft">
-          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{month_in_money}}
+          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{month_in_money}}
         </view>
         <view class="main-list-text-ft">
-          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{month_out_money}}
+          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{month_out_money}}
         </view>
       </view>
     </navigator>
@@ -92,10 +92,10 @@
       </view>
       <view class="weui-cell__ft">
         <view class="main-list-text-ft">
-          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{year_in_money}}
+          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{year_in_money}}
         </view>
         <view class="main-list-text-ft">
-          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{year_out_money}}
+          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{year_out_money}}
         </view>
       </view>
     </navigator>
@@ -110,10 +110,10 @@
       </view>
       <view class="weui-cell__ft">
         <view class="main-list-text-ft">
-          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{all_in_money}}
+          <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{all_in_money}}
         </view>
         <view class="main-list-text-ft">
-          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.75rem; font-weight: bold;"></text> {{all_out_money}}
+          <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{all_out_money}}
         </view>
       </view>
     </navigator>

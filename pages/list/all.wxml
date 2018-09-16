@@ -32,10 +32,10 @@
         </view>
         <view class="weui-cell__ft">
           <view class="list-item-mark">
-            <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 0.7rem; font-weight: bold;"></text> {{inMoneyList[index]}}
+            <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{inMoneyList[index]}}
           </view>
           <view class="list-item-mark">
-            <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 0.7rem; font-weight: bold;"></text> {{outMoneyList[index]}}
+            <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{outMoneyList[index]}}
           </view>
         </view>
 
