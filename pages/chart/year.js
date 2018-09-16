@@ -40,6 +40,21 @@ Page({
     that.setData({
       ChartHeight: windowHeight - 100
     })
+
+    wx.onWindowResize(function (res) {
+      that.setData({
+        ChartHeight: res.size.windowHeight - 100
+      })
+
+      // 触发当前页面的 resized 方法
+      var currentPages = getCurrentPages()
+      var currentPage = currentPages[currentPages.length - 1]
+      if (currentPage != null && typeof currentPage.resized === 'function') {
+        currentPage.resized(res.size)
+      }
+
+      initChart();
+    })
   },
 
   /**
