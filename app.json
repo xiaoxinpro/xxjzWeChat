@@ -60,5 +60,6 @@
     "navigationBarBackgroundColor": "#03a9f4",
     "navigationBarTitleText": "小歆记账",
     "navigationBarTextStyle": "white"
-  }
+  },
+  "resizable": true
 }
