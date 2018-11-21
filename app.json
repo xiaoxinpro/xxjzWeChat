@@ -21,7 +21,8 @@
     "pages/user/site/autoCopy",
     "pages/user/site/username",
     "pages/user/site/password",
-    "pages/chart/year"
+    "pages/chart/year",
+    "pages/tool/goodEvaluate"
   ],
   "tabBar": {
     "color": "#919191",
