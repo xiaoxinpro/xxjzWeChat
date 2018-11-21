@@ -7,7 +7,7 @@
       <!-- 输出文本框 -->
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <textarea class="weui-textarea" style="height: 10em" value="{{strData}}" />
+          <textarea class="weui-textarea" style="height: 15em" value="{{strData}}" />
         </view>
       </view>
 
@@ -19,6 +19,14 @@
           </button>
         </view>
       </view>
+
+      <!-- 返回按钮 -->
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+        </view>
+      </view>
+      
     </view>
 
   </view>
