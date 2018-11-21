@@ -1,2 +1,25 @@
 <!--pages/tool/goodEvaluate.wxml-->
-<text>pages/tool/goodEvaluate.wxml</text>
+<view class="page">
+  <view class="page__bd">
+
+    <view class="weui-cells weui-cells_after-title">
+
+      <!-- 输出文本框 -->
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea class="weui-textarea" style="height: 10em" value="{{strData}}" />
+        </view>
+      </view>
+
+      <!-- 生成按钮 -->
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <button class="weui-btn weui-btn-primary" bindtap="btnGenerate">
+            <text> 生成并复制 </text>
+          </button>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>
