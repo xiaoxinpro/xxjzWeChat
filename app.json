@@ -22,7 +22,8 @@
     "pages/user/site/username",
     "pages/user/site/password",
     "pages/chart/year",
-    "pages/tool/goodEvaluate"
+    "pages/tool/goodEvaluate",
+    "pages/tool/site"
   ],
   "tabBar": {
     "color": "#919191",
