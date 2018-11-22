@@ -5,25 +5,25 @@ App({
   URL: 'https://jz.xxgzs.org',
   AdminUid: 3,
 
-  onLaunch: function () {
+  onLaunch: function() {
 
   },
 
   // 获取用户信息
-  getUserInfo: function (cb) {
+  getUserInfo: function(cb) {
     var that = this
     if (this.globalData.userInfo) {
       typeof cb == "function" && cb(this.globalData.userInfo)
     } else {
       //调用登录接口
       wx.login({
-        success: function () {
+        success: function() {
           wx.getUserInfo({
-            success: function (res) {
+            success: function(res) {
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo)
             },
-            fail: function (res) {
+            fail: function(res) {
               console.log("未获取的登陆权限。", res);
               // wx.openSetting({
               //   success: (res) => {
@@ -38,15 +38,15 @@ App({
   },
 
   // 保存用户头像，并返回本地路径
-  saveUserAvatar: function (url, callback) {
+  saveUserAvatar: function(url, callback) {
     wx.downloadFile({
       url: url,
-      success: function (res) {
+      success: function(res) {
         var path = res.tempFilePath;
         console.log('头像临时路径', path);
         wx.saveFile({
           tempFilePath: path,
-          success: function (res) {
+          success: function(res) {
             path = res.savedFilePath;
             console.log('头像永久路径', path);
             wx.setStorage({
@@ -61,20 +61,25 @@ App({
   },
 
   // 获取分类数据
-  GetClassData: function (uid, callback) {
+  GetClassData: function(uid, callback) {
     //console.log('uid:',uid)
     if (uid > 0) {
-      var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+      var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
       if (session_id != "" && session_id != null) {
-        var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+        var header = {
+          'content-type': 'application/x-www-form-urlencoded',
+          'Cookie': 'PHPSESSID=' + session_id
+        }
       } else {
         callback(false, 0, "内存数据出错，请登陆后再试。");
       }
       wx.request({
         url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/aclass',
-        data: { type: 'get' },
+        data: {
+          type: 'get'
+        },
         header: header,
-        success: function (res) {
+        success: function(res) {
           console.log('获取分类数据:', res);
           if (res.hasOwnProperty('data')) {
             let ret = res['data'];
@@ -90,7 +95,10 @@ App({
               });
               var arrClass = wx.getStorageSync('allClass') || {};
               for (var i in data.all) {
-                arrClass[i] = { name: data.all[i], icon: getApp().GetClassIcon(0, data.all[i]) };
+                arrClass[i] = {
+                  name: data.all[i],
+                  icon: getApp().GetClassIcon(0, data.all[i])
+                };
               }
               wx.setStorage({
                 key: 'allClass',
@@ -174,19 +182,26 @@ App({
   },
 
   // 获取自动复制文本
-  GetAutoCopyData: function (callback) {
-    var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  GetAutoCopyData: function(callback) {
+    var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
     if (session_id != "" && session_id != null) {
-      var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+      var header = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'Cookie': 'PHPSESSID=' + session_id
+      }
     } else {
-      var header = { 'content-type': 'application/x-www-form-urlencoded' }
+      var header = {
+        'content-type': 'application/x-www-form-urlencoded'
+      }
     }
     wx.request({
       url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/autocopy',
       method: 'GET',
-      data: { type: 'get' },
+      data: {
+        type: 'get'
+      },
       header: header,
-      success: function (res) {
+      success: function(res) {
         console.log('获取自动复制文本：', res);
         if (res.hasOwnProperty('data')) {
           callback(res['data']);
@@ -195,23 +210,66 @@ App({
     });
   },
 
+  GetMainToolConfig: function() {
+    return wx.getStorageSync('mainToolConfig');
+  },
+
+  SetMainToolConfig: function(data, item = null) {
+    if (item == null) {
+      wx.setStorage({
+        key: 'mainToolConfig',
+        data: data,
+      });
+    } else {
+      item = parseInt(item);
+      if (item < 3) {
+        config = GetMainToolConfig();
+        config[item] = data;
+        wx.setStorage({
+          key: 'mainToolConfig',
+          data: config,
+        });
+      }
+    }
+  },
+
   // 退出登陆
-  Logout: function (callback) {
+  Logout: function(callback) {
     // wx.clearStorage();
-    wx.removeStorage({ key: 'user' });
-    wx.removeStorage({ key: 'PHPSESSID' });
-    wx.removeStorage({ key: 'userInfo' });
-    wx.removeStorage({ key: 'avatarPath' });
-    wx.removeStorage({ key: 'getDataTime' });
-    wx.removeStorage({ key: 'mainPageData' });
-    wx.removeStorage({ key: 'inClass' });
-    wx.removeStorage({ key: 'outClass' });
-    wx.removeStorage({ key: 'allClass' });
-    callback({ url: "/pages/index/index" });
+    wx.removeStorage({
+      key: 'user'
+    });
+    wx.removeStorage({
+      key: 'PHPSESSID'
+    });
+    wx.removeStorage({
+      key: 'userInfo'
+    });
+    wx.removeStorage({
+      key: 'avatarPath'
+    });
+    wx.removeStorage({
+      key: 'getDataTime'
+    });
+    wx.removeStorage({
+      key: 'mainPageData'
+    });
+    wx.removeStorage({
+      key: 'inClass'
+    });
+    wx.removeStorage({
+      key: 'outClass'
+    });
+    wx.removeStorage({
+      key: 'allClass'
+    });
+    callback({
+      url: "/pages/index/index"
+    });
   },
 
   // 数值转化为货币格式
-  ValueToMoney: function (val) {
+  ValueToMoney: function(val) {
     if (val) {
       if (typeof val == "object") {
         var ret = {};
