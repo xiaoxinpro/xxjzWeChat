@@ -119,7 +119,7 @@
     </navigator>
   </view>
 </view>
-<view class="weui-flex">
+<view class="weui-flex" style="margin-top:5px">
   <view class="weui-flex__item">
     <view class="main-placeholder">
       <navigator url="../tool/goodEvaluate" class="weui-btn weui-btn-info" hover-class="weui-cell_active">好评工具</navigator>
