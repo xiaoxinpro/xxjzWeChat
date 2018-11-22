@@ -38,6 +38,14 @@
 	color: #ffffff !important;
 	background-color: #dd191b !important;
 }
+.weui-btn-none {
+	color: #ffffff !important;
+	background-color: #cfcfcf !important;
+}
+.weui-btn-none:active {
+	color: #ffffff !important;
+	background-color: #bbb !important;
+}
 
 .weui-icon-checkbox_success-info {
   margin-left: 4.6px;
