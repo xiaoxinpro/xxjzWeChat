@@ -119,20 +119,14 @@
     </navigator>
   </view>
 </view>
-<view class="weui-flex" style="margin-top:5px">
+<view class="weui-flex" style="margin:10px">
   <view class="weui-flex__item">
-    <view class="main-placeholder">
-      <navigator url="../tool/goodEvaluate" class="weui-btn weui-btn-info" hover-class="weui-cell_active">好评工具</navigator>
-    </view>
+    <navigator url="../tool/site" class="main-placeholder weui-btn weui-btn-none" hover-class="weui-cell_active">+</navigator>
   </view>
   <view class="weui-flex__item">
-    <view class="main-placeholder">
-      <navigator url="../tool/goodEvaluate" class="weui-btn weui-btn-info" hover-class="weui-cell_active">好评工具</navigator>
-    </view>
+    <navigator url="../tool/site" class="main-placeholder weui-btn weui-btn-none" hover-class="weui-cell_active">+</navigator>
   </view>
   <view class="weui-flex__item">
-    <view class="main-placeholder">
-      <navigator url="../tool/goodEvaluate" class="weui-btn weui-btn-info" hover-class="weui-cell_active">好评工具</navigator>
-    </view>
+    <navigator url="../tool/goodEvaluate" class="main-placeholder weui-btn weui-btn-info" hover-class="weui-cell_active">好评工具</navigator>
   </view>
 </view>
