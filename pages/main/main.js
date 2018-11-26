@@ -17,13 +17,16 @@ Page({
     year_out_money: 0.00,
     all_in_money: 0.00,
     all_out_money: 0.00,
+    main_tool_config: [],
   },
 
-  btnAdd: function () {
-    wx.switchTab({ url: 'add' });
+  btnAdd: function() {
+    wx.switchTab({
+      url: 'add'
+    });
   },
 
-  bindTest: function () {
+  bindTest: function() {
     var day = this.data.header_day;
     if (++day > 31) {
       day = 1;
@@ -33,20 +36,22 @@ Page({
     });
   },
 
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     //下拉复制文本
     if (autoCopyString.enablePullDown) {
-      wx.setClipboardData({ data: autoCopyString.strData });
+      wx.setClipboardData({
+        data: autoCopyString.strData
+      });
     }
 
     //重新获取数据
-    initData(function (data) {
+    initData(function(data) {
       updataPageData(data);
       wx.stopPullDownRefresh();
     });
   },
 
-  onLoad: function (option) {
+  onLoad: function(option) {
     that = this;
 
     // 获取用户信息
@@ -58,9 +63,9 @@ Page({
     }
   },
 
-  onShow: function () {
+  onShow: function() {
     // 获取统计数据
-    initData(function (data) {
+    initData(function(data) {
       updataPageData(data);
     });
 
@@ -70,14 +75,16 @@ Page({
     //自动复制文本
     wx.getStorage({
       key: 'autoCopyString',
-      success: function (res) {
+      success: function(res) {
         autoCopyString = res.data;
         console.log("自动复制文本: ", autoCopyString);
         if (autoCopyString.enable) {
-          wx.setClipboardData({ data: autoCopyString.strData });
+          wx.setClipboardData({
+            data: autoCopyString.strData
+          });
         }
         if (autoCopyString.autoGetData) {
-          getApp().GetAutoCopyData(function (res) {
+          getApp().GetAutoCopyData(function(res) {
             for (var i in res) {
               autoCopyString[i] = res[i];
             }
@@ -98,12 +105,14 @@ function initData(callback) {
   var tmpData = wx.getStorageSync('mainPageData');
   if (getNowFormatDate() != wx.getStorageSync('getDataTime')) {
     valType = "retime";
-    wx.showLoading({ title: '加载中' });
+    wx.showLoading({
+      title: '加载中'
+    });
   } else if (tmpData) {
     console.log("缓存主页数据:", tmpData);
     callback(tmpData);
   }
-  getData(valType, function (data) {
+  getData(valType, function(data) {
     wx.setStorage({
       key: 'getDataTime',
       data: getNowFormatDate(),
@@ -113,7 +122,7 @@ function initData(callback) {
       data: data,
     })
     callback(data);
-    setTimeout(function () {
+    setTimeout(function() {
       wx.hideLoading();
     }, 500);
   });
@@ -123,6 +132,8 @@ function initData(callback) {
 function updataPageData(data) {
   var now = new Date();
   var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
+  var mainToolConfig = getApp().GetMainToolConfig();
+  console.log('获取主页工具栏：', mainToolConfig);
   that.setData({
     header_day: now.getDate(),
     header_month: now.getMonth() + 1,
@@ -136,23 +147,31 @@ function updataPageData(data) {
     year_out_money: data['YearOutMoney'].toFixed(2),
     all_in_money: data['SumInMoney'].toFixed(2),
     all_out_money: data['SumOutMoney'].toFixed(2),
+    main_tool_config: mainToolConfig,
   });
 }
 
 /** 获取主页数据 */
 function getData(valType, callback) {
   valType = valType || "all"; //设置参数默认值
-  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
   if (session_id != "" && session_id != null) {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'Cookie': 'PHPSESSID=' + session_id
+    }
   } else {
-    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded'
+    }
   }
   wx.request({
     url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/statistic',
-    data: { type: valType },
+    data: {
+      type: valType
+    },
     header: header,
-    success: function (res) {
+    success: function(res) {
       console.log('获取主页数据:', res);
       if (res.hasOwnProperty('data')) {
         let ret = res['data'];
@@ -168,11 +187,13 @@ function getData(valType, callback) {
 
 /** 获取分类数据 */
 function getClassData() {
-  getApp().GetClassData(parseInt(uid), function (ret, len, data) {
+  getApp().GetClassData(parseInt(uid), function(ret, len, data) {
     console.log('获取分类完成', ret, len, data);
     if (ret) {
       if (!data.all) {
-        wx.reLaunch({ url: "../user/fastClass" });
+        wx.reLaunch({
+          url: "../user/fastClass"
+        });
       }
     } else {
       Logout();
@@ -199,7 +220,7 @@ function getNowFormatDate() {
 
 /** 退出登陆 */
 function Logout() {
-  getApp().Logout(function (path) {
+  getApp().Logout(function(path) {
     wx.redirectTo(path);
   });
 }

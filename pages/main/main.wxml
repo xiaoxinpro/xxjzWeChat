@@ -120,13 +120,13 @@
   </view>
 </view>
 <view class="weui-flex" style="margin:10px">
-  <view class="weui-flex__item">
-    <navigator url="../tool/site" class="main-placeholder weui-btn weui-btn-none" hover-class="weui-cell_active">+</navigator>
+  <view class="weui-flex__item" wx:for="{{main_tool_config}}" wx:key="id">
+    <navigator url="{{item.path}}" class="main-placeholder weui-btn weui-btn-{{item.button}}" hover-class="weui-cell_active">{{item.name}}</navigator>
   </view>
-  <view class="weui-flex__item">
+  <!-- <view class="weui-flex__item">
     <navigator url="../tool/site" class="main-placeholder weui-btn weui-btn-none" hover-class="weui-cell_active">+</navigator>
   </view>
   <view class="weui-flex__item">
     <navigator url="../tool/goodEvaluate" class="main-placeholder weui-btn weui-btn-info" hover-class="weui-cell_active">好评工具</navigator>
-  </view>
+  </view> -->
 </view>
