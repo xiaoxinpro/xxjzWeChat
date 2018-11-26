@@ -211,7 +211,29 @@ App({
   },
 
   GetMainToolConfig: function() {
-    return wx.getStorageSync('mainToolConfig');
+    var ret = wx.getStorageSync('mainToolConfig');
+    if (!ret) {
+      ret = [{
+          id: 0,
+          name: '+',
+          button: 'none',
+          path: '../tool/site'
+        },
+        {
+          id: 1,
+          name: '+',
+          button: 'none',
+          path: '../tool/site'
+        },
+        {
+          id: 2,
+          name: '好评工具',
+          button: 'info',
+          path: '../tool/goodEvaluate'
+        }
+      ];
+    }
+    return ret;
   },
 
   SetMainToolConfig: function(data, item = null) {
