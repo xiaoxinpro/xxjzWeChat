@@ -217,13 +217,13 @@ App({
           id: 0,
           name: '+',
           button: 'none',
-          path: '../tool/site'
+          path: '../tool/site?id=0'
         },
         {
           id: 1,
           name: '+',
           button: 'none',
-          path: '../tool/site'
+          path: '../tool/site?id=1'
         },
         {
           id: 2,

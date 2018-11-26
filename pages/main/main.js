@@ -26,6 +26,13 @@ Page({
     });
   },
 
+  btnGoToToolSite: function(res) {
+    console.log("长按事件：", res.target.dataset.id)
+    wx.navigateTo({
+      url: '../tool/site?id=' + res.target.dataset.id,
+    })
+  },
+
   bindTest: function() {
     var day = this.data.header_day;
     if (++day > 31) {
