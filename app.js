@@ -215,18 +215,21 @@ App({
     if (!ret) {
       ret = [{
           id: 0,
+          tid: 0,
           name: '+',
           button: 'none',
           path: '../tool/site?id=0'
         },
         {
           id: 1,
+          tid: 0,
           name: '+',
           button: 'none',
           path: '../tool/site?id=1'
         },
         {
           id: 2,
+          tid: 1,
           name: '好评工具',
           button: 'info',
           path: '../tool/goodEvaluate'
