@@ -60,7 +60,8 @@ Page({
     }
 
     this.setData({
-      toolButtons: radioItems
+      toolButtons: radioItems,
+      toolButton: e.detail.value
     });
   },
 

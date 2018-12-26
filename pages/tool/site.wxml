@@ -29,7 +29,7 @@
                 <view class="main-placeholder weui-btn weui-btn-{{item.value}}" hover-class="weui-cell_active">按钮样式</view>
               </view>
               <view class="weui-flex__item">
-                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.value == toolButton}}">
                   <icon class="weui-icon-radio" type="success_no_circle" size="32" style="padding-top:5px;"></icon>
                 </view>
               </view>
