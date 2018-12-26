@@ -1,18 +1,18 @@
 .weui-btn-primary {
-	color: #ffffff;
-	background-color: #1aad19;
+	color: #ffffff !important;
+	background-color: #1aad19 !important;
 }
 .weui-btn-primary:active {
-	color: #ffffff;
-	background-color: #179b16;
+	color: #ffffff !important;
+	background-color: #179b16 !important;
 }
 .weui-btn-success {
-	color: #ffffff;
-	background-color: #009688;
+	color: #ffffff !important;
+	background-color: #009688 !important;
 }
 .weui-btn-success:active {
-	color: #fff;
-	background-color: #00897b;
+	color: #fff !important;
+	background-color: #00897b !important;
 }
 .weui-btn-info {
 	color: #ffffff !important;
