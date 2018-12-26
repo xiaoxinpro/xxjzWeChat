@@ -66,6 +66,20 @@ Page({
   },
 
   /**
+   * 提交按钮事件
+   */
+  bindSubmit: function(){
+    var ret = {
+      id: id,
+      tid: this.data.toolCodeIndex,
+      name: this.data.toolName,
+      button: this.data.toolButton,
+      path: toolPages[this.data.toolCodeIndex] + '?id=' + id,
+    }
+    console.log(ret);
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
