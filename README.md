@@ -51,6 +51,7 @@
 ## 参考
 
 * [Base64](http://en.wikipedia.org/wiki/Base64)
+* [ECharts](https://github.com/ecomfe/echarts-for-weixin)
 * [iconfont](http://www.iconfont.cn/)
 * [xxjzWeb](https://github.com/xiaoxinpro/xxjzWeb)
 * [WeChat](https://mp.weixin.qq.com/debug/wxadoc/dev/index.html)
