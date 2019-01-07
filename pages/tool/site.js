@@ -52,8 +52,6 @@ Page({
    * 样式按钮选择
    */
   radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value);
-
     var radioItems = this.data.toolButtons;
     for (var i = 0, len = radioItems.length; i < len; ++i) {
       radioItems[i].checked = radioItems[i].value == e.detail.value;
@@ -66,7 +64,7 @@ Page({
   },
 
   /**
-   * 提交按钮事件
+   * 
    */
   bindSubmit: function(){
     var ret = {
@@ -76,7 +74,16 @@ Page({
       button: this.data.toolButton,
       path: toolPages[this.data.toolCodeIndex] + '?id=' + id,
     }
-    console.log(ret);
+    console.log('提交按钮事件:', ret);
+    getApp().SetMainToolConfig(ret, id);
+    wx.showToast({
+      title: '设定完成',
+      success: function(){
+        setTimeout(function(){
+          wx.navigateBack();
+        },300);
+      }
+    })
   },
 
   /**

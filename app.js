@@ -248,7 +248,7 @@ App({
     } else {
       item = parseInt(item);
       if (item < 3) {
-        config = GetMainToolConfig();
+        var config = getApp().GetMainToolConfig();
         config[item] = data;
         wx.setStorage({
           key: 'mainToolConfig',
