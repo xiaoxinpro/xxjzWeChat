@@ -21,7 +21,7 @@
     <view class="weui-cells weui-cells_after-title">
       <radio-group bindchange="radioChange">
         <label class="weui-cell weui-check__label" wx:for="{{toolButtons}}" wx:key="value" style="margin-top:-5px;">
-          <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+          <radio class="weui-check" value="{{item.value}}" checked="{{item.value == toolButton}}" />
           <view class="weui-cell__bd">
             <view class="weui-flex">
               <view class="weui-flex__item"></view>

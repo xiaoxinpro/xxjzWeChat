@@ -11,7 +11,7 @@ var toolPages = [
   '../tool/goodEvaluate',
 ];
 var buttons = [
-  { value: 'none', checked: true },
+  { value: 'none', checked: false },
   { value: 'primary', checked: false },
   { value: 'success', checked: false },
   { value: 'info', checked: false },
