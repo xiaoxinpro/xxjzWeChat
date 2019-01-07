@@ -4,11 +4,13 @@ var tid = 0;
 var tName = '+';
 var tButton = 'none';
 var toolConfig = {};
-var toolNames = ['空', '好评工具', '其他'];
+var toolNames = ['空', '好评工具', '分类管理', '年度统计', '快捷复制'];
 var toolPages = [
   '../tool/site',
   '../tool/goodEvaluate',
-  '../tool/goodEvaluate',
+  '../user/class',
+  '../list/all',
+  '../user/site/autoCopy',
 ];
 var buttons = [
   { value: 'none', checked: false },
