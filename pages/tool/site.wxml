@@ -40,7 +40,13 @@
     </view>
   </view>
 
+  <!-- 保存按钮 -->
   <view class="weui-btn-area">
-    <button class="weui-btn" type="primary" bindtap="bindSubmit">确定</button>
+    <button class="weui-btn" type="primary" bindtap="bindSubmit">保存</button>
+  </view>
+
+  <!-- 返回按钮 -->
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
   </view>
 </view>

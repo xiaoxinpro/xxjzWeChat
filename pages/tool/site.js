@@ -66,7 +66,7 @@ Page({
   },
 
   /**
-   * 
+   * 保存按钮事件
    */
   bindSubmit: function(){
     var ret = {
@@ -86,6 +86,11 @@ Page({
         },300);
       }
     })
+  },
+
+  /** 返回按钮事件 */
+  bindBack: function () {
+    wx.navigateBack();
   },
 
   /**
