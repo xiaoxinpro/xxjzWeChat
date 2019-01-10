@@ -85,14 +85,8 @@ App({
             let ret = res['data'];
             if (ret['uid'] == uid) {
               let data = ret['data'];
-              wx.setStorage({
-                key: 'inClass',
-                data: data.in
-              });
-              wx.setStorage({
-                key: 'outClass',
-                data: data.out
-              });
+              wx.setStorageSync('inClass', data.in);
+              wx.setStorageSync('outClass', data.out);
               var arrClass = wx.getStorageSync('allClass') || {};
               for (var i in data.all) {
                 arrClass[i] = {
@@ -100,10 +94,7 @@ App({
                   icon: getApp().GetClassIcon(0, data.all[i])
                 };
               }
-              wx.setStorage({
-                key: 'allClass',
-                data: arrClass
-              });
+              wx.setStorageSync('allClass', arrClass);
               callback(true, data.all ? Object.getOwnPropertyNames(data.all).length : 0, data);
             } else {
               callback(false, 0, "登录验证已过期，请重新登录。");
