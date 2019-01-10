@@ -134,6 +134,7 @@ function Login(that) {
   });
   wx.login({
     success: function (res) {
+      wx.hideLoading();
       if (res.code) {
         code = res.code;
         console.log('获取用户登录态成功：' + res.code)
