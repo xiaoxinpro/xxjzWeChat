@@ -149,6 +149,7 @@ App({
       case '出行':
       case '地铁':
       case '路费':
+      case '油费':
         iconName = 'traffic.png';
         break;
       case '住宿':
