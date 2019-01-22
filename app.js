@@ -152,6 +152,7 @@ App({
         iconName = 'traffic.png';
         break;
       case '住宿':
+      case '住房':
       case '房租':
       case '房子':
         iconName = 'house.png';
@@ -163,6 +164,7 @@ App({
         iconName = 'fitness.png';
         break;
       case '医院':
+      case '医疗':
         iconName = 'Injecting.png';
         break;
       default:
