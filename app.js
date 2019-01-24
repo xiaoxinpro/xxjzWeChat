@@ -60,6 +60,50 @@ App({
     })
   },
 
+  // 获取资金账户数据
+  GetFundsData: function(uid, callback) {
+    if (uid > 0) {
+      var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
+      if (session_id != "" && session_id != null) {
+        var header = {
+          'content-type': 'application/x-www-form-urlencoded',
+          'Cookie': 'PHPSESSID=' + session_id
+        }
+      } else {
+        callback(false, 0, "内存数据出错，请登陆后再试。");
+      }
+    } else {
+      callback(false, 0, "用户登陆超时，请重新登陆。");
+    }
+    wx.request({
+      url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/funds',
+      data: {
+        type: 'get'
+      },
+      header: header,
+      success: function (res) {
+        console.log('获取资金账号数据:', res);
+        if (res.hasOwnProperty('data')) {
+          let ret = res['data'];
+          if (ret['uid'] == uid) {
+            let data = ret['data'];
+            var arrFunds = wx.getStorageSync('Funds') || Array();
+            for (var i in data) {
+              arrFunds[data[i].id] = {
+                name: data[i].name,
+                money: data[i].money,
+              };
+            }
+            wx.setStorageSync('Funds', arrFunds);
+            callback(true, arrFunds.length, arrFunds);
+          } else {
+            callback(false, 0, "登录验证已过期，请重新登录。");
+          }
+        }
+      }
+    });
+  },
+
   // 获取分类数据
   GetClassData: function(uid, callback) {
     //console.log('uid:',uid)

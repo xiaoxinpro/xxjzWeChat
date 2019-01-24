@@ -79,6 +79,9 @@ Page({
     // 获取分类数据
     getClassData();
 
+    // 获取资金账户数据
+    getFundsData();
+
     //自动复制文本
     wx.getStorage({
       key: 'autoCopyString',
@@ -189,6 +192,13 @@ function getData(valType, callback) {
         }
       }
     }
+  });
+}
+
+/** 获取资金账户数据 */
+function getFundsData() {
+  getApp().GetFundsData(parseInt(uid), function (ret, len, data) { 
+    console.log('获取资金账户完成', ret, len, data);
   });
 }
 
