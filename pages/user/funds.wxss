@@ -1,1 +1,39 @@
 /* pages/user/funds.wxss */
+page, .page, .page__bd {
+  height: 100%;
+}
+
+.page__bd {
+  padding-bottom: 0;
+}
+
+.page__list {
+  padding-top: 20px;
+}
+
+.weui-tab__content {
+  position: relative;
+  margin-top: 1.17647059em;
+  background-color: #fff;
+  line-height: 1.41176471;
+  font-size: 17px;
+}
+
+.button-top {
+  padding-top: 6px;
+}
+
+.weui-cell__ft button {
+  margin-left: 8px;
+}
+
+.weui-navbar {
+  background-color: #fff;
+}
+
+modal input {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #eaeaea;
+  padding-left: 5px;
+}

@@ -1,2 +1,37 @@
 <!--pages/user/funds.wxml-->
-<text>pages/user/funds.wxml</text>
+<view class="page">
+  <view class="page__bd">
+    <form class="page__form" bindsubmit="submit_funds">
+      <view class="weui-cells__title">添加资金账户</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="funds_name" value="{{FundsName}}" placeholder="输入资金账户名称" />
+          </view>
+        </view>
+      </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn weui-btn-info" formType="submit">添加</button>
+      </view>
+    </form>
+    <p></p>
+    <view class='page__list'>
+      <view class="weui-cells__title">资金账户列表</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" wx:for="{{FundsList}}" wx:key="key">
+          <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+          </view>
+          <view class="weui-cell__bd">{{item.name}}</view>
+          <view class="weui-cell__ft button-top">
+            <button size="mini" data-id="{{item.id}}" data-name="{{item.name}}" class="weui-btn weui-btn-primary" bindtap="btnFundsEdit">编辑</button>
+            <text>\t</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>
