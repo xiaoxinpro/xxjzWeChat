@@ -90,6 +90,7 @@ App({
             var arrFunds = wx.getStorageSync('Funds') || Array();
             for (var i in data) {
               arrFunds[data[i].id] = {
+                id: data[i].id,
                 name: data[i].name,
                 money: data[i].money,
               };
