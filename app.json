@@ -23,7 +23,8 @@
     "pages/user/site/password",
     "pages/chart/year",
     "pages/tool/goodEvaluate",
-    "pages/tool/site"
+    "pages/tool/site",
+    "pages/user/funds"
   ],
   "tabBar": {
     "color": "#919191",
