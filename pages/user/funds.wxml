@@ -1,6 +1,8 @@
 <!--pages/user/funds.wxml-->
 <view class="page">
   <view class="page__bd">
+    <!--错误提示-->
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{textTopTips}}</view>
     <form class="page__form" bindsubmit="submit_funds">
       <view class="weui-cells__title">添加资金账户</view>
       <view class="weui-cells weui-cells_after-title">
