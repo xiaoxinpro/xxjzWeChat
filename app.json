@@ -24,7 +24,8 @@
     "pages/chart/year",
     "pages/tool/goodEvaluate",
     "pages/tool/site",
-    "pages/user/funds"
+    "pages/user/funds",
+    "pages/user/funds/edit"
   ],
   "tabBar": {
     "color": "#919191",

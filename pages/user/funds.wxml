@@ -23,7 +23,7 @@
     <view class='page__list'>
       <view class="weui-cells__title">资金账户列表</view>
       <view class="weui-cells weui-cells_after-title">
-        <navigator class="weui-cell" wx:for="{{FundsList}}" wx:key="key">
+        <navigator url="./funds/edit?id={{item.id}}" class="weui-cell" wx:for="{{FundsList}}" wx:key="key">
           <view class="weui-cell__bd">
             <view>{{item.name}}</view>
             <view class="main-list-text-bd">¥ {{item.money.over}}</view>
