@@ -31,6 +31,21 @@ page, .page, .page__bd {
   background-color: #fff;
 }
 
+.main-list-image {
+  width: 50px;
+  height: 50px;
+  display: block;
+}
+
+.main-list-text-bd {
+  font-size: 14px;
+  color: #888;
+}
+
+.main-list-text-ft {
+  font-size: 16px;
+}
+
 modal input {
   border-style: solid;
   border-width: 1px;

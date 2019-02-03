@@ -21,15 +21,20 @@
     <view class='page__list'>
       <view class="weui-cells__title">资金账户列表</view>
       <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell" wx:for="{{FundsList}}" wx:key="key">
-          <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <navigator class="weui-cell" wx:for="{{FundsList}}" wx:key="key">
+          <view class="weui-cell__bd">
+            <view>{{item.name}}</view>
+            <view class="main-list-text-bd">¥ {{item.money.over}}</view>
           </view>
-          <view class="weui-cell__bd">{{item.name}}</view>
-          <view class="weui-cell__ft button-top">
-            <button size="mini" data-id="{{item.id}}" data-name="{{item.name}}" class="weui-btn weui-btn-primary" bindtap="btnFundsEdit">编辑</button>
-            <text>\t</text>
+          <view class="weui-cell__ft">
+            <view class="main-list-text-ft">
+              <text class="iconfont icon-tianjiacheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{item.money.in}}
+            </view>
+            <view class="main-list-text-ft">
+              <text class="iconfont icon-jianqucheliangshuliang" style="font-size: 15px; font-weight: bold;"></text> {{item.money.out}}
+            </view>
           </view>
-        </view>
+        </navigator>
       </view>
     </view>
 
