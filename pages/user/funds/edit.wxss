@@ -1,1 +1,4 @@
 /* pages/user/funds/edit.wxss */
+.weui-btn-area {
+  margin-bottom: 30px;
+}
