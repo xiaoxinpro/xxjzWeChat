@@ -36,11 +36,7 @@ Page({
   onLoad: function(options) {
     that = this;
     uid = wx.getStorageSync('user').uid;
-    initData(function(data) {
-      // that.setData({
-      //   FundsList: data,
-      // })
-    });
+    initData(function(data) {});
   },
 
   /**
@@ -54,7 +50,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    that = this;
+    initData(function (data) { });
   },
 
   /**
@@ -118,7 +115,7 @@ function checkFundsName(FundsName) {
 }
 
 /**
- * 分类数据处理
+ * 资金账户数据处理
  */
 function fundsDataProcess(fundsList) {
   var fundsJson = Array();
