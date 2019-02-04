@@ -53,6 +53,15 @@ Page({
   },
 
   /**
+   * 资金账户改变事件
+   */
+  bindFundsChange: function (e) {
+    this.setData({
+      FundsIndex: e.detail.value
+    })
+  },
+
+  /**
    * 分类改变事件
    */
   bindClassChange: function (e) {
@@ -83,6 +92,8 @@ Page({
 
     //获取表单并转换数据
     var DataObj = e.detail.value;
+    DataObj['add_fundsname'] = _that.data.FundsList.name[DataObj['add_funds']];
+    DataObj['add_funds'] = _that.data.FundsList.value[DataObj['add_funds']];
     DataObj['add_classname'] = _that.data.ClassList.name[DataObj['add_class']];
     DataObj['add_class'] = _that.data.ClassList.value[DataObj['add_class']];
     DataObj['add_typename'] = _that.data.typeValue;
@@ -100,6 +111,7 @@ Page({
     //整理发送内容
     var AddData = {};
     AddData.acmoney = DataObj['add_money'];
+    AddData.fid = DataObj['add_funds'];
     AddData.acclassid = DataObj['add_class'];
     AddData.actime = DataObj['add_time'];
     AddData.acremark = DataObj['add_mark'];
@@ -246,6 +258,20 @@ function initForm(that) {
   });
 }
 
+/** 获取资金账户 */
+function getFunds() {
+  var FundsObj = wx.getStorageSync('Funds');
+  var FundsList = {value: [], name: []};
+  for(var i in FundsObj) {
+    if (FundsObj[i]) {
+      FundsList.value.push(parseInt(FundsObj[i].id));
+      FundsList.name.push(FundsObj[i].name);
+    }
+  }
+  console.log('加载资金账户数据:', FundsList);
+  return FundsList;
+}
+
 /** 获取分类(收支类别) */
 function getClass(type, that) {
   if (type == '收入') {
@@ -262,6 +288,8 @@ function getClass(type, that) {
   that.setData({
     ClassIndex: 0,
     ClassList: ClassList,
+    FundsIndex: 0,
+    FundsList: getFunds(),
   });
   if (!ClassObj) {
     wx.showModal({
