@@ -15,6 +15,15 @@ Page({
   },
 
   /**
+   * 返回按钮
+   */
+  bindBack: function() {
+    wx.navigateBack({
+      delta: 1
+    });
+  },
+
+  /**
    * 提交添加资金账户事件
    */
   submit_funds: function(res) {
@@ -51,7 +60,7 @@ Page({
    */
   onShow: function() {
     that = this;
-    initData(function (data) { });
+    initData(function(data) {});
   },
 
   /**
@@ -122,8 +131,7 @@ function fundsDataProcess(fundsList) {
   var key = 0;
   for (var i in fundsList) {
     if (fundsList[i]) {
-      let money = {
-        in: fundsList[i].money.in.toFixed(2),
+      let money = { in: fundsList[i].money.in.toFixed(2),
         out: fundsList[i].money.out.toFixed(2),
         over: fundsList[i].money.over.toFixed(2),
         count: fundsList[i].money.count
