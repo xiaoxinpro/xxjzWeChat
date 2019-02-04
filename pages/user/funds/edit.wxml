@@ -32,12 +32,16 @@
               <view class="weui-select weui-select_in-select-after">{{FundsList.name[selectFundsId]}}</view>
             </picker>
           </view>
+
         </view>
+      </view>
+      <view class="weui-cells__tips">
+        删除【{{FundsName}}】资金账户并将该账户下的 {{FundsCount}} 条记录转移到选择的账户中。
       </view>
       <view class="weui-btn-area">
         <button class="weui-btn weui-btn-danger" formType="submit">转移并删除</button>
+        <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
       </view>
     </form>
-
   </view>
 </view>

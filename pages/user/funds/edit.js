@@ -16,6 +16,15 @@ Page({
   },
 
   /**
+   * 返回按钮
+   */
+  bindBack: function() {
+    wx.navigateBack({
+      delta: 1
+    });
+  },
+
+  /**
    * 资金账户选择列表
    */
   bindFundsChange: function(res) {
@@ -69,6 +78,7 @@ Page({
       }
       console.log(FundsArr);
       that.setData({
+        FundsCount: parseInt(FundsArr[FundsId].money.count),
         FundsName: FundsArr[FundsId].name,
         FundsList: FundsList
       });
@@ -234,8 +244,8 @@ function cmdDeleteFunds(newFundsId) {
   //发送数据
   wx.showLoading({
     title: '删除中',
-    success: function () {
-      sendFundsData(strData, 'del', function (ret) {
+    success: function() {
+      sendFundsData(strData, 'del', function(ret) {
         wx.hideLoading();
         if (ret.hasOwnProperty('uid') && (ret.uid > 0)) {
           if (ret.hasOwnProperty('data') && ret.data[0]) {
@@ -256,7 +266,7 @@ function cmdDeleteFunds(newFundsId) {
           }
         } else {
           //未登陆
-          getApp().Logout(function (path) {
+          getApp().Logout(function(path) {
             wx.redirectTo(path);
           });
         }
