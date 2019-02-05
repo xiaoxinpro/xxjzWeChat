@@ -89,9 +89,15 @@ Page({
         autoCopyString = res.data;
         console.log("自动复制文本: ", autoCopyString);
         if (autoCopyString.enable) {
-          wx.setClipboardData({
-            data: autoCopyString.strData
-          });
+          wx.getClipboardData({
+            success(Clipboard) {
+              if (Clipboard.data != autoCopyString.strData){
+                wx.setClipboardData({
+                  data: autoCopyString.strData
+                });
+              }
+            }
+          })
         }
         if (autoCopyString.autoGetData) {
           getApp().GetAutoCopyData(function(res) {
