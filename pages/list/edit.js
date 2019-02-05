@@ -16,15 +16,24 @@ Page({
 
     typeName: "类型",
     typeValue: "支出",
-    typeItems: [
-      { name: '支出', value: '2', checked: true },
-      { name: '收入', value: '1' }
+    typeItems: [{
+        name: '支出',
+        value: '2',
+        checked: true
+      },
+      {
+        name: '收入',
+        value: '1'
+      }
     ],
 
     money: "",
 
     ClassIndex: 0,
-    ClassList: [{ id: 0, name: "123" }],
+    ClassList: [{
+      id: 0,
+      name: "123"
+    }],
 
     mark: "",
 
@@ -33,9 +42,9 @@ Page({
   },
 
   /**
- * 收支选择事件
- */
-  typeChange: function (e) {
+   * 收支选择事件
+   */
+  typeChange: function(e) {
     var typeValue = "";
     var typeItems = this.data.typeItems;
     for (var i in typeItems) {
@@ -47,6 +56,7 @@ Page({
 
     that = this;
     getClass(typeValue);
+    getFunds();
 
     this.setData({
       typeItems: typeItems,
@@ -55,9 +65,18 @@ Page({
   },
 
   /**
+   * 资金账户改变事件
+   */
+  bindFundsChange: function(e) {
+    this.setData({
+      FundsIndex: e.detail.value
+    })
+  },
+
+  /**
    * 分类改变事件
    */
-  bindClassChange: function (e) {
+  bindClassChange: function(e) {
     this.setData({
       ClassIndex: e.detail.value
     })
@@ -66,7 +85,7 @@ Page({
   /**
    * 日期改变事件
    */
-  bindDateChange: function (e) {
+  bindDateChange: function(e) {
     var date = new Date(e.detail.value);
     var year = date.getFullYear()
     var month = date.getMonth() + 1
@@ -80,11 +99,12 @@ Page({
   /**
    * 提交表单
    */
-  submit: function (e) {
+  submit: function(e) {
     that = this;
     // console.log("提交编辑数据：", e.detail.value);
     //获取表单并转换数据
     var DataObj = e.detail.value;
+    DataObj['edit_funds'] = that.data.FundsList.value[DataObj['edit_funds']];
     DataObj['edit_class'] = that.data.ClassList.value[DataObj['edit_class']];
     if (that.data.typeValue == '收入') {
       DataObj['edit_type'] = 1;
@@ -98,6 +118,7 @@ Page({
     var EditData = {};
     EditData.acid = varId;
     EditData.acmoney = DataObj['edit_money'];
+    EditData.fid = DataObj['edit_funds'];
     EditData.acclassid = DataObj['edit_class'];
     EditData.actime = DataObj['edit_time'];
     EditData.acremark = DataObj['edit_mark'];
@@ -105,7 +126,7 @@ Page({
     console.log('表单处理后结果：', EditData);
 
     //验证表单数据
-    if (!cheakEditData(EditData)){
+    if (!cheakEditData(EditData)) {
       return;
     }
 
@@ -115,8 +136,8 @@ Page({
     //发送数据
     wx.showLoading({
       title: '编辑中',
-      success: function () {
-        sendEditData(strData, function (ret) {
+      success: function() {
+        sendEditData(strData, function(ret) {
           wx.hideLoading();
           if (ret) {
             if (ret.uid) {
@@ -126,8 +147,10 @@ Page({
                   title: '编辑完成',
                 });
                 //延时页面跳转
-                setTimeout(function () {
-                  wx.navigateBack({ delta: 1 });
+                setTimeout(function() {
+                  wx.navigateBack({
+                    delta: 1
+                  });
                 }, 500);
               } else {
                 //记账失败
@@ -152,14 +175,14 @@ Page({
   /**
    * 删除按钮
    */
-  bindDelete: function(){
+  bindDelete: function() {
     wx.showModal({
       title: '确认删除',
       content: '你确定要删除该账单？',
       confirmText: '删除',
       confirmColor: '#E64340',
-      success: function(res){
-        if(res.confirm){
+      success: function(res) {
+        if (res.confirm) {
           //触发删除命令
           // console.log('触发删除命令');
           var EditData = {};
@@ -167,8 +190,8 @@ Page({
           var strData = Base64.encoder(JSON.stringify(EditData));
           wx.showLoading({
             title: '删除中',
-            success: function () {
-              sendDelData(strData, function (ret) {
+            success: function() {
+              sendDelData(strData, function(ret) {
                 wx.hideLoading();
                 if (ret) {
                   if (ret.uid) {
@@ -178,8 +201,10 @@ Page({
                         title: '删除成功',
                       });
                       //延时页面跳转
-                      setTimeout(function () {
-                        wx.navigateBack({ delta: 1 });
+                      setTimeout(function() {
+                        wx.navigateBack({
+                          delta: 1
+                        });
                       }, 500);
                     } else {
                       //记账失败
@@ -206,14 +231,16 @@ Page({
   /**
    * 返回按钮
    */
-  bindBack: function () {
-    wx.navigateBack({ delta: 1 });
+  bindBack: function() {
+    wx.navigateBack({
+      delta: 1
+    });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     that = this;
     //加载页面数据
     varId = parseInt(options.id);
@@ -226,8 +253,10 @@ Page({
         content: '页面传输的数据有误，无法初始化页面，请返回。',
         showCancel: false,
         confirmText: "返回",
-        success: function () {
-          wx.navigateBack({ delta: 1 });
+        success: function() {
+          wx.navigateBack({
+            delta: 1
+          });
         }
       })
     }
@@ -242,62 +271,62 @@ Page({
       acid: varId,
       jiid: wx.getStorageSync('user').uid
     }));
-    getIdData(jsonData, function(ret){
+    getIdData(jsonData, function(ret) {
       //初始化表单
       initForm(ret['data']);
       wx.hideLoading();
     });
 
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })
 
@@ -307,7 +336,7 @@ function initForm(objData) {
   var typeItems = that.data.typeItems;
 
   for (var i in typeItems) {
-      typeItems[i].checked = typeItems[i].value == objData.zhifu;
+    typeItems[i].checked = typeItems[i].value == objData.zhifu;
   }
 
   if (objData.zhifu == '1') {
@@ -316,6 +345,8 @@ function initForm(objData) {
     typeValue = '支出';
   }
   getClass(typeValue, objData.acclassid);
+
+  getFunds(objData.fid);
 
   that.setData({
     typeValue: typeValue,
@@ -327,6 +358,31 @@ function initForm(objData) {
   });
 }
 
+
+/** 获取资金账户 */
+function getFunds(fundsid) {
+  var FundsIndex = 0;
+  var FundsObj = wx.getStorageSync('Funds');
+  var FundsList = {
+    value: [],
+    name: []
+  };
+  for (var i in FundsObj) {
+    if (FundsObj[i]) {
+      FundsList.value.push(parseInt(FundsObj[i].id));
+      FundsList.name.push(FundsObj[i].name);
+      if (parseInt(FundsObj[i].id) == fundsid) {
+        FundsIndex = FundsList.value.length - 1;
+      }
+    }
+  }
+  console.log('加载资金账户数据:', FundsList);
+  that.setData({
+    FundsIndex: FundsIndex,
+    FundsList: FundsList,
+  });
+}
+
 /** 获取分类(收支类别) */
 function getClass(type, classId) {
   var classIndex = 0;
@@ -335,11 +391,14 @@ function getClass(type, classId) {
   } else {
     var ClassObj = wx.getStorageSync('outClass');
   }
-  var ClassList = { value: [], name: [] };
+  var ClassList = {
+    value: [],
+    name: []
+  };
   for (var i in ClassObj) {
     ClassList.value.push(parseInt(i));
     ClassList.name.push(ClassObj[i]);
-    if (parseInt(classId) == parseInt(i)){
+    if (parseInt(classId) == parseInt(i)) {
       classIndex = ClassList.value.length - 1;
     }
   }
@@ -352,18 +411,23 @@ function getClass(type, classId) {
 
 /** 获取网络数据 */
 function getIdData(jsonData, callback) {
-  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
   if (session_id != "" && session_id != null) {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'Cookie': 'PHPSESSID=' + session_id
+    }
   } else {
-    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded'
+    }
   }
   wx.request({
     url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/account',
     method: 'GET',
     data: jsonData,
     header: header,
-    success: function (res) {
+    success: function(res) {
       console.log('获取记账id数据：', res);
       if (res.hasOwnProperty('data')) {
         let ret = res['data'];
@@ -385,7 +449,7 @@ function showTopTips(text) {
     showTopTips: true,
     textTopTips: text
   });
-  setTimeout(function () {
+  setTimeout(function() {
     that.setData({
       showTopTips: false,
       textTopTips: ""
@@ -420,18 +484,26 @@ function cheakEditData(data) {
 
 /** 发送记账数据(data数组, 回调函数) */
 function sendEditData(data, callback) {
-  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
   if (session_id != "" && session_id != null) {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'Cookie': 'PHPSESSID=' + session_id
+    }
   } else {
-    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded'
+    }
   }
   wx.request({
     url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/account',
     method: 'POST',
-    data: { type: 'edit', data: data },
+    data: {
+      type: 'edit',
+      data: data
+    },
     header: header,
-    success: function (res) {
+    success: function(res) {
       console.log('发送编辑POST：', res);
       if (res.hasOwnProperty('data')) {
         let ret = res['data'];
@@ -448,18 +520,26 @@ function sendEditData(data, callback) {
 
 /** 发送删除记账命令(data数组, 回调函数) */
 function sendDelData(data, callback) {
-  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
   if (session_id != "" && session_id != null) {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'Cookie': 'PHPSESSID=' + session_id
+    }
   } else {
-    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded'
+    }
   }
   wx.request({
     url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/account',
     method: 'POST',
-    data: { type: 'del', data: data },
+    data: {
+      type: 'del',
+      data: data
+    },
     header: header,
-    success: function (res) {
+    success: function(res) {
       console.log('发送删除POST：', res);
       if (res.hasOwnProperty('data')) {
         let ret = res['data'];
