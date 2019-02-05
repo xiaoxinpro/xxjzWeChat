@@ -26,6 +26,7 @@ Page({
     arrList: [],
     isLoadMore: true,
     isAddData: false,
+    isHiddenFunds: true,
   },
 
   /**
@@ -262,6 +263,7 @@ function JsonToList(ListData) {
   var json = [];
   var strDate = "";
   var arrClass = wx.getStorageSync('allClass');
+  var arrFunds = wx.getStorageSync('Funds');
   var key = that.data.arrList.length;
 
   if (ListData.length <= 0) {
@@ -300,12 +302,14 @@ function JsonToList(ListData) {
     var classType = ListData[i].zhifu == "1" ? "收入" : "支出";
     var className = arrClass[ListData[i].acclassid].name;
     var classIcon = arrClass[ListData[i].acclassid].icon;
+    var fundsName = arrFunds[ListData[i].fid].name;
     json.push({
       key: key++,
       isTitle: false,
       id: ListData[i].acid,
       type: classType,
       class: className,
+      funds: fundsName,
       money: ListData[i].acmoney,
       mark: ListData[i].acremark,
       icon: classIcon,
@@ -342,7 +346,8 @@ function JsonToList(ListData) {
       console.log("新增arrList数据：", json);
 
       that.setData({
-        arrList: that.data.arrList.concat(json)
+        arrList: that.data.arrList.concat(json),
+        isHiddenFunds: (arrFunds.length <= 1),
       });
     }
   });
