@@ -33,6 +33,16 @@ Page({
     dateEndtStr: "",
   },
 
+
+  /**
+   * 资金账户改变事件
+   */
+  bindFundsChange: function (e) {
+    this.setData({
+      FundsIndex: e.detail.value
+    })
+  },
+
   /**
    * 收支改变事件
    */
@@ -95,6 +105,7 @@ Page({
 
     //获取表单并转换数据
     var DataObj = e.detail.value;
+    DataObj['find_funds'] = that.data.FundsList.value[DataObj['find_funds']];
     DataObj['find_class'] = that.data.ClassList.value[DataObj['find_class']];
 
     //整理发送内容
@@ -103,9 +114,12 @@ Page({
     FindData.jiid = user.uid;
     DataObj['find_uid'] = user.uid;
     DataObj['find_username'] = user.username;
+    if(DataObj['find_funds'] >= 0) {
+      FindData.fid = parseInt(DataObj['find_funds']);
+    }
     if (DataObj['find_type'] !== 0) {
       FindData.zhifu = parseInt(DataObj['find_type']);
-      if (DataObj['find_class'] !== 0) {
+      if (DataObj['find_class'] >= 0) {
         FindData.acclassid = parseInt(DataObj['find_class']);
       } else {
         DataObj['find_class'] = '全部';
@@ -212,6 +226,8 @@ Page({
 /** 初始化表单 */
 function initForm() {
   that.setData({
+    FundsIndex: 0,
+    FundsList: getFunds(),
     typeIndex: 0,
     ClassIndex: 0,
     ClassHide: true,
@@ -223,9 +239,24 @@ function initForm() {
   });
 }
 
+
+/** 获取资金账户 */
+function getFunds() {
+  var FundsObj = wx.getStorageSync('Funds');
+  var FundsList = { value: [-1], name: ['全部'] };
+  for (var i in FundsObj) {
+    if (FundsObj[i]) {
+      FundsList.value.push(parseInt(FundsObj[i].id));
+      FundsList.name.push(FundsObj[i].name);
+    }
+  }
+  console.log('加载资金账户数据:', FundsList);
+  return FundsList;
+}
+
 /** 获取分类(收支类别) */
 function getClass(type) {
-  var ClassList = { value: [0], name: ['全部'] };
+  var ClassList = { value: [-1], name: ['全部'] };
   if (type == 1) {
     var ClassObj = wx.getStorageSync('inClass');
   } else if (type == 2) {

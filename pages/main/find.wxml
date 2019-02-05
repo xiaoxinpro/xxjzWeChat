@@ -8,6 +8,19 @@
       <!--记账表单-->
       <view class="weui-cells__title">搜索账单</view>
       <view class="weui-cells weui-cells_after-title">
+
+        <!--账户选择-->
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">账户</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindFundsChange" name="find_funds" value="{{FundsIndex}}" range="{{FundsList.name}}">
+              <view class="weui-select weui-select_in-select-after">{{FundsList.name[FundsIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+
         <!--类别选择-->
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
