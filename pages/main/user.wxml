@@ -65,9 +65,14 @@
       </navigator>
     </view>
   </view>
+  <view style="padding: 0.25rem;"></view>
+  <!-- 反馈 -->
+  <view style="padding: 0.5rem;">
+    <button type="primary" open-type="feedback">问题反馈</button>
+  </view>
 
   <!-- 退出 -->
-  <view style="padding: 1rem;">
+  <view style="padding: 0.5rem;">
     <button type="warn" bindtap="btnLogout">退出登陆</button>
   </view>
 </view>
