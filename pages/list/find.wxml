@@ -51,8 +51,10 @@
           <view class="list-item-title">{{item.class}}</view>
           <view class="list-item-mark">备注：{{item.mark}}</view>
         </view>
-        <view class="weui-cell__ft">￥{{item.money}}</view>
-
+        <view class="weui-cell__ft">
+          <view class="list-text-ft">￥{{item.money}}</view>
+          <view hidden="{{isHiddenFunds}}" class="list-item-mark">{{item.funds}}</view>
+        </view>
       </navigator>
     </view>
   </view>
