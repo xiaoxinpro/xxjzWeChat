@@ -87,7 +87,7 @@ App({
           let ret = res['data'];
           if (ret['uid'] == uid) {
             let data = ret['data'];
-            var arrFunds = wx.getStorageSync('Funds') || Array();
+            var arrFunds = Array();
             for (var i in data) {
               arrFunds[data[i].id] = {
                 id: data[i].id,
