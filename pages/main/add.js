@@ -22,8 +22,10 @@ Page({
 
     money: "",
 
+    isHiddenFunds: true,
+
     ClassIndex: 0,
-    ClassList: [{ id: 0, name: "123" }],
+    ClassList: { value: [], name: [] },
 
     mark: "",
 
@@ -43,13 +45,17 @@ Page({
         typeValue = typeItems[i].name;
       }
     }
-
-    getClass(typeValue, this);
-
+    var FundsList = getFunds();
     this.setData({
       typeItems: typeItems,
-      typeValue: typeValue
+      typeValue: typeValue,
+      ClassIndex: 0,
+      ClassList: getClass(typeValue),
+      FundsIndex: 0,
+      FundsList: FundsList,
+      isHiddenFunds: (FundsList.name.length <= 1),
     });
+
   },
 
   /**
@@ -244,17 +250,25 @@ function initForm(that) {
   }
   var strNow = "" + year + "-" + month + "-" + day;
 
+  var ClassList;
   if (that.data.typeValue == "收入") {
-    getClass('收入', that);
+    ClassList = getClass('收入');
   } else { //支出 
-    getClass('支出', that);
+    ClassList = getClass('支出');
   }
+
+  var FundsList = getFunds();
 
   that.setData({
     money: "",
     mark: "",
     date: strNow,
-    dateStr: txtNow
+    dateStr: txtNow,
+    ClassIndex: 0,
+    ClassList: ClassList,
+    FundsIndex: 0,
+    FundsList: FundsList,
+    isHiddenFunds: (FundsList.name.length <= 1),
   });
 }
 
@@ -273,7 +287,7 @@ function getFunds() {
 }
 
 /** 获取分类(收支类别) */
-function getClass(type, that) {
+function getClass(type) {
   if (type == '收入') {
     var ClassObj = wx.getStorageSync('inClass');
   } else {
@@ -285,12 +299,6 @@ function getClass(type, that) {
     ClassList.name.push(ClassObj[i]);
   }
   console.log('加载分类数据:', ClassList);
-  that.setData({
-    ClassIndex: 0,
-    ClassList: ClassList,
-    FundsIndex: 0,
-    FundsList: getFunds(),
-  });
   if (!ClassObj) {
     wx.showModal({
       title: '未添加' + type + '分类',
@@ -305,6 +313,7 @@ function getClass(type, that) {
       }
     })
   }
+  return ClassList;
 }
 
 // /** 校验输入金额 */
