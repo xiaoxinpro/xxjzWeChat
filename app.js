@@ -60,6 +60,26 @@ App({
     })
   },
 
+  // 根据资金账户ID获取名称
+  GetFundsName: function (id) {
+    var FundData = wx.getStorageSync('Funds');
+    for (var i in FundData) {
+      if (FundData[i].id == id) {
+        return FundData[i].name;
+      }
+    }
+  },
+
+  // 根据资金账户名称获取ID
+  GetFundsId: function(name) {
+    var FundData = wx.getStorageSync('Funds');
+    for (var i in FundData) {
+      if (FundData[i].name == name) {
+        return parseInt(FundData[i].id);
+      }
+    }
+  },
+
   // 获取资金账户数据
   GetFundsData: function(uid, callback) {
     if (uid > 0) {
@@ -87,16 +107,16 @@ App({
           let ret = res['data'];
           if (ret['uid'] == uid) {
             let data = ret['data'];
-            var arrFunds = Array();
-            for (var i in data) {
-              arrFunds[data[i].id] = {
-                id: data[i].id,
-                name: data[i].name,
-                money: data[i].money,
-              };
-            }
-            wx.setStorageSync('Funds', arrFunds);
-            callback(true, arrFunds.length, arrFunds);
+            // var arrFunds = Array();
+            // for (var i in data) {
+            //   arrFunds[data[i].id] = {
+            //     id: data[i].id,
+            //     name: data[i].name,
+            //     money: data[i].money,
+            //   };
+            // }
+            wx.setStorageSync('Funds', data);
+            callback(true, data.length, data);
           } else {
             callback(false, 0, "登录验证已过期，请重新登录。");
           }
