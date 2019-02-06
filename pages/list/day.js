@@ -302,7 +302,7 @@ function JsonToList(ListData) {
     var classType = ListData[i].zhifu == "1" ? "收入" : "支出";
     var className = arrClass[ListData[i].acclassid].name;
     var classIcon = arrClass[ListData[i].acclassid].icon;
-    var fundsName = arrFunds[ListData[i].fid].name;
+    var fundsName = getApp().GetFundsName(ListData[i].fid);
     json.push({
       key: key++,
       isTitle: false,
