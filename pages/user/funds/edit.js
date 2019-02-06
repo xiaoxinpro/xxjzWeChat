@@ -66,22 +66,37 @@ Page({
         }
       })
     } else {
+      var FundsData;
       var FundsArr = wx.getStorageSync('Funds');
-      var FundsObj = fundsDataProcess(FundsArr, FundsId);
       var FundsList = {
         id: [],
         name: []
       };
-      for (var i in FundsObj) {
-        FundsList.id.push(FundsObj[i].id);
-        FundsList.name.push(FundsObj[i].name);
+      for (var i in FundsArr) {
+        if (FundsArr[i].id == FundsId) {
+          FundsData = FundsArr[i];
+        } else {
+          FundsList.id.push(FundsArr[i].id);
+          FundsList.name.push(FundsArr[i].name);
+        }
       }
-      console.log(FundsArr);
-      that.setData({
-        FundsCount: parseInt(FundsArr[FundsId].money.count),
-        FundsName: FundsArr[FundsId].name,
-        FundsList: FundsList
-      });
+      if (FundsData) {
+        that.setData({
+          FundsCount: parseInt(FundsData.money.count),
+          FundsName: FundsData.name,
+          FundsList: FundsList
+        });
+      } else {
+        wx.showModal({
+          title: '无法编辑',
+          content: '抱歉，未找到可编辑的资金账户！',
+          showCancel: false,
+          confirmText: '返回',
+          success: function () {
+            wx.navigateBack({});
+          }
+        })
+      }
     }
   },
 
