@@ -155,7 +155,7 @@ function initData(user) {
           that.setData({
             uid: user.uid,
             uname: user.username,
-            email: user.email,
+            email: user.email ? user.email : '',
           });
           UpdataAvatar();
         }
@@ -164,7 +164,7 @@ function initData(user) {
       that.setData({
         uid: user.uid,
         uname: user.username,
-        email: user.email,
+        email: user.email ? user.email : '',
       });
       UpdataAvatar();
     }
