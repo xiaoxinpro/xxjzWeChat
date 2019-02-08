@@ -45,7 +45,17 @@ Page({
    * 资金账户删除事件
    */
   submit_delete: function(res) {
-    cmdDeleteFunds(this.data.FundsList.id[res.detail.value.funds_id])
+    wx.showModal({
+      title: '确认转移并删除',
+      content: '请仔细核对删除与转移的资金账户，确认后不可恢复！',
+      confirmText: '确认',
+      confirmColor: '#e51c23',
+      success(res) {
+        if (res.confirm) {
+          cmdDeleteFunds(this.data.FundsList.id[res.detail.value.funds_id])
+        }
+      }
+    })
   },
 
   /**
