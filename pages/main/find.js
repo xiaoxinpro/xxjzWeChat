@@ -21,6 +21,8 @@ Page({
 
     money: "",
 
+    isHiddenFunds: true,
+
     ClassIndex: 0,
     ClassHide: true,
     ClassList: { value: [], name: [] },
@@ -225,9 +227,11 @@ Page({
 
 /** 初始化表单 */
 function initForm() {
+  var FundsList = getFunds();
   that.setData({
     FundsIndex: 0,
-    FundsList: getFunds(),
+    FundsList: FundsList,
+    isHiddenFunds: (FundsList.name.length <= 2),
     typeIndex: 0,
     ClassIndex: 0,
     ClassHide: true,
