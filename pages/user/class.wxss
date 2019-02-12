@@ -9,7 +9,7 @@ page, .page, .page__bd {
 }
 
 .page__list {
-  padding-top: 20px;
+  padding-top: 15px;
 }
 
 .weui-tab__content {
