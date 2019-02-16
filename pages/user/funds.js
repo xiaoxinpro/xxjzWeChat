@@ -203,6 +203,7 @@ function initData(callback) {
   } else {
     getFundsData(function(data) {
       that.setData({
+        FundsName: '',
         FundsList: fundsDataProcess(data)
       });
     });
