@@ -260,24 +260,6 @@ Page({
         }
       })
     }
-
-    //获取页面数据
-    wx.showLoading({
-      title: '加载中',
-    });
-    var jsonData = {};
-    jsonData.type = 'get_id';
-    jsonData.data = Base64.encoder(JSON.stringify({
-      acid: varId,
-      jiid: wx.getStorageSync('user').uid
-    }));
-    getIdData(jsonData, function(ret) {
-      //初始化表单
-      initForm(ret['data']);
-      wx.hideLoading();
-    });
-
-
   },
 
   /**
@@ -291,7 +273,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    that = this;
+    //获取页面数据
+    wx.showLoading({
+      title: '加载中',
+    });
+    var jsonData = {};
+    jsonData.type = 'get_id';
+    jsonData.data = Base64.encoder(JSON.stringify({
+      acid: varId,
+      jiid: wx.getStorageSync('user').uid
+    }));
+    getIdData(jsonData, function (ret) {
+      //初始化表单
+      initForm(ret['data']);
+      wx.hideLoading();
+    });
   },
 
   /**
