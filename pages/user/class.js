@@ -29,6 +29,15 @@ Page({
     editClassName: "分类名称",
     hiddenmodalput: true,
   },
+  
+  /**
+   * 返回按钮
+   */
+  bindBack: function () {
+    wx.navigateBack({
+      delta: 1
+    });
+  },
 
   /**
    * 点击标签事件

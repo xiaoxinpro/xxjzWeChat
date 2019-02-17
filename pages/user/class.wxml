@@ -94,6 +94,9 @@
             </view>
           </view>
         </view>
+        <view class="weui-btn-area">
+          <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+        </view>
         <view style="margin:20px;"></view>
       </view>
     </view>
