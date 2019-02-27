@@ -39,10 +39,12 @@
         <!--资金账户选择-->
         <view hidden="{{isHiddenFunds}}" class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
-            <navigator url="../user/funds" class="weui-label">
-              <text>账户 </text>
-              <span class="iconfont icon-shezhi"></span>
-            </navigator>
+            <view class="weui-label">
+              <navigator url="../user/funds" style="margin-right:45px;">
+                <text>账户 </text>
+                <span class="iconfont icon-shezhi"></span>
+              </navigator>
+            </view>
           </view>
           <view class="weui-cell__bd">
             <picker bindchange="bindFundsChange" name="add_funds" value="{{FundsIndex}}" range="{{FundsList.name}}">
@@ -53,10 +55,12 @@
         <!--分类选择-->
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
-            <navigator url="../user/class?type={{typeId % 2}}" class="weui-label">
-              <text>分类 </text>
-              <span class="iconfont icon-shezhi"></span>
-            </navigator>
+            <view class="weui-label">
+              <navigator url="../user/class?type={{typeId % 2}}" style="margin-right:45px;">
+                <text>分类 </text>
+                <span class="iconfont icon-shezhi"></span>
+              </navigator>
+            </view>
           </view>
           <view class="weui-cell__bd">
             <picker bindchange="bindClassChange" name="add_class" value="{{ClassIndex}}" range="{{ClassList.name}}">
