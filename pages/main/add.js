@@ -15,6 +15,7 @@ Page({
 
     typeName: "类型",
     typeValue: "支出",
+    typeId: '2',
     typeItems: [
       { name: '支出', value: '2', checked: true },
       { name: '收入', value: '1' }
@@ -38,17 +39,20 @@ Page({
    */
   typeChange: function (e) {
     var typeValue = "";
+    var typeId = 2;
     var typeItems = this.data.typeItems;
     for (var i in typeItems) {
       typeItems[i].checked = typeItems[i].value == e.detail.value;
       if (typeItems[i].checked) {
         typeValue = typeItems[i].name;
+        typeId = typeItems[i].value;
       }
     }
     var FundsList = getFunds();
     this.setData({
       typeItems: typeItems,
       typeValue: typeValue,
+      typeId: typeId,
       ClassIndex: 0,
       ClassList: getClass(typeValue),
       FundsIndex: 0,
@@ -189,14 +193,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    initForm(this, true);
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    initForm(this);
+    initForm(this, false);
   },
 
   /**
@@ -236,7 +240,7 @@ Page({
 })
 
 /** 初始化表单 */
-function initForm(that) {
+function initForm(that, isReload = true) {
   var now = new Date();
   var year = now.getFullYear();
   var month = now.getMonth() + 1;
@@ -259,17 +263,24 @@ function initForm(that) {
 
   var FundsList = getFunds();
 
-  that.setData({
-    money: "",
-    mark: "",
-    date: strNow,
-    dateStr: txtNow,
-    ClassIndex: 0,
-    ClassList: ClassList,
-    FundsIndex: 0,
-    FundsList: FundsList,
-    isHiddenFunds: (FundsList.name.length <= 1),
-  });
+  if (isReload){
+    that.setData({
+      money: "",
+      mark: "",
+      date: strNow,
+      dateStr: txtNow,
+      ClassIndex: 0,
+      ClassList: ClassList,
+      FundsIndex: 0,
+      FundsList: FundsList,
+      isHiddenFunds: (FundsList.name.length <= 1),
+    });
+  }else {
+    that.setData({
+      ClassList: ClassList,
+      FundsList: FundsList,
+    });
+  }
 }
 
 /** 获取资金账户 */
