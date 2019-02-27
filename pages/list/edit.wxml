@@ -40,7 +40,10 @@
         <!--资金账户选择-->
         <view hidden="{{isHiddenFunds}}" class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
-            <view class="weui-label">账户</view>
+            <navigator url="../user/funds" class="weui-label">
+              <text>账户 </text>
+              <span class="iconfont icon-shezhi"></span>
+            </navigator>
           </view>
           <view class="weui-cell__bd">
             <picker bindchange="bindFundsChange" name="edit_funds" value="{{FundsIndex}}" range="{{FundsList.name}}">
@@ -52,7 +55,10 @@
         <!--分类选择-->
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
-            <view class="weui-label">分类</view>
+            <navigator url="../user/class?type={{typeId % 2}}" class="weui-label">
+              <text>分类 </text>
+              <span class="iconfont icon-shezhi"></span>
+            </navigator>
           </view>
           <view class="weui-cell__bd">
             <picker bindchange="bindClassChange" name="edit_class" value="{{ClassIndex}}" range="{{ClassList.name}}">
@@ -77,7 +83,7 @@
             <view class="weui-label">日期</view>
           </view>
           <view class="weui-cell__bd">
-            <picker mode="date"  name="edit_time" value="{{date}}" start="2000-1-1" end="2118-12-31" bindchange="bindDateChange">
+            <picker mode="date" name="edit_time" value="{{date}}" start="2000-1-1" end="2118-12-31" bindchange="bindDateChange">
               <view class="weui-input">{{dateStr}}</view>
             </picker>
           </view>

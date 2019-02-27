@@ -16,6 +16,7 @@ Page({
 
     typeName: "类型",
     typeValue: "支出",
+    typeId: '2',
     typeItems: [{
         name: '支出',
         value: '2',
@@ -48,11 +49,13 @@ Page({
    */
   typeChange: function(e) {
     var typeValue = "";
+    var typeId = 2;
     var typeItems = this.data.typeItems;
     for (var i in typeItems) {
       typeItems[i].checked = typeItems[i].value == e.detail.value;
       if (typeItems[i].checked) {
         typeValue = typeItems[i].name;
+        typeId = typeItems[i].value;
       }
     }
 
@@ -62,7 +65,8 @@ Page({
 
     this.setData({
       typeItems: typeItems,
-      typeValue: typeValue
+      typeValue: typeValue,
+      typeId: typeId,
     });
   },
 
