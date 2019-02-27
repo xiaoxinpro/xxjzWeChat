@@ -38,7 +38,7 @@
         </view>
 
         <!--资金账户选择-->
-        <view class="weui-cell weui-cell_select">
+        <view hidden="{{isHiddenFunds}}" class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">账户</view>
           </view>

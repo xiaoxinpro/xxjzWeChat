@@ -29,6 +29,8 @@ Page({
 
     money: "",
 
+    isHiddenFunds: true,
+
     ClassIndex: 0,
     ClassList: [{
       id: 0,
@@ -377,6 +379,7 @@ function getFunds(fundsid) {
   that.setData({
     FundsIndex: FundsIndex,
     FundsList: FundsList,
+    isHiddenFunds: (FundsList.name.length <= 1),
   });
 }
 
