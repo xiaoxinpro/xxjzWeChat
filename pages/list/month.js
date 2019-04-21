@@ -318,10 +318,10 @@ function JsonToList(ListData) {
       isTitle: false,
       id: ListData[i].acid,
       type: classType,
-      class: className,
-      funds: fundsName,
+      class: getApp().ShowString(className),
+      funds: getApp().ShowString(fundsName),
       money: ListData[i].acmoney,
-      mark: ListData[i].acremark,
+      mark: getApp().ShowString(ListData[i].acremark),
       icon: classIcon,
     });
 
