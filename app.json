@@ -65,5 +65,6 @@
     "navigationBarTitleText": "小歆记账",
     "navigationBarTextStyle": "white"
   },
-  "resizable": true
+  "resizable": true,
+  "sitemapLocation": "sitemap.json"
 }
