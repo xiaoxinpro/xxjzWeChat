@@ -174,70 +174,31 @@ App({
 
   // 获取分类图标名称
   GetClassIcon(calssType, className) {
-    var iconName = 'other.png';
-    switch (className) {
-      case '吃饭':
-      case '饮食':
-      case '食物':
-        iconName = 'food.png';
-        break;
-      case '电子':
-        iconName = 'electric.png';
-        break;
-      case '电器':
-        iconName = 'camera.png';
-        break;
-      case '衣服':
-      case '服装':
-      case '服饰':
-        iconName = 'clothes.png';
-        break;
-      case '生活':
-      case '生活用品':
-        iconName = 'life.png';
-        break;
-      case '工资':
-        iconName = 'jobs.png';
-        break;
-      case '送礼':
-        iconName = 'gift.png';
-        break;
-      case '红包':
-      case '礼金':
-        iconName = 'gifts.png';
-        break;
-      case '奖金':
-        iconName = 'prize.png';
-        break;
-      case '交通':
-      case '公交':
-      case '出行':
-      case '地铁':
-      case '路费':
-      case '油费':
-        iconName = 'traffic.png';
-        break;
-      case '住宿':
-      case '住房':
-      case '房租':
-      case '房子':
-        iconName = 'house.png';
-        break;
-      case '药品':
-        iconName = 'drug.png';
-        break;
-      case '健身':
-        iconName = 'fitness.png';
-        break;
-      case '医院':
-      case '医疗':
-        iconName = 'Injecting.png';
-        break;
-      default:
-        iconName = 'other.png';
-        break;
+    var iconList = {};
+    iconList['food.png'] = ['吃饭', '饮食', '食物'];
+    iconList['electric.png'] = ['电子'];
+    iconList['camera.png'] = ['电器'];
+    iconList['clothes.png'] = ['衣服', '服装', '服饰'];
+    iconList['life.png'] = ['生活', '生活用品'];
+    iconList['jobs.png'] = ['工资'];
+    iconList['gift.png'] = ['送礼'];
+    iconList['gifts.png'] = ['红包', '礼金'];
+    iconList['prize.png'] = ['奖金'];
+    iconList['traffic.png'] = ['交通', '公交', '出行', '地铁', '路费', '油费'];
+    iconList['house.png'] = ['住宿', '住房', '房租', '房子'];
+    iconList['drug.png'] = ['药品'];
+    iconList['fitness.png'] = ['健身'];
+    iconList['Injecting.png'] = ['医院', '医疗'];
+    console.log('->临时调试:', calssType,className,iconList);
+    for(var iconName in iconList) {
+      console.log('->临时调试:', iconName, iconList[iconName]);
+      for(var item in iconList[iconName]) {
+        if (className.indexOf(iconList[iconName][item]) >= 0) {
+          return iconName;
+        }
+      }
     }
-    return iconName;
+    return 'other.png';
   },
 
   // 获取自动复制文本
