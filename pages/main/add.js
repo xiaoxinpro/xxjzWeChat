@@ -99,7 +99,7 @@ Page({
    */
   submit: function (e) {
     _that = this;
-
+    var submitDataType = e.detail.target.dataset.type;
     //获取表单并转换数据
     var DataObj = e.detail.value;
     DataObj['add_fundsname'] = _that.data.FundsList.name[DataObj['add_funds']];
@@ -151,9 +151,11 @@ Page({
                   title: '记账完成',
                 });
                 //延时页面跳转
+                initForm(_that);
                 setTimeout(function () {
-                  initForm(_that);
-                  wx.switchTab({ url: 'main' });
+                  if (submitDataType == 'end') {
+                    wx.switchTab({ url: 'main' });
+                  }
                 }, 500);
               } else {
                 //记账失败

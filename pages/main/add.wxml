@@ -93,7 +93,8 @@
 
       </view>
       <view class="weui-btn-area">
-        <button class="weui-btn weui-btn-info" formType="submit">添加</button>
+        <button data-type='add' class="weui-btn weui-btn-primary" formType="submit">保存</button>
+        <button data-type='end' class="weui-btn weui-btn-info" formType="submit">保存并返回</button>
         <button class="weui-btn" type="default" bindtap="gotoMain">返回</button>
       </view>
     </form>
