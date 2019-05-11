@@ -175,23 +175,23 @@ App({
   // 获取分类图标名称
   GetClassIcon(calssType, className) {
     var iconList = {};
-    iconList['food.png'] = ['吃饭', '饮食', '食物'];
+    iconList['food.png'] = ['饭', '饮', '食', '下馆子'];
     iconList['electric.png'] = ['电子'];
     iconList['camera.png'] = ['电器'];
-    iconList['clothes.png'] = ['衣服', '服装', '服饰'];
-    iconList['life.png'] = ['生活', '生活用品'];
-    iconList['jobs.png'] = ['工资'];
+    iconList['clothes.png'] = ['服'];
+    iconList['life.png'] = ['生活'];
+    iconList['jobs.png'] = ['工资', '商务'];
     iconList['gift.png'] = ['送礼'];
     iconList['gifts.png'] = ['红包', '礼金'];
     iconList['prize.png'] = ['奖金'];
-    iconList['traffic.png'] = ['交通', '公交', '出行', '地铁', '路费', '油费'];
-    iconList['house.png'] = ['住宿', '住房', '房租', '房子'];
-    iconList['drug.png'] = ['药品'];
+    iconList['traffic.png'] = ['交通', '公交', '出行', '地铁', '路费', '油费', '火车'];
+    iconList['house.png'] = ['住', '房', '旅店', '宿'];
+    iconList['drug.png'] = ['药'];
     iconList['fitness.png'] = ['健身'];
-    iconList['Injecting.png'] = ['医院', '医疗'];
-    console.log('->临时调试:', calssType,className,iconList);
+    iconList['Injecting.png'] = ['医'];
+    iconList['entertainment.png'] = ['文娱', '娱乐', '歌'];
+    iconList['wage.png'] = ['借', '还', '补贴', '分红', '信用卡'];
     for(var iconName in iconList) {
-      console.log('->临时调试:', iconName, iconList[iconName]);
       for(var item in iconList[iconName]) {
         if (className.indexOf(iconList[iconName][item]) >= 0) {
           return iconName;
