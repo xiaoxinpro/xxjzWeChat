@@ -191,6 +191,7 @@ App({
     iconList['Injecting.png'] = ['医'];
     iconList['entertainment.png'] = ['文娱', '娱乐', '歌'];
     iconList['wage.png'] = ['借', '还', '补贴', '分红', '信用卡'];
+    iconList['xianyu.png'] = ['闲鱼','咸鱼','二手'];
     for(var iconName in iconList) {
       for(var item in iconList[iconName]) {
         if (className.indexOf(iconList[iconName][item]) >= 0) {
