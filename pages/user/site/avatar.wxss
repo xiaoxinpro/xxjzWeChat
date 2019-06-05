@@ -1,0 +1,44 @@
+/* pages/user/site/avatar.wxss */
+
+.cropper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cropper-buttons {
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+.btn {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 48rpx;
+  border-radius: 2px;
+}
+
+.cropper-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  background-color: #e5e5e5;
+}
+
+.cropper-buttons {
+  display: flex;
+  flex-direction: row;
+  height: 75px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.cropper-buttons .upload, .cropper-buttons .getCropperImage {
+  text-align: center;
+}

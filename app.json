@@ -25,7 +25,8 @@
     "pages/tool/goodEvaluate",
     "pages/tool/site",
     "pages/user/funds",
-    "pages/user/funds/edit"
+    "pages/user/funds/edit",
+    "pages/user/site/avatar"
   ],
   "tabBar": {
     "color": "#919191",

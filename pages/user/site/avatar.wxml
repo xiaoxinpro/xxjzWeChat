@@ -1,0 +1,20 @@
+<import src="../../../we-cropper/we-cropper.wxml"/>
+
+<view class="cropper-wrapper">
+  <template is="we-cropper" data="{{...cropperOpt}}"/>
+  <view class="cropper-buttons" style="color: {{cropperOpt.boundStyle.color}}">
+    <!-- <view
+      class="upload btn"
+      bindtap="uploadTap">
+      重选
+    </view>
+    <view
+      class="getCropperImage btn"
+      style="background-color: {{cropperOpt.boundStyle.color}};"
+      bindtap="getCropperImage">
+      保存
+    </view> -->
+    <view class="btn upload weui-btn-danger" bindtap="uploadTap">重选</view>
+    <view class="btn getCropperImage weui-btn-primary" bindtap="getCropperImage">确定</view>
+  </view>
+</view>
