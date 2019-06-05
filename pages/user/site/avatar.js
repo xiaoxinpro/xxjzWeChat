@@ -46,18 +46,7 @@ Page({
         })
       } else {
         console.log(path);
-        wx.saveFile({
-          tempFilePath: path,
-          success: function(res) {
-            var avatarPath = res.savedFilePath;
-            console.log(avatarPath);
-            wx.setStorage({
-              key: 'avatarPath',
-              data: avatarPath,
-            });
-            wx.navigateBack();
-          }
-        });
+        SaveAvatarFile(path);
       }
     })
   },
@@ -66,12 +55,11 @@ Page({
 
     wx.chooseImage({
       count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有['original', 'compressed']
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success(res) {
         const src = res.tempFilePaths[0]
         //  获取裁剪图片资源后，给data添加src属性及其值
-
         self.cropper.pushOrign(src)
       }
     })
@@ -91,11 +79,11 @@ Page({
       cropperOpt.src = option.src
       this.cropper = new WeCropper(cropperOpt)
         .on('ready', (ctx) => {
-          console.log(`wecropper is ready for work!`)
+          // console.log(`wecropper is ready for work!`)
         })
         .on('beforeImageLoad', (ctx) => {
-          console.log(`before picture loaded, i can do something`)
-          console.log(`current canvas context:`, ctx)
+          // console.log(`before picture loaded, i can do something`)
+          // console.log(`current canvas context:`, ctx)
           wx.showToast({
             title: '上传中',
             icon: 'loading',
@@ -103,14 +91,62 @@ Page({
           })
         })
         .on('imageLoad', (ctx) => {
-          console.log(`picture loaded`)
-          console.log(`current canvas context:`, ctx)
+          // console.log(`picture loaded`)
+          // console.log(`current canvas context:`, ctx)
           wx.hideToast()
         })
         .on('beforeDraw', (ctx, instance) => {
-          console.log(`before canvas draw,i can do something`)
-          console.log(`current canvas context:`, ctx)
+          // console.log(`before canvas draw,i can do something`)
+          // console.log(`current canvas context:`, ctx)
         })
     }
   }
 })
+
+function SaveAvatarFile(path) {
+  wx.saveFile({
+    tempFilePath: path,
+    success: function (res) {
+      //获取旧头像并删除
+      var avatarPath = wx.getStorageSync('avatarPath');
+      if (avatarPath) {
+        wx.removeSavedFile({
+          filePath: avatarPath,
+        });
+      }
+
+      //更新新头像配置
+      avatarPath = res.savedFilePath;
+      console.log(avatarPath);
+      wx.setStorage({
+        key: 'avatarPath',
+        data: avatarPath,
+      });
+
+      //提示成功并延时&返回
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 800,
+        success: function () {
+          setTimeout(function () {
+            wx.navigateBack();
+          }, 800);
+        }
+      });
+    },
+    fail: function (err) {
+      console.log('保存文件失败：', err);
+      wx.getSavedFileList({
+        success(res) {
+          for (var path in res.fileList) {
+            console.log('文件路径：', res.fileList[path].filePath);
+            wx.removeSavedFile({
+              filePath: res.fileList[path].filePath,
+            });
+          }
+        }
+      });
+    }
+  });
+}
