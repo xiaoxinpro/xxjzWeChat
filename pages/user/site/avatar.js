@@ -50,6 +50,10 @@ Page({
       }
     })
   },
+  getDefaultImage() {
+    wx.removeStorageSync('avatarPath');
+    wx.navigateBack();
+  },
   uploadTap() {
     const self = this
 

@@ -4,6 +4,7 @@
   <template is="we-cropper" data="{{...cropperOpt}}"/>
   <view class="cropper-buttons" style="color: {{cropperOpt.boundStyle.color}}">
     <view class="btn upload weui-btn-danger" bindtap="uploadTap">重选</view>
+    <view class="btn upload weui-btn-info" bindtap="getDefaultImage">微信头像</view>
     <view class="btn upload weui-btn-primary" bindtap="getCropperImage">确定</view>
   </view>
 </view>
