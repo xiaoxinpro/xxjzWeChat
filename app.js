@@ -47,6 +47,14 @@ App({
         wx.saveFile({
           tempFilePath: path,
           success: function(res) {
+            //删除旧头像
+            path = wx.getStorageSync('avatarPath');
+            if (path) {
+              wx.removeSavedFile({
+                filePath: path,
+              });
+            }
+            //保存新头像
             path = res.savedFilePath;
             console.log('头像永久路径', path);
             wx.setStorage({
