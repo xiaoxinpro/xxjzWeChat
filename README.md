@@ -27,7 +27,7 @@
 ## 目录结构
 
     xxjzWeChat 微信小程序目录
-        ├─ec-canvas 图表控件
+        ├─ec-canvas 图表插件
         ├─image 图片目录
         │ └─icon_class 分类图标目录
         ├─pages 页面目录
@@ -40,6 +40,7 @@
         ├─utils 公共目录
         │ ├─base64.js 加密解密库
         │ └─util.js 公共函数库
+        ├─we-cropper 图片裁剪插件
         ├─app.js 小程序逻辑
         ├─app.json 小程序公共设置
         ├─app.wxss 小程序公共样式表
@@ -56,3 +57,4 @@
 * [xxjzWeb](https://github.com/xiaoxinpro/xxjzWeb)
 * [WeChat](https://mp.weixin.qq.com/debug/wxadoc/dev/index.html)
 * [WeUI](https://github.com/Tencent/weui)
+* [we-cropper](https://github.com/we-plugin/we-cropper)
