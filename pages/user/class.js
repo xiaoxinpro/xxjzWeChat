@@ -76,6 +76,37 @@ Page({
   },
 
   /**
+   * 弹出分类菜单
+   */
+  btnClassMenu: function(e) {
+    that = this;
+    // console.log(e.currentTarget.dataset);
+    var classData = e.currentTarget.dataset;
+    e.target = e.currentTarget;
+    wx.showActionSheet({
+      itemList: ['编辑', '转移', '删除'],
+      success: function (res) {
+        if (!res.cancel) {
+          console.log(res.tapIndex)
+          switch (res.tapIndex) {
+            case 0:
+              that.btnClassEdit(e);
+              break;
+            case 1:
+              that.btnClassChange(e);
+              break;
+            case 2:
+              that.btnClassDelete(e);
+              break;
+            default:
+              break;
+          }
+        }
+      }
+    });
+  },
+
+  /**
    * 转移分类
    */
   btnClassChange: function(e) {
