@@ -22,13 +22,16 @@ Page({
     ],
 
     money: "",
+    moneyFocus: false,
 
     isHiddenFunds: true,
 
     ClassIndex: 0,
     ClassList: { value: [], name: [] },
+    ClassFacus: false,
 
     mark: "",
+    markFacus: false,
 
     date: "",
     dateStr: "",
@@ -58,6 +61,7 @@ Page({
       FundsIndex: 0,
       FundsList: FundsList,
       isHiddenFunds: (FundsList.name.length <= 1),
+      moneyFocus: true,
     });
 
   },
@@ -67,7 +71,8 @@ Page({
    */
   bindFundsChange: function (e) {
     this.setData({
-      FundsIndex: e.detail.value
+      FundsIndex: e.detail.value,
+      ClassFacus: true,
     })
   },
 
@@ -76,7 +81,8 @@ Page({
    */
   bindClassChange: function (e) {
     this.setData({
-      ClassIndex: e.detail.value
+      ClassIndex: e.detail.value,
+      markFacus: true,
     })
   },
 
@@ -276,11 +282,13 @@ function initForm(that, isReload = true) {
       FundsIndex: 0,
       FundsList: FundsList,
       isHiddenFunds: (FundsList.name.length <= 1),
+      moneyFocus: true,
     });
   }else {
     that.setData({
       ClassList: ClassList,
       FundsList: FundsList,
+      moneyFocus: true,
     });
   }
 }

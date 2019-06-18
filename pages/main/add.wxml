@@ -33,7 +33,7 @@
             <view class="weui-label">金额</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" name="add_money" type="digit" value="{{money}}" placeholder="输入{{typeValue}}金额" />
+            <input class="weui-input" name="add_money" type="digit" value="{{money}}" placeholder="输入{{typeValue}}金额" focus="{{moneyFocus}}" />
           </view>
         </view>
         <!--资金账户选择-->
@@ -63,7 +63,7 @@
             </view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="bindClassChange" name="add_class" value="{{ClassIndex}}" range="{{ClassList.name}}">
+            <picker bindchange="bindClassChange" name="add_class" value="{{ClassIndex}}" range="{{ClassList.name}}" focus="{{ClassFocus}}" >
               <view class="weui-select weui-select_in-select-after">{{ClassList.name[ClassIndex]}}</view>
             </picker>
           </view>
@@ -75,7 +75,7 @@
             <view class="weui-label">备注</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" name="add_mark" value="{{mark}}" placeholder="输入备注信息" />
+            <input class="weui-input" name="add_mark" value="{{mark}}" placeholder="输入备注信息" focus="{{markFacus}}" />
           </view>
         </view>
 
