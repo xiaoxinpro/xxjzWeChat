@@ -3,6 +3,7 @@
 var _that;
 var Base64 = require('../../utils/base64.js')
 var util = require('../../utils/util.js')
+var inputMoney = '';
 
 Page({
 
@@ -64,6 +65,13 @@ Page({
       moneyFocus: true,
     });
 
+  },
+
+  /**
+   * 金额输入事件
+   */
+  bingMoneyInput: function(e) {
+    inputMoney = e.detail.value;
   },
 
   /**
@@ -272,6 +280,7 @@ function initForm(that, isReload = true) {
   var FundsList = getFunds();
 
   if (isReload){
+    inputMoney = '';
     that.setData({
       money: "",
       mark: "",
@@ -284,11 +293,16 @@ function initForm(that, isReload = true) {
       isHiddenFunds: (FundsList.name.length <= 1),
       moneyFocus: true,
     });
-  }else {
+  } else if (inputMoney == '') {
     that.setData({
       ClassList: ClassList,
       FundsList: FundsList,
       moneyFocus: true,
+    });
+  } else {
+    that.setData({
+      ClassList: ClassList,
+      FundsList: FundsList,
     });
   }
 }

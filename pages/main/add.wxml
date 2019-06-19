@@ -33,7 +33,7 @@
             <view class="weui-label">金额</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" name="add_money" type="digit" value="{{money}}" placeholder="输入{{typeValue}}金额" focus="{{moneyFocus}}" />
+            <input class="weui-input" name="add_money" type="digit" value="{{money}}" placeholder="输入{{typeValue}}金额" focus="{{moneyFocus}}" bindinput="bingMoneyInput" />
           </view>
         </view>
         <!--资金账户选择-->
