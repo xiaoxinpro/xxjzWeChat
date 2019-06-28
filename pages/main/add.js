@@ -109,6 +109,19 @@ Page({
   },
 
   /**
+   * 清除文本按钮事件
+   */
+  bindResiteInput: function (event) {
+    var value = event.currentTarget.dataset.value;
+    var obj = {};
+    if (value) {
+      obj[value] = "";
+      this.setData(obj);
+    }
+    console.log(event, value, obj);
+  },
+
+  /**
    * 提交表单
    */
   submit: function (e) {

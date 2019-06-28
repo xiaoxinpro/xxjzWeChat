@@ -35,6 +35,9 @@
           <view class="weui-cell__bd">
             <input class="weui-input" name="add_money" type="digit" value="{{money}}" placeholder="输入{{typeValue}}金额" focus="{{moneyFocus}}" bindinput="bingMoneyInput" />
           </view>
+          <view class="weui-cell__ft" data-value="money" bindtap="bindResiteInput">
+            <text class="iconfont icon-shibai" style="color: #C8C8C8;"></text>
+          </view>
         </view>
         <!--资金账户选择-->
         <view hidden="{{isHiddenFunds}}" class="weui-cell weui-cell_select">
@@ -76,6 +79,9 @@
           </view>
           <view class="weui-cell__bd">
             <input class="weui-input" name="add_mark" value="{{mark}}" placeholder="输入备注信息" focus="{{markFacus}}" />
+          </view>
+          <view class="weui-cell__ft" data-value="mark" bindtap="bindResiteInput">
+            <text class="iconfont icon-shibai" style="color: #C8C8C8;"></text>
           </view>
         </view>
 
