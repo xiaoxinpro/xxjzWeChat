@@ -95,6 +95,9 @@
               <view class="weui-input">{{dateStr}}</view>
             </picker>
           </view>
+          <view class="weui-cell__ft" bindtap="bindResiteDate">
+            <text class="iconfont icon-dengdai" style="color: #C8C8C8;"></text>
+          </view>
         </view>
 
       </view>
