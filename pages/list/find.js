@@ -271,12 +271,13 @@ function JsonToList(ListData) {
 
   //从网络获取最后一个日期头的金额
   //整理Api参数
+  var objLastDate = new Date(lastListDate)
   var jsonData = {};
   jsonData.type = 'get';
   jsonData.data = Base64.encoder(JSON.stringify({
     gettype: "day",
-    year: varYear,
-    month: varMonth,
+    year: objLastDate.getFullYear(),
+    month: objLastDate.getMonth() + 1,
     day: util.strDateFormat(ListData[ListData.length - 1].actime, 'd'),
     page: 0
   }));
