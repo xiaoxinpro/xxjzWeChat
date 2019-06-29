@@ -122,6 +122,14 @@ Page({
   },
 
   /**
+   * 重置日期框事件
+   */
+  bindResiteDate: function(e) {
+    e.detail.value = new Date();
+    this.bindDateChange(e);
+  },
+
+  /**
    * 提交表单
    */
   submit: function (e) {
