@@ -97,6 +97,7 @@ Page({
     wx.createBLEConnection({
       deviceId,
       success: (res) => {
+        console.log('createBLEConnection', res)
         this.setData({
           connected: true,
           name,
@@ -121,10 +122,11 @@ Page({
     wx.getBLEDeviceServices({
       deviceId,
       success: (res) => {
+        console.log('getBLEDeviceServices', res)
         for (let i = 0; i < res.services.length; i++) {
           if (res.services[i].isPrimary) {
             this.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
-            return
+            // return
           }
         }
       }
