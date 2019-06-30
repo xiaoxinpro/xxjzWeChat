@@ -143,6 +143,9 @@ Page({
               deviceId,
               serviceId,
               characteristicId: item.uuid,
+              success(res) {
+                console.log('readBLECharacteristicValue:', res.errCode)
+              }
             })
           }
           if (item.properties.write) {
