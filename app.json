@@ -22,6 +22,7 @@
     "pages/user/site/username",
     "pages/user/site/password",
     "pages/chart/year",
+    "pages/tool/bluetooth",
     "pages/tool/goodEvaluate",
     "pages/tool/site",
     "pages/user/funds",
