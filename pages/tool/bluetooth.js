@@ -199,9 +199,6 @@ Page({
       this.setData(data)
     })
   },
-  characteristicValueChange() {
-    console.log('characteristicValueChange')
-  },
   writeBLECharacteristicValue() {
     // 向蓝牙设备发送一个0x00的16进制数据
     let buffer = new ArrayBuffer(1)
