@@ -1,2 +1,87 @@
 <!--pages/tool/aromaLamp.wxml-->
-<text>pages/tool/aromaLamp.wxml</text>
+<view class="page">
+  <!--列表页头-->
+  <view class="list-card">
+    <!-- <view class="list-card-title-h2 list-card-center">香薰灯</view> -->
+    <!-- <view class="list-card-text">￥剩余</view> -->
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <view class="list-card-title-h1 list-card-center">25</view>
+        <view class="list-card-text list-card-center">温度℃</view>
+      </view>
+      <view class="weui-flex__item">
+        <view class="list-card-title-h1 list-card-center">55</view>
+        <view class="list-card-text list-card-center">湿度%</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 控制区域 -->
+  <view class="weui-cells__title">灯光控制</view>
+  <view class="weui-cells weui-cells_after-title">
+    <!-- 夜灯开关 -->
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">夜灯</view>
+      <view class="weui-cell__ft">
+        <switch bindchange="switchEnablePullDown" checked="{{enablePullDown}}" />
+      </view>
+    </view>
+
+    <!-- 灯光定时 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">定时</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindFundsChange" name="add_funds" value="{{FundsIndex}}" range="{{FundsList.name}}">
+          <view class="weui-select weui-select_in-select-after" style="text-align: right">关闭</view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 灯光调节 -->
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">
+        <view class="weui-flex">
+          <view style="padding: 8px 0;">调节</view>
+          <view class="weui-flex__item">
+            <slider show-value value="50" />
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="weui-cells__title">加湿控制</view>
+  <view class="weui-cells weui-cells_after-title">
+    <!-- 加湿定时 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">定时</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindFundsChange" name="add_funds" value="{{FundsIndex}}" range="{{FundsList.name}}">
+          <view class="weui-select weui-select_in-select-after" style="text-align: right">关闭</view>
+        </picker>
+      </view>
+    </view>
+
+
+  </view>
+
+  <view class="weui-cells__title">其他控制</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">静音</view>
+      <view class="weui-cell__ft">
+        <switch bindchange="switchEnable" checked="{{enable}}" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 按钮区域 -->
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+  </view>
+</view>
