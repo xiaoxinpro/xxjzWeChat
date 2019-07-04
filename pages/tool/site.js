@@ -4,10 +4,11 @@ var tid = 0;
 var tName = '+';
 var tButton = 'none';
 var toolConfig = {};
-var toolNames = ['空', '好评工具', '蓝牙调试', '分类管理', '资金账户', '年度统计', '快捷复制'];
+var toolNames = ['空', '好评工具', '香薰灯','蓝牙调试', '分类管理', '资金账户', '年度统计', '快捷复制'];
 var toolPages = [
   '../tool/site',
   '../tool/goodEvaluate',
+  '../tool/aromaLamp',
   '../tool/bluetooth',
   '../user/class',
   '../user/funds',
