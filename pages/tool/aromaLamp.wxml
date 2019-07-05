@@ -27,6 +27,35 @@
       </view>
     </view>
 
+    <!-- 灯光色温 -->
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label" style="width:auto;">色温</view>
+      </view>
+      <view class="weui-cell__bd" style="margin-right:16px;">
+        <radio-group bindchange="colorChange" style="text-align: right">
+          <label class="weui-cell__hd" wx:for="{{colorItems}}" wx:key="value">
+            <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+            <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+            <icon class="weui-icon-checkbox_success" type="success" size="23" color="#03a9f4" wx:if="{{item.checked}}"></icon>
+            <text class="weui-input">{{item.name}} </text>
+          </label>
+        </radio-group>
+      </view>
+    </view>
+
+    <!-- 灯光调节 -->
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">
+        <view class="weui-flex">
+          <view style="padding: 8px 0;">调节</view>
+          <view class="weui-flex__item">
+            <slider show-value value="50" block-size="24" />
+          </view>
+        </view>
+      </view>
+    </view>
+
     <!-- 灯光定时 -->
     <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -39,22 +68,23 @@
       </view>
     </view>
 
-    <!-- 灯光调节 -->
+  </view>
+
+  <view class="weui-cells__title">加湿控制</view>
+  <view class="weui-cells weui-cells_after-title">
+
+    <!-- 雾量调节 -->
     <view class="weui-cell weui-cell_switch">
       <view class="weui-cell__bd">
         <view class="weui-flex">
           <view style="padding: 8px 0;">调节</view>
           <view class="weui-flex__item">
-            <slider show-value value="50" />
+            <slider show-value value="50" block-size="24" />
           </view>
         </view>
       </view>
     </view>
 
-  </view>
-
-  <view class="weui-cells__title">加湿控制</view>
-  <view class="weui-cells weui-cells_after-title">
     <!-- 加湿定时 -->
     <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -66,7 +96,6 @@
         </picker>
       </view>
     </view>
-
 
   </view>
 
