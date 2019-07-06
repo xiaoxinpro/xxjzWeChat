@@ -74,7 +74,6 @@ Page({
   bindSubmit: function(){
     var ret = {
       id: id,
-      tid: this.data.toolCodeIndex,
       name: this.data.toolName,
       button: this.data.toolButton,
       path: toolPages[this.data.toolCodeIndex] + '?id=' + id,
@@ -102,7 +101,12 @@ Page({
   onLoad: function(options) {
     id = parseInt(options.id);
     toolConfig = getApp().GetMainToolConfig()[id];
-    tid = toolConfig.tid;
+    for(var i = 0; i < toolPages.length; i++) {
+      if (toolConfig.path.indexOf(toolPages[i]) === 0) {
+        tid = i;
+        break;
+      }
+    }
     tName = toolConfig.name;
     tButton = toolConfig.button;
     this.setData({
