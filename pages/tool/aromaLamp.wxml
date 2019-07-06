@@ -2,8 +2,6 @@
 <view class="page">
   <!--列表页头-->
   <view class="list-card">
-    <!-- <view class="list-card-title-h2 list-card-center">香薰灯</view> -->
-    <!-- <view class="list-card-text">￥剩余</view> -->
     <view class="weui-flex">
       <view class="weui-flex__item">
         <view class="list-card-title-h1 list-card-center">25</view>
@@ -62,8 +60,8 @@
         <view class="weui-label">定时</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="bindFundsChange" name="add_funds" value="{{FundsIndex}}" range="{{FundsList.name}}">
-          <view class="weui-select weui-select_in-select-after" style="text-align: right">关闭</view>
+        <picker bindchange="bindTimeChange" id="timeLampIndex" value="{{timeLampIndex}}" range="{{timeItmes}}">
+          <view class="weui-select weui-select_in-select-after" style="text-align: right">{{timeItmes[timeLampIndex]}}</view>
         </picker>
       </view>
     </view>
@@ -91,8 +89,8 @@
         <view class="weui-label">定时</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="bindFundsChange" name="add_funds" value="{{FundsIndex}}" range="{{FundsList.name}}">
-          <view class="weui-select weui-select_in-select-after" style="text-align: right">关闭</view>
+        <picker bindchange="bindTimeChange" id="timeAromaIndex" value="{{timeAromaIndex}}" range="{{timeItmes}}">
+          <view class="weui-select weui-select_in-select-after" style="text-align: right">{{timeItmes[timeAromaIndex]}}</view>
         </picker>
       </view>
     </view>
