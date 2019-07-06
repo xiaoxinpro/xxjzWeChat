@@ -12,6 +12,10 @@ Page({
       {name: '冷暖光',value: '3'}
     ],
 
+    timeLampIndex: 0,
+    timeAromaIndex: 0,
+    timeItmes: ['关闭', '30分钟', '60分钟', '120分钟', '180分钟'],
+
   },
 
   /**
@@ -29,6 +33,19 @@ Page({
     this.setData({
       colorItems: colorItems,
     });
+  },
+
+  /**
+   * 定时选项改变事件
+   */
+  bindTimeChange: function(e) {
+    const TIME_INDEX = e.detail.value;
+    const TIME_NAME = e.target.id;
+    const TIME_VALUE = this.data.timeItmes[TIME_INDEX];
+    console.log('获取定时器内容', TIME_NAME, TIME_INDEX, TIME_VALUE);
+    var tmpData = {};
+    tmpData[TIME_NAME] = TIME_INDEX;
+    this.setData(tmpData);
   },
 
   /**
