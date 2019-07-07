@@ -1,4 +1,5 @@
 // pages/tool/aromaLamp.js
+var bakTimeStamp = 0;
 Page({
 
   /**
@@ -33,6 +34,16 @@ Page({
     this.setData({
       colorItems: colorItems,
     });
+  },
+
+  /**
+   * 调节滚动条触发事件
+   */
+  bindAdjustChang: function(e) {
+    if(e.timeStamp - bakTimeStamp > 100) {
+      console.log(e);
+      bakTimeStamp = e.timeStamp;
+    }
   },
 
   /**
