@@ -40,7 +40,7 @@ Page({
    * 调节滚动条触发事件
    */
   bindAdjustChang: function(e) {
-    if(e.timeStamp - bakTimeStamp > 100) {
+    if((e.type == 'change') || (e.timeStamp - bakTimeStamp > 100)) {
       console.log(e);
       bakTimeStamp = e.timeStamp;
     }
