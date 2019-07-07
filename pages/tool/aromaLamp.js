@@ -7,6 +7,8 @@ Page({
    */
   data: {
 
+    nightLight: false,
+
     colorItems: [
       {name: '冷光',value: '0',checked: true},
       {name: '暖光',value: '1'},
@@ -17,6 +19,16 @@ Page({
     timeAromaIndex: 0,
     timeItmes: ['关闭', '30分钟', '60分钟', '120分钟', '180分钟'],
 
+  },
+
+  /**
+   * 夜灯开关事件
+   */
+  switchNightLight: function(e) {
+    const NIGHT_LIGHT = e.detail.value;
+    this.setData({
+      nightLight: NIGHT_LIGHT,
+    })
   },
 
   /**
