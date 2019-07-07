@@ -15,6 +15,9 @@ Page({
       {name: '冷暖光',value: '3'}
     ],
 
+    adjustLampValue: 0,
+    adjustAromaValue: 0,
+
     timeLampIndex: 0,
     timeAromaIndex: 0,
     timeItmes: ['关闭', '30分钟', '60分钟', '120分钟', '180分钟'],
@@ -53,8 +56,14 @@ Page({
    */
   bindAdjustChang: function(e) {
     if((e.type == 'change') || (e.timeStamp - bakTimeStamp > 100)) {
-      console.log(e);
       bakTimeStamp = e.timeStamp;
+      // 获取调节数据e.detail.value; 来源e.target.id
+    }
+
+    if (e.type == 'change'){
+      var tmpData = {};
+      tmpData[e.target.id] = e.detail.value;
+      this.setData(tmpData);
     }
   },
 
