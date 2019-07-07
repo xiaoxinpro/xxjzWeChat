@@ -48,7 +48,7 @@
         <view class="weui-flex">
           <view style="padding: 8px 0;">调节</view>
           <view class="weui-flex__item">
-            <slider show-value value="50" block-size="24" />
+            <slider show-value value="{{adjustLampValue}}" id="adjustLampValue" block-size="24" bindchanging="bindAdjustChang" bindchange="bindAdjustChang" />
           </view>
         </view>
       </view>
@@ -77,7 +77,7 @@
         <view class="weui-flex">
           <view style="padding: 8px 0;">调节</view>
           <view class="weui-flex__item">
-            <slider show-value value="50" block-size="24" />
+            <slider show-value value="{{adjustAromaValue}}" id="adjustAromaValue" block-size="24" bindchanging="bindAdjustChang" bindchange="bindAdjustChang" />
           </view>
         </view>
       </view>
