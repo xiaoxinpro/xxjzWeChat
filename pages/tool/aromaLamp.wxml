@@ -21,12 +21,12 @@
     <view class="weui-cell weui-cell_switch">
       <view class="weui-cell__bd">夜灯</view>
       <view class="weui-cell__ft">
-        <switch bindchange="switchEnablePullDown" checked="{{enablePullDown}}" />
+        <switch bindchange="switchNightLight" checked="{{nightLight}}" />
       </view>
     </view>
 
     <!-- 灯光色温 -->
-    <view class="weui-cell weui-cell_input">
+    <view class="weui-cell weui-cell_input" hidden="{{nightLight}}">
       <view class="weui-cell__hd">
         <view class="weui-label" style="width:auto;">色温</view>
       </view>
@@ -43,7 +43,7 @@
     </view>
 
     <!-- 灯光调节 -->
-    <view class="weui-cell weui-cell_switch">
+    <view class="weui-cell weui-cell_switch" hidden="{{nightLight}}">
       <view class="weui-cell__bd">
         <view class="weui-flex">
           <view style="padding: 8px 0;">调节</view>
@@ -55,7 +55,7 @@
     </view>
 
     <!-- 灯光定时 -->
-    <view class="weui-cell weui-cell_select">
+    <view class="weui-cell weui-cell_select" hidden="{{nightLight}}">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
         <view class="weui-label">定时</view>
       </view>
