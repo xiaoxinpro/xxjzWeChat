@@ -102,7 +102,7 @@
     <view class="weui-cell weui-cell_switch">
       <view class="weui-cell__bd">静音</view>
       <view class="weui-cell__ft">
-        <switch bindchange="switchEnable" checked="{{enable}}" />
+        <switch bindchange="switchMute" checked="{{mute}}" />
       </view>
     </view>
   </view>
