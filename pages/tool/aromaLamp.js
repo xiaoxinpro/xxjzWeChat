@@ -22,6 +22,7 @@ Page({
     timeAromaIndex: 0,
     timeItmes: ['关闭', '30分钟', '60分钟', '120分钟', '180分钟'],
 
+    mute: false,
   },
 
   /**
@@ -59,7 +60,7 @@ Page({
       bakTimeStamp = e.timeStamp;
       // 获取调节数据e.detail.value; 来源e.target.id
     }
-
+    // 更新UI
     if (e.type == 'change'){
       var tmpData = {};
       tmpData[e.target.id] = e.detail.value;
@@ -78,6 +79,16 @@ Page({
     var tmpData = {};
     tmpData[TIME_NAME] = TIME_INDEX;
     this.setData(tmpData);
+  },
+
+  /**
+   * 静音开关
+   */
+  switchMute: function(e) {
+    const MUTE = e.detail.value;
+    this.setData({
+      mute: MUTE,
+    });
   },
 
   /**
