@@ -2,6 +2,7 @@
 var bakTimeStamp = 0;
 var _discoveryStarted = false;
 var _devices = {};
+var _write = {};
 Page({
 
   /**
@@ -32,6 +33,7 @@ Page({
    */
   switchNightLight: function(e) {
     const NIGHT_LIGHT = e.detail.value;
+    aromaLampWriteCommand(0x09, NIGHT_LIGHT ? 0x01 : 0x00);
     this.setData({
       nightLight: NIGHT_LIGHT,
     })
@@ -241,9 +243,186 @@ function onBluetoothDeviceFound() {
       }
       console.log('onBluetoothDeviceFound:', device);
       if(device.name == 'Tomozaki01') {
-        wx.stopBluetoothDevicesDiscovery();
-        wx.hideLoading();
+        createBLEConnection(device.deviceId);
+        return;
       }
     })
   })
+}
+
+/**
+ * 创建蓝牙连接
+ */
+function createBLEConnection(deviceId) {
+  wx.hideLoading();
+  wx.stopBluetoothDevicesDiscovery();
+  wx.showLoading({
+    title: '连接蓝牙',
+  })
+  wx.createBLEConnection({
+    deviceId,
+    success: (res) => {
+      console.log('createBLEConnection', res)
+      getBLEDeviceServices(deviceId)
+      wx.hideLoading();
+    }
+  })
+}
+
+/**
+ * 获取蓝牙设备服务
+ */
+function getBLEDeviceServices(deviceId) {
+  wx.getBLEDeviceServices({
+    deviceId,
+    success: (res) => {
+      console.log('getBLEDeviceServices', res)
+      for (let i = 0; i < res.services.length; i++) {
+        if (res.services[i].isPrimary) {
+          getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
+          // return
+        }
+      }
+    }
+  })
+}
+
+/**
+ * 获取蓝牙设备特征
+ */
+function getBLEDeviceCharacteristics(deviceId, serviceId) {
+  wx.getBLEDeviceCharacteristics({
+    deviceId,
+    serviceId,
+    success: (res) => {
+      console.log('getBLEDeviceCharacteristics success', res.characteristics)
+      for (let i = 0; i < res.characteristics.length; i++) {
+        let item = res.characteristics[i]
+        // if (item.properties.read) {
+        //   wx.readBLECharacteristicValue({
+        //     deviceId,
+        //     serviceId,
+        //     characteristicId: item.uuid,
+        //     success(res) {
+        //       console.log('readBLECharacteristicValue:', res.errCode)
+        //     }
+        //   })
+        // }
+        if (item.properties.write) {
+          _write['deviceId'] = deviceId;
+          _write['serviceId'] = serviceId;
+          _write['characteristicId'] = item.uuid;
+          // writeBLECharacteristicValue()
+        }
+        if (item.properties.notify || item.properties.indicate) {
+          wx.notifyBLECharacteristicValueChange({
+            deviceId,
+            serviceId,
+            characteristicId: item.uuid,
+            state: true,
+            success(resNotify) {
+              console.log('notifyBLECharacteristicValueChange success', resNotify.errMsg)
+            }
+          })
+        }
+      }
+    },
+    fail(res) {
+      console.error('getBLEDeviceCharacteristics', res)
+    }
+  })
+  // 操作之前先监听，保证第一时间获取数据
+  wx.onBLECharacteristicValueChange((characteristic) => {
+    console.log('onBLECharacteristicValueChange', characteristic)
+    // const idx = inArray(this.data.chs, 'uuid', characteristic.characteristicId)
+    // const data = {}
+    // if (idx === -1) {
+    //   data[`chs[${this.data.chs.length}]`] = {
+    //     uuid: characteristic.characteristicId,
+    //     value: ab2hex(characteristic.value)
+    //   }
+    // } else {
+    //   data[`chs[${idx}]`] = {
+    //     uuid: characteristic.characteristicId,
+    //     value: ab2hex(characteristic.value)
+    //   }
+    // }
+  })
+}
+
+
+/**
+ * 发生蓝牙数据
+ */
+function writeBLECharacteristicValue(buffer) {
+  wx.writeBLECharacteristicValue({
+    deviceId: _write['deviceId'],
+    serviceId: _write['serviceId'],
+    characteristicId: _write['characteristicId'],
+    value: buffer,
+  })
+}
+
+function aromaLampWriteAnswer(rxBuffer) {
+
+}
+
+function aromaLampWriteCommand(cmd, text) {
+  var buffer = new Uint8Array(6);
+  buffer[0] = 0x52;
+  buffer[1] = 0x01;
+  buffer[2] = 0x01;
+  buffer[3] = cmd;
+  buffer[4] = text;
+  buffer[5] = checkSum(buffer);
+  console.log(buffer);
+}
+
+/**
+ * 计算校验和函数
+ */
+function checkSum(buffer) {
+  var sum = 1;
+  for (var i = 0; i < buffer.length - 1; i++) {
+    sum += buffer[i];
+  }
+  return sum % 255;
+}
+/**
+ * 发生蓝牙数据
+ */
+function writeBLECharacteristicValue(buffer) {
+  wx.writeBLECharacteristicValue({
+    deviceId: _write['deviceId'],
+    serviceId: _write['serviceId'],
+    characteristicId: _write['characteristicId'],
+    value: buffer,
+  })
+}
+
+function aromaLampWriteAnswer(rxBuffer) {
+
+}
+
+function aromaLampWriteCommand(cmd, text) {
+  var buffer = new Uint8Array(6);
+  buffer[0] = 0x52;
+  buffer[1] = 0x01;
+  buffer[2] = 0x01;
+  buffer[3] = cmd;
+  buffer[4] = text;
+  buffer[5] = checkSum(buffer);
+  console.log(buffer);
+  writeBLECharacteristicValue(buffer.buffer);
+}
+
+/**
+ * 计算校验和函数
+ */
+function checkSum(buffer) {
+  var sum = 1;
+  for (var i = 0; i < buffer.length - 1; i++) {
+    sum += buffer[i];
+  }
+  return sum % 255;
 }
