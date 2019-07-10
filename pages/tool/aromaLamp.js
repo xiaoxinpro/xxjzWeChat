@@ -1,4 +1,5 @@
 // pages/tool/aromaLamp.js
+var that = this;
 var bakTimeStamp = 0;
 var _discoveryStarted = false;
 var _devices = {};
@@ -9,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    temperature: 0,
+    humidity: 0,
 
     nightLight: false,
 
@@ -115,6 +118,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    that = this;
     openBluetoothAdapter();
   },
 
@@ -361,6 +365,12 @@ function getBLEDeviceCharacteristics(deviceId, serviceId) {
 function readBLEDataProcess(rxBuffer) {
   var buffer = new Uint8Array(rxBuffer);
   if ((buffer.length == 16) && (buffer[0] == 0x52) && (buffer[1] == 0x01) && (buffer[buffer.length - 1] == checkSum(buffer))) {
+
+    // 接收数据解析
+    that.setData({
+      temperature: buffer[5],
+      humidity: buffer[4],
+    });
     // 发送应答帧
     aromaLampWriteAnswer(rxBuffer);
   }
