@@ -172,7 +172,7 @@ function ab2hex(buffer) {
       return ('00' + bit.toString(16)).slice(-2)
     }
   )
-  return hexArr.join('');
+  return hexArr.join(' ');
 }
 
 /**
@@ -264,7 +264,13 @@ function createBLEConnection(deviceId) {
     success: (res) => {
       console.log('createBLEConnection', res)
       getBLEDeviceServices(deviceId)
-      wx.hideLoading();
+      setTimeout(function(){
+        wx.hideLoading();
+        wx.showToast({
+          title: '连接成功',
+          duration: 500,
+        });
+      }, 100);
     }
   })
 }
@@ -333,7 +339,9 @@ function getBLEDeviceCharacteristics(deviceId, serviceId) {
   })
   // 操作之前先监听，保证第一时间获取数据
   wx.onBLECharacteristicValueChange((characteristic) => {
-    console.log('onBLECharacteristicValueChange', characteristic)
+    // console.log('onBLECharacteristicValueChange', characteristic)
+    console.log('蓝牙接收数据：', ab2hex(characteristic.value), 'uuid:', characteristic.characteristicId);
+    readBLEDataProcess(characteristic.value);
     // const idx = inArray(this.data.chs, 'uuid', characteristic.characteristicId)
     // const data = {}
     // if (idx === -1) {
@@ -350,6 +358,13 @@ function getBLEDeviceCharacteristics(deviceId, serviceId) {
   })
 }
 
+function readBLEDataProcess(rxBuffer) {
+  var buffer = new Uint8Array(rxBuffer);
+  if ((buffer.length == 16) && (buffer[0] == 0x52) && (buffer[1] == 0x01) && (buffer[buffer.length - 1] == checkSum(buffer))) {
+    // 发送应答帧
+    aromaLampWriteAnswer(rxBuffer);
+  }
+}
 
 /**
  * 发生蓝牙数据
@@ -367,11 +382,15 @@ function writeBLECharacteristicValue(buffer) {
  * 香薰灯发送应答帧
  */
 function aromaLampWriteAnswer(rxBuffer) {
-  var buffer = new Uint8Array(rxBuffer);
+  var buffer = new Uint8Array(6);
+  rxBuffer = new Uint8Array(rxBuffer);
+  buffer[0] = 0x52;
+  buffer[1] = 0x01;
   buffer[2] = 0x02;
+  buffer[3] = rxBuffer[3];
   buffer[4] = 0x00;
   buffer[5] = checkSum(buffer);
-  console.log(buffer);
+  console.log('发送应答帧：', ab2hex(buffer.buffer));
   writeBLECharacteristicValue(buffer.buffer);
 }
 
@@ -386,7 +405,7 @@ function aromaLampWriteCommand(cmd, text) {
   buffer[3] = cmd;
   buffer[4] = text;
   buffer[5] = checkSum(buffer);
-  console.log(buffer);
+  console.log('发送命令帧：', ab2hex(buffer.buffer));
   writeBLECharacteristicValue(buffer.buffer);
 }
 
