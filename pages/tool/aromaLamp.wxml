@@ -4,11 +4,11 @@
   <view class="list-card">
     <view class="weui-flex">
       <view class="weui-flex__item">
-        <view class="list-card-title-h1 list-card-center">25</view>
+        <view class="list-card-title-h1 list-card-center">{{temperature}}</view>
         <view class="list-card-text list-card-center">温度℃</view>
       </view>
       <view class="weui-flex__item">
-        <view class="list-card-title-h1 list-card-center">55</view>
+        <view class="list-card-title-h1 list-card-center">{{humidity}}</view>
         <view class="list-card-text list-card-center">湿度%</view>
       </view>
     </view>
