@@ -1,5 +1,7 @@
 // pages/tool/aromaLamp.js
 var bakTimeStamp = 0;
+var _discoveryStarted = false;
+var _devices = {};
 Page({
 
   /**
@@ -104,14 +106,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    openBluetoothAdapter();
   },
 
   /**
@@ -149,3 +151,99 @@ Page({
 
   }
 })
+
+// 获取指定数字Key中的数据
+function inArray(arr, key, val) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i][key] === val) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+// ArrayBuffer转16进度字符串示例
+function ab2hex(buffer) {
+  var hexArr = Array.prototype.map.call(
+    new Uint8Array(buffer),
+    function (bit) {
+      return ('00' + bit.toString(16)).slice(-2)
+    }
+  )
+  return hexArr.join('');
+}
+
+/**
+ * 开启蓝牙扫描
+ */
+function openBluetoothAdapter() {
+  wx.openBluetoothAdapter({
+    success: (res) => {
+      console.log('openBluetoothAdapter success', res)
+      startBluetoothDevicesDiscovery()
+    },
+    fail: (res) => {
+      if (res.errCode === 10001) {
+        wx.onBluetoothAdapterStateChange(function (res) {
+          console.log('onBluetoothAdapterStateChange', res)
+          if (res.available) {
+            startBluetoothDevicesDiscovery()
+          }
+        })
+      } else {
+        wx.showModal({
+          title: '蓝牙开启失败',
+          content: res.errMsg,
+          confirmText: '重试',
+          cancelText: '退出',
+          success: function (e) {
+            if (e.confirm) {
+              openBluetoothAdapter();
+              return;
+            } else {
+              wx.navigateBack();
+            }
+          }
+        })
+      }
+    }
+  })
+}
+
+/**
+ * 开启蓝牙设备发现
+ */
+function startBluetoothDevicesDiscovery() {
+  if (_discoveryStarted) {
+    return
+  }
+  wx.showLoading({
+    title: '搜索蓝牙',
+  });
+  _discoveryStarted = true
+  wx.startBluetoothDevicesDiscovery({
+    allowDuplicatesKey: true,
+    success: (res) => {
+      console.log('startBluetoothDevicesDiscovery success', res)
+      onBluetoothDeviceFound()
+    },
+  })
+}
+
+/**
+ * 监听蓝牙设备发现(检测设备并开启)
+ */
+function onBluetoothDeviceFound() {
+  wx.onBluetoothDeviceFound((res) => {
+    res.devices.forEach(device => {
+      if (!device.name && !device.localName) {
+        return
+      }
+      console.log('onBluetoothDeviceFound:', device);
+      if(device.name == 'Tomozaki01') {
+        wx.stopBluetoothDevicesDiscovery();
+        wx.hideLoading();
+      }
+    })
+  })
+}
