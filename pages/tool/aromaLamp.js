@@ -376,43 +376,6 @@ function aromaLampWriteCommand(cmd, text) {
   buffer[4] = text;
   buffer[5] = checkSum(buffer);
   console.log(buffer);
-}
-
-/**
- * 计算校验和函数
- */
-function checkSum(buffer) {
-  var sum = 1;
-  for (var i = 0; i < buffer.length - 1; i++) {
-    sum += buffer[i];
-  }
-  return sum % 255;
-}
-/**
- * 发生蓝牙数据
- */
-function writeBLECharacteristicValue(buffer) {
-  wx.writeBLECharacteristicValue({
-    deviceId: _write['deviceId'],
-    serviceId: _write['serviceId'],
-    characteristicId: _write['characteristicId'],
-    value: buffer,
-  })
-}
-
-function aromaLampWriteAnswer(rxBuffer) {
-
-}
-
-function aromaLampWriteCommand(cmd, text) {
-  var buffer = new Uint8Array(6);
-  buffer[0] = 0x52;
-  buffer[1] = 0x01;
-  buffer[2] = 0x01;
-  buffer[3] = cmd;
-  buffer[4] = text;
-  buffer[5] = checkSum(buffer);
-  console.log(buffer);
   writeBLECharacteristicValue(buffer.buffer);
 }
 
