@@ -363,10 +363,21 @@ function writeBLECharacteristicValue(buffer) {
   })
 }
 
+/**
+ * 香薰灯发送应答帧
+ */
 function aromaLampWriteAnswer(rxBuffer) {
-
+  var buffer = new Uint8Array(rxBuffer);
+  buffer[2] = 0x02;
+  buffer[4] = 0x00;
+  buffer[5] = checkSum(buffer);
+  console.log(buffer);
+  writeBLECharacteristicValue(buffer.buffer);
 }
 
+/**
+ * 香薰灯发送命令帧
+ */
 function aromaLampWriteCommand(cmd, text) {
   var buffer = new Uint8Array(6);
   buffer[0] = 0x52;
