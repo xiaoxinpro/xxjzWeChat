@@ -370,6 +370,10 @@ function readBLEDataProcess(rxBuffer) {
     that.setData({
       temperature: buffer[5],
       humidity: buffer[4],
+
+      nightLight: buffer[14] == 0x01,
+
+      mute: buffer[10] == 0x01,
     });
     // 发送应答帧
     aromaLampWriteAnswer(rxBuffer);
