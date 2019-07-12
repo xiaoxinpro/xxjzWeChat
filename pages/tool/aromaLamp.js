@@ -380,6 +380,8 @@ function readBLEDataProcess(rxBuffer) {
       colorItems: colorItems,
       adjustLampValue: parseInt(buffer[8]),
       adjustAromaValue: parseInt(buffer[7]),
+      timeLampIndex: parseInt(buffer[13]),
+      timeAromaIndex: parseInt(buffer[12]),
 
       mute: buffer[10] == 0x01,
     });
