@@ -16,8 +16,8 @@ Page({
     nightLight: false,
 
     colorItems: [
-      {name: '冷光',value: '0',checked: true},
-      {name: '暖光',value: '1'},
+      {name: '冷光',value: '1',checked: true},
+      {name: '暖光',value: '2'},
       {name: '冷暖光',value: '3'}
     ],
 
@@ -367,11 +367,16 @@ function readBLEDataProcess(rxBuffer) {
   if ((buffer.length == 16) && (buffer[0] == 0x52) && (buffer[1] == 0x01) && (buffer[buffer.length - 1] == checkSum(buffer))) {
 
     // 接收数据解析
+    var colorItems = that.data.colorItems;
+    for (var i = 0; i < colorItems.length; i++) {
+      colorItems[i].checked = (parseInt(colorItems[i].value) == buffer[9])
+    }
     that.setData({
       temperature: buffer[5],
       humidity: buffer[4],
 
       nightLight: buffer[14] == 0x01,
+      colorItems: colorItems,
 
       mute: buffer[10] == 0x01,
     });
