@@ -371,17 +371,22 @@ function readBLEDataProcess(rxBuffer) {
     for (var i = 0; i < colorItems.length; i++) {
       colorItems[i].checked = (parseInt(colorItems[i].value) == buffer[9])
     }
+    console.log('adjustLampValue:', parseInt(buffer[8]))
     that.setData({
       temperature: buffer[5],
       humidity: buffer[4],
 
       nightLight: buffer[14] == 0x01,
       colorItems: colorItems,
+      adjustLampValue: parseInt(buffer[8]),
+      adjustAromaValue: parseInt(buffer[7]),
 
       mute: buffer[10] == 0x01,
     });
     // 发送应答帧
     aromaLampWriteAnswer(rxBuffer);
+  } else if (buffer[buffer.length - 1] != checkSum(buffer)) {
+    console.log('校验数据错误，原始数据：', buffer[buffer.length - 1], ' 计算结果：', checkSum(buffer));
   }
 }
 
@@ -436,5 +441,5 @@ function checkSum(buffer) {
   for (var i = 0; i < buffer.length - 1; i++) {
     sum += buffer[i];
   }
-  return sum % 255;
+  return (sum & 0xFF);
 }
