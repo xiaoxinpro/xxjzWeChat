@@ -11,8 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    temperature: 0,
-    humidity: 0,
+    temperature: '--',
+    humidity: '--',
 
     nightLight: false,
 
@@ -279,9 +279,9 @@ function createBLEConnection(deviceId) {
         wx.hideLoading();
         wx.showToast({
           title: '连接成功',
-          duration: 500,
+          duration: 600,
         });
-      }, 100);
+      }, 300);
     }
   })
 }
