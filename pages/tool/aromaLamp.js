@@ -99,6 +99,7 @@ Page({
    */
   switchMute: function(e) {
     const MUTE = e.detail.value;
+    aromaLampWriteCommand(0x07, MUTE);
     this.setData({
       mute: MUTE,
     });
