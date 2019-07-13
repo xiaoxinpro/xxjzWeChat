@@ -225,7 +225,7 @@ function openBluetoothAdapter() {
               openBluetoothAdapter();
               return;
             } else {
-              this.bindBack();
+              that.bindBack();
             }
           }
         })
