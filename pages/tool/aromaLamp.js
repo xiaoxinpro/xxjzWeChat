@@ -106,6 +106,16 @@ Page({
   },
 
   /**
+   * 返回按钮
+   */
+  bindBack: function(e) {
+    this.onUnload();
+    wx.navigateBack({
+      delta: 1,
+    });
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
@@ -140,7 +150,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    wx.closeBluetoothAdapter();
+    _discoveryStarted = false;
   },
 
   /**
@@ -214,7 +225,7 @@ function openBluetoothAdapter() {
               openBluetoothAdapter();
               return;
             } else {
-              wx.navigateBack();
+              this.bindBack();
             }
           }
         })
