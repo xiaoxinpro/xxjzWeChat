@@ -110,6 +110,6 @@
 
   <!-- 按钮区域 -->
   <view class="weui-btn-area">
-    <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+    <button class="weui-btn" type="default" bindtap="bindBack">退出</button>
   </view>
 </view>
