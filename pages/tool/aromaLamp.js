@@ -52,6 +52,7 @@ Page({
       colorItems[i].checked = colorItems[i].value == e.detail.value;
       if (colorItems[i].checked) {
         //获取选择色温
+        aromaLampWriteCommand(0x01, colorItems[i].value);
       }
     }
     // 更新UI
