@@ -1,6 +1,7 @@
 // pages/tool/aromaLamp.js
 var that = this;
-var bakTimeStamp = 0;
+var txTimeStamp = 0;
+var rxTimeStamp = 0;
 var _discoveryStarted = false;
 var _devices = {};
 var _write = {};
@@ -63,8 +64,8 @@ Page({
    * 调节滚动条触发事件
    */
   bindAdjustChang: function(e) {
-    if((e.type == 'change') || (e.timeStamp - bakTimeStamp > 100)) {
-      bakTimeStamp = e.timeStamp;
+    if((e.type == 'change') || (e.timeStamp - txTimeStamp > 100)) {
+      txTimeStamp = e.timeStamp;
       // 获取调节数据e.detail.value; 来源e.target.id
     }
     // 更新UI
@@ -364,27 +365,30 @@ function getBLEDeviceCharacteristics(deviceId, serviceId) {
 
 function readBLEDataProcess(rxBuffer) {
   var buffer = new Uint8Array(rxBuffer);
+  var nowTime = new Date().getTime();
   if ((buffer.length == 16) && (buffer[0] == 0x52) && (buffer[1] == 0x01) && (buffer[buffer.length - 1] == checkSum(buffer))) {
+    if (nowTime - rxTimeStamp > 100) {
+      rxTimeStamp = nowTime;
+      // 接收数据解析
+      var colorItems = that.data.colorItems;
+      for (var i = 0; i < colorItems.length; i++) {
+        colorItems[i].checked = (parseInt(colorItems[i].value) == buffer[9])
+      }
+      console.log('adjustLampValue:', parseInt(buffer[8]), 'time:', that)
+      that.setData({
+        temperature: buffer[5],
+        humidity: buffer[4],
 
-    // 接收数据解析
-    var colorItems = that.data.colorItems;
-    for (var i = 0; i < colorItems.length; i++) {
-      colorItems[i].checked = (parseInt(colorItems[i].value) == buffer[9])
+        nightLight: buffer[14] == 0x01,
+        colorItems: colorItems,
+        adjustLampValue: parseInt(buffer[8]),
+        adjustAromaValue: parseInt(buffer[7]),
+        timeLampIndex: parseInt(buffer[13]),
+        timeAromaIndex: parseInt(buffer[12]),
+
+        mute: buffer[10] == 0x01,
+      });
     }
-    console.log('adjustLampValue:', parseInt(buffer[8]))
-    that.setData({
-      temperature: buffer[5],
-      humidity: buffer[4],
-
-      nightLight: buffer[14] == 0x01,
-      colorItems: colorItems,
-      adjustLampValue: parseInt(buffer[8]),
-      adjustAromaValue: parseInt(buffer[7]),
-      timeLampIndex: parseInt(buffer[13]),
-      timeAromaIndex: parseInt(buffer[12]),
-
-      mute: buffer[10] == 0x01,
-    });
     // 发送应答帧
     aromaLampWriteAnswer(rxBuffer);
   } else if (buffer[buffer.length - 1] != checkSum(buffer)) {
@@ -424,6 +428,10 @@ function aromaLampWriteAnswer(rxBuffer) {
  * 香薰灯发送命令帧
  */
 function aromaLampWriteCommand(cmd, text) {
+  // 发送命令后延时数据接收
+  rxTimeStamp = (new Date().getTime() + 300);
+
+  // 处理发送命令
   var buffer = new Uint8Array(6);
   buffer[0] = 0x52;
   buffer[1] = 0x01;
