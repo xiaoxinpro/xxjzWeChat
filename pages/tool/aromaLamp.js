@@ -68,6 +68,7 @@ Page({
     if((e.type == 'change') || (e.timeStamp - txTimeStamp > 100)) {
       txTimeStamp = e.timeStamp;
       // 获取调节数据e.detail.value; 来源e.target.id
+      aromaLampWriteCommand(e.target.id == 'adjustLampValue' ? 0x02 : 0x05, parseInt(e.detail.value));
     }
     // 更新UI
     if (e.type == 'change'){
