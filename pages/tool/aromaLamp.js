@@ -86,6 +86,9 @@ Page({
     const TIME_NAME = e.target.id;
     const TIME_VALUE = this.data.timeItmes[TIME_INDEX];
     console.log('获取定时器内容', TIME_NAME, TIME_INDEX, TIME_VALUE);
+    // 发送修改定时命令
+    aromaLampWriteCommand(TIME_NAME == 'timeLampIndex' ? 0x03 : 0x06, TIME_INDEX);
+    // 更新UI数据
     var tmpData = {};
     tmpData[TIME_NAME] = TIME_INDEX;
     this.setData(tmpData);
