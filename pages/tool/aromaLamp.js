@@ -53,6 +53,16 @@ Page({
       if (colorItems[i].checked) {
         //获取选择色温
         aromaLampWriteCommand(0x01, colorItems[i].value);
+        //检查亮度并设置
+        if(this.data.adjustLampValue == 0) {
+          that = this;
+          setTimeout(function(){
+            aromaLampWriteCommand(0x02, 20);
+            that.setData({
+              adjustLampValue: 20,
+            })
+          },100);
+        }
       }
     }
     // 更新UI
