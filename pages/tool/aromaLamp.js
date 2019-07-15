@@ -286,7 +286,6 @@ function onBluetoothDeviceFound() {
  * 创建蓝牙连接
  */
 function createBLEConnection(deviceId) {
-  wx.hideLoading();
   wx.stopBluetoothDevicesDiscovery();
   wx.showLoading({
     title: '连接蓝牙',
