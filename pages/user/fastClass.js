@@ -228,8 +228,8 @@ function InitData() {
   //初始化收入分类列表
   key = 0;
   inClassJson.push({ key: key++, name: "工资" });// 工资
-  inClassJson.push({ key: key++, name: "补贴" });// 补贴
-  inClassJson.push({ key: key++, name: "奖金" });// 奖金
+  // inClassJson.push({ key: key++, name: "补贴" });// 补贴
+  // inClassJson.push({ key: key++, name: "奖金" });// 奖金
   // -----
   // 收益
   // 兼职
@@ -239,10 +239,10 @@ function InitData() {
   //初始化支出分类列表
   key = 0;
   outClassJson.push({ key: key++, name: "饮食" });// 饮食
-  outClassJson.push({ key: key++, name: "服饰" });// 服饰
+  // outClassJson.push({ key: key++, name: "服饰" });// 服饰
   outClassJson.push({ key: key++, name: "交通" });// 交通
-  outClassJson.push({ key: key++, name: "住宿" });// 住宿
-  outClassJson.push({ key: key++, name: "文娱" });// 文娱
+  // outClassJson.push({ key: key++, name: "住宿" });// 住宿
+  // outClassJson.push({ key: key++, name: "文娱" });// 文娱
   outClassJson.push({ key: key++, name: "生活用品" });// 生活用品
   // -----
   // 医疗
