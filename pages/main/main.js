@@ -1,10 +1,12 @@
 var uid = 0;
 var that = this;
+var app = getApp();
 var autoCopyString = {};
 Page({
   data: {
     uid: 0,
     uname: "",
+    is_haader_recent30day: false,
     header_day: 21,
     header_month: 5,
     header_year: 2017,
@@ -100,7 +102,7 @@ Page({
           })
         }
         if (autoCopyString.autoGetData) {
-          getApp().GetAutoCopyData(function(res) {
+          app.GetAutoCopyData(function(res) {
             for (var i in res) {
               autoCopyString[i] = res[i];
             }
@@ -148,12 +150,17 @@ function initData(callback) {
 function updataPageData(data) {
   var now = new Date();
   var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
-  var mainToolConfig = getApp().GetMainToolConfig();
+  var mainToolConfig = app.GetMainToolConfig();
   console.log('获取主页工具栏：', mainToolConfig);
+  var isRecent30Day = data.hasOwnProperty('Recent30DayInMoney');
   that.setData({
+    is_haader_recent30day: isRecent30Day,
     header_day: now.getDate(),
     header_month: now.getMonth() + 1,
     header_year: now.getFullYear(),
+    recent_30day_in_money: isRecent30Day ? data['Recent30DayInMoney'].toFixed(2) : '0.00',
+    recent_30day_out_money: isRecent30Day ? data['Recent30DayOutMoney'].toFixed(2) : '0.00',
+    recent_30day_over_money: isRecent30Day ? (data['Recent30DayInMoney'] - data['Recent30DayOutMoney']).toFixed(2) : '0.00',
     month_in_money: data['MonthInMoney'].toFixed(2),
     month_out_money: data['MonthOutMoney'].toFixed(2),
     month_over_money: MonthOverMoney.toFixed(2),
@@ -182,7 +189,7 @@ function getData(valType, callback) {
     }
   }
   wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/statistic',
+    url: app.URL + '/xxjzApp/index.php?s=/Home/Api/statistic',
     data: {
       type: valType
     },
@@ -203,14 +210,14 @@ function getData(valType, callback) {
 
 /** 获取资金账户数据 */
 function getFundsData() {
-  getApp().GetFundsData(parseInt(uid), function (ret, len, data) { 
+  app.GetFundsData(parseInt(uid), function (ret, len, data) { 
     console.log('获取资金账户完成', ret, len, data);
   });
 }
 
 /** 获取分类数据 */
 function getClassData() {
-  getApp().GetClassData(parseInt(uid), function(ret, len, data) {
+  app.GetClassData(parseInt(uid), function(ret, len, data) {
     console.log('获取分类完成', ret, len, data);
     if (ret) {
       if (!data.all) {
@@ -243,7 +250,7 @@ function getNowFormatDate() {
 
 /** 退出登陆 */
 function Logout() {
-  getApp().Logout(function(path) {
+  app.Logout(function(path) {
     wx.redirectTo(path);
   });
 }
