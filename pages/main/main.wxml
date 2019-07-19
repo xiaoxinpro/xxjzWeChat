@@ -1,6 +1,36 @@
 <view class="page">
   <!--本月总结-->
-  <view class="page__bd">
+  <view class="page__bd" wx:if="{{is_haader_recent30day}}">
+    <view class="weui-cells__title">
+      <text class="">{{header_month}}</text>
+      <text class="">月份</text>
+      <text style="font-size:12px"> / </text>
+      <text style="font-size:10px">{{header_year}}</text>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <text class="iconfont icon-tianjiajingdian"></text> 30天收入
+        </view>
+        <view class="weui-cell__ft">￥{{recent_30day_in_money}}</view>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <text class="iconfont icon-jianqujingdian"></text> 30天支出
+        </view>
+        <view class="weui-cell__ft">￥{{recent_30day_out_money}}</view>
+      </view>
+
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <text class="iconfont icon-icon"></text> 30天剩余
+        </view>
+        <view class="weui-cell__ft">￥{{recent_30day_over_money}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd" wx:else>
     <view class="weui-cells__title">
       <text class="">{{header_month}}</text>
       <text class="">月份</text>
