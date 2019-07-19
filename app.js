@@ -6,6 +6,8 @@ App({
   AdminUid: 3,
   MinServerVersion: '2.0.0',
 
+  ServerVersion: '0.0.1',
+
   onLaunch: function() {
     this.getVersion();
   },
@@ -22,8 +24,8 @@ App({
         wx.setStorageSync('Server', res.data);
         if (res.statusCode == 200) {
           //比较版本号
-          var serverVersion = res.data['version'];
-          if (changeVersion(serverVersion, that.MinServerVersion)) {
+          that.ServerVersion = res.data['version'];
+          if (that.ChangeVersion(that.ServerVersion, that.MinServerVersion)) {
             //符合版本要求
           } else {
             wx.showModal({
@@ -387,26 +389,26 @@ App({
     return str;
   },
 
+  // 版本号比较（目标版本号，实际版本号）
+  ChangeVersion: function(ver1, ver2) {
+    var version1pre = parseFloat(ver1);
+    var version2pre = parseFloat(ver2);
+    var version1next = ver1.replace(version1pre + ".", "");
+    var version2next = ver2.replace(version2pre + ".", "");
+    if (version1pre > version2pre) {
+      return true;
+    } else if (version1pre < version2pre) {
+      return false;
+    } else {
+      if (version1next >= version2next) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
+
   globalData: {
     userInfo: null
   }
 })
-
-// 版本号比较（目标版本号，实际版本号）
-function changeVersion (ver1, ver2) {
-  var version1pre = parseFloat(ver1);
-  var version2pre = parseFloat(ver2);
-  var version1next = ver1.replace(version1pre + ".", "");
-  var version2next = ver2.replace(version2pre + ".", "");
-  if (version1pre > version2pre) {
-    return true;
-  } else if (version1pre < version2pre) {
-    return false;
-  } else {
-    if (version1next >= version2next) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
