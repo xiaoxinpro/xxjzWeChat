@@ -282,9 +282,9 @@ App({
         },
         {
           id: 1,
-          name: '香薰灯',
-          button: 'primary',
-          path: '../tool/aromaLamp?id=1'
+          name: '+',
+          button: 'none',
+          path: '../tool/site?id=1'
         },
         {
           id: 2,
