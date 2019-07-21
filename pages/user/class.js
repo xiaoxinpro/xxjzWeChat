@@ -23,6 +23,7 @@ Page({
     sliderLeft: 0,
     outClassList: [],
     inClassList: [],
+    defaultClass: {},
 
     editClassId: 0,
     editClassType: "out",
@@ -84,18 +85,18 @@ Page({
     var classData = e.currentTarget.dataset;
     e.target = e.currentTarget;
     wx.showActionSheet({
-      itemList: ['编辑', '转移', '删除'],
+      itemList: ['设为默认', '编辑', '转移', '删除'],
       success: function (res) {
         if (!res.cancel) {
           console.log(res.tapIndex)
           switch (res.tapIndex) {
-            case 0:
+            case 1:
               that.btnClassEdit(e);
               break;
-            case 1:
+            case 2:
               that.btnClassChange(e);
               break;
-            case 2:
+            case 3:
               that.btnClassDelete(e);
               break;
             default:
@@ -231,6 +232,7 @@ Page({
           activeIndex: frmType,
           outClassList: json.out,
           inClassList: json.in,
+          defaultClass: json.defaultClass,
         });
       }
     });
@@ -293,18 +295,22 @@ Page({
 function initData(callback) {
   var outJson = [];
   var inJson = [];
+  var defaultClass = getApp().GetDefaultClass();
+  console.log('获取默认分类：', defaultClass);
   if (!callback) {
     var outClass = wx.getStorageSync('outClass');
     var inClass = wx.getStorageSync('inClass');
     return {
       out: classDataProcess(outClass),
-      in: classDataProcess(inClass)
+      in: classDataProcess(inClass),
+      defaultClass: defaultClass,
     };
   } else {
     getClassData(function(data) {
       that.setData({
         outClassList: classDataProcess(data.out),
         inClassList: classDataProcess(data.in),
+        defaultClass: defaultClass,
       })
     });
   }
@@ -609,4 +615,17 @@ function classDataProcess(classList) {
     });
   }
   return classJson;
+}
+
+/**
+ * 设置默认分类id
+ */
+function setDefaultClass(classType, classId) {
+  var defaultClass = getApp().GetDefaultClass();
+  defaultClass[classType] = classId;
+  wx.setStorage({
+    key: 'defaultClass',
+    data: defaultClass,
+  });
+  return defaultClass;
 }
