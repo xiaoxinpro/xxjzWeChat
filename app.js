@@ -212,6 +212,25 @@ App({
     }
   },
 
+  // 获取默认分类id
+  GetDefaultClass() {
+    var ret = wx.getStorageSync('defaultClass');
+    if(ret) {
+      return ret;
+    } else {
+      ret = {};
+      var listClass = wx.getStorageSync('inClass');
+      if (Object.keys(listClass).length > 0) {
+        ret['in'] = Object.keys(listClass).shift();
+      }
+      listClass = wx.getStorageSync('outClass');
+      if (Object.keys(listClass).length > 0) {
+        ret['out'] = Object.keys(listClass).shift();
+      }
+      return ret;
+    }
+  },
+
   // 获取分类图标名称
   GetClassIcon(calssType, className) {
     var iconList = {};
