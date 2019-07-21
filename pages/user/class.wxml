@@ -44,7 +44,7 @@
                 </view>
                 <view class="weui-cell__bd">{{item.name}}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">
-                
+                  <text wx:if="{{defaultClass.out == item.id}}">默认</text>
                 </view>
               </view>
             </view>
@@ -78,7 +78,7 @@
                 </view>
                 <view class="weui-cell__bd">{{item.name}}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">
-
+                  <text wx:if="{{defaultClass.in == item.id}}">默认</text>
                 </view>
               </view>
             </view>
