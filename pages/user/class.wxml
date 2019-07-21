@@ -44,12 +44,7 @@
                 </view>
                 <view class="weui-cell__bd">{{item.name}}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">
-                  <!-- <button size="mini" data-type="out" data-id="{{item.id}}" data-name="{{item.name}}" class="weui-btn weui-btn-primary" bindtap="btnClassEdit">编辑</button>
-                  <text>\t</text>
-                  <button size="mini" data-type="out" data-id="{{item.id}}" data-name="{{item.name}}" class="weui-btn weui-btn-warning" hover-class="weui-cell_active" bindtap="btnClassChange">转移</button>
-                  <text>\t</text>
-                  <button size="mini" data-type="out" data-id="{{item.id}}" data-name="{{item.name}}" class="weui-btn weui-btn-danger" bindtap="btnClassDelete">删除</button>
-                  <text>\t</text> -->
+                
                 </view>
               </view>
             </view>
@@ -83,12 +78,7 @@
                 </view>
                 <view class="weui-cell__bd">{{item.name}}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">
-                  <!-- <button size="mini" data-type="out" data-id="{{item.id}}" data-name="{{item.name}}" class="weui-btn weui-btn-primary" bindtap="btnClassEdit">编辑</button>
-                  <text>\t</text>
-                  <button size="mini" data-type="out" data-id="{{item.id}}" data-name="{{item.name}}" class="weui-btn weui-btn-warning" hover-class="weui-cell_active" bindtap="btnClassChange">转移</button>
-                  <text>\t</text>
-                  <button size="mini" data-type="out" data-id="{{item.id}}" data-name="{{item.name}}" class="weui-btn weui-btn-danger" bindtap="btnClassDelete">删除</button>
-                  <text>\t</text> -->
+
                 </view>
               </view>
             </view>
