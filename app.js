@@ -221,11 +221,11 @@ App({
       ret = {};
       var listClass = wx.getStorageSync('inClass');
       if (Object.keys(listClass).length > 0) {
-        ret['in'] = Object.keys(listClass).shift();
+        ret['in'] = parseInt(Object.keys(listClass).shift());
       }
       listClass = wx.getStorageSync('outClass');
       if (Object.keys(listClass).length > 0) {
-        ret['out'] = Object.keys(listClass).shift();
+        ret['out'] = parseInt(Object.keys(listClass).shift());
       }
       return ret;
     }
