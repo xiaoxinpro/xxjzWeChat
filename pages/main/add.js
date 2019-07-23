@@ -52,13 +52,19 @@ Page({
         typeId = typeItems[i].value;
       }
     }
+    var defaultClass = getApp().GetDefaultClass();
+    var ClassIndex = 0;
+    var ClassList = getClass(typeValue);
+    if (defaultClass) {
+      ClassIndex = ClassList.value.indexOf(defaultClass[typeValue=='收入' ? 'in' : 'out']);
+    }
     var FundsList = getFunds();
     this.setData({
       typeItems: typeItems,
       typeValue: typeValue,
       typeId: typeId,
-      ClassIndex: 0,
-      ClassList: getClass(typeValue),
+      ClassIndex: ClassIndex,
+      ClassList: ClassList,
       FundsIndex: 0,
       FundsList: FundsList,
       isHiddenFunds: (FundsList.name.length <= 1),
@@ -291,12 +297,21 @@ function initForm(that, isReload = true) {
   }
   var strNow = "" + year + "-" + month + "-" + day;
 
+  var defaultClass = getApp().GetDefaultClass();
   var ClassList;
+  var ClassIndex = 0;
   if (that.data.typeValue == "收入") {
     ClassList = getClass('收入');
+    if (defaultClass) {
+      ClassIndex = ClassList.value.indexOf(defaultClass['in']);
+    }
   } else { //支出 
     ClassList = getClass('支出');
+    if (defaultClass) {
+      ClassIndex = ClassList.value.indexOf(defaultClass['out']);
+    }
   }
+  console.log('defaultClass', defaultClass, ClassIndex);
 
   var FundsList = getFunds();
 
@@ -307,7 +322,7 @@ function initForm(that, isReload = true) {
       mark: "",
       date: strNow,
       dateStr: txtNow,
-      ClassIndex: 0,
+      ClassIndex: ClassIndex,
       ClassList: ClassList,
       FundsIndex: 0,
       FundsList: FundsList,
@@ -316,6 +331,7 @@ function initForm(that, isReload = true) {
     });
   } else if (inputMoney == '') {
     that.setData({
+      ClassIndex: ClassIndex,
       ClassList: ClassList,
       FundsList: FundsList,
       moneyFocus: true,
