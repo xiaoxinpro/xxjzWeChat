@@ -90,6 +90,9 @@ Page({
         if (!res.cancel) {
           console.log(res.tapIndex)
           switch (res.tapIndex) {
+            case 0:
+              that.btnClassDefault(e);
+              break;
             case 1:
               that.btnClassEdit(e);
               break;
@@ -105,6 +108,23 @@ Page({
         }
       }
     });
+  },
+
+  /**
+   * 设为默认分类
+   */
+  btnClassDefault: function(e) {
+    that = this;
+    var classId = e.target.dataset.id;
+    var classType = e.target.dataset.type;
+    var className = e.target.dataset.name;
+    console.log("设为默认分类：", e.target.dataset);
+    var defaultClass = setDefaultClass(classType, classId);
+    if(defaultClass) {
+      that.setData({
+        defaultClass: defaultClass,
+      });
+    }
   },
 
   /**
