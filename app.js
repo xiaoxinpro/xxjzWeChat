@@ -5,6 +5,7 @@ App({
   URL: 'https://jz.xiaoxin.pro',
   AdminUid: 3,
   MinServerVersion: '2.0.0',
+  Demo:{username:'demo',password:'xxgzs.org'},
 
   ServerVersion: '0.0.1',
 
