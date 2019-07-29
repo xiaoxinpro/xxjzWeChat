@@ -22,7 +22,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 85px;
+  margin-bottom: 75px;
+}
+
+.usermotto-link {
+  margin-top:25px;
+  font-size:14px;
+  color:#039be5;
+  text-decoration:underline;
 }
 
 .userlink {
