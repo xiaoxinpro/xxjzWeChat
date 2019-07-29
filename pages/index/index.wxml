@@ -5,8 +5,9 @@
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
 </view>
-<view class="usermotto">
-  <button type="primary" hidden="{{refresh ? false : true}}" open-type="getUserInfo" bindgetuserinfo="bindViewRefresh">同意授权登录</button>
+<view class="usermotto" wx:if="refresh">
+  <button type="primary" open-type="getUserInfo" bindgetuserinfo="bindViewRefresh">同意授权登录</button>
+  <navigator class="usermotto-link" url="../login/login?username={{demo.username}}&password={{demo.password}}">使用体验账号登陆</navigator>
 </view>
 <view class="userlink">
   <button bindtap="bindViewRegist" type="primary" size="default" disabled="{{lock}}">\t{{regist}}\t</button>

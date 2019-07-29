@@ -10,6 +10,7 @@ Page({
     regist: '新建帐号',
     lock: true,
     refresh: false,
+    demo: app.Demo,
     userInfo: {}
   },
   //事件处理函数
