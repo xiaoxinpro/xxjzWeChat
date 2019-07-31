@@ -1,4 +1,31 @@
 /**index.wxss**/
+.mainground {
+  background-color: #FFF;
+  position:relative;
+}
+
+.background {
+  width: 100%;
+  z-index: 1;
+  position:absolute;
+}
+
+.upground {
+  width: 100%;
+  z-index: 2; 
+  position:absolute;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 100rpx;
+  padding-bottom: 240rpx;
+  box-sizing: border-box;
+}
 
 .userinfo {
   display: flex;
@@ -14,7 +41,8 @@
 }
 
 .userinfo-nickname {
-  color: #aaa;
+  color: #FFF;
+  height: 50rpx;
 }
 
 .usermotto {
@@ -22,16 +50,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 75px;
+  padding: 50rpx 0;
 }
 
 .usermotto-link {
   margin-top:25px;
-  font-size:14px;
-  color:#039be5;
+  font-size:15px;
+  color:#FFF;
   text-decoration:underline;
 }
 
 .userlink {
-  margin: 20px 50px;
+  margin: 40rpx 80rpx;
 }
