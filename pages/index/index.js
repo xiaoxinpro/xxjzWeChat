@@ -11,6 +11,8 @@ Page({
     lock: true,
     refresh: false,
     demo: app.Demo,
+    windowHeight: 0,
+    screenHeight: 0,
     userInfo: {}
   },
   //事件处理函数
@@ -56,6 +58,10 @@ Page({
   },
   onLoad: function () {
     that = this;
+    this.setData({
+      windowHeight: app.globalData.windowHeight,
+      screenHeight: app.globalData.screenHeight,
+    });
     console.log('加载小程序，检测URL：', getApp().URL);
     var sessid = wx.getStorageSync('PHPSESSID');
     var user = wx.getStorageSync('user');
