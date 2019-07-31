@@ -18,6 +18,7 @@ App({
       }
     });
     this.getVersion();
+    this.clearDemoInfo();
   },
 
   getVersion: function() {
@@ -47,6 +48,14 @@ App({
         }
       }
     })
+  },
+
+  // 清除体验账号信息
+  clearDemoInfo: function() {
+    var user = wx.getStorageSync('user');
+    if (user && user['username'] == this.Demo['username']) {
+      wx.removeStorageSync('user');
+    }
   },
 
   // 获取用户信息
