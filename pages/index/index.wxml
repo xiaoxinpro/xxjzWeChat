@@ -1,17 +1,25 @@
 <!--index.wxml-->
-<view class="container">
-  <view bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+<view class="page mainground" style='height:{{windowHeight}}rpx;'>
+  <!-- 背景图片 -->
+  <image class='background' src='../../image/bg.png' mode="widthFix"></image>
+
+  <!-- 页面内容 -->
+  <view class="page__bd upground">
+    <view class="container">
+      <view bindtap="bindViewTap" class="userinfo">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        <text class="userinfo-nickname"> {{userInfo.nickName}} </text>
+      </view>
+    </view>
+    <view class="usermotto" wx:if="refresh">
+      <button type="primary" open-type="getUserInfo" bindgetuserinfo="bindViewRefresh">使用微信登录</button>
+      <navigator class="usermotto-link" url="../login/login?username={{demo.username}}&password={{demo.password}}">使用体验账号登陆</navigator>
+    </view>
+    <view class="userlink">
+      <button bindtap="bindViewRegist" type="primary" size="default" disabled="{{lock}}">\t{{regist}}\t</button>
+    </view>
+    <view class="userlink">
+      <button bindtap="bindViewLogin" type="default" size="default" disabled="{{lock}}">\t{{login}}\t</button>
+    </view>
   </view>
-</view>
-<view class="usermotto" wx:if="refresh">
-  <button type="primary" open-type="getUserInfo" bindgetuserinfo="bindViewRefresh">同意授权登录</button>
-  <navigator class="usermotto-link" url="../login/login?username={{demo.username}}&password={{demo.password}}">使用体验账号登陆</navigator>
-</view>
-<view class="userlink">
-  <button bindtap="bindViewRegist" type="primary" size="default" disabled="{{lock}}">\t{{regist}}\t</button>
-</view>
-<view class="userlink">
-  <button bindtap="bindViewLogin" type="default" size="default" disabled="{{lock}}">\t{{login}}\t</button>
 </view>
