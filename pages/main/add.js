@@ -141,6 +141,7 @@ Page({
   submit: function (e) {
     _that = this;
     var submitDataType = e.detail.target.dataset.type;
+    var formId = e.detail.formId;
     //获取表单并转换数据
     var DataObj = e.detail.value;
     DataObj['add_fundsname'] = _that.data.FundsList.name[DataObj['add_funds']];
@@ -167,6 +168,10 @@ Page({
     AddData.actime = DataObj['add_time'];
     AddData.acremark = DataObj['add_mark'];
     AddData.zhifu = DataObj['add_type'];
+    if (formId && formId != "the formId is a mock one") {
+      DataObj['form_id'] = formId;
+      AddData.formId = formId;
+    }
     console.log('表单处理后结果：', AddData);
 
     //校验发送数据
