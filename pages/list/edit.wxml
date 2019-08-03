@@ -2,7 +2,7 @@
 
 <view class="page">
   <view class="page__bd">
-    <form bindsubmit="submit">
+    <form bindsubmit="submit" report-submit="true">
       <!--错误提示-->
       <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{textTopTips}}</view>
 

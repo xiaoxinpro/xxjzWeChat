@@ -107,6 +107,7 @@ Page({
    */
   submit: function(e) {
     that = this;
+    var formId = e.detail.formId;
     // console.log("提交编辑数据：", e.detail.value);
     //获取表单并转换数据
     var DataObj = e.detail.value;
@@ -129,6 +130,10 @@ Page({
     EditData.actime = DataObj['edit_time'];
     EditData.acremark = DataObj['edit_mark'];
     EditData.zhifu = DataObj['edit_type'];
+    if (formId && formId != "the formId is a mock one") {
+      DataObj['form_id'] = formId;
+      EditData.formId = formId;
+    }
     console.log('表单处理后结果：', EditData);
 
     //验证表单数据
