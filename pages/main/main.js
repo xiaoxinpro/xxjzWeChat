@@ -1,3 +1,4 @@
+var url;
 var uid = 0;
 var username;
 var that = this;
@@ -63,6 +64,10 @@ Page({
 
   onLoad: function(option) {
     that = this;
+    console.log(option);
+    if(option.hasOwnProperty('url')) {
+      url = option.url;
+    }
 
     // 获取用户信息
     var user = wx.getStorageSync('user');
@@ -78,6 +83,22 @@ Page({
     // 获取统计数据
     initData(function(data) {
       updataPageData(data);
+      if(url && url != 'main') {
+        var now = new Date();
+        var str = url;
+        url = null;
+        switch(str) {
+          case 'month':
+            var month = now.getMonth() == 0 ? 12 : now.getMonth();
+            var year = now.getMonth() == 0 ? now.getFullYear() - 1 : now.getFullYear();
+            wx.navigateTo({
+              url: '../list/month?year=' + year + '&month=' + month,
+            });
+            break;
+          default:
+            break;
+        }
+      }
     });
 
     // Demo账号提醒
