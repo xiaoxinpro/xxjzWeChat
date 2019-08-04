@@ -56,18 +56,22 @@ Page({
     });
     }
   },
-  onLoad: function () {
+  onLoad: function (e) {
     that = this;
     this.setData({
       windowHeight: app.globalData.windowHeight,
       screenHeight: app.globalData.screenHeight,
     });
-    console.log('加载小程序，检测URL：', getApp().URL);
+    console.log('加载小程序，检测URL：', getApp().URL, e);
     var sessid = wx.getStorageSync('PHPSESSID');
     var user = wx.getStorageSync('user');
     if (sessid && user) {
       console.log('加载用户信息：', user, sessid);
-      wx.reLaunch({ url: "../main/main?uid=" + user.uid + "&uname=" + user.username });
+      var url = "../main/main?";
+      if(e.hasOwnProperty('jump')) {
+        url = url + "url=" + e.jump + "&";
+      }
+      wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
     }else{
       wx.getSetting({
         success: (res) => {
