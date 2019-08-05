@@ -70,7 +70,6 @@ Page({
       isHiddenFunds: (FundsList.name.length <= 1),
       moneyFocus: true,
     });
-
   },
 
   /**
@@ -234,14 +233,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    initForm(this, true);
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    initForm(this, true);
+    
   },
 
   /**
@@ -332,7 +331,6 @@ function initForm(that, isReload = true) {
       FundsIndex: 0,
       FundsList: FundsList,
       isHiddenFunds: (FundsList.name.length <= 1),
-      moneyFocus: true,
     });
   } else if (inputMoney == '') {
     that.setData({
