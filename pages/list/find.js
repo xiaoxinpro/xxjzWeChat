@@ -271,22 +271,23 @@ function JsonToList(ListData) {
 
   //从网络获取最后一个日期头的金额
   //整理Api参数
-  var objLastDate = new Date(lastListDate)
+  var findData = {};
+  for(var key in FindData) {
+    findData[key] = FindData[key];
+  }
+  findData.starttime = lastListDate;
+  findData.endtime = findData.starttime;
+  findData.page = 0;
   var jsonData = {};
-  jsonData.type = 'get';
-  jsonData.data = Base64.encoder(JSON.stringify({
-    gettype: "day",
-    year: objLastDate.getFullYear(),
-    month: objLastDate.getMonth() + 1,
-    day: util.strDateFormat(ListData[ListData.length - 1].actime, 'd'),
-    page: 0
-  }));
+  jsonData.type = 'find';
+  jsonData.data = Base64.encoder(JSON.stringify(findData));
   getData(jsonData, function (ret) {
     if (ret.uid > 0) {
       var titleIndex = json.length;
       while (titleIndex-- > 0) {
         if (json[titleIndex].isTitle == true) {
-          json[titleIndex].overMoney = (ret.data.SumInMoney - ret.data.SumOutMoney).toFixed(2);
+          var ListData = ret.data.msg;
+          json[titleIndex].overMoney = (ListData.SumInMoney - ListData.SumOutMoney).toFixed(2);
           break;
         }
       }
