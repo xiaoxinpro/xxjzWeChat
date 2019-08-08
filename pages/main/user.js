@@ -94,6 +94,23 @@ Page({
         });
       }
     });
+
+    // Demo账号提醒
+    if (app.Demo.username == user.username) {
+      wx.showModal({
+        title: '体验账号',
+        content: '您当前使用的时体验账号，所有数据均为公开，并且此页面的部分功能无法使用。',
+        confirmText: '注册',
+        confirmColor: '#1aad19',
+        cancelText: '继续体验',
+        cancelColor: '#888',
+        success: function (res) {
+          if (res.confirm) {
+            Logout();
+          }
+        }
+      })
+    }
   },
 
   /**
