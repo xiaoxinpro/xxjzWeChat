@@ -77,6 +77,23 @@ Page({
     } else {
       Logout();
     }
+
+    // Demo账号提醒
+    if (app.Demo.username == username) {
+      wx.showModal({
+        title: '体验账号',
+        content: '您当前使用的时体验账号，添加的数据均为公开，建议体验后注册正式账号继续使用。',
+        confirmText: '注册',
+        confirmColor: '#1aad19',
+        cancelText: '继续体验',
+        cancelColor: '#888',
+        success: function (res) {
+          if (res.confirm) {
+            Logout();
+          }
+        }
+      })
+    }
   },
 
   onShow: function() {
@@ -100,23 +117,6 @@ Page({
         }
       }
     });
-
-    // Demo账号提醒
-    if (app.Demo.username == username) {
-      wx.showModal({
-        title: '体验账号',
-        content: '您当前使用的时体验账号，添加的数据均为公开，建议体验后注册正式账号继续使用。',
-        confirmText: '注册',
-        confirmColor: '#1aad19',
-        cancelText: '继续体验',
-        cancelColor: '#888',
-        success: function (res) {
-          if (res.confirm) {
-            Logout();
-          }
-        }
-      })
-    }
 
     // 获取分类数据
     getClassData();
