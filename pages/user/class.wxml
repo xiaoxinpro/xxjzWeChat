@@ -47,7 +47,7 @@
                   <text class="default" wx:if="{{defaultClass.out == item.id}}">(默认)</text>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">
-                  <!-- <text wx:if="{{defaultClass.out == item.id}}">默认</text> -->
+                  <text wx:if="{{item.money}}">¥ {{item.money}}</text>
                 </view>
               </view>
             </view>
