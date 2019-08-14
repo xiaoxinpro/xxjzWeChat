@@ -184,6 +184,24 @@ App({
     });
   },
 
+  // 根据ClassId获取分类数据
+  GetClassId: function(id) {
+    for (item in this.ClassAllData.all) {
+      if(item.id == id) {
+        return item;
+      }
+    }
+  },
+
+  // 根据ClassName获取分类数据
+  GetClassName: function(name) {
+    for (item in this.ClassAllData.all) {
+      if (item.name == name) {
+        return item;
+      }
+    }
+  },
+
   // 获取分类数据（加强版）
   GetClassAllData: function (uid, callback) {
     var that = this;
@@ -194,8 +212,10 @@ App({
           'content-type': 'application/x-www-form-urlencoded',
           'Cookie': 'PHPSESSID=' + session_id
         }
-      } else {
+      } else if (callback) {
         callback(false, 0, "内存数据出错，请登陆后再试。");
+      } else {
+        return (false, 0, "内存数据出错，请登陆后再试。");
       }
       wx.request({
         url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/aclass',
@@ -224,16 +244,27 @@ App({
                 'out': outData,
                 'all': data,
               };
-              callback(true, that.ClassAllData ? Object.getOwnPropertyNames(that.ClassAllData).length : 0, that.ClassAllData);
+              if (callback) {
+                // 异步返回实时数据
+                callback(true, that.ClassAllData ? Object.getOwnPropertyNames(that.ClassAllData).length : 0, that.ClassAllData);
+              } else {
+                return (true, that.ClassAllData ? Object.getOwnPropertyNames(that.ClassAllData).length : 0, that.ClassAllData);
+              }
               wx.setStorageSync('ClassAllData', that.ClassAllData);
-            } else {
+            } else if(callback) {
               callback(false, 0, "登录验证已过期，请重新登录。");
+            } else {
+              return (false, 0, "登录验证已过期，请重新登录。");
             }
           }
         }
       });
-    } else {
+      // 同步返回缓存数据
+      return (true, that.ClassAllData ? Object.getOwnPropertyNames(that.ClassAllData).length : 0, that.ClassAllData);
+    } else if(callback) {
       callback(false, 0, "用户登陆超时，请重新登陆。");
+    } else {
+      return (false, 0, "用户登陆超时，请重新登陆。");
     }
   },
 
