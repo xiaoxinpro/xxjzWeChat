@@ -1,13 +1,15 @@
 //app.js
 App({
-  //全局变量
+  //全局常量
   // URL: 'https://ide.xiaoxin.pro',
   URL: 'https://jz.xiaoxin.pro',
   AdminUid: 3,
   MinServerVersion: '2.0.0',
   Demo:{username:'demo',password:'xxgzs.org'},
 
+  //全局变量（初始化时自动赋值）
   ServerVersion: '0.0.1',
+  ClassAllData: null,
 
   onLaunch: function() {
     wx.getSystemInfo({
@@ -180,6 +182,59 @@ App({
         }
       }
     });
+  },
+
+  // 获取分类数据（加强版）
+  GetClassAllData: function (uid, callback) {
+    var that = this;
+    if (uid > 0) {
+      var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
+      if (session_id != "" && session_id != null) {
+        var header = {
+          'content-type': 'application/x-www-form-urlencoded',
+          'Cookie': 'PHPSESSID=' + session_id
+        }
+      } else {
+        callback(false, 0, "内存数据出错，请登陆后再试。");
+      }
+      wx.request({
+        url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/aclass',
+        data: {
+          type: 'getalldata'
+        },
+        header: header,
+        success: function (res) {
+          console.log('获取分类数据(加强版):', res);
+          if (res.hasOwnProperty('data')) {
+            let ret = res['data'];
+            if (ret['uid'] == uid) {
+              let data = ret['data'];
+              let inData = [];
+              let outData = [];
+              for (var i in data) {
+                data[i]['icon'] = that.GetClassIcon(0, data[i]['name']);
+                if (data[i]['type'] == 1) {
+                  inData.push(data[i]);
+                } else if (data[i]['type'] == 2) {
+                  outData.push(data[i]);
+                }
+              }
+              that.ClassAllData = {
+                'in': inData,
+                'out': outData,
+                'all': data,
+              };
+              callback(true, that.ClassAllData ? Object.getOwnPropertyNames(that.ClassAllData).length : 0, that.ClassAllData);
+              wx.setStorageSync('ClassAllData', that.ClassAllData);
+            } else {
+              callback(false, 0, "登录验证已过期，请重新登录。");
+            }
+          }
+        }
+      });
+    } else {
+      callback(false, 0, "用户登陆超时，请重新登陆。");
+    }
   },
 
   // 获取分类数据
