@@ -243,6 +243,7 @@ Page({
   onLoad: function(options) {
     var that = this;
     var json = initData();
+    console.log('json = ', json);
     var frmType = options.type ? options.type : 0;
     wx.getSystemInfo({
       success: function(res) {
@@ -269,7 +270,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    uid = wx.getStorageSync('user').uid;
+    
   },
 
   /**
@@ -316,6 +317,7 @@ function initData(callback) {
   var outJson = [];
   var inJson = [];
   var defaultClass = getApp().GetDefaultClass();
+  uid = wx.getStorageSync('user').uid;
   console.log('获取默认分类：', defaultClass);
   if (!callback) {
     var outClass = wx.getStorageSync('outClass');
@@ -623,16 +625,13 @@ function getClassData(callback) {
  * 分类数据处理
  */
 function classDataProcess(classList) {
-  var allClass = wx.getStorageSync('allClass');
   var classJson = [];
   var key = 0;
   for (var i in classList) {
-    classJson.push({
-      key: key++,
-      id: parseInt(i),
-      name: classList[i],
-      icon: allClass[i].icon
-    });
+    var classData = getApp().GetClassId(parseInt(i));
+    console.log(classData, i);
+    classData['key'] = key++;
+    classJson.push(classData);
   }
   return classJson;
 }

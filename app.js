@@ -186,18 +186,20 @@ App({
 
   // 根据ClassId获取分类数据
   GetClassId: function(id) {
-    for (item in this.ClassAllData.all) {
-      if(item.id == id) {
-        return item;
+    var classData = this.ClassAllData.all;
+    for (var i in classData) {
+      if (classData[i].id == id) {
+        return classData[i];
       }
     }
   },
 
   // 根据ClassName获取分类数据
   GetClassName: function(name) {
-    for (item in this.ClassAllData.all) {
-      if (item.name == name) {
-        return item;
+    var classData = this.ClassAllData.all;
+    for (var i in classData) {
+      if (classData[i].name == name) {
+        return classData[i];
       }
     }
   },
