@@ -257,8 +257,8 @@ function getFundsData() {
 
 /** 获取分类数据 */
 function getClassData() {
-  app.GetClassData(parseInt(uid), function(ret, len, data) {
-    console.log('获取分类完成', ret, len, data);
+  app.GetClassAllData(parseInt(uid), function (ret, len, data) { 
+    console.log('获取分类完成（加强版）', ret, len, data);
     if (ret) {
       if (!data.all) {
         wx.reLaunch({
@@ -269,6 +269,18 @@ function getClassData() {
       Logout();
     }
   });
+  // app.GetClassData(parseInt(uid), function(ret, len, data) {
+  //   console.log('获取分类完成', ret, len, data);
+  //   if (ret) {
+  //     if (!data.all) {
+  //       wx.reLaunch({
+  //         url: "../user/fastClass"
+  //       });
+  //     }
+  //   } else {
+  //     Logout();
+  //   }
+  // });
 }
 
 /** 获取当前时间，格式YYYY-MM-DD */
