@@ -82,21 +82,31 @@ Page({
   onShow: function () {
     that = this;
     user = wx.getStorageSync('user');
-    initData(user);
-    getUserData(user.uid, function (res) {
-      if ((user.username != res.username) || (user.email != res.email)) {
-        user.username = res.username || user.username;
-        user.email = res.email || user.email;
-        initData(user);
+
+    // Demo用户
+    if (app.Demo.username == user.username) {
+      getUserData(user.uid, function (res) {
+        user.email = res.email ? res.email : '';
         wx.setStorage({
           key: 'user',
           data: user,
+        })
+        var avatarPath = wx.getStorageSync('avatarPath');
+        if (!avatarPath) {
+          avatarPath = "../../image/login_logo.png"
+          wx.setStorage({
+            key: 'avatarPath',
+            data: avatarPath,
+          })
+        }
+        that.setData({
+          uid: user.uid,
+          uname: user.username,
+          email: user.email,
+          avatarPath: avatarPath,
         });
-      }
-    });
-
-    // Demo账号提醒
-    if (app.Demo.username == user.username) {
+      });
+      // Demo账号提醒
       wx.showModal({
         title: '体验账号',
         content: '您当前使用的时体验账号，所有数据均为公开，并且此页面的部分功能无法使用。',
@@ -110,7 +120,22 @@ Page({
           }
         }
       })
+      return;
     }
+
+    // 普通用户
+    initData(user);
+    getUserData(user.uid, function (res) {
+      if ((user.username != res.username) || (user.email != res.email)) {
+        user.username = res.username || user.username;
+        user.email = res.email || user.email;
+        initData(user);
+        wx.setStorage({
+          key: 'user',
+          data: user,
+        });
+      }
+    });
   },
 
   /**
