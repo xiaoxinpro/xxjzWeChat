@@ -273,6 +273,7 @@ App({
   // 获取分类数据
   GetClassData: function(uid, callback) {
     //console.log('uid:',uid)
+    console.warn('GetClassData为弃用API，请及时更换为GetClassAllData。');
     if (uid > 0) {
       var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
       if (session_id != "" && session_id != null) {
