@@ -268,16 +268,16 @@ function getFunds() {
 function getClass(type) {
   var ClassList = { value: [0], name: ['全部'] };
   if (type == 1) {
-    var ClassObj = wx.getStorageSync('inClass');
+    var ClassObj = getApp().ClassAllData.in;
   } else if (type == 2) {
-    var ClassObj = wx.getStorageSync('outClass');
+    var ClassObj = getApp().ClassAllData.out;
   } else {
     return ClassList;
   }
 
   for (var i in ClassObj) {
-    ClassList.value.push(parseInt(i));
-    ClassList.name.push(ClassObj[i]);
+    ClassList.value.push(parseInt(ClassObj[i].id));
+    ClassList.name.push(ClassObj[i].name);
   }
   console.log('加载分类数据:', ClassList);
   return ClassList;
