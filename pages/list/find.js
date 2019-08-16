@@ -209,7 +209,6 @@ function JsonToList(ListData) {
   var json = [];
   var strDate = "";
   var arrFunds = wx.getStorageSync('Funds');
-  var arrClass = wx.getStorageSync('allClass');
   var key = that.data.arrList.length;
 
   if (ListData.length <= 0) {
@@ -245,9 +244,10 @@ function JsonToList(ListData) {
     }
 
     //添加账单数据
+    var classData = getApp().GetClassId(ListData[i].acclassid);
     var classType = ListData[i].zhifu == "1" ? "收入" : "支出";
-    var className = arrClass[ListData[i].acclassid].name;
-    var classIcon = arrClass[ListData[i].acclassid].icon;
+    var className = classData.name;
+    var classIcon = classData.icon;
     var fundsName = getApp().GetFundsName(ListData[i].fid);
     json.push({
       key: key++,
