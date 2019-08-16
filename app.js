@@ -270,54 +270,6 @@ App({
     }
   },
 
-  // 获取分类数据
-  GetClassData: function(uid, callback) {
-    //console.log('uid:',uid)
-    console.warn('GetClassData为弃用API，请及时更换为GetClassAllData。');
-    if (uid > 0) {
-      var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
-      if (session_id != "" && session_id != null) {
-        var header = {
-          'content-type': 'application/x-www-form-urlencoded',
-          'Cookie': 'PHPSESSID=' + session_id
-        }
-      } else {
-        callback(false, 0, "内存数据出错，请登陆后再试。");
-      }
-      wx.request({
-        url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/aclass',
-        data: {
-          type: 'get'
-        },
-        header: header,
-        success: function(res) {
-          console.log('获取分类数据:', res);
-          if (res.hasOwnProperty('data')) {
-            let ret = res['data'];
-            if (ret['uid'] == uid) {
-              let data = ret['data'];
-              wx.setStorageSync('inClass', data.in);
-              wx.setStorageSync('outClass', data.out);
-              var arrClass = wx.getStorageSync('allClass') || {};
-              for (var i in data.all) {
-                arrClass[i] = {
-                  name: data.all[i],
-                  icon: getApp().GetClassIcon(0, data.all[i])
-                };
-              }
-              wx.setStorageSync('allClass', arrClass);
-              callback(true, data.all ? Object.getOwnPropertyNames(data.all).length : 0, data);
-            } else {
-              callback(false, 0, "登录验证已过期，请重新登录。");
-            }
-          }
-        }
-      });
-    } else {
-      callback(false, 0, "用户登陆超时，请重新登陆。");
-    }
-  },
-
   // 获取默认分类id
   GetDefaultClass() {
     var ret = wx.getStorageSync('defaultClass');
