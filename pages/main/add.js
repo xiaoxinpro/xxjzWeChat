@@ -364,14 +364,14 @@ function getFunds() {
 /** 获取分类(收支类别) */
 function getClass(type) {
   if (type == '收入') {
-    var ClassObj = wx.getStorageSync('inClass');
+    var ClassObj = getApp().ClassAllData.in;
   } else {
-    var ClassObj = wx.getStorageSync('outClass');
+    var ClassObj = getApp().ClassAllData.out;
   }
   var ClassList = { value: [], name: [] };
   for (var i in ClassObj) {
-    ClassList.value.push(parseInt(i));
-    ClassList.name.push(ClassObj[i]);
+    ClassList.value.push(parseInt(ClassObj[i].id));
+    ClassList.name.push(ClassObj[i].name);
   }
   console.log('加载分类数据:', ClassList);
   if (!ClassObj) {
