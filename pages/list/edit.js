@@ -396,18 +396,18 @@ function getFunds(fundsid) {
 function getClass(type, classId) {
   var classIndex = 0;
   if (type == '收入') {
-    var ClassObj = wx.getStorageSync('inClass');
+    var ClassObj = getApp().ClassAllData.in;
   } else {
-    var ClassObj = wx.getStorageSync('outClass');
+    var ClassObj = getApp().ClassAllData.out;
   }
   var ClassList = {
     value: [],
     name: []
   };
   for (var i in ClassObj) {
-    ClassList.value.push(parseInt(i));
-    ClassList.name.push(ClassObj[i]);
-    if (parseInt(classId) == parseInt(i)) {
+    ClassList.value.push(parseInt(ClassObj[i].id));
+    ClassList.name.push(ClassObj[i].name);
+    if (parseInt(classId) == parseInt(ClassObj[i].id)) {
       classIndex = ClassList.value.length - 1;
     }
   }
