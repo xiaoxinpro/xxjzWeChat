@@ -37,16 +37,6 @@ Page({
     })
   },
 
-  bindTest: function() {
-    var day = this.data.header_day;
-    if (++day > 31) {
-      day = 1;
-    }
-    this.setData({
-      header_day: day
-    });
-  },
-
   onPullDownRefresh: function() {
     //下拉复制文本
     if (autoCopyString.enablePullDown) {
