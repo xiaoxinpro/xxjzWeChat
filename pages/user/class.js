@@ -629,6 +629,7 @@ function classDataProcess(classList) {
     var classData = getApp().GetClassId(parseInt(classList[i].id));
     // console.log(classData, classList[i].id);
     classData['key'] = key++;
+    classData['money'] = classData['money'].toFixed(2);
     classJson.push(classData);
   }
   return classJson;
