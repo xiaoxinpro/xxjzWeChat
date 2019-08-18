@@ -21,6 +21,7 @@ App({
     });
     this.getVersion();
     this.clearDemoInfo();
+    this.ClassAllData = wx.getStorageSync('ClassAllData');
   },
 
   getVersion: function() {
@@ -272,18 +273,19 @@ App({
 
   // 获取默认分类id
   GetDefaultClass() {
+    var that = this;
     var ret = wx.getStorageSync('defaultClass');
     if(ret) {
       return ret;
     } else {
       ret = {};
-      var listClass = wx.getStorageSync('inClass');
-      if (Object.keys(listClass).length > 0) {
-        ret['in'] = parseInt(Object.keys(listClass).shift());
+      var listClass = that.ClassAllData.in;
+      if (listClass.length > 0) {
+        ret['in'] = parseInt(listClass[0].id);
       }
-      listClass = wx.getStorageSync('outClass');
-      if (Object.keys(listClass).length > 0) {
-        ret['out'] = parseInt(Object.keys(listClass).shift());
+      listClass = that.ClassAllData.out;
+      if (listClass.length > 0) {
+        ret['out'] = parseInt(listClass[0].id);
       }
       return ret;
     }
@@ -415,13 +417,13 @@ App({
       key: 'mainPageData'
     });
     wx.removeStorage({
-      key: 'inClass'
+      key: 'ClassAllData'
     });
     wx.removeStorage({
-      key: 'outClass'
+      key: 'Funds'
     });
     wx.removeStorage({
-      key: 'allClass'
+      key: 'defaultClass'
     });
     callback({
       url: "/pages/index/index"
