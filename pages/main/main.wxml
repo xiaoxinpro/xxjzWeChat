@@ -2,29 +2,31 @@
   <!--本月总结-->
   <view class="page__bd" wx:if="{{is_haader_recent30day}}">
     <view class="weui-cells__title">
-      <text class="">{{header_month}}</text>
-      <text class="">月份</text>
-      <text style="font-size:12px"> / </text>
-      <text style="font-size:10px">{{header_year}}</text>
+      <view class="weui-flex">
+        <view class="weui-flex__item">最近30天统计数据</view>
+        <view class="weui-flex__item" style="text-align: right;">
+          <!-- <span class="iconfont icon-shezhi" style="font-size:auto;"></span> -->
+        </view>
+      </view>
     </view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <text class="iconfont icon-tianjiajingdian"></text> 30天收入
+          <text class="iconfont icon-tianjiajingdian"></text> 最近收入
         </view>
         <view class="weui-cell__ft">￥{{recent_30day_in_money}}</view>
       </view>
 
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <text class="iconfont icon-jianqujingdian"></text> 30天支出
+          <text class="iconfont icon-jianqujingdian"></text> 最近支出
         </view>
         <view class="weui-cell__ft">￥{{recent_30day_out_money}}</view>
       </view>
 
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <text class="iconfont icon-icon"></text> 30天剩余
+          <text class="iconfont icon-icon"></text> 最近剩余
         </view>
         <view class="weui-cell__ft">￥{{recent_30day_over_money}}</view>
       </view>
@@ -70,8 +72,6 @@
       </button>
     </view>
   </view>
-
-  <!-- <button class="weui-btn" bindtap="bindTest">日期图标测试按钮</button> -->
 
   <!--首页统计-->
   <view class="weui-cells weui-cells_after-title">
@@ -148,7 +148,7 @@
       </view>
     </navigator>
   </view>
-  
+
   <view class="weui-flex" style="margin:10px">
     <view class="weui-flex__item" wx:for="{{main_tool_config}}" wx:key="id">
       <navigator url="{{item.path}}" class="main-placeholder weui-btn weui-btn-{{item.button}}" hover-class="weui-cell_active" bindlongpress="btnGoToToolSite" data-id="{{item.id}}">{{item.name}}</navigator>
