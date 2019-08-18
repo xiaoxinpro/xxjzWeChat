@@ -314,12 +314,12 @@ Page({
  * 初始化数据
  */
 function initData(callback) {
-  var defaultClass = getApp().GetDefaultClass();
   uid = wx.getStorageSync('user').uid;
-  console.log('获取默认分类：', defaultClass);
   if (!callback) {
     var outClass = getApp().ClassAllData.out;
     var inClass = getApp().ClassAllData.in;
+    var defaultClass = getApp().GetDefaultClass();
+    console.log('获取分类信息：', defaultClass, inClass, outClass);
     return {
       out: classDataProcess(outClass),
       in: classDataProcess(inClass),
@@ -327,6 +327,8 @@ function initData(callback) {
     };
   } else {
     getClassData(function(data) {
+      var defaultClass = getApp().GetDefaultClass();
+      console.log('获取默认分类：', defaultClass);
       that.setData({
         outClassList: classDataProcess(data.out),
         inClassList: classDataProcess(data.in),
@@ -629,7 +631,7 @@ function classDataProcess(classList) {
     var classData = getApp().GetClassId(parseInt(classList[i].id));
     // console.log(classData, classList[i].id);
     classData['key'] = key++;
-    classData['money'] = classData['money'].toFixed(2);
+    classData['money'] = parseFloat(classData['money']).toFixed(2);
     classJson.push(classData);
   }
   return classJson;
