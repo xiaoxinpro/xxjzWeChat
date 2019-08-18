@@ -186,8 +186,8 @@ App({
   },
 
   // 根据ClassId获取分类数据
-  GetClassId: function(id) {
-    var classData = this.ClassAllData.all;
+  GetClassId: function(id, type = 'all') {
+    var classData = this.ClassAllData[type];
     for (var i in classData) {
       if (classData[i].id == id) {
         return classData[i];
@@ -275,20 +275,22 @@ App({
   GetDefaultClass() {
     var that = this;
     var ret = wx.getStorageSync('defaultClass');
-    if(ret) {
-      return ret;
-    } else {
+    if (!ret) {
       ret = {};
+    }
+    if (!(ret.hasOwnProperty('in') && that.GetClassId(ret.in, 'in'))) {
       var listClass = that.ClassAllData.in;
       if (listClass.length > 0) {
         ret['in'] = parseInt(listClass[0].id);
       }
-      listClass = that.ClassAllData.out;
+    }
+    if (!(ret.hasOwnProperty('out') && that.GetClassId(ret.out, 'out'))) {
+      var listClass = that.ClassAllData.out;
       if (listClass.length > 0) {
         ret['out'] = parseInt(listClass[0].id);
       }
-      return ret;
     }
+    return ret;
   },
 
   // 获取分类图标名称
