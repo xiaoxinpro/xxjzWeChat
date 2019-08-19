@@ -2,7 +2,11 @@
 
 var isAutoLogin = false;
 var userLogin = {};
-var user = { uid: "", username: "", password: "" };
+var user = {
+  uid: "",
+  username: "",
+  password: ""
+};
 var code = null;
 
 Page({
@@ -13,26 +17,33 @@ Page({
     submit: "登陆",
     username_value: "",
     password_value: "",
+    windowHeight: 0,
   },
 
-  formSubmit: function (e) {
+  formSubmit: function(e) {
     let username = e.detail.value.username;
     let password = e.detail.value.password;
     LoginProcess(username, password);
   },
 
-  btnWexinLogin: function (e) {
-    getApp().Logout(function (path) {
+  btnWexinLogin: function(e) {
+    getApp().Logout(function(path) {
       wx.redirectTo(path);
     });
   },
 
-  onLoad: function (option) {
+  onLoad: function(option) {
     var tmpUser = wx.getStorageSync('user');
     if (tmpUser) {
       user = tmpUser;
     }
-    wx.setNavigationBarTitle({ title: '登陆帐号' });
+    this.setData({
+      windowHeight: getApp().globalData.windowHeight,
+      screenHeight: getApp().globalData.screenHeight,
+    });
+    wx.setNavigationBarTitle({
+      title: '登陆帐号'
+    });
     if (option.hasOwnProperty('password')) {
       this.setData({
         username_value: option.username,
@@ -54,7 +65,7 @@ Page({
     }
   },
 
-  onShow: function () {
+  onShow: function() {
     console.log("显示登陆页面：", isAutoLogin, userLogin);
     if (isAutoLogin === true) {
       isAutoLogin = false;
@@ -68,7 +79,7 @@ function LoginProcess(username, password) {
   wx.showLoading({
     title: '登陆中',
     mask: true,
-    success: function () {
+    success: function() {
       if (username.length < 2 || password.length < 6) {
         wx.hideLoading();
         wx.showModal({
@@ -77,7 +88,7 @@ function LoginProcess(username, password) {
           showCancel: false
         });
       } else {
-        sendPostLogin(username, password, function (ret) {
+        sendPostLogin(username, password, function(ret) {
           wx.hideLoading();
           console.log("网络请求返回：", ret);
           if (ret['uid'] > 0) {
@@ -102,17 +113,21 @@ function LoginProcess(username, password) {
             wx.showToast({
               title: '登陆成功',
               duration: 1000,
-              complete: function () {
-                setTimeout(function () {
+              complete: function() {
+                setTimeout(function() {
                   //跳转到用户主页
-                  wx.reLaunch({ url: "../main/main?uid=" + user['uid'] + "&uname=" + user['username'] });
+                  wx.reLaunch({
+                    url: "../main/main?uid=" + user['uid'] + "&uname=" + user['username']
+                  });
                 }, 500);
               }
             });
 
           } else {
             //清空用户信息
-            wx.removeStorage({ key: 'user' });
+            wx.removeStorage({
+              key: 'user'
+            });
             //弹出登陆失败窗口
             wx.showModal({
               title: "登陆失败",
@@ -129,14 +144,23 @@ function LoginProcess(username, password) {
 /** 发送登录命令 */
 function sendPostLogin(username, password, callback) {
   var url = getApp().URL + '/xxjzApp/index.php?s=/Home/Login/login_api';
-  var data = {username: username,password: password,submit: 'xxjzAUI'};
-  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  var data = {
+    username: username,
+    password: password,
+    submit: 'xxjzAUI'
+  };
+  var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
   if (session_id != "" && session_id != null) {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'Cookie': 'PHPSESSID=' + session_id
+    }
   } else {
-    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded'
+    }
   }
-  if(code) {
+  if (code) {
     url = getApp().URL + '/xxjzApp/index.php?s=/Home/Login/bind_weixin';
     data.js_code = code;
     data.submit = 'weixin';
@@ -146,10 +170,10 @@ function sendPostLogin(username, password, callback) {
     data: data,
     method: 'GET',
     header: header,
-    success: function (res) {
+    success: function(res) {
       callback(res.data);
     },
-    fail: function () {
+    fail: function() {
       callback({
         uid: 0,
         uname: err['msg'] + '（请联系管理员）'
