@@ -1,21 +1,21 @@
 <!--login.wxml-->
 <!--<view class="login-title">{{title}}</view>-->
-<view class="login-title">
-    <image style="width: 72px; height: 72px;" mode="aspectFit" src="../../image/login_logo.png" />
-</view>
-<view class="login-from">
-    <form bindsubmit="formSubmit">
+<view class="page mainground" style='height:{{windowHeight}}rpx;'>
+  <!-- 背景图片 -->
+  <image class='background' src='../../image/bg.png' mode="widthFix"></image>
+
+  <view class="upground login-from">
+    <view class="container" style="margin-top: 50vw;">
+      <form bindsubmit="formSubmit">
         <view class="login-item login-input">
-            <input name="username" placeholder="{{username}}"  value="{{username_value}}" />
+          <input name="username" placeholder="{{username}}" value="{{username_value}}" />
         </view>
         <view class="login-item login-input">
-            <input name="password" placeholder="{{password}}" password value="{{password_value}}" />
+          <input name="password" placeholder="{{password}}" password value="{{password_value}}" />
         </view>
-        <view class="login-item">
-            <button class="weui-btn-info" formType="submit">{{submit}}</button>
-        </view>
-    </form>
-    <view class="login-wexin">
-      <button type="primary" bindtap="btnWexinLogin">微信登陆</button>
+        <button class="weui-btn" formType="submit">{{submit}}</button>
+        <button class="weui-btn weui-btn-primary" bindtap="btnWexinLogin">微信登陆</button>
+      </form>
     </view>
+  </view>
 </view>
