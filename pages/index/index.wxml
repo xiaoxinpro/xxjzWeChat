@@ -12,7 +12,7 @@
       </view>
     </view>
     <view class="usermotto" wx:if="{{refresh}}">
-      <button type="primary" open-type="getUserInfo" bindgetuserinfo="bindViewRefresh">使用微信登录</button>
+      <button type="primary" open-type="getUserInfo" bindgetuserinfo="bindViewRefresh" style="width: 50vw;">使用微信登录</button>
       <navigator class="usermotto-link" url="../login/login?username={{demo.username}}&password={{demo.password}}">使用体验账号登陆</navigator>
     </view>
     <view wx:if="{{!lock}}">
