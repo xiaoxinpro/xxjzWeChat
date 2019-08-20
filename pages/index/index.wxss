@@ -22,9 +22,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding-top: 100rpx;
-  padding-bottom: 240rpx;
   box-sizing: border-box;
+  padding-top: 15vw; 
+  padding-bottom: 36vw;
 }
 
 .userinfo {
@@ -50,16 +50,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 50rpx 0;
+  margin-top: 30vw;
 }
 
 .usermotto-link {
-  margin-top:25px;
+  margin-top:6vw;
   font-size:15px;
   color:#FFF;
   text-decoration:underline;
 }
 
 .userlink {
-  margin: 40rpx 80rpx;
+  margin: 6vw 12vw;
 }
