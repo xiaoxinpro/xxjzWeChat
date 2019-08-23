@@ -110,6 +110,13 @@ Page({
     });
   },
 
+  btnClassEditPage: function(e) {
+    var id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: './class/edit?id=' + id,
+    });
+  },
+
   /**
    * 设为默认分类
    */
