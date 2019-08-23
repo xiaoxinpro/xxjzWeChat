@@ -20,6 +20,19 @@ Page({
   },
 
   /**
+   * 收支选择事件
+   */
+  typeChange: function (e) {
+    that = this;
+    var typeId = e.detail.value;
+    var ClassData = getClassSetData(ClassId, typeId);
+    console.log(e, ClassData);
+    if (ClassData) {
+      this.setData(ClassData);
+    }
+  },
+
+  /**
    * 返回按钮
    */
   bindBack: function() {
@@ -85,37 +98,9 @@ Page({
     that = this;
     uid = wx.getStorageSync('user').uid;
     ClassId = options.id;
-
-    var ClassData = getApp().GetClassId(ClassId);
-    var ClassArr = [];
-    if(ClassData.type == 1) {
-      ClassArr = getApp().ClassAllData.in;
-    } else {
-      ClassArr = getApp().ClassAllData.out;
-    }
-
-    var typeItems = that.data.typeItems;
-    for (var i in typeItems) {
-      typeItems[i].checked = (ClassData.type == parseInt(typeItems[i].value));
-    }
-
-    var ClassList = { 'id': [], 'name': [], 'type': []};
-    for (var i in ClassArr) {
-      if (ClassArr[i].id == ClassId) {
-        continue;
-      } else {
-        ClassList.id.push(ClassArr[i].id);
-        ClassList.name.push(ClassArr[i].name);
-        ClassList.type.push(ClassArr[i].type)
-      }
-    }
+    var ClassData = getClassSetData(ClassId);
     if (ClassData) {
-      that.setData({
-        typeItems: typeItems,
-        ClassCount: parseInt(ClassData.count),
-        ClassName: ClassData.name,
-        ClassList: ClassList
-      });
+      that.setData(ClassData);
     } else {
       wx.showModal({
         title: '无法编辑',
@@ -179,3 +164,46 @@ Page({
 
   }
 })
+
+/**
+ * 获取Class显示数据
+ */
+function getClassSetData(classId, typeId = false) {
+  var ClassData = getApp().GetClassId(ClassId);
+  var ClassArr = [];
+  if(typeId) {
+    ClassData.type = typeId;
+  }
+  if (ClassData.type == 1) {
+    ClassArr = getApp().ClassAllData.in;
+  } else {
+    ClassArr = getApp().ClassAllData.out;
+  }
+
+  var typeItems = that.data.typeItems;
+  for (var i in typeItems) {
+    typeItems[i].checked = (ClassData.type == parseInt(typeItems[i].value));
+  }
+
+  var ClassList = { 'id': [], 'name': [], 'type': [] };
+  for (var i in ClassArr) {
+    if (ClassArr[i].id == ClassId) {
+      continue;
+    } else {
+      ClassList.id.push(ClassArr[i].id);
+      ClassList.name.push(ClassArr[i].name);
+      ClassList.type.push(ClassArr[i].type)
+    }
+  }
+
+  if(ClassData) {
+    return {
+      typeItems: typeItems,
+      ClassCount: parseInt(ClassData.count),
+      ClassName: ClassData.name,
+      ClassList: ClassList
+    };
+  } else {
+    return null;
+  }
+}
