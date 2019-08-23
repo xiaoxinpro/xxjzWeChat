@@ -2,3 +2,30 @@
 .weui-btn-area {
   margin-bottom: 30px;
 }
+
+.weui-cells-none {
+  position: relative;
+  background-color: #FFFFFF;
+  line-height: 1.41176471;
+  font-size: 17px;
+}
+
+.weui-cells-none:after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: #D9D9D9;
+}
+
+
+.weui-cells-none:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1rpx solid #D9D9D9;
+  color: #D9D9D9;
+}
