@@ -3,10 +3,11 @@
   <view class="page__bd">
     <!--错误提示-->
     <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{textTopTips}}</view>
+
+    <!-- 编辑分类 -->
     <form class="page__form" bindsubmit="submit_edit">
-      <view class="weui-cells__title">编辑<text style="font-weight:bold;">{{ClassName}}</text>分类</view>
+      <view class="weui-cells__title">编辑分类</view>
       <view class="weui-cells weui-cells_after-title">
-        <!--分类名称输入-->
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">名称</view>
@@ -15,8 +16,17 @@
             <input class="weui-input" name="class_name" value="{{ClassName}}" placeholder="输入分类名称" />
           </view>
         </view>
+      </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn weui-btn-primary" formType="submit">编辑</button>
+      </view>
+    </form>
 
-        <!--收支类型选择-->
+    <!--收支类型选择-->
+    <!-- <form class="page__form" bindsubmit="submit_change">
+      <view class="weui-cells__title">转移分类</view>
+      <view class="weui-cells weui-cells_after-title">
+        
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">类型</view>
@@ -36,11 +46,11 @@
         </view>
       </view>
       <view class="weui-btn-area">
-        <button class="weui-btn weui-btn-primary" formType="submit">编辑</button>
-        <button class="weui-btn" type="default" bindtap="bindDefault">设为默认</button>
+        <button class="weui-btn weui-btn-warning" formType="submit">转移</button>
       </view>
-    </form>
+    </form> -->
 
+    <!-- 删除分类 -->
     <form class="page__form" bindsubmit="submit_delete">
       <view class="weui-cells__title">删除分类</view>
       <view class="weui-cells weui-cells_after-title">
@@ -60,9 +70,17 @@
         删除【{{ClassName}}】分类并将该分类下的 {{ClassCount}} 条记录转移到选择的分类中。
       </view>
       <view class="weui-btn-area">
-        <button class="weui-btn weui-btn-danger" formType="submit">转移并删除</button>
-        <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+        <button class="weui-btn weui-btn-danger" formType="submit">删除</button>
       </view>
     </form>
+
+    <view class="weui-cells__title">其他</view>
+    <view class="weui-cells-none weui-cells_after-title">
+    </view>
+    <view class="weui-btn-area">
+      <button class="weui-btn weui-btn-warning" bindtap="bindClassType">切换类别</button>
+      <button class="weui-btn weui-btn-info" bindtap="bindDefault">设为默认</button>
+      <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+    </view>
   </view>
 </view>
