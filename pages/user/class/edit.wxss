@@ -1,1 +1,4 @@
 /* pages/user/class/edit.wxss */
+.weui-btn-area {
+  margin-bottom: 30px;
+}
