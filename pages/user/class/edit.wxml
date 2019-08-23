@@ -1,2 +1,68 @@
 <!--pages/user/class/edit.wxml-->
-<text>pages/user/class/edit.wxml</text>
+<view class="page">
+  <view class="page__bd">
+    <!--错误提示-->
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{textTopTips}}</view>
+    <form class="page__form" bindsubmit="submit_edit">
+      <view class="weui-cells__title">编辑<text style="font-weight:bold;">{{ClassName}}</text>分类</view>
+      <view class="weui-cells weui-cells_after-title">
+        <!--分类名称输入-->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="class_name" value="{{ClassName}}" placeholder="输入分类名称" />
+          </view>
+        </view>
+
+        <!--收支类型选择-->
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">类型</view>
+          </view>
+          <radio-group bindchange="typeChange">
+            <view class="weui-cell__bd">
+              <label class="weui-cell__hd" wx:for="{{typeItems}}" wx:key="value">
+                <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+                <icon wx:if="{{item.checked}}" class="weui-icon-checkbox_success" type="success" size="23">
+                  <input style="display:none" name="class_type" value="{{item.value}}"></input>
+                </icon>
+                <icon wx:else class="weui-icon-checkbox_circle" type="circle" size="23"></icon>
+                <text class="weui-input">{{item.name}} </text>
+              </label>
+            </view>
+          </radio-group>
+        </view>
+      </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn weui-btn-primary" formType="submit">编辑</button>
+        <button class="weui-btn" type="default" bindtap="bindDefault">设为默认</button>
+      </view>
+    </form>
+
+    <form class="page__form" bindsubmit="submit_delete">
+      <view class="weui-cells__title">删除分类</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">转移到</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindClassChange" name="class_id" value="{{selectClassId}}" range="{{ClassList.name}}">
+              <view class="weui-select weui-select_in-select-after">{{ClassList.name[selectClassId]}}</view>
+            </picker>
+          </view>
+
+        </view>
+      </view>
+      <view class="weui-cells__tips">
+        删除【{{ClassName}}】分类并将该分类下的 {{ClassCount}} 条记录转移到选择的分类中。
+      </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn weui-btn-danger" formType="submit">转移并删除</button>
+        <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+      </view>
+    </form>
+  </view>
+</view>
