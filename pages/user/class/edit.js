@@ -33,15 +33,6 @@ Page({
   },
 
   /**
-   * 返回按钮
-   */
-  bindBack: function() {
-    wx.navigateBack({
-      delta: 1
-    });
-  },
-
-  /**
    * 分类选择列表
    */
   bindClassChange: function(res) {
@@ -56,21 +47,10 @@ Page({
   submit_edit: function(res) {
     that = this;
     var newClassName = res.detail.value.Class_name;
-    var newClassType = res.detail.value.Class_type;
     var ClassData = getApp().GetClassId(ClassId);
     if (ClassData.name != newClassName) {
-      
+      console.log('编辑分类按钮');
     }
-    if (ClassData.type != newClassType) {
-
-    }
-  },
-
-  /**
-   * 设为默认分类按钮事件
-   */
-  bindDefault: function() {
-    var ClassData = getApp().GetClassId(ClassId);
   },
 
   /**
@@ -89,6 +69,30 @@ Page({
         }
       }
     })
+  },
+
+  /**
+   * 切换类别按钮事件
+   */
+  bindClassType: function() {
+    console.log("切换类别按钮");
+  },
+
+  /**
+   * 设为默认按钮事件
+   */
+  bindDefault: function() {
+    var ClassData = getApp().GetClassId(ClassId);
+    console.log("设为默认按钮");
+  },
+
+  /**
+   * 返回按钮
+   */
+  bindBack: function () {
+    wx.navigateBack({
+      delta: 1
+    });
   },
 
   /**
