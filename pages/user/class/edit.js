@@ -293,6 +293,8 @@ function cmdEditClass(classid, classtype, classname) {
             console.log('编辑分类完成：', ret);
             //更新分类数据
             updataClassData();
+            //延时返回页面
+            WaitBack();
           } else {
             //添加分类失败
             wx.showModal({
@@ -462,4 +464,13 @@ function getClassData(callback) {
       });
     }
   });
+}
+
+/** 
+ * 延时返回 
+ */
+function WaitBack(time = 500) {
+  setTimeout(function () {
+    wx.navigateBack();
+  }, time);
 }
