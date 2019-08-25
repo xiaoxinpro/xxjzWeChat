@@ -249,9 +249,9 @@ App({
               };
               if (callback) {
                 // 异步返回实时数据
-                callback(true, that.ClassAllData ? Object.getOwnPropertyNames(that.ClassAllData).length : 0, that.ClassAllData);
+                callback(true, that.ClassAllData ? that.ClassAllData.all.length : 0, that.ClassAllData);
               } else {
-                return (true, that.ClassAllData ? Object.getOwnPropertyNames(that.ClassAllData).length : 0, that.ClassAllData);
+                return (true, that.ClassAllData ? that.ClassAllData.all.length : 0, that.ClassAllData);
               }
               wx.setStorageSync('ClassAllData', that.ClassAllData);
             } else if(callback) {
@@ -263,7 +263,7 @@ App({
         }
       });
       // 同步返回缓存数据
-      return (true, that.ClassAllData ? Object.getOwnPropertyNames(that.ClassAllData).length : 0, that.ClassAllData);
+      return (true, that.ClassAllData ? that.ClassAllData.all.length : 0, that.ClassAllData);
     } else if(callback) {
       callback(false, 0, "用户登陆超时，请重新登陆。");
     } else {
