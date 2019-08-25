@@ -249,8 +249,6 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    var json = initData();
-    console.log('json = ', json);
     var frmType = options.type ? options.type : 0;
     wx.getSystemInfo({
       success: function(res) {
@@ -258,9 +256,6 @@ Page({
           sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
           sliderOffset: res.windowWidth / that.data.tabs.length * frmType,
           activeIndex: frmType,
-          outClassList: json.out,
-          inClassList: json.in,
-          defaultClass: json.defaultClass,
         });
       }
     });
@@ -277,7 +272,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+    var that = this;
+    var json = initData();
+    console.log('json = ', json);
+    that.setData({
+      outClassList: json.out,
+      inClassList: json.in,
+      defaultClass: json.defaultClass,
+    })
   },
 
   /**
