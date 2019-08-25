@@ -250,7 +250,7 @@ function getClassData() {
   app.GetClassAllData(parseInt(uid), function (ret, len, data) { 
     console.log('获取分类完成（加强版）', ret, len, data);
     if (ret) {
-      if (!data.all) {
+      if (len == 0) {
         wx.reLaunch({
           url: "../user/fastClass"
         });
