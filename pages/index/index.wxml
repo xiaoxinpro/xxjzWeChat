@@ -20,7 +20,7 @@
         <button bindtap="bindViewRegist" type="primary" size="default">\t{{regist}}\t</button>
       </view>
       <view class="userlink ">
-        <button bindtap="bindViewLogin " type="default " size="default">\t{{login}}\t</button>
+        <button bindtap="bindViewLogin" type="default " size="default">\t{{login}}\t</button>
       </view>
     </view>
   </view>
