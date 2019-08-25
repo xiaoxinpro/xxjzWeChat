@@ -53,8 +53,10 @@ Page({
       wx.showToast({
         title: '分类名未修改'
       });
+    } else if (!checkClassName(newClassName)) {
+      showTopTips('分类名格式错误！');
     } else {
-
+      cmdEditClass(ClassData.id, ClassData.type, newClassName);
     }
   },
 
@@ -217,6 +219,27 @@ function initClassData(classId, typeId = false) {
   }
 }
 
+/**
+ * 更新分类数据
+ */
+function updataClassData() {
+  getApp().GetClassAllData(uid, function (ret, len, data){
+    if(ret) {
+      that.setData(initClassData(ClassId));
+    } else {
+      wx.showModal({
+        title: '重新登录',
+        content: '登录验证已过期，请重新登录。',
+        showCancel: false,
+        success: function () {
+          getApp().Logout(function (path) {
+            wx.redirectTo(path);
+          });
+        }
+      });
+    }
+  });
+}
 
 /** 错误提示 */
 function showTopTips(text) {
@@ -269,9 +292,7 @@ function cmdEditClass(classid, classtype, classname) {
             });
             console.log('编辑分类完成：', ret);
             //更新分类数据
-            initData(function () {
-              //更新完成
-            });
+            updataClassData();
           } else {
             //添加分类失败
             wx.showModal({
@@ -318,9 +339,7 @@ function cmdChangeClass(classid, classtype, classname) {
             });
             console.log('转移分类完成：', ret);
             //更新分类数据
-            initData(function () {
-              //更新完成
-            });
+            updataClassData();
           } else {
             //添加分类失败
             wx.showModal({
@@ -365,9 +384,7 @@ function cmdDeleteClass(classid) {
             });
             console.log('删除分类完成：', ret);
             //更新分类数据
-            initData(function () {
-              //更新完成
-            });
+            updataClassData();
           } else {
             //添加分类失败
             wx.showModal({
