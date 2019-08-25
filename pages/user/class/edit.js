@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    selectClassId: 0,
+    selectClassIndex: 0,
 
     typeItems: [
       { name: '支出', value: '2', checked: true },
@@ -36,8 +36,9 @@ Page({
    * 分类选择列表
    */
   bindClassChange: function(res) {
+    // console.log('bindClassChange', res);
     this.setData({
-      selectClassId: res.detail.value
+      selectClassIndex: res.detail.value
     });
   },
 
@@ -65,6 +66,7 @@ Page({
    */
   submit_delete: function(res) {
     that = this;
+    var classIndex = res.detail.value.class_index;
     wx.showModal({
       title: '确认转移并删除',
       content: '请仔细核对删除与转移的分类，确认后不可恢复！',
@@ -72,7 +74,8 @@ Page({
       confirmColor: '#e51c23',
       success(ret) {
         if (ret.confirm) {
-          cmdDeleteClass(that.data.ClassList.id[res.detail.value.Class_id])
+          var ClassData = that.data.ClassArr[classIndex];
+          console.log(ClassData);
         }
       }
     })
@@ -196,23 +199,22 @@ function initClassData(classId, typeId = false) {
     typeItems[i].checked = (ClassData.type == parseInt(typeItems[i].value));
   }
 
-  var ClassList = { 'id': [], 'name': [], 'type': [] };
+  var ClassList = [];
   for (var i in ClassArr) {
     if (ClassArr[i].id == ClassId) {
       continue;
     } else {
-      ClassList.id.push(ClassArr[i].id);
-      ClassList.name.push(ClassArr[i].name);
-      ClassList.type.push(ClassArr[i].type)
+      ClassList.push(ClassArr[i]);
     }
   }
 
   if(ClassData) {
     return {
+      selectClassIndex: 0,
       typeItems: typeItems,
       ClassCount: parseInt(ClassData.count),
       ClassName: ClassData.name,
-      ClassList: ClassList
+      ClassArr: ClassList,
     };
   } else {
     return null;
