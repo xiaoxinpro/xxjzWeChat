@@ -6,7 +6,7 @@
 
     <!-- 编辑分类 -->
     <form class="page__form" bindsubmit="submit_edit">
-      <view class="weui-cells__title">编辑分类</view>
+      <view class="weui-cells__title">编辑分类【{{ClassName}}】</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
@@ -52,7 +52,7 @@
 
     <!-- 删除分类 -->
     <form class="page__form" bindsubmit="submit_delete">
-      <view class="weui-cells__title">删除分类</view>
+      <view class="weui-cells__title">删除分类【{{ClassName}}】</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -66,7 +66,7 @@
         </view>
       </view>
       <view class="weui-cells__tips">
-        删除【{{ClassName}}】分类并将该分类下的 {{ClassCount}} 条记录转移到选择的分类中。
+        将【{{ClassName}}】分类下的 {{ClassCount}} 条记录转移到【{{ClassArr[selectClassIndex].name}}】分类中，并删除【{{ClassName}}】分类。
       </view>
       <view class="weui-btn-area">
         <button class="weui-btn weui-btn-danger" formType="submit">删除</button>
