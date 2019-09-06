@@ -101,6 +101,22 @@ Page({
    */
   bindClassType: function() {
     console.log("切换类别按钮");
+    var ClassData = getApp().GetClassId(ClassId);
+    var typeId = ClassData.type;
+    var typeName = (typeId == 2) ? "收入" : "支出";
+    var className = ClassData.name;
+    wx.showModal({
+      title: '切换类别',
+      content: '你是否要将【' + className + '】切换为' + typeName + '吗？',
+      cancelText: '否',
+      confirmText: '是',
+      confirmColor: '#e51c23',
+      success: function (res) {
+        if (res.confirm) {
+          cmdChangeClass(ClassId, typeId, className);
+        }
+      }
+    });
   },
 
   /**
