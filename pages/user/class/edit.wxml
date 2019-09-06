@@ -53,29 +53,29 @@
     <!-- 删除分类 -->
     <form class="page__form" bindsubmit="submit_delete">
       <view class="weui-cells__title">删除分类【{{ClassName}}】</view>
-      <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cells weui-cells_after-title" wx:if="{{ClassCount > 0}}">
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">移动到</view>
           </view>
           <view class="weui-cell__bd">
-             <picker bindchange="bindClassChange" name="class_index" value="{{selectClassIndex}}" range="{{ClassArr}}" range-key="name">
+            <picker bindchange="bindClassChange" name="class_index" value="{{selectClassIndex}}" range="{{ClassArr}}" range-key="name">
               <view class="weui-select weui-select_in-select-after">{{ClassArr[selectClassIndex].name}}</view>
             </picker>
           </view>
         </view>
       </view>
-      <view class="weui-cells__tips">
+      <view class="weui-cells__tips" wx:if="{{ClassCount > 0}}">
         将【{{ClassName}}】分类下的 {{ClassCount}} 条记录转移到【{{ClassArr[selectClassIndex].name}}】分类中，并删除【{{ClassName}}】分类。
       </view>
+      <view class="weui-cells-none weui-cells_after-title" wx:else></view>
       <view class="weui-btn-area">
         <button class="weui-btn weui-btn-danger" formType="submit">删除</button>
       </view>
     </form>
 
     <view class="weui-cells__title">其他</view>
-    <view class="weui-cells-none weui-cells_after-title">
-    </view>
+    <view class="weui-cells-none weui-cells_after-title"></view>
     <view class="weui-btn-area">
       <button class="weui-btn weui-btn-warning" bindtap="bindClassType">切换类别</button>
       <button class="weui-btn weui-btn-info" bindtap="bindDefault">设为默认</button>
