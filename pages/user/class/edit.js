@@ -66,19 +66,34 @@ Page({
    */
   submit_delete: function(res) {
     that = this;
-    var classIndex = res.detail.value.class_index;
-    wx.showModal({
-      title: '确认转移并删除',
-      content: '请仔细核对删除与转移的分类，确认后不可恢复！',
-      confirmText: '确认',
-      confirmColor: '#e51c23',
-      success(ret) {
-        if (ret.confirm) {
-          var ClassData = that.data.ClassArr[classIndex];
-          console.log(ClassData);
+    var ClassData = getApp().GetClassId(ClassId);
+    if (that.data.ClassCount == 0) {
+      wx.showModal({
+        title: '删除【' + ClassData.name + '】',
+        content: '请确认将【' + ClassData.name + '】分类删除。',
+        confirmText: '删除',
+        confirmColor: '#e51c23',
+        success(ret) {
+          if (ret.confirm) {
+            console.log(ClassData);
+          }
         }
-      }
-    })
+      });
+    } else {
+      var classIndex = that.data.selectClassIndex;
+      var moveClassData = that.data.ClassArr[classIndex];
+      wx.showModal({
+        title: '移动并删除【' + ClassData.name + '】',
+        content: '请确认将【' + ClassData.name + '】分类中的记录移动到【' + moveClassData.name + '】分类中，并删除【' + ClassData.name + '】分类。',
+        confirmText: '删除',
+        confirmColor: '#e51c23',
+        success(ret) {
+          if (ret.confirm) {
+            console.log(ClassData, moveClassData);
+          }
+        }
+      });
+    }
   },
 
   /**
@@ -317,6 +332,92 @@ function cmdEditClass(classid, classtype, classname) {
 }
 
 /**
+ * 删除分类
+ */
+function cmdDeleteClass(classid) {
+  var delData = {
+    classid: classid
+  };
+
+  //数据加密
+  var strData = Base64.encoder(JSON.stringify(delData));
+
+  //发送数据
+  wx.showLoading({
+    title: '提交中',
+    success: function () {
+      sendClassData(strData, 'del', function (ret) {
+        wx.hideLoading();
+        if (ret.hasOwnProperty('uid') && (ret.uid > 0)) {
+          if (ret.hasOwnProperty('data') && ret.data[0]) {
+            //删除分类成功
+            wx.showToast({
+              title: '删除成功',
+            });
+            console.log('删除分类完成：', ret);
+            //更新分类数据
+            updataClassData();
+          } else {
+            //删除分类失败
+            wx.showModal({
+              title: '删除分类失败',
+              content: ret.data[1] ? ret.data[1] : '未知错误？',
+              showCancel: false
+            })
+          }
+        } else {
+          //未登陆
+          getApp().Logout(function (path) {
+            wx.redirectTo(path);
+          });
+        }
+      });
+    }
+  });
+}
+
+/**
+ * 移动并删除分类
+ */
+function cmdMoveAndDeleteClass(oldId, newId) {
+  var moveData = {
+    classid1: oldId,
+    classid2: newId,
+  }
+
+  //数据加密
+  var strData = Base64.encoder(JSON.stringify(moveData));
+
+  //发送数据
+  wx.showLoading({
+    title: '移动中',
+    success: function () {
+      sendClassData(strData, 'move', function (ret) {
+        wx.hideLoading();
+        if (ret.hasOwnProperty('uid') && (ret.uid > 0)) {
+          if (ret.hasOwnProperty('data') && ret.data[0]) {
+            //移动分类成功
+            cmdDeleteClass(oldId);
+          } else {
+            //移动分类失败
+            wx.showModal({
+              title: '移动分类失败',
+              content: ret.data[1] ? ret.data[1] : '未知错误？',
+              showCancel: false
+            })
+          }
+        } else {
+          //未登陆
+          getApp().Logout(function (path) {
+            wx.redirectTo(path);
+          });
+        }
+      });
+    }
+  });
+}
+
+/**
  * 分类转移
  */
 function cmdChangeClass(classid, classtype, classname) {
@@ -363,50 +464,6 @@ function cmdChangeClass(classid, classtype, classname) {
   });
 }
 
-/**
- * 删除分类
- */
-function cmdDeleteClass(classid) {
-  var delData = {
-    classid: classid
-  };
-
-  //数据加密
-  var strData = Base64.encoder(JSON.stringify(delData));
-
-  //发送数据
-  wx.showLoading({
-    title: '提交中',
-    success: function () {
-      sendClassData(strData, 'del', function (ret) {
-        wx.hideLoading();
-        if (ret.hasOwnProperty('uid') && (ret.uid > 0)) {
-          if (ret.hasOwnProperty('data') && ret.data[0]) {
-            //删除分类成功
-            wx.showToast({
-              title: '删除成功',
-            });
-            console.log('删除分类完成：', ret);
-            //更新分类数据
-            updataClassData();
-          } else {
-            //添加分类失败
-            wx.showModal({
-              title: '删除分类失败',
-              content: ret.data[1] ? ret.data[1] : '未知错误？',
-              showCancel: false
-            })
-          }
-        } else {
-          //未登陆
-          getApp().Logout(function (path) {
-            wx.redirectTo(path);
-          });
-        }
-      });
-    }
-  });
-}
 
 /** 
  * 发送分类数据(data数组, 回调函数) 
