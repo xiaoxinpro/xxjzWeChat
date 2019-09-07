@@ -355,6 +355,45 @@ function cmdEditClass(classid, classtype, classname) {
 }
 
 /**
+ * 转移删除分类记录
+ */
+function cmdMoveDeleteClass(oldClassId, newClassId) {
+  var moveData = {
+    classid1: oldClassId,
+    classid2: newClassId
+  }
+  //数据加密
+  var strData = Base64.encoder(JSON.stringify(moveData));
+  //发送数据
+  wx.showLoading({
+    title: '转移中',
+    success: function () {
+      sendClassData(strData, 'move', function (ret) {
+        wx.hideLoading();
+        if (ret.hasOwnProperty('uid') && (ret.uid > 0)) {
+          if (ret.hasOwnProperty('data') && ret.data[0]) {
+            //转移分类成功, 开始删除分类
+            cmdDeleteClass(oldClassId);
+          } else {
+            //转移分类失败
+            wx.showModal({
+              title: '转移分类失败',
+              content: ret.data[1] ? ret.data[1] : '未知错误？',
+              showCancel: false
+            })
+          }
+        } else {
+          //未登陆
+          getApp().Logout(function (path) {
+            wx.redirectTo(path);
+          });
+        }
+      });
+    }
+  });
+}
+
+/**
  * 删除分类
  */
 function cmdDeleteClass(classid) {
@@ -367,7 +406,7 @@ function cmdDeleteClass(classid) {
 
   //发送数据
   wx.showLoading({
-    title: '提交中',
+    title: '删除中',
     success: function () {
       sendClassData(strData, 'del', function (ret) {
         wx.hideLoading();
