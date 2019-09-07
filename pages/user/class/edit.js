@@ -90,7 +90,8 @@ Page({
         confirmColor: '#e51c23',
         success(ret) {
           if (ret.confirm) {
-            console.log(ClassData, moveClassData);
+            console.log("确认转移并删除分类", ClassData, moveClassData);
+            cmdMoveDeleteClass(ClassData.id, moveClassData.id);
           }
         }
       });
@@ -222,6 +223,9 @@ Page({
  */
 function initClassData(classId, typeId = false) {
   var ClassData = getApp().GetClassId(ClassId);
+  if (!ClassData) {
+    return null;
+  }
   var ClassArr = [];
   if(typeId) {
     ClassData.type = typeId;
@@ -355,7 +359,7 @@ function cmdEditClass(classid, classtype, classname) {
 }
 
 /**
- * 转移删除分类记录
+ * 转移记录删除分类
  */
 function cmdMoveDeleteClass(oldClassId, newClassId) {
   var moveData = {
@@ -371,7 +375,7 @@ function cmdMoveDeleteClass(oldClassId, newClassId) {
       sendClassData(strData, 'move', function (ret) {
         wx.hideLoading();
         if (ret.hasOwnProperty('uid') && (ret.uid > 0)) {
-          if (ret.hasOwnProperty('data') && ret.data[0]) {
+          if (ret.hasOwnProperty('data') && ret.data > 0) {
             //转移分类成功, 开始删除分类
             cmdDeleteClass(oldClassId);
           } else {
