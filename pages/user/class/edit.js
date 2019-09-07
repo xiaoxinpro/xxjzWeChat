@@ -123,8 +123,14 @@ Page({
    * 设为默认按钮事件
    */
   bindDefault: function() {
+    that = this;
     var ClassData = getApp().GetClassId(ClassId);
-    console.log("设为默认按钮");
+    console.log("设为默认按钮", ClassData);
+    setDefaultClass(ClassData.type == 1 ? "in" : "out", ClassData.id);
+    wx.showToast({
+      title: '设置完成',
+    });
+    WaitBack();
   },
 
   /**
@@ -482,6 +488,18 @@ function cmdChangeClass(classid, classtype, classname) {
   });
 }
 
+/**
+ * 设置默认分类id
+ */
+function setDefaultClass(classType, classId) {
+  var defaultClass = getApp().GetDefaultClass();
+  defaultClass[classType] = classId;
+  wx.setStorage({
+    key: 'defaultClass',
+    data: defaultClass,
+  });
+  return defaultClass;
+}
 
 /** 
  * 发送分类数据(data数组, 回调函数) 
