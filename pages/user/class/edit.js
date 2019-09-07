@@ -461,6 +461,8 @@ function cmdChangeClass(classid, classtype, classname) {
             console.log('转移分类完成：', ret);
             //更新分类数据
             updataClassData();
+            //延时返回页面
+            WaitBack();
           } else {
             //添加分类失败
             wx.showModal({
