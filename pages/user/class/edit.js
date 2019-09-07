@@ -75,7 +75,8 @@ Page({
         confirmColor: '#e51c23',
         success(ret) {
           if (ret.confirm) {
-            console.log(ClassData);
+            console.log("确认删除分类", ClassData);
+            cmdDeleteClass(ClassData.id);
           }
         }
       });
@@ -379,6 +380,8 @@ function cmdDeleteClass(classid) {
             console.log('删除分类完成：', ret);
             //更新分类数据
             updataClassData();
+            //延时返回页面
+            WaitBack();
           } else {
             //删除分类失败
             wx.showModal({
