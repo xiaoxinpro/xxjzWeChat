@@ -359,6 +359,7 @@ function initForm(objData) {
   that.setData({
     typeValue: typeValue,
     typeItems: typeItems,
+    typeId: parseInt(objData.zhifu),
     money: objData.acmoney,
     mark: objData.acremark,
     date: objData.actime,
