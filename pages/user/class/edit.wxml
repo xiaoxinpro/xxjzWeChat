@@ -51,7 +51,7 @@
     </form> -->
 
     <!-- 删除分类 -->
-    <form class="page__form" bindsubmit="submit_delete">
+    <form class="page__form" bindsubmit="submit_delete" wx:if="{{ClassArr.length > 0}}">
       <view class="weui-cells__title">删除分类【{{ClassName}}】</view>
       <view class="weui-cells weui-cells_after-title" wx:if="{{ClassCount > 0}}">
         <view class="weui-cell weui-cell_select">
@@ -77,8 +77,10 @@
     <view class="weui-cells__title">其他</view>
     <view class="weui-cells-none weui-cells_after-title"></view>
     <view class="weui-btn-area">
-      <button class="weui-btn weui-btn-warning" bindtap="bindClassType">切换类别</button>
-      <button class="weui-btn weui-btn-info" bindtap="bindDefault">设为默认</button>
+      <view wx:if="{{ClassArr.length > 0}}">
+        <button class="weui-btn weui-btn-warning" bindtap="bindClassType">切换类别</button>
+        <button class="weui-btn weui-btn-info" bindtap="bindDefault">设为默认</button>
+      </view>
       <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
     </view>
   </view>
