@@ -1,20 +1,7 @@
 <!--all.wxml-->
 <view class="page">
   <!--列表页头-->
-  <view class="list-card">
-    <view class="list-card-title-h1">{{overMoney}}</view>
-    <view class="list-card-text">￥剩余</view>
-    <view class="weui-flex">
-      <view class="weui-flex__item">
-        <view class="list-card-title-h2">{{outMoney}}</view>
-        <view class="list-card-text">￥支出</view>
-      </view>
-      <view class="weui-flex__item">
-        <view class="list-card-title-h2">{{inMoney}}</view>
-        <view class="list-card-text">￥收入</view>
-      </view>
-    </view>
-  </view>
+  <include src="./base/list_header.wxml"/>
 
   <!--列表页账单-->
   <view class="weui-cells__title">历年账单</view>
