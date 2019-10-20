@@ -9,6 +9,7 @@ var varYear = 0;
 var varMonth = 0;
 var varPage = 1;
 var varPageMax = 1;
+var varScroll = 0;
 var addMoney = 0.00;
 var sumInMoney = 0;
 var sumOutMoney = 0;
@@ -61,10 +62,18 @@ Page({
    */
   onShow: function () {
     that = this;
-    wx.showLoading({
-      title: '搜索中',
-      success: initData()
-    })
+    if(varScroll < 200) {
+      wx.showLoading({
+        title: '搜索中',
+        success: initData()
+      });
+    }else{
+      wx.showLoading({
+        title: '更新中',
+        success: updataInitData()
+      });
+    }
+
   },
 
   /**
@@ -79,6 +88,14 @@ Page({
    */
   onUnload: function () {
 
+  },
+
+  /**
+   * 监听用户滑动页面事件
+   */
+  onPageScroll:function(e) {
+    // console.log(e);
+    varScroll = e.scrollTop;
   },
 
   /**
@@ -119,7 +136,7 @@ Page({
 })
 
 //** 初始化页面 */
-function initData() {
+function initData(callback) {
   //设置页面标题
   wx.setNavigationBarTitle({ title: '搜索账单' });
 
@@ -137,7 +154,45 @@ function initData() {
   getListData(varPage, function () {
     wx.stopPullDownRefresh();
     wx.hideLoading();
+    if (callback) {
+      callback();
+    }
   });
+}
+
+/** 升级初始化数据并跳转到指定位置 */
+function updataInitData() {
+  var page = varPage;
+  var scroll = varScroll;
+  initData(function(){
+    wx.showLoading({
+      title: '更新中',
+      mask: true,
+      success: loadPageData(page, function(){
+        isLoading = false;
+        wx.pageScrollTo({
+          scrollTop: scroll,
+          success: function(){
+            wx.hideLoading();
+          }
+        });
+      }),
+    });
+  });
+}
+
+/** 加载指定页码的数据，完成是产生回调 */
+function loadPageData(page, callback) {
+  if((page > 1)&&(varPage < page)&&(varPage < varPageMax)) {
+    isLoading = true;
+    getListData(varPage + 1, function () {
+      if(varPage==page || varPage==varPageMax) {
+        callback();
+      } else {
+        loadPageData(page, callback);
+      }
+    });
+  }
 }
 
 /** 获取指定页数据 */
