@@ -67,7 +67,7 @@ Page({
         title: '搜索中',
         success: initData()
       });
-    }else{
+    } else if (getApp().listUpdata.isUpdata){
       wx.showLoading({
         title: '更新中',
         success: updataInitData()
