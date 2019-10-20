@@ -486,6 +486,11 @@ App({
     }
   },
 
+  // 列表更新标志
+  listUpdata: {
+    isUpdata: false,
+  },
+
   globalData: {
     userInfo: null,
     systemInfo: null,

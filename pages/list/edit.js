@@ -157,6 +157,8 @@ Page({
                 wx.showToast({
                   title: '编辑完成',
                 });
+                //设定列表更新标志
+                getApp().listUpdata.isUpdata = true;
                 //延时页面跳转
                 setTimeout(function() {
                   wx.navigateBack({
@@ -211,6 +213,8 @@ Page({
                       wx.showToast({
                         title: '删除成功',
                       });
+                      //设定列表更新标志
+                      getApp().listUpdata.isUpdata = true;
                       //延时页面跳转
                       setTimeout(function() {
                         wx.navigateBack({
@@ -243,6 +247,7 @@ Page({
    * 返回按钮
    */
   bindBack: function() {
+    getApp().listUpdata.isUpdata = false;
     wx.navigateBack({
       delta: 1
     });
