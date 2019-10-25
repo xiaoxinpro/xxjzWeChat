@@ -1,63 +1,14 @@
 <!--month.wxml-->
 <view class="page">
   <!--列表页头-->
-  <view class="list-card">
-    <view class="list-card-title-h1">{{overMoney}}</view>
-    <view class="list-card-text">￥剩余</view>
-    <view class="weui-flex">
-      <view class="weui-flex__item">
-        <view class="list-card-title-h2">{{outMoney}}</view>
-        <view class="list-card-text">￥支出</view>
-      </view>
-      <view class="weui-flex__item">
-        <view class="list-card-title-h2">{{inMoney}}</view>
-        <view class="list-card-text">￥收入</view>
-      </view>
-    </view>
-  </view>
+  <include src="./base/list_header.wxml"/>
 
-  <!-- 记账入口按钮 -->
-  <view wx:if="{{isAddData}}" class="weui-cells weui-cells_after-title">
-    <navigator url="../main/add" open-type="switchTab" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">这个月还没有记账哦~</view>
-      <view class="weui-cell__ft">
-        <text style="color: #ffc107">记一笔</text>
-        <span class="iconfont icon-gengduo1" style="font-size:18px; color: #ffc107"></span>
-      </view>
-    </navigator>
-  </view>
+  <!-- 记账入口按钮 这个月还没有记账哦-->
+  <import src="./base/list_account.wxml"/>
+  <template wx:if="{{isAddData}}" is="account_button" data="{{text: '这个月还没有记账哦'}}" />
 
   <!--列表页账单-->
-  <view wx:for="{{arrList}}" wx:key="key">
-    <view wx:if="{{item.isTitle}}" class="weui-cells__title">
-      <view class="weui-flex">
-        <view class="weui-flex__item">
-          <view class="list-header-left">{{item.date}}</view>
-        </view>
-        <view class="weui-flex__item">
-          <view class="list-header-right">合计：{{item.overMoney}}元</view>
-        </view>
-      </view>
-    </view>
-
-    <view wx:else class="weui-cells weui-cells_after-title">
-      <navigator url="./edit?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-
-        <!--<view class="weui-cell">-->
-        <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-          <image src="../../image/icon_class/{{item.icon}}" style="width: 50px; height: 50px; display: block; border-radius:50%; " />
-        </view>
-        <view class="weui-cell__bd">
-          <view class="list-item-title">{{item.class}}</view>
-          <view class="list-item-mark">备注：{{item.mark}}</view>
-        </view>
-        <view class="weui-cell__ft">
-          <view class="list-text-ft">￥{{item.money}}</view>
-          <view hidden="{{isHiddenFunds}}" class="list-item-mark">{{item.funds}}</view>
-        </view>
-      </navigator>
-    </view>
-  </view>
+  <template is="account_list" data="{{arrList: arrList}}" />
 
   <view class="view-loading">
     <image wx:if="{{isLoadMore}}" class="image-loading" src="../../image/loading.gif"></image>
