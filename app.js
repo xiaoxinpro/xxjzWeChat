@@ -434,17 +434,23 @@ App({
 
   // 数值转化为货币格式
   ValueToMoney: function(val) {
-    if (val) {
+    if (val || val == 0) {
       if (typeof val == "object") {
         var ret = {};
         for (var i in val) {
-          ret[i] = val[i].toFixed(2);
+          ret[i] = this.ValueToMoney(val[i]);
         }
         return ret;
       } else if (typeof val == "function") {
         return val;
       } else {
-        return val.toFixed(2);
+        var num = parseFloat(val.toFixed(2)).toLocaleString();
+        if (num.indexOf(".") == -1) {
+          num = num + ".00";
+        } else {
+          num = num.split(".")[1].length < 2 ? num + "0" : num;
+        }
+        return num;
       }
     } else {
       return val;
