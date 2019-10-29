@@ -138,9 +138,9 @@ function getListData(callback) {
       if (ret.uid) {
         var ListData = ret.data;
         that.setData({
-          inMoney: ListData.InSumMoney.toFixed(2),
-          outMoney: ListData.OutSumMoney.toFixed(2),
-          overMoney: (ListData.InSumMoney - ListData.OutSumMoney).toFixed(2),
+          inMoney: getApp().ValueToMoney(ListData.InSumMoney),
+          outMoney: getApp().ValueToMoney(ListData.OutSumMoney),
+          overMoney: getApp().ValueToMoney(ListData.InSumMoney - ListData.OutSumMoney),
           inMoneyList: getApp().ValueToMoney(ListData.InMoney),
           outMoneyList: getApp().ValueToMoney(ListData.OutMoney),
           overMoneyList: getApp().ValueToMoney(ListData.SurplusMoney),
