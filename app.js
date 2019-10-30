@@ -444,6 +444,9 @@ App({
       } else if (typeof val == "function") {
         return val;
       } else {
+        if (typeof val == "string") {
+          val = parseFloat(val);
+        }
         var num = parseFloat(val.toFixed(2)).toLocaleString();
         if (num.indexOf(".") == -1) {
           num = num + ".00";
