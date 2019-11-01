@@ -218,9 +218,9 @@ function getListData(p, callback) {
       if (ret.uid) {
         var ListData = ret.data;
         that.setData({
-          inMoney: ListData.SumInMoney.toFixed(2),
-          outMoney: ListData.SumOutMoney.toFixed(2),
-          overMoney: (ListData.SumInMoney - ListData.SumOutMoney).toFixed(2),
+          inMoney: getApp().ValueToMoney(ListData.SumInMoney),
+          outMoney: getApp().ValueToMoney(ListData.SumOutMoney),
+          overMoney: getApp().ValueToMoney(ListData.SumInMoney - ListData.SumOutMoney),
         });
         varPage = ListData.page;
         varPageMax = ListData.pagemax;
@@ -292,7 +292,7 @@ function JsonToList(ListData) {
       var titleIndex = json.length;
       while (titleIndex-- > 0) {
         if (json[titleIndex].isTitle == true) {
-          json[titleIndex].overMoney = addMoney.toFixed(2);
+          json[titleIndex].overMoney = getApp().ValueToMoney(addMoney);
           break;
         }
       }
@@ -320,7 +320,7 @@ function JsonToList(ListData) {
       type: classType,
       class: getApp().ShowString(className),
       funds: getApp().ShowString(fundsName),
-      money: ListData[i].acmoney,
+      money: getApp().ValueToMoney(ListData[i].acmoney),
       mark: getApp().ShowString(ListData[i].acremark),
       icon: classIcon,
     });
@@ -349,7 +349,7 @@ function JsonToList(ListData) {
       var titleIndex = json.length;
       while (titleIndex-- > 0) {
         if (json[titleIndex].isTitle == true) {
-          json[titleIndex].overMoney = (ret.data.SumInMoney - ret.data.SumOutMoney).toFixed(2);
+          json[titleIndex].overMoney = getApp().ValueToMoney(ret.data.SumInMoney - ret.data.SumOutMoney);
           break;
         }
       }
