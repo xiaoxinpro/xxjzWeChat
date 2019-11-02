@@ -127,9 +127,9 @@ function getChartData() {
         initChart();
 
         that.setData({
-          InSumMoney: chartData.InSumMoney.toFixed(2),
-          OutSumMoney: chartData.OutSumMoney.toFixed(2),
-          OverSumMoney: (chartData.InSumMoney - chartData.OutSumMoney).toFixed(2),
+          InSumMoney: getApp().ValueToMoney(chartData.InSumMoney),
+          OutSumMoney: getApp().ValueToMoney(chartData.OutSumMoney),
+          OverSumMoney: getApp().ValueToMoney((chartData.InSumMoney - chartData.OutSumMoney)),
           HiddenToolTip: false
         });
 
