@@ -640,7 +640,7 @@ function classDataProcess(classList) {
     var classData = getApp().GetClassId(parseInt(classList[i].id));
     // console.log(classData, classList[i].id);
     classData['key'] = key++;
-    classData['money'] = parseFloat(classData['money']).toFixed(2);
+    classData['money'] = getApp().ValueToMoney(parseFloat(classData['money']));
     classJson.push(classData);
   }
   return classJson;
