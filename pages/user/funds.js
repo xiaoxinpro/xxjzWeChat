@@ -131,9 +131,10 @@ function fundsDataProcess(fundsList) {
   var key = 0;
   for (var i in fundsList) {
     if (fundsList[i]) {
-      let money = { in: fundsList[i].money.in.toFixed(2),
-        out: fundsList[i].money.out.toFixed(2),
-        over: fundsList[i].money.over.toFixed(2),
+      let money = {
+        in: getApp().ValueToMoney(fundsList[i].money.in),
+        out: getApp().ValueToMoney(fundsList[i].money.out),
+        over: getApp().ValueToMoney(fundsList[i].money.over),
         count: fundsList[i].money.count
       }
       fundsJson.push({
