@@ -272,14 +272,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
-    var json = initData();
-    console.log('json = ', json);
-    that.setData({
-      outClassList: json.out,
-      inClassList: json.in,
-      defaultClass: json.defaultClass,
-    })
+    that = this;
+    initData(function() {
+      //更新完成
+    });
   },
 
   /**
