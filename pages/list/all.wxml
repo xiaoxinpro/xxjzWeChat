@@ -11,10 +11,10 @@
 
         <!--<view class="weui-cell">-->
         <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-          <text class="iconfont icon-rili-{{index}}" style="font-size: 36px;"></text>
+          <text class="iconfont icon-rili-{{index-2000}}" style="font-size: 36px;"></text>
         </view>
         <view class="weui-cell__bd">
-          <view class="list-item-title">{{index}}月份</view>
+          <view class="list-item-title">{{index}}年</view>
           <view class="list-item-mark">剩余：{{overMoneyList[index]}}</view>
         </view>
         <view class="weui-cell__ft">
