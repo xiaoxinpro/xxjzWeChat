@@ -109,7 +109,7 @@ Page({
       // Demo账号提醒
       wx.showModal({
         title: '体验账号',
-        content: '您当前使用的时体验账号，所有数据均为公开，并且此页面的部分功能无法使用。',
+        content: '您当前使用的是体验账号，\r\n任何添加的数据均为公开浏览，\r\n并且此页面的部分功能无法使用。',
         confirmText: '注册',
         confirmColor: '#1aad19',
         cancelText: '继续体验',
