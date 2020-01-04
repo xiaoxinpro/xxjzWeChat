@@ -33,10 +33,22 @@
       <view class="weui-cells weui-cells_after-title">
         <navigator url="./site/password" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
           <view class="weui-cell__bd">
-            <view style="display: inline-block; vertical-align: middle">密码修改</view>
+            <view style="display: inline-block; vertical-align: middle">登陆密码</view>
           </view>
           <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
+        <view class="weui-cell weui-cell_switch" wx:if="{{isFacial}}">
+          <view class="weui-cell__bd">面部识别</view>
+          <view class="weui-cell__ft">
+            <switch bindchange="switchFacial" checked="{{enableFacial}}" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_switch" wx:if="{{isFingerPrint}}">
+          <view class="weui-cell__bd">指纹识别</view>
+          <view class="weui-cell__ft">
+            <switch bindchange="switchFingerPrint" checked="{{enableFingerPrint}}" />
+          </view>
+        </view>
       </view>
 
       <view class="weui-cells__title">常用功能</view>
