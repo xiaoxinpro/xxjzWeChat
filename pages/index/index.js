@@ -71,27 +71,13 @@ Page({
       if(e.hasOwnProperty('jump')) {
         url = url + "url=" + e.jump + "&";
       }
-      if (wx.getStorageSync('enableFacial')) {
-        wx.startSoterAuthentication({
-          requestAuthModes: ['facial'],
-          challenge: 'uid' + user.uid,
-          authContent: '面部登陆',
-          success(res) {
-            wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
-          }
-       });
-      } else if (wx.getStorageSync('enableFingerPrint')) {
-        wx.startSoterAuthentication({
-          requestAuthModes: ['fingerPrint'],
-          challenge: 'uid' + user.uid,
-          authContent: '指纹登陆',
-          success(res) {
-            wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
-          }
-       });
-      } else {
-        wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
-      }
+      Verification(function(res) {
+        if (res) {
+          wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
+        } else {
+          wx.navigateTo({ url: '../login/login?code=' + code });
+        }
+      });
     }else{
       wx.getSetting({
         success: (res) => {
@@ -156,6 +142,45 @@ function LoadDone() {
   that.setData({
     lock: false
   });
+}
+
+// 登陆前验证
+function Verification(callback) {
+  if (wx.getStorageSync('enableFacial')) {
+    wx.startSoterAuthentication({
+      requestAuthModes: ['facial'],
+      challenge: 'xxgzs.org',
+      authContent: '面部登陆',
+      success(res) {
+        if (callback) {
+          callback(true);
+        }
+      },
+      fail(res) {
+        if (callback) {
+          callback(false);
+        }
+      }
+   });
+  } else if (wx.getStorageSync('enableFingerPrint')) {
+    wx.startSoterAuthentication({
+      requestAuthModes: ['fingerPrint'],
+      challenge: 'xxgzs.org',
+      authContent: '指纹登陆',
+      success(res) {
+        if (callback) {
+          callback(true);
+        }
+      },
+      fail(res) {
+        if (callback) {
+          callback(false);
+        }
+      }
+   });
+  } else {
+    callback(true);
+  }
 }
 
 function Login(that) {
