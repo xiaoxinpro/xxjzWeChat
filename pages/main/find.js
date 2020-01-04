@@ -104,8 +104,6 @@ Page({
    */
   submit: function (e) {
     that = this;
-    //获取表单ID（用于推送使用）
-    var formId = e.detail.formId;
 
     //获取表单并转换数据
     var DataObj = e.detail.value;
@@ -140,10 +138,6 @@ Page({
     }
     if (DataObj['find_mark']) {
       FindData.acremark = DataObj['find_mark'];
-    }
-    if (formId && formId != "the formId is a mock one") {
-      FindData.formId = formId;
-      DataObj['form_id'] = formId;
     }
     console.log('搜索表单处理后结果：', FindData);
 
