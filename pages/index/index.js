@@ -71,7 +71,27 @@ Page({
       if(e.hasOwnProperty('jump')) {
         url = url + "url=" + e.jump + "&";
       }
-      wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
+      if (wx.getStorageSync('enableFacial')) {
+        wx.startSoterAuthentication({
+          requestAuthModes: ['facial'],
+          challenge: 'uid' + user.uid,
+          authContent: '面部登陆',
+          success(res) {
+            wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
+          }
+       });
+      } else if (wx.getStorageSync('enableFingerPrint')) {
+        wx.startSoterAuthentication({
+          requestAuthModes: ['fingerPrint'],
+          challenge: 'uid' + user.uid,
+          authContent: '指纹登陆',
+          success(res) {
+            wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
+          }
+       });
+      } else {
+        wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
+      }
     }else{
       wx.getSetting({
         success: (res) => {
