@@ -19,6 +19,12 @@ Page({
     userName: "",
     email: "",
     autoCopy: "",
+
+    //安全配置相关
+    isFacial: false,
+    isFingerPrint: false,
+    enableFacial: false,
+    enableFingerPrint: false,
   },
 
   /**
@@ -72,6 +78,28 @@ Page({
     // //跳转至修改名字页面
     // wx.navigateTo({ url: './site/username' });
     // }
+  },
+
+  /**
+   * 面部识别开关事件
+   */
+  switchFacial: function (e) {
+    console.log('面部识别开关：', e.detail.value);
+    wx.setStorage({
+      data: e.detail.value,
+      key: 'enableFacial',
+    });
+  },
+
+  /**
+   * 指纹识别开关事件
+   */
+  switchFingerPrint: function (e) {
+    console.log('指纹识别开关：', e.detail.value);
+    wx.setStorage({
+      data: e.detail.value,
+      key: 'enableFingerPrint',
+    });
   },
 
   /**
@@ -131,7 +159,31 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    that = this;
+    wx.checkIsSupportSoterAuthentication({
+      success(res) {
+        console.log('获取支持的生物验证方式：', res);
+        let isFingerPrint = false;
+        let isFacial = false;
+        for (let i = 0; i < res.supportMode.length; i++) {
+          const mode = res.supportMode[i];
+          switch (mode) {
+            case 'fingerPrint':
+              isFingerPrint = true; //支持指纹识别
+              break;
+            case 'facial':
+              isFacial = true; //支持人脸识别
+              break;
+            default:
+              break;
+          }
+        }
+        that.setData({
+          isFingerPrint: isFingerPrint,
+          isFacial: isFacial
+        });
+      }
+    })
   },
 
   /**
@@ -186,11 +238,15 @@ function initPage() {
   var autoCopyString = wx.getStorageSync('autoCopyString');
   var user = wx.getStorageSync('user');
   var autoCopy = (autoCopyString.enable || autoCopyString.enablePullDown) ? "已开启" : "未开启";
+  var enableFacial = wx.getStorageSync('enableFacial') ? true : false;
+  var enableFingerPrint = wx.getStorageSync('enableFingerPrint') ? true : false;
   that.setData({
     avatarPath: avatarPath,
     userName: user.username,
     email: user.email,
     autoCopy: autoCopy,
+    enableFacial: enableFacial,
+    enableFingerPrint: enableFingerPrint,
   });
 }
 
