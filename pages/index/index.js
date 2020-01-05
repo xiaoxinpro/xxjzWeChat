@@ -75,7 +75,7 @@ Page({
         if (res) {
           wx.reLaunch({ url: url + "uid=" + user.uid + "&uname=" + user.username });
         } else {
-          wx.navigateTo({ url: '../login/login?code=' + code });
+          wx.reLaunch({ url: '../login/login?code=' + code });
         }
       });
     }else{
@@ -133,7 +133,13 @@ function InitApp() {
     })
     console.log('加载用户信息：', userInfo);
     // 尝试登陆
-    Login(that);
+    Verification(function(res) {
+      if (res) {
+        Login(that);
+      } else {
+        wx.reLaunch({ url: '../login/login?code=' + code });
+      }
+    });
   })
 }
 
