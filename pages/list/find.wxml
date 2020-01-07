@@ -8,7 +8,7 @@
   <template wx:if="{{isAddData}}" is="account_button" data="{{text: '没有搜索你要的账单哦'}}" />
 
   <!--列表页账单-->
-  <template is="account_list" data="{{arrList: arrList}}" />
+  <template is="account_list" data="{{arrList: arrList, isHiddenFunds: isHiddenFunds}}" />
 
   <view class="view-loading">
     <image wx:if="{{isLoadMore}}" class="image-loading" src="../../image/loading.gif"></image>
