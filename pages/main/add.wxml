@@ -35,8 +35,8 @@
           <view class="weui-cell__bd">
             <input class="weui-input" name="add_money" type="digit" value="{{money}}" placeholder="输入{{typeValue}}金额" focus="{{moneyFocus}}" bindinput="bingMoneyInput" />
           </view>
-          <view class="weui-cell__ft" data-value="money" bindtap="bindResiteInput" style="width: 25px;">
-            <text class="iconfont icon-shibai" style="color: #C8C8C8; font-size:18px;"></text>
+          <view class="weui-cell__ft" data-value="money" bindtap="bindResiteInput" style="width: 32px;">
+            <text class="iconfont icon-shibai" style="color: #C8C8C8; font-size: 20px;"></text>
           </view>
         </view>
         <!--资金账户选择-->
@@ -80,8 +80,8 @@
           <view class="weui-cell__bd">
             <input class="weui-input" name="add_mark" value="{{mark}}" placeholder="输入备注信息" focus="{{markFacus}}" />
           </view>
-          <view class="weui-cell__ft" data-value="mark" bindtap="bindResiteInput" style="width: 25px;">
-            <text class="iconfont icon-shibai" style="color: #C8C8C8; font-size:18px;"></text>
+          <view class="weui-cell__ft" data-value="mark" bindtap="bindResiteInput" style="width: 32px;">
+            <text class="iconfont icon-shibai" style="color: #C8C8C8; font-size: 20px;"></text>
           </view>
         </view>
 
@@ -95,8 +95,8 @@
               <view class="weui-input">{{dateStr}}</view>
             </picker>
           </view>
-          <view class="weui-cell__ft" bindtap="bindResiteDate" style="width: 25px;">
-            <text class="iconfont icon-dengdai" style="color: #C8C8C8; font-size:18px;"></text>
+          <view class="weui-cell__ft" bindtap="bindResiteDate" style="width: 32px;">
+            <text class="iconfont icon-dengdai" style="color: #C8C8C8; font-size: 20px;"></text>
           </view>
         </view>
 
