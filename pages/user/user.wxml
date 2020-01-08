@@ -59,6 +59,18 @@
           </view>
           <view class="weui-cell__ft weui-cell__ft_in-access">{{autoCopy}}</view>
         </navigator>
+        <navigator url="../tool/goodEvaluate" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">
+            <view style="display: inline-block; vertical-align: middle">好评工具</view>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <navigator url="../tool/aromaLamp" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">
+            <view style="display: inline-block; vertical-align: middle">香薰灯</view>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
       </view>
     </view>
   </view>
