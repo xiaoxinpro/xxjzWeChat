@@ -56,8 +56,8 @@
               <view wx:else class="weui-input-null">选择搜索开始日期</view>
             </picker>
           </view>
-          <view class="weui-cell__ft" data-value="dateStart" bindtap="bindResiteInput">
-            <text class="iconfont icon-shibai" style="color: #C8C8C8;"></text>
+          <view class="weui-cell__ft" data-value="dateStart" bindtap="bindResiteInput" style="width: 32px;">
+            <text class="iconfont icon-shibai" style="color: #C8C8C8; font-size: 20px;"></text>
           </view>
         </view>
 
@@ -72,8 +72,8 @@
               <view wx:else class="weui-input-null">选择搜索结束日期</view>
             </picker>
           </view>
-          <view class="weui-cell__ft" data-value="dateEnd" bindtap="bindResiteInput">
-            <text class="iconfont icon-shibai" style="color: #C8C8C8;"></text>
+          <view class="weui-cell__ft" data-value="dateEnd" bindtap="bindResiteInput" style="width: 32px;">
+            <text class="iconfont icon-shibai" style="color: #C8C8C8; font-size: 20px;"></text>
           </view>
         </view>
 
@@ -85,8 +85,8 @@
           <view class="weui-cell__bd">
             <input class="weui-input" name="find_mark" value="{{mark}}" placeholder="输入备注信息" />
           </view>
-          <view class="weui-cell__ft" data-value="mark" bindtap="bindResiteInput">
-            <text class="iconfont icon-shibai" style="color: #C8C8C8;"></text>
+          <view class="weui-cell__ft" data-value="mark" bindtap="bindResiteInput" style="width: 32px;">
+            <text class="iconfont icon-shibai" style="color: #C8C8C8; font-size: 20px;"></text>
           </view>
         </view>
 
