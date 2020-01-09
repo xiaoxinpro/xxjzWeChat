@@ -29,7 +29,8 @@
     "pages/user/funds/edit",
     "pages/user/site/avatar",
     "pages/tool/aromaLamp",
-    "pages/user/class/edit"
+    "pages/user/class/edit",
+    "pages/user/main"
   ],
   "tabBar": {
     "color": "#919191",
