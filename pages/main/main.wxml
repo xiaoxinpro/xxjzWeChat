@@ -1,14 +1,14 @@
 <view class="page">
   <!--本月总结-->
   <view class="page__bd" wx:if="{{is_haader_recent30day}}">
-    <view class="weui-cells__title">
+    <navigator url="../user/main" class="weui-cells__title">
       <view class="weui-flex">
         <view class="weui-flex__item">最近30天统计数据</view>
         <view class="weui-flex__item" style="text-align: right;">
-          <!-- <span class="iconfont icon-shezhi" style="font-size:auto;"></span> -->
+          <span class="iconfont icon-shezhi" style="font-size:14px; font-weight:900"></span>
         </view>
       </view>
-    </view>
+    </navigator>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
