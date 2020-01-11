@@ -182,15 +182,13 @@ function updataPageData(data) {
   var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
   var mainToolConfig = app.GetMainToolConfig();
   console.log('获取主页工具栏：', mainToolConfig);
-  var isRecent30Day = data.hasOwnProperty('Recent30DayInMoney');
   that.setData({
-    is_haader_recent30day: isRecent30Day,
     header_day: now.getDate(),
     header_month: now.getMonth() + 1,
     header_year: now.getFullYear(),
-    recent_30day_in_money: isRecent30Day ? getApp().ValueToMoney(data['Recent30DayInMoney']) : '0.00',
-    recent_30day_out_money: isRecent30Day ? getApp().ValueToMoney(data['Recent30DayOutMoney']) : '0.00',
-    recent_30day_over_money: isRecent30Day ? getApp().ValueToMoney(data['Recent30DayInMoney'] - data['Recent30DayOutMoney']) : '0.00',
+    recent_30day_in_money: getApp().ValueToMoney(data['Recent30DayInMoney']),
+    recent_30day_out_money: getApp().ValueToMoney(data['Recent30DayOutMoney']),
+    recent_30day_over_money: getApp().ValueToMoney(data['Recent30DayInMoney'] - data['Recent30DayOutMoney']),
     month_in_money: getApp().ValueToMoney(data['MonthInMoney']),
     month_out_money: getApp().ValueToMoney(data['MonthOutMoney']),
     month_over_money: getApp().ValueToMoney(MonthOverMoney),
