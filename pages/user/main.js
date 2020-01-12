@@ -1,9 +1,7 @@
 // pages/user/main.js
 var that = this;
-var TopList = {
-  name: ['最近7天', '最近30天', '最近60天', '最近90天', '最近180天', '最近一年', '历年', '今天', '本月', '今年', '昨天', '上月', '去年'],
-  id:['Recent7Day', 'Recent30Day', 'Recent60Day', 'Recent90Day', 'Recent180Day', 'Recent365Day', 'Sum', 'Today', 'Month', 'Year','LastToday', 'LastMonth', 'LastYear'],
-};
+var app = getApp();
+var TopList = app.MainConfigTopList;
 
 Page({
 
@@ -21,6 +19,10 @@ Page({
   bindTopList: function (e) {
     const index = parseInt(e.detail.value);
     console.log('顶部列表变更为：', this.data.TopList.name[index], this.data.TopList.id[index]);
+    app.SetMainTopIndex(index);
+    this.setData({
+      TopListIndex: index,
+    })
   },
 
   /**
@@ -93,12 +95,17 @@ Page({
  */
 function InitShow() {
   var topList = {name:[], id:[]};
+  var topIndex = 1;
+  var topId = app.MainPageConfig.top;
   for (let index = 0; index < TopList.name.length; index++) {
     topList.name[index] = TopList.name[index] + "收支";
     topList.id[index] = TopList.id[index];
+    if(topId == topList.id[index]) {
+      topIndex = index;
+    }
   }
   that.setData({
-    TopListIndex: 1,
+    TopListIndex: topIndex,
     TopList: topList,
   });
 }
