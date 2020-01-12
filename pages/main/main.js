@@ -181,23 +181,25 @@ function updataPageData(data) {
   var now = new Date();
   var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
   var mainToolConfig = app.GetMainToolConfig();
+  var topId = app.MainPageConfig.top;
   console.log('获取主页工具栏：', mainToolConfig);
   that.setData({
     header_day: now.getDate(),
     header_month: now.getMonth() + 1,
     header_year: now.getFullYear(),
-    recent_30day_in_money: getApp().ValueToMoney(data['Recent30DayInMoney']),
-    recent_30day_out_money: getApp().ValueToMoney(data['Recent30DayOutMoney']),
-    recent_30day_over_money: getApp().ValueToMoney(data['Recent30DayInMoney'] - data['Recent30DayOutMoney']),
-    month_in_money: getApp().ValueToMoney(data['MonthInMoney']),
-    month_out_money: getApp().ValueToMoney(data['MonthOutMoney']),
-    month_over_money: getApp().ValueToMoney(MonthOverMoney),
-    day_in_money: getApp().ValueToMoney(data['TodayInMoney']),
-    day_out_money: getApp().ValueToMoney(data['TodayOutMoney']),
-    year_in_money: getApp().ValueToMoney(data['YearInMoney']),
-    year_out_money: getApp().ValueToMoney(data['YearOutMoney']),
-    all_in_money: getApp().ValueToMoney(data['SumInMoney']),
-    all_out_money: getApp().ValueToMoney(data['SumOutMoney']),
+    top_title: app.GetMainTopData(topId).name,
+    top_in_money: app.ValueToMoney(data[topId + 'InMoney']),
+    top_out_money: app.ValueToMoney(data[topId + 'OutMoney']),
+    top_over_money: app.ValueToMoney(data[topId + 'InMoney'] - data[topId + 'OutMoney']),
+    month_in_money: app.ValueToMoney(data['MonthInMoney']),
+    month_out_money: app.ValueToMoney(data['MonthOutMoney']),
+    month_over_money: app.ValueToMoney(MonthOverMoney),
+    day_in_money: app.ValueToMoney(data['TodayInMoney']),
+    day_out_money: app.ValueToMoney(data['TodayOutMoney']),
+    year_in_money: app.ValueToMoney(data['YearInMoney']),
+    year_out_money: app.ValueToMoney(data['YearOutMoney']),
+    all_in_money: app.ValueToMoney(data['SumInMoney']),
+    all_out_money: app.ValueToMoney(data['SumOutMoney']),
     main_tool_config: mainToolConfig,
   });
 }

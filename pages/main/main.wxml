@@ -3,7 +3,7 @@
   <view class="page__bd">
     <navigator url="../user/main" class="weui-cells__title">
       <view class="weui-flex">
-        <view class="weui-flex__item">最近30天统计数据</view>
+        <view class="weui-flex__item">{{top_title}}统计数据</view>
         <view class="weui-flex__item" style="text-align: right;">
           <span class="iconfont icon-shezhi" style="font-size:14px; font-weight:900"></span>
         </view>
@@ -14,21 +14,21 @@
         <view class="weui-cell__bd">
           <text class="iconfont icon-tianjiajingdian"></text> 最近收入
         </view>
-        <view class="weui-cell__ft">￥{{recent_30day_in_money}}</view>
+        <view class="weui-cell__ft">￥{{top_in_money}}</view>
       </view>
 
       <view class="weui-cell">
         <view class="weui-cell__bd">
           <text class="iconfont icon-jianqujingdian"></text> 最近支出
         </view>
-        <view class="weui-cell__ft">￥{{recent_30day_out_money}}</view>
+        <view class="weui-cell__ft">￥{{top_out_money}}</view>
       </view>
 
       <view class="weui-cell">
         <view class="weui-cell__bd">
           <text class="iconfont icon-icon"></text> 最近剩余
         </view>
-        <view class="weui-cell__ft">￥{{recent_30day_over_money}}</view>
+        <view class="weui-cell__ft">￥{{top_over_money}}</view>
       </view>
     </view>
   </view>
