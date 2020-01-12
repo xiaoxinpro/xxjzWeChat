@@ -9,7 +9,9 @@ App({
 
   //全局变量（初始化时自动赋值）
   ServerVersion: '0.0.1',
+  StorageInfo: {keys: []},
   ClassAllData: null,
+  MainPageConfig: {top: 'Recent30Day'},
 
   onLaunch: function() {
     wx.getSystemInfo({
@@ -21,7 +23,13 @@ App({
     });
     this.getVersion();
     this.clearDemoInfo();
-    this.ClassAllData = wx.getStorageSync('ClassAllData');
+    this.StorageInfo = wx.getStorageInfoSync();
+    if (this.StorageInfo.keys.indexOf('ClassAllData') >= 0) {
+      this.ClassAllData = wx.getStorageSync('ClassAllData');
+    }
+    if (this.StorageInfo.keys.indexOf('MainPageConfig') >= 0) {
+      this.MainPageConfig = wx.getStorageSync('MainPageConfig');
+    }
   },
 
   getVersion: function() {
@@ -350,6 +358,32 @@ App({
         }
       }
     });
+  },
+
+  // 主页配置相关
+  MainConfigTopList: {
+    name: ['最近7天', '最近30天', '最近60天', '最近90天', '最近180天', '最近一年', '历年', '今天', '本月', '今年', '昨天', '上月', '去年'],
+    id:['Recent7Day', 'Recent30Day', 'Recent60Day', 'Recent90Day', 'Recent180Day', 'Recent365Day', 'Sum', 'Today', 'Month', 'Year','LastToday', 'LastMonth', 'LastYear'],
+  },
+  GetMainTopData: function (id) {
+    var index = this.MainConfigTopList.id.indexOf(id);
+    if (index >= 0) {
+      return {
+        id: id,
+        index: index,
+        name: this.MainConfigTopList.name[index],
+      };
+    } else {
+      return null;
+    }
+  },
+
+  SetMainTopIndex: function (index) {
+    this.MainPageConfig.top = this.MainConfigTopList.id[index];
+    wx.setStorage({
+      data: this.MainPageConfig,
+      key: 'MainPageConfig',
+    })
   },
 
   GetMainToolConfig: function() {
