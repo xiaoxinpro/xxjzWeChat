@@ -84,11 +84,31 @@ Page({
    * 面部识别开关事件
    */
   switchFacial: function (e) {
+    that = this;
     console.log('面部识别开关：', e.detail.value);
-    wx.setStorage({
-      data: e.detail.value,
-      key: 'enableFacial',
-    });
+    if (e.detail.value) {
+      wx.startSoterAuthentication({
+        requestAuthModes: ['facial'],
+        challenge: 'xxgzs.org',
+        authContent: '开启面部识别登陆',
+        success(res) {
+          wx.setStorage({
+            data: e.detail.value,
+            key: 'enableFacial',
+          });
+        },
+        fail(res) {
+          that.setData({
+            enableFacial: false,
+          });
+        }
+     });
+    } else {
+      wx.setStorage({
+        data: e.detail.value,
+        key: 'enableFacial',
+      });
+    }
   },
 
   /**
