@@ -115,11 +115,31 @@ Page({
    * 指纹识别开关事件
    */
   switchFingerPrint: function (e) {
+    that = this;
     console.log('指纹识别开关：', e.detail.value);
-    wx.setStorage({
-      data: e.detail.value,
-      key: 'enableFingerPrint',
-    });
+    if (e.detail.value) {
+      wx.startSoterAuthentication({
+        requestAuthModes: ['fingerPrint'],
+        challenge: 'xxgzs.org',
+        authContent: '开启指纹识别登陆',
+        success(res) {
+          wx.setStorage({
+            data: e.detail.value,
+            key: 'enableFingerPrint',
+          });
+        },
+        fail(res) {
+          that.setData({
+            enableFingerPrint: false,
+          });
+        }
+     });
+    } else {
+      wx.setStorage({
+        data: e.detail.value,
+        key: 'enableFingerPrint',
+      });
+    }
   },
 
   /**
