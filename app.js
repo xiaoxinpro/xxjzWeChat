@@ -11,7 +11,7 @@ App({
   ServerVersion: '0.0.1',
   StorageInfo: {keys: []},
   ClassAllData: null,
-  MainPageConfig: {top: 'Recent30Day'},
+  MainPageConfig: {top: 'Recent30Day', type: 2},
 
   onLaunch: function() {
     wx.getSystemInfo({
@@ -383,7 +383,23 @@ App({
     wx.setStorage({
       data: this.MainPageConfig,
       key: 'MainPageConfig',
-    })
+    });
+  },
+
+  GetMainTypeId: function () {
+    if (this.MainPageConfig.hasOwnProperty('type')) {
+      return parseInt(this.MainPageConfig.type);
+    } else {
+      return 2;
+    }
+  },
+
+  SetMainTypeId: function (typeId) {
+    this.MainPageConfig.type = parseInt(typeId);
+    wx.setStorage({
+      data: this.MainPageConfig,
+      key: 'MainPageConfig',
+    });
   },
 
   GetMainToolConfig: function() {
