@@ -17,21 +17,6 @@
     </view>
   </view>
 
-  <!-- 帐号相关 -->
-  <!-- <view class="page__bd">
-    <view class="weui-cells__title"></view>
-    <view class="weui-cells weui-cells_after-title">
-      <navigator url="../user/user?type=1" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">密码安全</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-      </navigator>
-      <navigator url="../user/user?type=2" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">邮箱设置</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-      </navigator>
-    </view>
-  </view> -->
-
   <!-- 记账相关 -->
   <view class="page__bd">
     <view class="weui-cells__title"></view>
@@ -42,6 +27,17 @@
       </navigator>
       <navigator url="../user/funds" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">资金账户</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+  </view>
+
+  <!-- 显示相关 -->
+  <view class="page__bd">
+    <view class="weui-cells__title"></view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="../user/main" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">主页显示</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </navigator>
       <navigator url="../list/all" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
