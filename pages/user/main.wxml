@@ -1,7 +1,8 @@
 <!--pages/user/main.wxml-->
 <view class="page">
 	<view class="page__bd">
-		<view class="weui-cells__title">主页设置</view>
+		<!-- 主页顶部 -->
+		<view class="weui-cells__title">顶部设置</view>
 		<view class="weui-cells weui-cells_after-title">
 			<view class="weui-cell weui-cell_select">
 				<view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -13,7 +14,27 @@
 					</picker>
 				</view>
 			</view>
+		</view>
+		<p></p>
 
+		<!-- 记账按钮设置 -->
+		<view class="weui-cells__title">记账按钮设置</view>
+		<view class="weui-cells weui-cells_after-title">
+			<view class="weui-cell weui-cell_select">
+				<view class="weui-cell__hd weui-cell__hd_in-select-after">
+					<view class="weui-label">默认类别</view>
+				</view>
+				<radio-group bindchange="bindTypeChange">
+					<view class="weui-cell__bd">
+						<label class="weui-cell__hd" wx:for="{{TypeItems}}" wx:key="value">
+							<radio class="weui-check" name="add_type" value="{{item.value}}" checked="{{item.checked}}" />
+							<icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+							<icon class="weui-icon-checkbox_success" type="success" size="23" color="#03a9f4" wx:if="{{item.checked}}"></icon>
+							<text class="weui-input">{{item.name}} </text>
+						</label>
+					</view>
+				</radio-group>
+			</view>
 		</view>
 		<p></p>
 
