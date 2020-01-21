@@ -11,6 +11,11 @@ Page({
   data: {
     TopListIndex: 0,
     TopList: {},
+
+    TypeItems: [
+      { name: '支出', value: '2', checked: true },
+      { name: '收入', value: '1', checked: false},
+    ],
   },
 
   /**
@@ -23,6 +28,22 @@ Page({
     this.setData({
       TopListIndex: index,
     })
+  },
+
+  /**
+   * 默认类别改变事件
+   */
+  bindTypeChange: function (e) {
+    var typeItems = this.data.TypeItems;
+    for (var i in typeItems) {
+      typeItems[i].checked = typeItems[i].value == e.detail.value;
+      if (typeItems[i].checked) {
+        app.SetMainTypeId(typeItems[i].value);
+      }
+    }
+    this.setData({
+      TypeItems: typeItems,
+    });
   },
 
   /**
@@ -104,8 +125,16 @@ function InitShow() {
       topIndex = index;
     }
   }
+
+  var typeId = app.GetMainTypeId();
+  var typeItems = that.data.TypeItems;
+  for (let i = 0; i < typeItems.length; i++) {
+    typeItems[i].checked = typeItems[i].value == typeId;
+  }
+
   that.setData({
     TopListIndex: topIndex,
     TopList: topList,
+    TypeItems: typeItems,
   });
 }
