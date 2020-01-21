@@ -296,10 +296,23 @@ function initForm(that, isReload = true) {
   }
   var strNow = "" + year + "-" + month + "-" + day;
 
+  var typeId = that.data.typeId;
+  var typeItems = that.data.typeItems;
+  if (isReload || (inputMoney == '')) {
+    typeId = getApp().GetMainTypeId();
+    for (let i = 0; i < typeItems.length; i++) {
+      if (parseInt(typeItems[i].value) == typeId) {
+        typeItems[i].checked = true;
+      } else {
+        typeItems[i].checked = false;
+      }
+    }  
+  }
+  
   var defaultClass = getApp().GetDefaultClass();
   var ClassList;
   var ClassIndex = 0;
-  if (that.data.typeValue == "收入") {
+  if (typeId == 1) {
     ClassList = getClass('收入');
     if (defaultClass) {
       ClassIndex = ClassList.value.indexOf(defaultClass['in']);
@@ -317,6 +330,8 @@ function initForm(that, isReload = true) {
   if (isReload){
     inputMoney = '';
     that.setData({
+      typeId: typeId,
+      typeItems: typeItems,
       money: "",
       mark: "",
       date: strNow,
@@ -329,6 +344,8 @@ function initForm(that, isReload = true) {
     });
   } else if (inputMoney == '') {
     that.setData({
+      typeId: typeId,
+      typeItems: typeItems,
       ClassIndex: ClassIndex,
       ClassList: ClassList,
       FundsList: FundsList,
