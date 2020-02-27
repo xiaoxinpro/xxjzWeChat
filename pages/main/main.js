@@ -106,13 +106,12 @@ Page({
             break;
         }
       }
+      // 获取分类数据
+      getClassData();
+
+      // 获取资金账户数据
+      getFundsData();
     });
-
-    // 获取分类数据
-    getClassData();
-
-    // 获取资金账户数据
-    getFundsData();
 
     //自动复制文本
     wx.getStorage({
