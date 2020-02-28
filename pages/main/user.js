@@ -230,7 +230,7 @@ function getUserData(uid, callback) {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
   wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/user',
+    url: getApp().URL + '/index.php?s=/Home/Api/user',
     method: 'GET',
     data: { uid: uid },
     header: header,

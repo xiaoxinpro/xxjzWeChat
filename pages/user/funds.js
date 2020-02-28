@@ -247,7 +247,7 @@ function sendFundsData(data, type, callback) {
     }
   }
   wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/funds',
+    url: getApp().URL + '/index.php?s=/Home/Api/funds',
     method: 'POST',
     data: {
       type: type,

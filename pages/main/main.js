@@ -218,7 +218,7 @@ function getData(valType, callback) {
     }
   }
   wx.request({
-    url: app.URL + '/xxjzApp/index.php?s=/Home/Api/statistic',
+    url: app.URL + '/index.php?s=/Home/Api/statistic',
     data: {
       type: valType
     },

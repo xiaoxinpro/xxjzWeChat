@@ -438,7 +438,7 @@ function getIdData(jsonData, callback) {
     }
   }
   wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/account',
+    url: getApp().URL + '/index.php?s=/Home/Api/account',
     method: 'GET',
     data: jsonData,
     header: header,
@@ -511,7 +511,7 @@ function sendEditData(data, callback) {
     }
   }
   wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/account',
+    url: getApp().URL + '/index.php?s=/Home/Api/account',
     method: 'POST',
     data: {
       type: 'edit',
@@ -547,7 +547,7 @@ function sendDelData(data, callback) {
     }
   }
   wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/account',
+    url: getApp().URL + '/index.php?s=/Home/Api/account',
     method: 'POST',
     data: {
       type: 'del',

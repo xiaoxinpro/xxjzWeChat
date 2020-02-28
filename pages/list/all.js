@@ -149,7 +149,7 @@ function getData(jsonData, callback) {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
   wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/account',
+    url: getApp().URL + '/index.php?s=/Home/Api/account',
     method: 'GET',
     data: jsonData,
     header: header,

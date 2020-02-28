@@ -201,7 +201,7 @@ function Login(that) {
         code = res.code;
         console.log('获取用户登录态成功：' + res.code)
         wx.request({
-          url: getApp().URL + '/xxjzApp/index.php?s=/Home/Login/login_weixin',
+          url: getApp().URL + '/index.php?s=/Home/Login/login_weixin',
           data: {
             js_code: res.code
           },

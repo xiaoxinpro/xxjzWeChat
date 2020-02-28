@@ -1,8 +1,8 @@
 //app.js
 App({
   //全局常量
-  // URL: 'https://ide.xiaoxin.pro',
-  URL: 'https://jz.xiaoxin.pro',
+  // URL: 'https://ide.xiaoxin.pro/xxjzApp',
+  URL: 'https://jz.xiaoxin.pro/xxjzApp',
   AdminUid: 3,
   MinServerVersion: '2.0.0',
   Demo:{username:'demo',password:'xxgzs.org'},
@@ -35,7 +35,7 @@ App({
   getVersion: function() {
     var that = this;
     wx.request({
-      url: that.URL + '/xxjzApp/index.php?s=/Home/Api/version',
+      url: that.URL + '/index.php?s=/Home/Api/version',
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -164,7 +164,7 @@ App({
       callback(false, 0, "用户登陆超时，请重新登陆。");
     }
     wx.request({
-      url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/funds',
+      url: getApp().URL + '/index.php?s=/Home/Api/funds',
       data: {
         type: 'get'
       },
@@ -229,7 +229,7 @@ App({
         return (false, 0, "内存数据出错，请登陆后再试。");
       }
       wx.request({
-        url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/aclass',
+        url: getApp().URL + '/index.php?s=/Home/Api/aclass',
         data: {
           type: 'getalldata'
         },
@@ -345,7 +345,7 @@ App({
       }
     }
     wx.request({
-      url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/autocopy',
+      url: getApp().URL + '/index.php?s=/Home/Api/autocopy',
       method: 'GET',
       data: {
         type: 'get'

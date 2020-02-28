@@ -456,7 +456,7 @@ function sendClassData(data, type, callback) {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
   wx.request({
-    url: getApp().URL + '/xxjzApp/index.php?s=/Home/Api/aclass',
+    url: getApp().URL + '/index.php?s=/Home/Api/aclass',
     method: 'POST',
     data: { type: type, data: data },
     header: header,
