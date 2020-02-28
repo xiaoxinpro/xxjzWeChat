@@ -24,6 +24,8 @@
 
 开发工具: https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html
 
+> 需要在小程序”后台 -> 开发 -> 开发设置 -> 服务器域名“中添加服务端域名，并在`downloadFile`中添加`https://wx.qlogo.cn`用于下载微信头像。
+
 ## 目录结构
 
     xxjzWeChat 微信小程序目录
