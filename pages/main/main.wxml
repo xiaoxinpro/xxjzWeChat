@@ -1,5 +1,5 @@
 <view class="page">
-  <!--本月总结-->
+  <!--顶部列表-->
   <view class="page__bd">
     <navigator url="../user/main" class="weui-cells__title">
       <view class="weui-flex">
