@@ -79,3 +79,11 @@ page {
   line-height: 2.3em;
   color: #cfcfcf;
 }
+
+/* 输入框按钮 */
+.input-button {
+  color: #C8C8C8; 
+  font-size: 20px; 
+  padding-right: 6px;
+  padding-left: 6px;
+}
