@@ -49,9 +49,23 @@ App({
             //符合版本要求
           } else {
             console.error('服务端版本过低', '检测到 ' + that.URL + ' 服务器版本过低，请安装最新版本小歆记账。');
+            setTimeout(function () {
+              wx.showModal({
+                title: '服务端版本过低',
+                content: '检测到 ' + that.URL + ' 服务器版本过低，请安装最新版本小歆记账。',
+                showCancel: false,
+              })
+            }, 1000);
           }
         } else {
           console.error('无法访问服务端', '请检查服务端地址 ' + that.URL + ' 是否正确，或小程序后台正确添加服务器域名。');
+          setTimeout(function () {
+            wx.showModal({
+              title: '无法访问服务端',
+              content: '请检查服务端地址 ' + that.URL + ' 是否正确，或小程序后台正确添加服务器域名。',
+              showCancel: false,
+            })
+          }, 2000);
         }
       }
     })
