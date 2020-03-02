@@ -1,52 +1,48 @@
 <!--pages/tool/site.wxml-->
 <view class="page">
-  <view class="page__bd">
-    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">错误提示</view>
+	<view class="page__bd">
+		<view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">错误提示</view>
+    
+    <!-- 工具栏设置 -->
+		<view class="weui-cells__title">第{{id}}个工具栏</view>
+		<view class="weui-cells weui-cells_after-title">
+			<view class="weui-cell weui-cell_select">
+				<view class="weui-cell__hd" style="width: 125px">
+					<picker bindchange="bindtoolCodeChange" value="{{toolCodeIndex}}" range="{{toolCodes}}">
+						<view class="weui-select">{{toolCodes[toolCodeIndex]}}</view>
+					</picker>
+				</view>
+				<view class="weui-cell__bd weui-cell__bd_in-select-before">
+					<input class="weui-input" placeholder="请输入显示名称" value="{{toolName}}" />
+				</view>
+			</view>
+		</view>
 
-    <view class="weui-cells__title">第{{id}}个工具栏</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd" style="width: 125px">
-          <picker bindchange="bindtoolCodeChange" value="{{toolCodeIndex}}" range="{{toolCodes}}">
-            <view class="weui-select">{{toolCodes[toolCodeIndex]}}</view>
-          </picker>
-        </view>
-        <view class="weui-cell__bd weui-cell__bd_in-select-before">
-          <input class="weui-input" placeholder="请输入显示名称" value="{{toolName}}" />
-        </view>
-      </view>
-    </view>
+    <!-- 按钮样式 -->
+		<view class="weui-cells__title">按钮样式</view>
+		<view class="weui-cells weui-cells_after-title">
+			<view class="weui-cell__bd site-button-box">
+				<radio-group bindchange="radioChange">
+					<view class="weui-flex" wx:for="{{toolButtons}}" wx:for-item="arrButtons" wx:key="keyButtons">
+						<view class="weui-flex__item" wx:for="{{arrButtons}}" wx:key="keyButton">
+							<view class="site-select" wx:if="{{item.value == toolButton}}">
+								<text class="iconfont icon-chenggong site-select-text"></text>
+							</view>
+							<view bindtap="radioChange" data-value="{{item.value}}" class="main-placeholder weui-btn weui-btn-{{item.value}}" hover-class="weui-cell_active" style="margin: 5px;"> 按钮样式</view>
+						</view>
+					</view>
+				</radio-group>
+			</view>
+		</view>
+	</view>
 
-    <view class="weui-cells__title">按钮样式</view>
-    <view class="weui-cells weui-cells_after-title">
-      <radio-group bindchange="radioChange">
-        <label class="weui-cell weui-check__label" wx:for="{{toolButtons}}" wx:key="value" style="margin-top:-5px;">
-          <radio class="weui-check" value="{{item.value}}" checked="{{item.value == toolButton}}" />
-          <view class="weui-cell__bd">
-            <view class="weui-flex">
-              <view class="weui-flex__item"></view>
-              <view class="weui-flex__item">
-                <view class="main-placeholder weui-btn weui-btn-{{item.value}}" hover-class="weui-cell_active">按钮样式</view>
-              </view>
-              <view class="weui-flex__item">
-                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.value == toolButton}}">
-                  <icon class="weui-icon-radio" type="success_no_circle" size="32" style="padding-top:5px;"></icon>
-                </view>
-              </view>
-            </view>
-          </view>
-        </label>
-      </radio-group>
-    </view>
-  </view>
+	<!-- 保存按钮 -->
+	<view class="weui-btn-area">
+		<button class="weui-btn" type="primary" bindtap="bindSubmit">保存</button>
+	</view>
 
-  <!-- 保存按钮 -->
-  <view class="weui-btn-area">
-    <button class="weui-btn" type="primary" bindtap="bindSubmit">保存</button>
-  </view>
-
-  <!-- 返回按钮 -->
-  <view class="weui-btn-area">
-    <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
-  </view>
+	<!-- 返回按钮 -->
+	<view class="weui-btn-area">
+		<button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+	</view>
 </view>
