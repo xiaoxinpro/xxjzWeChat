@@ -1,1 +1,15 @@
 /* pages/tool/site.wxss */
+
+.site-button-box {
+  padding: 5px;
+}
+
+.site-select {
+  position: absolute; 
+  margin: 2px 5px;
+}
+
+.site-select-text {
+  font-size: 20px;
+  color: #fff;
+}
