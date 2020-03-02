@@ -16,12 +16,16 @@ var toolPages = [
   '../user/site/autoCopy',
 ];
 var buttons = [
-  { value: 'none', checked: false },
-  { value: 'primary', checked: false },
-  { value: 'success', checked: false },
-  { value: 'info', checked: false },
-  { value: 'warning', checked: false },
-  { value: 'danger', checked: false },
+  [
+    { value: 'none', checked: false },
+    { value: 'primary', checked: false },
+    { value: 'success', checked: false },
+  ],
+  [
+    { value: 'info', checked: false },
+    { value: 'warning', checked: false },
+    { value: 'danger', checked: false },
+  ],
 ];
 Page({
 
@@ -57,14 +61,15 @@ Page({
    * 样式按钮选择
    */
   radioChange: function (e) {
-    var radioItems = this.data.toolButtons;
-    for (var i = 0, len = radioItems.length; i < len; ++i) {
-      radioItems[i].checked = radioItems[i].value == e.detail.value;
+    let radioItems = this.data.toolButtons;
+    let selectValue = e.currentTarget.dataset.value;
+    for (let i = 0, len = radioItems.length; i < len; ++i) {
+      radioItems[i].checked = radioItems[i].value == selectValue;
     }
 
     this.setData({
       toolButtons: radioItems,
-      toolButton: e.detail.value
+      toolButton: selectValue,
     });
   },
 
@@ -85,7 +90,7 @@ Page({
       success: function(){
         setTimeout(function(){
           wx.navigateBack();
-        },300);
+        },400);
       }
     })
   },
