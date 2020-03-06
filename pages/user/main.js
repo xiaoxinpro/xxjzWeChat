@@ -16,6 +16,10 @@ Page({
       { name: '支出', value: '2', checked: true },
       { name: '收入', value: '1', checked: false},
     ],
+
+    ToolCountListIndex: 1,
+    ToolCountList: [0, 3, 6, 9],
+    ToolConfigList: [],
   },
 
   /**
@@ -43,6 +47,17 @@ Page({
     }
     this.setData({
       TypeItems: typeItems,
+    });
+  },
+
+  /**
+   * 底部工具栏设置
+   */
+  bindToolCountList: function (e) {
+    const index = parseInt(e.detail.value);
+    console.log('选择数量：', this.data.ToolCountList[index])
+    this.setData({
+      ToolCountListIndex: index,
     });
   },
 
@@ -136,5 +151,6 @@ function InitShow() {
     TopListIndex: topIndex,
     TopList: topList,
     TypeItems: typeItems,
+    ToolConfigList: app.GetMainToolConfig(),
   });
 }
