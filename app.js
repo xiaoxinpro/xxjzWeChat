@@ -4,7 +4,7 @@ App({
   // URL: 'https://ide.xiaoxin.pro/xxjzApp',
   URL: 'https://jz.xiaoxin.pro/xxjzApp',
   AdminUid: 3,
-  MinServerVersion: '2.0.0',
+  MinServerVersion: '2.0.3',
   Demo:{username:'demo',password:'xxgzs.org'},
 
   //全局变量（初始化时自动赋值）
