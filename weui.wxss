@@ -33,7 +33,7 @@ icon {
   color: #D9D9D9;
 }
 .weui-cells__title {
-  padding-top: .7em;
+  padding-top: .5em;
   padding-bottom: .3em;  
   padding-left: 15px;
   padding-right: 15px;
