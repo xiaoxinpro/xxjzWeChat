@@ -1,7 +1,7 @@
 .list-card {
   position: relative;
   padding: 10px 15px;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   background: #03a9f4;
   color: #fff;
 }
