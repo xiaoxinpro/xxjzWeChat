@@ -36,6 +36,8 @@ Page({
 
     date: "",
     dateStr: "",
+
+    adFunctionConfig: getApp().AdFunctionConfig,
   },
 
   /**
@@ -330,6 +332,7 @@ function initForm(that, isReload = true) {
   if (isReload){
     inputMoney = '';
     that.setData({
+      adFunctionConfig: getApp().AdFunctionConfig,
       typeId: typeId,
       typeItems: typeItems,
       money: "",
@@ -344,6 +347,7 @@ function initForm(that, isReload = true) {
     });
   } else if (inputMoney == '') {
     that.setData({
+      adFunctionConfig: getApp().AdFunctionConfig,
       typeId: typeId,
       typeItems: typeItems,
       ClassIndex: ClassIndex,
@@ -353,6 +357,7 @@ function initForm(that, isReload = true) {
     });
   } else {
     that.setData({
+      adFunctionConfig: getApp().AdFunctionConfig,
       ClassList: ClassList,
       FundsList: FundsList,
     });

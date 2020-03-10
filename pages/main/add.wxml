@@ -99,12 +99,18 @@
             <text class="iconfont icon-dengdai input-button"></text>
           </view>
         </view>
-
       </view>
+
+      <!-- 按钮 -->
       <view class="weui-btn-area">
         <button data-type='add' class="weui-btn weui-btn-primary" formType="submit">保存</button>
         <button data-type='end' class="weui-btn weui-btn-info" formType="submit">保存并返回</button>
         <button class="weui-btn" type="default" bindtap="gotoMain">返回</button>
+      </view>
+
+      <!-- 广告 -->
+      <view class="weui-btn-area" hidden="{{adFunctionConfig.enable == false}}">
+        <ad unit-id="adunit-bfe68df45d61cc37"></ad>
       </view>
     </form>
   </view>
