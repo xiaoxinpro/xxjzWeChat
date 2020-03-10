@@ -89,12 +89,18 @@
             <text class="iconfont icon-shibai input-button"></text>
           </view>
         </view>
-
       </view>
+
+      <!-- 按钮 -->
       <view class="weui-btn-area">
         <button class="weui-btn weui-btn-info" formType="submit">搜索</button>
         <button class="weui-btn weui-btn-danger" bindtap="bindResite">重置</button>
         <button class="weui-btn" type="default" bindtap="gotoMain">返回</button>
+      </view>
+
+      <!-- 广告 -->
+      <view class="weui-btn-area" hidden="{{adFunctionConfig.enable == false}}">
+        <ad unit-id="adunit-bfe68df45d61cc37"></ad>
       </view>
     </form>
   </view>
