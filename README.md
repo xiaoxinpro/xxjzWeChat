@@ -38,6 +38,7 @@
         │ ├─list 列表页目录
         │ ├─login 登陆页目录
         │ ├─main 主页目录
+        │ ├─tool 工具目录
         │ └─user 用户页目录
         ├─utils 公共目录
         │ ├─base64.js 加密解密库
