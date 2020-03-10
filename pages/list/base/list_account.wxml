@@ -1,6 +1,6 @@
   <!-- 记账入口按钮 -->
   <template name="account_button">
-    <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cells weui-cells_after-title" style="margin-top: 12px;">
       <navigator url="../main/add" open-type="switchTab" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">{{text}}</view>
         <view class="weui-cell__ft">
@@ -8,6 +8,9 @@
           <span class="iconfont icon-gengduo1" style="font-size:18px; color: #ffc107"></span>
         </view>
       </navigator>
+    </view>
+    <view style="margin-top:12px;">
+      <ad unit-id="adunit-bfe68df45d61cc37"></ad>
     </view>
   </template>
 
