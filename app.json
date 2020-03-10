@@ -30,7 +30,8 @@
     "pages/user/site/avatar",
     "pages/tool/aromaLamp",
     "pages/user/class/edit",
-    "pages/user/main"
+    "pages/user/main",
+    "pages/user/ad"
   ],
   "tabBar": {
     "color": "#919191",

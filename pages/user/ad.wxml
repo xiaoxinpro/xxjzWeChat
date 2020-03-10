@@ -1,0 +1,49 @@
+<!--pages/user/ad.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells__title">赞助功能</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">显示广告</view>
+        <view class="weui-cell__ft">
+          <switch bindchange="switchEnable" checked="{{adFunctionConfig.enable}}" />
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__tips" hidden="{{adFunctionConfig.enable == true}}" style="margin-bottom: 15px;">
+      由于服务器开销我们无奈增加了广告，对于显示广告的用户我们将提供更多功能。
+    </view>
+  </view>
+
+  <view class="page__bd">
+    <view hidden="{{adFunctionConfig.enable == false}}">
+      <view class="weui-cells__title">功能开关</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_switch">
+          <view class="weui-cell__bd">图表统计</view>
+          <view class="weui-cell__ft">
+            <switch bindchange="switchChart" checked="{{adFunctionConfig.chart}}" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_switch">
+          <view class="weui-cell__bd">记账图片</view>
+          <view class="weui-cell__ft">
+            <switch bindchange="switchImage" checked="{{adFunctionConfig.image}}" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page__bd">
+    <view class="weui-cells__title">广告示例</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <ad unit-id="adunit-bfe68df45d61cc37"></ad>
+      </view>
+    </view>
+    <view class="weui-cells__tips">
+      广告采用小面积横幅，已尽量减少影响用户体验。
+    </view>
+  </view>
+</view>
