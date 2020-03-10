@@ -42,6 +42,8 @@ Page({
 
     date: "",
     dateStr: "",
+
+    adFunctionConfig: getApp().AdFunctionConfig,
   },
 
   /**
