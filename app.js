@@ -12,6 +12,7 @@ App({
   StorageInfo: {keys: []},
   ClassAllData: null,
   MainPageConfig: {top: 'Recent30Day', type: 2},
+  AdFunctionConfig: {enable: false, chart: true, image: true},
 
   onLaunch: function() {
     wx.getSystemInfo({
@@ -29,6 +30,9 @@ App({
     }
     if (this.StorageInfo.keys.indexOf('MainPageConfig') >= 0) {
       this.MainPageConfig = wx.getStorageSync('MainPageConfig');
+    }
+    if (this.StorageInfo.keys.indexOf('AdFunctionConfig') >= 0) {
+      this.AdFunctionConfig = wx.getStorageSync('AdFunctionConfig');
     }
   },
 
@@ -409,6 +413,13 @@ App({
     wx.setStorage({
       data: this.MainPageConfig,
       key: 'MainPageConfig',
+    });
+  },
+
+  SetAdFunctionConfig: function () {
+    wx.setStorage({
+      data: this.AdFunctionConfig,
+      key: 'AdFunctionConfig',
     });
   },
 
