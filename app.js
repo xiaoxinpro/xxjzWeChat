@@ -13,6 +13,7 @@ App({
   ClassAllData: null,
   MainPageConfig: {top: 'Recent30Day', type: 2},
   AdFunctionConfig: {enable: false, chart: true, image: true},
+  ImageConfig: {freeCount: 2, maxCount: 9, maxSize: 2*1024*1024},
 
   onLaunch: function() {
     wx.getSystemInfo({
@@ -189,14 +190,6 @@ App({
           let ret = res['data'];
           if (ret['uid'] == uid) {
             let data = ret['data'];
-            // var arrFunds = Array();
-            // for (var i in data) {
-            //   arrFunds[data[i].id] = {
-            //     id: data[i].id,
-            //     name: data[i].name,
-            //     money: data[i].money,
-            //   };
-            // }
             wx.setStorageSync('Funds', data);
             callback(true, data.length, data);
           } else {
