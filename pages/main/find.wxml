@@ -99,7 +99,7 @@
       </view>
 
       <!-- 广告 -->
-      <view class="weui-btn-area" hidden="{{adFunctionConfig.enable == false}}">
+      <view class="weui-ad-area" hidden="{{adFunctionConfig.enable == false}}">
         <ad unit-id="adunit-bfe68df45d61cc37"></ad>
       </view>
     </form>
