@@ -1,9 +1,12 @@
 // add.js
 
-var _that;
+var that;
 var Base64 = require('../../utils/base64.js')
 var util = require('../../utils/util.js')
 var inputMoney = '';
+var videoAd = null;
+var arrUpload = [];
+
 
 Page({
 
@@ -37,7 +40,10 @@ Page({
     date: "",
     dateStr: "",
 
+    files: [],
+
     adFunctionConfig: getApp().AdFunctionConfig,
+    imageConfig: getApp().ImageConfig,
   },
 
   /**
@@ -137,21 +143,174 @@ Page({
   },
 
   /**
+   * 增加可上传文件数量按钮
+   */
+  bindAddFileCount: function(e) {
+    if (videoAd) {
+      videoAd.show().catch(() => {
+        // 失败重试
+        videoAd.load()
+          .then(() => videoAd.show())
+          .catch(err => {
+            wx.showModal({
+              title: '无法增加',
+              content: '广告显示失败，请关闭后再试。',
+              showCancel: false,
+            });
+          })
+      })
+    } else {
+      wx.showModal({
+        title: '无法增加',
+        content: '广告组件加载失败，请关闭后再试。',
+        showCancel: false,
+      });
+    }
+  },
+
+  /**
+   * 图片加载完毕事件
+   */
+  bindImageLoad: function (res) {
+    const id = res.currentTarget.dataset.id;
+    let files = this.data.files;
+    files[id].loading = false;
+    files[id].percent = 100;
+    this.setData({ files: files });
+  },
+
+  /**
+   * 图片加载失败事件
+   */
+  bindImageError: function (res) {
+    const id = res.currentTarget.dataset.id;
+    let files = this.data.files;
+    files[id].loading = false;
+    files[id].percent = -1;
+    this.setData({ files: files });
+  },
+
+  /**
+   * 图片长按弹出删除菜单
+   */
+  bindImageLong: function (ret) {
+    that = this;
+    const index = ret.currentTarget.dataset.id;
+    console.log('长按图片：', ret, arrUpload);
+    wx.showActionSheet({
+      itemList: ['删除图片'],
+      itemColor: '#F00',
+      success: function (res) {
+        if (res.tapIndex === 0) {
+          wx.showLoading({
+            title: '删除中',
+            success: function () {
+              console.log('正在删除：', arrUpload[index]);
+              delServerImage(arrUpload[index].acid, arrUpload[index].id, function (params) {
+                wx.hideLoading();
+                if (params.data.ret) {
+                  arrUpload.splice(index, 1);
+                  that.data.files.splice(index, 1);
+                  that.setData({
+                    files: that.data.files,
+                  });                  
+                } else {
+                  wx.showModal({
+                    title: '删除失败',
+                    content: params.data.msg,
+                    showCancel: false,
+                  });
+                }
+              });
+            }
+          });
+        }
+      }
+    })
+  },
+
+  /**
+   * 上传图片按钮事件
+   */
+  chooseImage: function (e) {
+    var that = this;
+    var files = that.data.files;
+    var image = that.data.imageConfig;
+    if (files.length >= image.freeCount) {
+      wx.showModal({
+        title: '无法上传',
+        content: '可上传数量已满，无法继续上传。',
+        showCancel: false,
+      })
+      return;
+    }
+    console.log('可上传文件数量：', image.freeCount - files.length);
+    wx.chooseImage({
+      count: image.freeCount - files.length,
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        let files = that.data.files;
+        res.tempFilePaths.forEach(fileUrl => {
+          files.push({
+            url: fileUrl,
+            loading: true,
+            percent: 0,
+          })
+        });
+        that.setData({
+          files: files
+        }, () => {
+          uploadImage(res.tempFilePaths, function (ret) {
+            console.log('上传图片事件：', ret);
+            if (ret.isDone) {
+              if (parseInt(ret.data.uid) > 0) {
+                arrUpload.push(ret.data.upload.pop())
+              } else {
+                wx.showModal({
+                  title: '上传失败',
+                  content: ret.data.data,
+                  showCancel: false,
+                })
+              }
+            }
+          })
+        });
+      }
+    })
+  },
+
+  /**
+   * 浏览图片事件
+   */
+  previewImage: function (e) {
+    let filesUrl = [];
+    this.data.files.forEach(file => {
+      filesUrl.push(file.url);
+    });
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: filesUrl // 需要预览的图片http链接列表
+    })
+  },
+
+  /**
    * 提交表单
    */
   submit: function (e) {
-    _that = this;
+    that = this;
     var submitDataType = e.detail.target.dataset.type;
     //获取表单并转换数据
     var DataObj = e.detail.value;
-    DataObj['add_fundsname'] = _that.data.FundsList.name[DataObj['add_funds']];
-    DataObj['add_funds'] = _that.data.FundsList.value[DataObj['add_funds']];
-    DataObj['add_classname'] = _that.data.ClassList.name[DataObj['add_class']];
-    DataObj['add_class'] = _that.data.ClassList.value[DataObj['add_class']];
-    DataObj['add_typename'] = _that.data.typeValue;
-    if (_that.data.typeValue == '收入') {
+    DataObj['add_fundsname'] = that.data.FundsList.name[DataObj['add_funds']];
+    DataObj['add_funds'] = that.data.FundsList.value[DataObj['add_funds']];
+    DataObj['add_classname'] = that.data.ClassList.name[DataObj['add_class']];
+    DataObj['add_class'] = that.data.ClassList.value[DataObj['add_class']];
+    DataObj['add_typename'] = that.data.typeValue;
+    if (that.data.typeValue == '收入') {
       DataObj['add_type'] = 1;
-    } else if (_that.data.typeValue == '支出') {
+    } else if (that.data.typeValue == '支出') {
       DataObj['add_type'] = 2;
     } else {
       DataObj['add_type'] = 0;
@@ -168,6 +327,7 @@ Page({
     AddData.actime = DataObj['add_time'];
     AddData.acremark = DataObj['add_mark'];
     AddData.zhifu = DataObj['add_type'];
+    AddData.uploads = arrUpload;
     console.log('表单处理后结果：', AddData);
 
     //校验发送数据
@@ -193,7 +353,7 @@ Page({
                   title: '记账完成',
                 });
                 //延时页面跳转
-                initForm(_that);
+                initForm();
                 setTimeout(function () {
                   if (submitDataType == 'end') {
                     wx.switchTab({ url: 'main' });
@@ -208,7 +368,7 @@ Page({
                 })
               }
             } else {
-              initForm(_that);
+              initForm();
               wx.showToast({
                 title: '未登录',
               });
@@ -230,7 +390,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    initForm(this, true);
+    that = this;
+    initForm(true);
+    loadAd();
   },
 
   /**
@@ -244,7 +406,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    initForm(this, false);
+    that = this;
+    initForm(false);
   },
 
   /**
@@ -284,7 +447,7 @@ Page({
 })
 
 /** 初始化表单 */
-function initForm(that, isReload = true) {
+function initForm(isReload = true) {
   var now = new Date();
   var year = now.getFullYear();
   var month = now.getMonth() + 1;
@@ -331,6 +494,7 @@ function initForm(that, isReload = true) {
 
   if (isReload){
     inputMoney = '';
+    arrUpload = [];
     that.setData({
       adFunctionConfig: getApp().AdFunctionConfig,
       typeId: typeId,
@@ -344,7 +508,23 @@ function initForm(that, isReload = true) {
       FundsIndex: 0,
       FundsList: FundsList,
       isHiddenFunds: (FundsList.name.length <= 1),
-    });
+      files: [],
+    }, getServerImage(0, function (ret) {
+      if (ret.data.ret === true) {
+        var files = [];
+        arrUpload = ret.data.msg;
+        arrUpload.forEach(item => {
+          files.push({
+            url: that.data.imageConfig.url + item.savepath + item.savename,
+            loading: true,
+            percent: 0,
+          });
+        });
+        that.setData({
+          files: files,
+        })
+      }
+    }));
   } else if (inputMoney == '') {
     that.setData({
       adFunctionConfig: getApp().AdFunctionConfig,
@@ -353,7 +533,7 @@ function initForm(that, isReload = true) {
       ClassIndex: ClassIndex,
       ClassList: ClassList,
       FundsList: FundsList,
-      moneyFocus: true,
+      // moneyFocus: true,
     });
   } else {
     that.setData({
@@ -408,39 +588,45 @@ function getClass(type) {
   return ClassList;
 }
 
-// /** 校验输入金额 */
-// function cheakMoney(value) {
-//   var pat = RegExp("([1-9]\d*(\.\d{1,2})?|0\.((\d?[1-9])|([1-9]0?)))");
-//   return pat.test(value);
-// }
-
-// /** 校验分类 */
-// function cheakClass(value) {
-//   return (Number(value) > 0);
-// }
-
-// /** 校验输入备注 */
-// function cheakMark(value) {
-//   var mark = value.trim();
-//   return (mark.length > 0);
-// }
-
-// /** 校验输入时间 */
-// function cheakTime(value) {
-//   var cheak = /(\d+\D\d+\D\d+)/.test(value);
-//   return cheak;
-// }
-
+/** 加载激励广告组件 */
+function loadAd() {
+  if (wx.createRewardedVideoAd) {
+    videoAd = wx.createRewardedVideoAd({
+      adUnitId: 'adunit-7ccaa4a589fd311a'
+    })
+    videoAd.onLoad(() => {
+      console.log("激励广告加载完成！");
+    })
+    videoAd.onError((err) => {
+      console.log('激励广告加载失败:', err);
+      videoAd == false;
+    })
+    videoAd.onClose((res) => {
+      console.log('激励广告关闭事件:', res);
+      if (res.isEnded) {
+        let config = that.data.imageConfig;
+        if (config.freeCount < config.maxCount) {
+          config.freeCount += 1;
+        }
+        that.setData({
+          imageConfig: config,
+        });
+      }
+    })
+  } else {
+    videoAd = false;
+  }
+}
 
 /** 错误提示 */
 function showTopTips(text) {
   //var that = this;
-  _that.setData({
+  that.setData({
     showTopTips: true,
     textTopTips: text
   });
   setTimeout(function () {
-    _that.setData({
+    that.setData({
       showTopTips: false,
       textTopTips: ""
     });
@@ -499,4 +685,103 @@ function sendAddData(data, callback) {
     }
   });
 }
+
+/** 获取服务器图片 */
+function getServerImage(acid, callback) {
+  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  if (session_id != "" && session_id != null) {
+    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+  } else {
+    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+  }
+
+  wx.request({
+    url: getApp().URL + '/index.php?s=/Home/Api/account',
+    method: 'GET',
+    data: { type: 'get_image', data: Base64.encoder(JSON.stringify({acid: acid}))},
+    header: header,
+    success: function (res) {
+      console.log('获取服务器图片Get：', res);
+      if (res.hasOwnProperty('data')) {
+        let ret = res['data'];
+        callback(ret);
+      } else {
+        callback({
+          uid: 0,
+          data: err['msg'] + '（请联系管理员）'
+        });
+      }
+    }
+  });
+}
+
+/** 删除服务器图片 */
+function delServerImage(acid, id, callback) {
+  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  if (session_id != "" && session_id != null) {
+    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+  } else {
+    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+  }
+
+  wx.request({
+    url: getApp().URL + '/index.php?s=/Home/Api/account',
+    method: 'POST',
+    data: { type: 'del_image', data: Base64.encoder(JSON.stringify({acid: acid, id: id}))},
+    header: header,
+    success: function (res) {
+      console.log('删除服务器图片Post：', res);
+      if (res.hasOwnProperty('data')) {
+        let ret = res['data'];
+        callback(ret);
+      } else {
+        callback({
+          uid: 0,
+          data: err['msg'] + '（请联系管理员）'
+        });
+      }
+    }
+  });
+}
+
+/** 上传图片 */
+function uploadImage(filesUrl, callback, cnt = 0) {
+  if (cnt < filesUrl.length) {
+    let file = filesUrl[cnt];
+    var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+    if (session_id != "" && session_id != null) {
+      var header = { 'Content-Type': 'multipart/form-data', 'Cookie': 'PHPSESSID=' + session_id }
+    } else {
+      var header = { 'Content-Type': 'multipart/form-data' }
+    }
+  
+    wx.uploadFile({
+      url: getApp().URL + '/index.php?s=/Home/Add/upload',
+      name: 'file[]',
+      filePath: file,
+      header: header,
+      success(res) {
+        callback({
+          index: cnt,
+          isDone: true,
+          isError: false,
+          data: JSON.parse(res.data)
+        })
+      },
+      fail(res) {
+        callback({
+          index: cnt,
+          isDone: false,
+          isError: true,
+          data: JSON.parse(res.data)
+        })
+      },
+      complete(res) {
+        uploadImage(filesUrl, callback, cnt + 1);
+      }
+    });
+  }
+}
+
+
 
