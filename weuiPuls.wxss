@@ -47,6 +47,10 @@
 	background-color: #cfcfcf !important;
 }
 
+.weui-ad-area {
+	margin: 1.17647059em 15px;
+}
+
 .weui-icon-checkbox_success-info {
   margin-left: 4.6px;
   margin-right: 4.6px;
