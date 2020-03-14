@@ -401,8 +401,9 @@ icon {
 }
 .weui-uploader__file {
   float: left;
-  margin-right: 9px;
-  margin-bottom: 9px;
+  margin-right: 7px;
+  margin-bottom: 7px;
+  border: 1px solid #D9D9D9;
 }
 .weui-uploader__img {
   display: block;
@@ -419,7 +420,7 @@ icon {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
 }
 .weui-uploader__file-content {
   position: absolute;
