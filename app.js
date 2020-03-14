@@ -4,7 +4,7 @@ App({
   // URL: 'https://ide.xiaoxin.pro/xxjzApp',
   URL: 'https://jz.xiaoxin.pro/xxjzApp',
   AdminUid: 3,
-  MinServerVersion: '2.0.3',
+  MinServerVersion: '2.1.0',
   Demo:{username:'demo',password:'xxgzs.org'},
 
   //全局变量（初始化时自动赋值）
@@ -13,7 +13,7 @@ App({
   ClassAllData: null,
   MainPageConfig: {top: 'Recent30Day', type: 2},
   AdFunctionConfig: {enable: false, chart: true, image: true},
-  ImageConfig: {freeCount: 2, maxCount: 9, maxSize: 2*1024*1024},
+  ImageConfig: {freeCount: 5, maxCount: 9, maxSize: 2*1024*1024, url: 'https://jz.xiaoxin.pro/xxjzApp/Uploads/'},
 
   onLaunch: function() {
     wx.getSystemInfo({
