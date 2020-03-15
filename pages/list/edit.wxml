@@ -92,6 +92,38 @@
             </picker>
           </view>
         </view>
+
+        <!-- 图片上传 -->
+				<view class="weui-cell">
+					<view class="weui-cell__bd">
+						<view class="weui-uploader">
+							<view class="weui-uploader__hd">
+                <view class="weui-cell__hd" style="">
+                  <view class="weui-label">附件</view>
+                </view>
+                <view class="weui-cell__bd" hidden="{{imageConfig.freeCount >= imageConfig.maxCount}}">
+                  <button class="weui-btn weui-btn-info mini-btn" size="mini" style="font-size: 11px;" bindtap="bindAddFileCount">增加可上传文件数量</button>
+                </view>
+								<view class="weui-cell__ft" style="padding-right: 6px; ">{{files.length}}/{{imageConfig.freeCount}}</view>
+							</view>
+							<view class="weui-uploader__bd">
+								<view class="weui-uploader__files" id="uploaderFiles">
+									<block wx:for="{{files}}" wx:key="filesKey">
+										<view class="weui-uploader__file weui-uploader__file_status" bindtap="previewImage" id="{{item.url}}" style="border: 1px solid #D9D9D9;" bindlongpress="bindImageLong" data-id="{{index}}">
+											<image class="weui-uploader__img" src="{{item.url}}" mode="aspectFill" bindload="bindImageLoad" binderror="bindImageError" data-id="{{index}}" />
+                      <view class="weui-uploader__file-content" hidden="{{item.loading === false}}">
+                        <view class="weui-loading" style="width: 50px; height: 50px;"></view>
+                      </view>
+										</view>
+									</block>
+								</view>
+								<view class="weui-uploader__input-box">
+									<view class="weui-uploader__input" bindtap="chooseImage"></view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
       </view>
 
       <!-- 按钮 -->

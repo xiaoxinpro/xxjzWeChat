@@ -3,7 +3,10 @@
 var that;
 var Base64 = require('../../utils/base64.js')
 var util = require('../../utils/util.js')
+var Image = require('../../utils/image.js')
 var varId = 0;
+var videoAd = null;
+var arrUpload = [];
 
 Page({
 
@@ -43,7 +46,10 @@ Page({
     date: "",
     dateStr: "",
 
+    files: [],
+
     adFunctionConfig: getApp().AdFunctionConfig,
+    imageConfig: getApp().ImageConfig,
   },
 
   /**
@@ -101,6 +107,159 @@ Page({
     this.setData({
       date: e.detail.value,
       dateStr: "" + year + "年" + month + "月" + day + "日"
+    })
+  },
+  
+  /**
+   * 增加可上传文件数量按钮
+   */
+  bindAddFileCount: function(e) {
+    if (videoAd) {
+      videoAd.show().catch(() => {
+        // 失败重试
+        videoAd.load()
+          .then(() => videoAd.show())
+          .catch(err => {
+            wx.showModal({
+              title: '无法增加',
+              content: '广告显示失败，请关闭后再试。',
+              showCancel: false,
+            });
+          })
+      })
+    } else {
+      wx.showModal({
+        title: '无法增加',
+        content: '广告组件加载失败，请关闭后再试。',
+        showCancel: false,
+      });
+    }
+  },
+
+  /**
+   * 图片加载完毕事件
+   */
+  bindImageLoad: function (res) {
+    const id = res.currentTarget.dataset.id;
+    let files = this.data.files;
+    files[id].loading = false;
+    files[id].percent = 100;
+    this.setData({ files: files });
+  },
+
+  /**
+   * 图片加载失败事件
+   */
+  bindImageError: function (res) {
+    const id = res.currentTarget.dataset.id;
+    let files = this.data.files;
+    files[id].loading = false;
+    files[id].percent = -1;
+    this.setData({ files: files });
+  },
+
+  /**
+   * 图片长按弹出删除菜单
+   */
+  bindImageLong: function (ret) {
+    that = this;
+    const index = ret.currentTarget.dataset.id;
+    console.log('长按图片：', ret, arrUpload);
+    wx.showActionSheet({
+      itemList: ['删除图片'],
+      itemColor: '#F00',
+      success: function (res) {
+        if (res.tapIndex === 0) {
+          wx.showLoading({
+            title: '删除中',
+            success: function () {
+              console.log('正在删除：', arrUpload[index]);
+              Image.remove(arrUpload[index].acid, arrUpload[index].id, function (params) {
+                wx.hideLoading();
+                if (params.data.ret) {
+                  arrUpload.splice(index, 1);
+                  that.data.files.splice(index, 1);
+                  that.setData({
+                    files: that.data.files,
+                  });                  
+                } else {
+                  wx.showModal({
+                    title: '删除失败',
+                    content: params.data.msg,
+                    showCancel: false,
+                  });
+                }
+              });
+            }
+          });
+        }
+      }
+    })
+  },
+
+  /**
+   * 上传图片按钮事件
+   */
+  chooseImage: function (e) {
+    var that = this;
+    var files = that.data.files;
+    var image = that.data.imageConfig;
+    if (files.length >= image.freeCount) {
+      wx.showModal({
+        title: '无法上传',
+        content: '可上传数量已满，无法继续上传。',
+        showCancel: false,
+      })
+      return;
+    }
+    console.log('可上传文件数量：', image.freeCount - files.length);
+    wx.chooseImage({
+      count: image.freeCount - files.length,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        let files = that.data.files;
+        res.tempFilePaths.forEach(fileUrl => {
+          files.push({
+            url: fileUrl,
+            loading: true,
+            percent: 0,
+          })
+        });
+        that.setData({
+          files: files
+        }, () => {
+          Image.upload(varId, res.tempFilePaths, function (ret) {
+            console.log('上传图片事件：', ret);
+            if (ret.isDone) {
+              if (parseInt(ret.data.uid) > 0) {
+                arrUpload.push(ret.data.upload.pop())
+              } else {
+                wx.showModal({
+                  title: '上传失败',
+                  content: ret.data.data,
+                  showCancel: false,
+                })
+              }
+            }
+          })
+        });
+      }
+    })
+  },
+
+  /**
+   * 浏览图片事件
+   */
+  previewImage: function (e) {
+    let filesUrl = [];
+    this.data.files.forEach(file => {
+      filesUrl.push(file.url);
+    });
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: filesUrl // 需要预览的图片http链接列表
     })
   },
 
@@ -365,8 +524,24 @@ function initForm(objData) {
     money: objData.acmoney,
     mark: objData.acremark,
     date: objData.actime,
-    dateStr: util.strDateFormat(objData.actime, 'yyyy年m月d日')
-  });
+    dateStr: util.strDateFormat(objData.actime, 'yyyy年m月d日'),
+    files: [],
+  }, Image.get(varId, function (ret) {
+    if (ret.data.ret === true) {
+      var files = [];
+      arrUpload = ret.data.msg;
+      arrUpload.forEach(item => {
+        files.push({
+          url: that.data.imageConfig.url + item.savepath + item.savename,
+          loading: true,
+          percent: 0,
+        });
+      });
+      that.setData({
+        files: files,
+      })
+    }
+  }));
 }
 
 
