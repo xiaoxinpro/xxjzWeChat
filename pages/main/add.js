@@ -3,6 +3,7 @@
 var that;
 var Base64 = require('../../utils/base64.js')
 var util = require('../../utils/util.js')
+var Image = require('../../utils/image.js')
 var inputMoney = '';
 var videoAd = null;
 var arrUpload = [];
@@ -206,7 +207,7 @@ Page({
             title: '删除中',
             success: function () {
               console.log('正在删除：', arrUpload[index]);
-              delServerImage(arrUpload[index].acid, arrUpload[index].id, function (params) {
+              Image.remove(arrUpload[index].acid, arrUpload[index].id, function (params) {
                 wx.hideLoading();
                 if (params.data.ret) {
                   arrUpload.splice(index, 1);
@@ -247,8 +248,8 @@ Page({
     console.log('可上传文件数量：', image.freeCount - files.length);
     wx.chooseImage({
       count: image.freeCount - files.length,
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         let files = that.data.files;
@@ -262,7 +263,7 @@ Page({
         that.setData({
           files: files
         }, () => {
-          uploadImage(res.tempFilePaths, function (ret) {
+          Image.upload(0, res.tempFilePaths, function (ret) {
             console.log('上传图片事件：', ret);
             if (ret.isDone) {
               if (parseInt(ret.data.uid) > 0) {
@@ -392,7 +393,7 @@ Page({
   onLoad: function (options) {
     that = this;
     initForm(true);
-    loadAd();
+    // loadAd();
   },
 
   /**
@@ -509,7 +510,7 @@ function initForm(isReload = true) {
       FundsList: FundsList,
       isHiddenFunds: (FundsList.name.length <= 1),
       files: [],
-    }, getServerImage(0, function (ret) {
+    }, Image.get(0, function (ret) {
       if (ret.data.ret === true) {
         var files = [];
         arrUpload = ret.data.msg;
@@ -684,103 +685,6 @@ function sendAddData(data, callback) {
       }
     }
   });
-}
-
-/** 获取服务器图片 */
-function getServerImage(acid, callback) {
-  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
-  if (session_id != "" && session_id != null) {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
-  } else {
-    var header = { 'content-type': 'application/x-www-form-urlencoded' }
-  }
-
-  wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/account',
-    method: 'GET',
-    data: { type: 'get_image', data: Base64.encoder(JSON.stringify({acid: acid}))},
-    header: header,
-    success: function (res) {
-      console.log('获取服务器图片Get：', res);
-      if (res.hasOwnProperty('data')) {
-        let ret = res['data'];
-        callback(ret);
-      } else {
-        callback({
-          uid: 0,
-          data: err['msg'] + '（请联系管理员）'
-        });
-      }
-    }
-  });
-}
-
-/** 删除服务器图片 */
-function delServerImage(acid, id, callback) {
-  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
-  if (session_id != "" && session_id != null) {
-    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
-  } else {
-    var header = { 'content-type': 'application/x-www-form-urlencoded' }
-  }
-
-  wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/account',
-    method: 'POST',
-    data: { type: 'del_image', data: Base64.encoder(JSON.stringify({acid: acid, id: id}))},
-    header: header,
-    success: function (res) {
-      console.log('删除服务器图片Post：', res);
-      if (res.hasOwnProperty('data')) {
-        let ret = res['data'];
-        callback(ret);
-      } else {
-        callback({
-          uid: 0,
-          data: err['msg'] + '（请联系管理员）'
-        });
-      }
-    }
-  });
-}
-
-/** 上传图片 */
-function uploadImage(filesUrl, callback, cnt = 0) {
-  if (cnt < filesUrl.length) {
-    let file = filesUrl[cnt];
-    var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
-    if (session_id != "" && session_id != null) {
-      var header = { 'Content-Type': 'multipart/form-data', 'Cookie': 'PHPSESSID=' + session_id }
-    } else {
-      var header = { 'Content-Type': 'multipart/form-data' }
-    }
-  
-    wx.uploadFile({
-      url: getApp().URL + '/index.php?s=/Home/Add/upload',
-      name: 'file[]',
-      filePath: file,
-      header: header,
-      success(res) {
-        callback({
-          index: cnt,
-          isDone: true,
-          isError: false,
-          data: JSON.parse(res.data)
-        })
-      },
-      fail(res) {
-        callback({
-          index: cnt,
-          isDone: false,
-          isError: true,
-          data: JSON.parse(res.data)
-        })
-      },
-      complete(res) {
-        uploadImage(filesUrl, callback, cnt + 1);
-      }
-    });
-  }
 }
 
 
