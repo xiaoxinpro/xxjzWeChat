@@ -146,25 +146,28 @@ Page({
   /**
    * 增加可上传文件数量按钮
    */
-  bindAddFileCount: function(e) {
+  bindAddFileCount: function() {
+    that = this;
     if (videoAd) {
-      videoAd.show().catch(() => {
-        // 失败重试
-        videoAd.load()
-          .then(() => videoAd.show())
-          .catch(err => {
-            wx.showModal({
-              title: '无法增加',
-              content: '广告显示失败，请关闭后再试。',
-              showCancel: false,
-            });
-          })
-      })
+      showAd();
     } else {
-      wx.showModal({
-        title: '无法增加',
-        content: '广告组件加载失败，请关闭后再试。',
-        showCancel: false,
+      wx.showLoading({
+        title: '加载广告',
+        success: function () {
+          loadAd(function (res) {
+            wx.hideLoading();
+            if (res.enable) {
+              showAd();
+            } else {
+              videoAd = false;
+              wx.showModal({
+                title: '无法增加',
+                content: res.error,
+                showCancel: false,
+              });
+            }
+          });
+        }
       });
     }
   },
@@ -393,7 +396,6 @@ Page({
   onLoad: function (options) {
     that = this;
     initForm(true);
-    // loadAd();
   },
 
   /**
@@ -590,17 +592,25 @@ function getClass(type) {
 }
 
 /** 加载激励广告组件 */
-function loadAd() {
+function loadAd(callback) {
   if (wx.createRewardedVideoAd) {
     videoAd = wx.createRewardedVideoAd({
       adUnitId: 'adunit-7ccaa4a589fd311a'
     })
     videoAd.onLoad(() => {
       console.log("激励广告加载完成！");
+      callback({
+        enable: true,
+        error: '加载完成',
+      });
+      videoAd.offLoad();
     })
     videoAd.onError((err) => {
       console.log('激励广告加载失败:', err);
-      videoAd == false;
+      callback({
+        enable: false,
+        error: err.errMsg,
+      });
     })
     videoAd.onClose((res) => {
       console.log('激励广告关闭事件:', res);
@@ -615,8 +625,27 @@ function loadAd() {
       }
     })
   } else {
-    videoAd = false;
+    callback({
+      enable: false,
+      error: '微信版本过低，部分组件无法加载，请升级微信再试。',
+    });
   }
+}
+
+/** 显示广告 */
+function showAd() {
+  videoAd.show().catch(() => {
+    // 失败重试
+    videoAd.load()
+      .then(() => videoAd.show())
+      .catch(err => {
+        wx.showModal({
+          title: '无法增加',
+          content: '广告显示失败，请关闭后再试。',
+          showCancel: false,
+        });
+      })
+  });
 }
 
 /** 错误提示 */
