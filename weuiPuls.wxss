@@ -64,6 +64,15 @@
   color: #838383;
 }
 
+.weui-input-btn {
+	display: inline-block;
+	padding: 0 10px;
+	font-size: 11px;
+	height: 26px;
+	line-height: 26px;
+	border-radius: 3px;
+}
+
 .weui-navbar__item.weui-bar__item_on {
   color: #03a9f4 !important;
 }
