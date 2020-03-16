@@ -101,8 +101,8 @@
                 <view class="weui-cell__hd" style="">
                   <view class="weui-label">附件</view>
                 </view>
-                <view class="weui-cell__bd" hidden="{{imageConfig.freeCount >= imageConfig.maxCount}}">
-                  <button class="weui-btn weui-btn-info mini-btn" size="mini" style="font-size: 11px;" bindtap="bindAddFileCount">增加可上传文件数量</button>
+                <view class="weui-cell__bd">
+                  <view class="weui-input-btn weui-btn-info" bindtap="bindAddFileCount" hidden="{{imageConfig.freeCount >= imageConfig.maxCount}}">增加可上传文件数量</view>
                 </view>
 								<view class="weui-cell__ft" style="padding-right: 6px; ">{{files.length}}/{{imageConfig.freeCount}}</view>
 							</view>
