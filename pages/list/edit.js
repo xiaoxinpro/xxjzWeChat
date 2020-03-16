@@ -5,8 +5,10 @@ var Base64 = require('../../utils/base64.js')
 var util = require('../../utils/util.js')
 var Image = require('../../utils/image.js')
 var varId = 0;
-var videoAd = null;
 var arrUpload = [];
+
+import {VideoAd} from '../../utils/videoAd.js'
+var objVideoAd = new VideoAd();
 
 Page({
 
@@ -114,26 +116,36 @@ Page({
    * 增加可上传文件数量按钮
    */
   bindAddFileCount: function(e) {
-    if (videoAd) {
-      videoAd.show().catch(() => {
-        // 失败重试
-        videoAd.load()
-          .then(() => videoAd.show())
-          .catch(err => {
-            wx.showModal({
-              title: '无法增加',
-              content: '广告显示失败，请关闭后再试。',
-              showCancel: false,
-            });
-          })
-      })
-    } else {
-      wx.showModal({
-        title: '无法增加',
-        content: '广告组件加载失败，请关闭后再试。',
-        showCancel: false,
+    that = this;
+    objVideoAd.start(function () {
+      let config = that.data.imageConfig;
+      if (config.freeCount < config.maxCount) {
+        config.freeCount += 1;
+      }
+      that.setData({
+        imageConfig: config,
       });
-    }
+    })
+    // if (videoAd) {
+    //   videoAd.show().catch(() => {
+    //     // 失败重试
+    //     videoAd.load()
+    //       .then(() => videoAd.show())
+    //       .catch(err => {
+    //         wx.showModal({
+    //           title: '无法增加',
+    //           content: '广告显示失败，请关闭后再试。',
+    //           showCancel: false,
+    //         });
+    //       })
+    //   })
+    // } else {
+    //   wx.showModal({
+    //     title: '无法增加',
+    //     content: '广告组件加载失败，请关闭后再试。',
+    //     showCancel: false,
+    //   });
+    // }
   },
 
   /**
@@ -353,7 +365,6 @@ Page({
       success: function(res) {
         if (res.confirm) {
           //触发删除命令
-          // console.log('触发删除命令');
           var EditData = {};
           EditData.acid = varId;
           var strData = Base64.encoder(JSON.stringify(EditData));
@@ -474,7 +485,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    objVideoAd.close();
   },
 
   /**
