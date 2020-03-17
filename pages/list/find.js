@@ -65,12 +65,18 @@ Page({
     if(varScroll < 200) {
       wx.showLoading({
         title: '搜索中',
-        success: initData()
+        mask: true,
+        success: initData(()=>{
+          wx.hideLoading();
+        })
       });
     } else if (getApp().listUpdata.isUpdata){
       wx.showLoading({
         title: '更新中',
-        success: updataInitData()
+        mask: true,
+        success: updataInitData(()=>{
+          wx.hideLoading();
+        })
       });
     }
 
@@ -102,7 +108,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    initData();
+    initData(()=>{
+      wx.stopPullDownRefresh();
+    });
   },
 
   /**
@@ -152,8 +160,6 @@ function initData(callback) {
 
   //获取列表数据
   getListData(varPage, function () {
-    wx.stopPullDownRefresh();
-    wx.hideLoading();
     if (callback) {
       callback();
     }
@@ -161,22 +167,22 @@ function initData(callback) {
 }
 
 /** 升级初始化数据并跳转到指定位置 */
-function updataInitData() {
+function updataInitData(callback) {
   var page = varPage;
   var scroll = varScroll;
   initData(function(){
-    wx.showLoading({
-      title: '更新中',
-      mask: true,
-      success: loadPageData(page, function(){
-        isLoading = false;
+    loadPageData(page, function(){
+      isLoading = false;
+      setTimeout(function () {
         wx.pageScrollTo({
           scrollTop: scroll,
           success: function(){
-            wx.hideLoading();
+            if (callback) {
+              callback();
+            }
           }
         });
-      }),
+      }, 300);
     });
   });
 }
@@ -192,6 +198,8 @@ function loadPageData(page, callback) {
         loadPageData(page, callback);
       }
     });
+  } else {
+    callback();
   }
 }
 
