@@ -5,6 +5,7 @@ var Base64 = require('../../utils/base64.js')
 var util = require('../../utils/util.js')
 var Image = require('../../utils/image.js')
 var varId = 0;
+var varAccount = null;
 var arrUpload = [];
 
 import {VideoAd} from '../../utils/videoAd.js'
@@ -125,27 +126,7 @@ Page({
       that.setData({
         imageConfig: config,
       });
-    })
-    // if (videoAd) {
-    //   videoAd.show().catch(() => {
-    //     // 失败重试
-    //     videoAd.load()
-    //       .then(() => videoAd.show())
-    //       .catch(err => {
-    //         wx.showModal({
-    //           title: '无法增加',
-    //           content: '广告显示失败，请关闭后再试。',
-    //           showCancel: false,
-    //         });
-    //       })
-    //   })
-    // } else {
-    //   wx.showModal({
-    //     title: '无法增加',
-    //     content: '广告组件加载失败，请关闭后再试。',
-    //     showCancel: false,
-    //   });
-    // }
+    });
   },
 
   /**
@@ -441,8 +422,27 @@ Page({
             delta: 1
           });
         }
-      })
+      });
+      return;
     }
+
+    //获取页面数据
+    wx.showLoading({
+      title: '加载中',
+    });
+    var jsonData = {};
+    jsonData.type = 'get_id';
+    jsonData.data = Base64.encoder(JSON.stringify({
+      acid: varId,
+      jiid: wx.getStorageSync('user').uid
+    }));
+    getIdData(jsonData, function (ret) {
+      //初始化表单
+      varAccount = ret['data'];
+      initForm(varAccount);
+      wx.hideLoading();
+    });
+
   },
 
   /**
@@ -457,21 +457,9 @@ Page({
    */
   onShow: function() {
     that = this;
-    //获取页面数据
-    wx.showLoading({
-      title: '加载中',
-    });
-    var jsonData = {};
-    jsonData.type = 'get_id';
-    jsonData.data = Base64.encoder(JSON.stringify({
-      acid: varId,
-      jiid: wx.getStorageSync('user').uid
-    }));
-    getIdData(jsonData, function (ret) {
-      //初始化表单
-      initForm(ret['data']);
-      wx.hideLoading();
-    });
+    if (varAccount) {
+      initForm(varAccount, false);
+    }
   },
 
   /**
@@ -511,7 +499,7 @@ Page({
 })
 
 /** 初始化表单 */
-function initForm(objData) {
+function initForm(objData, isReload = true) {
   var typeValue = "";
   var typeItems = that.data.typeItems;
 
@@ -528,31 +516,33 @@ function initForm(objData) {
 
   getFunds(objData.fid);
 
-  that.setData({
-    typeValue: typeValue,
-    typeItems: typeItems,
-    typeId: parseInt(objData.zhifu),
-    money: objData.acmoney,
-    mark: objData.acremark,
-    date: objData.actime,
-    dateStr: util.strDateFormat(objData.actime, 'yyyy年m月d日'),
-    files: [],
-  }, Image.get(varId, function (ret) {
-    if (ret.data.ret === true) {
-      var files = [];
-      arrUpload = ret.data.msg;
-      arrUpload.forEach(item => {
-        files.push({
-          url: that.data.imageConfig.url + item.savepath + item.savename,
-          loading: true,
-          percent: 0,
+  if (isReload) {
+    that.setData({
+      typeValue: typeValue,
+      typeItems: typeItems,
+      typeId: parseInt(objData.zhifu),
+      money: objData.acmoney,
+      mark: objData.acremark,
+      date: objData.actime,
+      dateStr: util.strDateFormat(objData.actime, 'yyyy年m月d日'),
+      files: [],
+    }, Image.get(varId, function (ret) {
+      if (ret.data.ret === true) {
+        var files = [];
+        arrUpload = ret.data.msg;
+        arrUpload.forEach(item => {
+          files.push({
+            url: that.data.imageConfig.url + item.savepath + item.savename,
+            loading: true,
+            percent: 0,
+          });
         });
-      });
-      that.setData({
-        files: files,
-      })
-    }
-  }));
+        that.setData({
+          files: files,
+        })
+      }
+    }));
+  }
 }
 
 
