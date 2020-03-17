@@ -8,6 +8,7 @@ var varYear = 0;
 var varMonth = 0;
 var varPage = 1;
 var varPageMax = 1;
+var varScroll = 0;
 var addMoney = 0.00;
 var sumInMoney = 0;
 var sumOutMoney = 0;
@@ -123,8 +124,24 @@ Page({
       }
     });
 
-    //初始化页面
-    initData();
+    // 初始页面
+    if(varScroll < 200) {
+      wx.showLoading({
+        title: '加载中',
+        mask: true,
+        success: initData(()=>{
+          wx.hideLoading();
+        })
+      });
+    } else if (getApp().listUpdata.isUpdata){
+      wx.showLoading({
+        title: '更新中',
+        mask: true,
+        success: updataInitData(()=>{
+          wx.hideLoading();
+        })
+      });
+    }
   },
 
   /**
@@ -142,10 +159,20 @@ Page({
   },
 
   /**
+   * 监听用户滑动页面事件
+   */
+  onPageScroll:function(e) {
+    // console.log(e);
+    varScroll = e.scrollTop;
+  },
+
+  /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    initData();
+    initData(()=>{
+      wx.stopPullDownRefresh();
+    });
   },
 
   /**
@@ -179,7 +206,7 @@ Page({
 })
 
 //** 初始化页面 */
-function initData() {
+function initData(callback) {
   //设置页面标题
   wx.setNavigationBarTitle({ title: varMonth + '月份账单' });
 
@@ -195,8 +222,47 @@ function initData() {
 
   //获取列表数据
   getListData(varPage, function () {
-    wx.stopPullDownRefresh();
+    if (callback) {
+      callback();
+    }
   });
+}
+
+/** 升级初始化数据并跳转到指定位置 */
+function updataInitData(callback) {
+  var page = varPage;
+  var scroll = varScroll;
+  initData(function(){
+    loadPageData(page, function(){
+      isLoading = false;
+      setTimeout(function () {
+        wx.pageScrollTo({
+          scrollTop: scroll,
+          success: function(){
+            if (callback) {
+              callback();
+            }
+          }
+        });
+      }, 300);
+    });
+  });
+}
+
+/** 加载指定页码的数据，完成是产生回调 */
+function loadPageData(page, callback) {
+  if((page > 1)&&(varPage < page)&&(varPage < varPageMax)) {
+    isLoading = true;
+    getListData(varPage + 1, function () {
+      if(varPage==page || varPage==varPageMax) {
+        callback();
+      } else {
+        loadPageData(page, callback);
+      }
+    });
+  } else {
+    callback();
+  }
 }
 
 /** 获取指定页数据 */
