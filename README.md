@@ -16,15 +16,56 @@
 
 ![小歆记账 发布版](https://upload-images.jianshu.io/upload_images/1568014-ca759146496e4773.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 项目说明
+## 项目搭建
 
-小歆记账WeChat基于微信开发者工具开发，安装与使用请参见微信官方资料。
+### 搭建前准备工作
+
+首先需要完成服务端的部署，具体流程请查看 [小歆记账WebApp项目](https://github.com/xiaoxinpro/xxjzWeb) 这里不再赘述。
+
+接下来需要注册微信小程序账号与安装微信开发者工具开发，安装与使用请参见微信官方资料。
 
 官方文档: https://mp.weixin.qq.com/debug/wxadoc/dev/
 
 开发工具: https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html
 
-> 需要在小程序”后台 -> 开发 -> 开发设置 -> 服务器域名“中添加服务端域名，并在`downloadFile`中添加`https://wx.qlogo.cn`用于下载微信头像。
+### 微信小程序开发设置
+
+使用微信小程序账号登陆后台 https://mp.weixin.qq.com/ 在左侧选择`开发`按钮，最后在顶部选择`开发设置`界面。
+
+在这里需要记录你的`AppID(小程序ID)`和`AppSecret(小程序密钥)`，后面在服务端配置与小程序配置中需要用到。
+
+接下来在下面找到`服务器域名`，点击右侧的修改按钮，分别将你的`https://服务端域名`添加到`request合法域名`、`uploadFile合法域名`、`downloadFile合法域名`中，另外还需要将`https://wx.qlogo.cn`域名添加到`downloadFile合法域名`中用于下载微信头像。
+
+> 另外，如果你有图片缓存服务器还需要将`https://图片缓存服务器域名`分别添加到`uploadFile合法域名`、`downloadFile合法域名`中。
+
+最后在左侧列表最下端`设置`页面中可以设置小程序一些内容，可根据自身需要来配置，这里不再赘述。
+
+### 记账服务端设置
+
+小歆记账WebApp项目的`/Application/Common/Conf/config.php`文件中，分别修改以下几个配置：
+
+* WX_ENABLE 修改为`true`
+* WX_OPENID 修改为前面记录的`AppID(小程序ID)`
+* WX_SECRET 修改为前面记录的`AppSecret(小程序密钥)`
+* ADMIN_UID 选择一个管理员的UID将其设置，默认为初始安装是设置的账号
+
+另外也可根据需要修改`/Application/Home/Conf/config.php`文件中的具体配置。
+
+### 小程序项目设置
+
+下载最新的Releases源码：https://github.com/xiaoxinpro/xxjzWeChat/releases
+
+解压后使用微信小程序开发工具打开项目
+
+打开根目录下的`app.js`文件，修改以下几个配置：
+
+* URL      修改为https://服务端的域名
+* AdminUid 修改为管理员的UID，与服务端配置的ADMIN_UID相同
+* Demo     服务端注册一个Demo账号，并将其用户名和密码修改
+
+> 根据微信小程序最新的审核标准，没有这个Demo账号将无法审核通过，此账号用于体验功能与官方审核使用。
+
+以上完成了基础搭建工作，后续可根据需要进行其他响应的更改。
 
 ## 目录结构
 
