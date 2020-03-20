@@ -32,9 +32,13 @@
 
 使用微信小程序账号登陆后台 https://mp.weixin.qq.com/ 在左侧选择`开发`按钮，最后在顶部选择`开发设置`界面。
 
+![开发设置界面](https://upload-images.jianshu.io/upload_images/1568014-06d0e3bcf240a7eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 在这里需要记录你的`AppID(小程序ID)`和`AppSecret(小程序密钥)`，后面在服务端配置与小程序配置中需要用到。
 
 接下来在下面找到`服务器域名`，点击右侧的修改按钮，分别将你的`https://服务端域名`添加到`request合法域名`、`uploadFile合法域名`、`downloadFile合法域名`中，另外还需要将`https://wx.qlogo.cn`域名添加到`downloadFile合法域名`中用于下载微信头像。
+
+![服务器域名配置](https://upload-images.jianshu.io/upload_images/1568014-3e94f6d78e42a86d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 > 另外，如果你有图片缓存服务器还需要将`https://图片缓存服务器域名`分别添加到`uploadFile合法域名`、`downloadFile合法域名`中。
 
