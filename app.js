@@ -3,7 +3,7 @@ App({
   //全局常量
   // URL: 'https://ide.xiaoxin.pro/xxjzApp',
   URL: 'https://jz.xiaoxin.pro/xxjzApp',
-  AdminUid: 3,
+  AdminUid: 1,
   MinServerVersion: '2.1.0',
   Demo:{username:'demo',password:'xxgzs.org'},
 
@@ -12,8 +12,8 @@ App({
   StorageInfo: {keys: []},
   ClassAllData: null,
   MainPageConfig: {top: 'Recent30Day', type: 2},
-  AdFunctionConfig: {enable: false, chart: true, image: true},
-  ImageConfig: {freeCount: 5, maxCount: 9, maxSize: 2*1024*1024, url: 'https://jz.xiaoxin.pro/xxjzApp/Uploads/'},
+  AdFunctionConfig: {enable: false, chart: true, image: true, tool: true},
+  ImageConfig: {freeCount: 5, maxCount: 9, maxSize: 2*1024*1024, url: 'https://ide.xiaoxin.pro/xxjzApp/Uploads/'},
 
   onLaunch: function() {
     wx.getSystemInfo({
