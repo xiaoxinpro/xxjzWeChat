@@ -11,24 +11,30 @@
       </view>
     </view>
     <view class="weui-cells__tips" hidden="{{adFunctionConfig.enable == true}}" style="margin-bottom: 15px;">
-      由于服务器开销我们无奈增加了广告，对于显示广告的用户我们将提供更多功能。
+      由于服务器开销我们无奈增加了广告，因此对于显示广告的用户我们将提供以下功能。
     </view>
   </view>
 
   <view class="page__bd">
-    <view hidden="{{adFunctionConfig.enable == false}}">
+    <view> <!-- hidden="{{adFunctionConfig.enable == false}}" -->
       <view class="weui-cells__title">功能开关</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_switch">
           <view class="weui-cell__bd">图表统计</view>
           <view class="weui-cell__ft">
-            <switch bindchange="switchChart" checked="{{adFunctionConfig.chart}}" />
+            <switch bindchange="switchConfig" data-key="chart" checked="{{adFunctionConfig.chart && adFunctionConfig.enable}}" />
           </view>
         </view>
         <view class="weui-cell weui-cell_switch">
           <view class="weui-cell__bd">记账图片</view>
           <view class="weui-cell__ft">
-            <switch bindchange="switchImage" checked="{{adFunctionConfig.image}}" />
+            <switch bindchange="switchConfig" data-key="image" checked="{{adFunctionConfig.image && adFunctionConfig.enable}}" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_switch">
+          <view class="weui-cell__bd">自定义工具</view>
+          <view class="weui-cell__ft">
+            <switch bindchange="switchConfig" data-key="tool" checked="{{adFunctionConfig.tool && adFunctionConfig.enable}}" />
           </view>
         </view>
       </view>
