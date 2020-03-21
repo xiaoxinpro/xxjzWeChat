@@ -15,11 +15,51 @@ Page({
    * switchEnable
    */
   switchEnable: function (e) {
-    app.AdFunctionConfig.enable = e.detail.value;
-    app.SetAdFunctionConfig();
-    this.setData({
-      adFunctionConfig: app.AdFunctionConfig,
-    })
+    that = this;
+    const ENABLE = e.detail.value;
+    if (ENABLE == false) {
+      wx.showModal({
+        title: '确认关闭广告',
+        content: '由于服务器开销压力，关闭广告后将同时关闭附加功能。',
+        confirmText: '关闭功能',
+        success: function (res) {
+          if (res.confirm) {
+            updataConfig('enable', ENABLE);
+          } else {
+            updataConfig('enable', true);
+          }
+        }
+      })
+    } else {
+      updataConfig('enable', ENABLE);
+    }
+  },
+
+  /**
+   * switchConfig
+   */
+  switchConfig: function (e) {
+    that = this;
+    const KEY = e.currentTarget.dataset.key;
+    const ENABLE = e.detail.value;
+    if (that.data.adFunctionConfig.enable == false) {
+      wx.showModal({
+        title: '未显示广告',
+        content: '由于服务器开销压力，必须先显示广告才可以开启功能。',
+        confirmText: '显示广告',
+        cancelText: '关闭',
+        success: function (e) {
+          if (e.confirm) {
+            updataConfig('enable', true, false);
+            updataConfig(KEY, ENABLE);
+          } else {
+            updataConfig('enable', false);
+          }
+        }
+      })
+    } else {
+      updataConfig(KEY, ENABLE);
+    }
   },
 
   /**
@@ -80,3 +120,16 @@ Page({
 
   }
 })
+
+/**
+ * 更新配置
+ */
+function updataConfig(key, enable, isUpdata = true) {
+  app.AdFunctionConfig[key] = enable;
+  app.SetAdFunctionConfig();
+  if (isUpdata) {
+    that.setData({
+      adFunctionConfig: app.AdFunctionConfig,
+    });
+  }
+}
