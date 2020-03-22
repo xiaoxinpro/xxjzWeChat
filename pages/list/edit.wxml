@@ -94,7 +94,7 @@
         </view>
 
         <!-- 图片上传 -->
-				<view class="weui-cell">
+				<view class="weui-cell" wx:if="{{adFunctionConfig.enable && adFunctionConfig.image}}">
 					<view class="weui-cell__bd">
 						<view class="weui-uploader">
 							<view class="weui-uploader__hd">
@@ -135,7 +135,7 @@
       </view>
 
       <!-- 广告 -->
-      <view class="weui-ad-area" hidden="{{adFunctionConfig.enable == false}}">
+      <view class="weui-ad-area" wx:if="{{adFunctionConfig.enable}}">
         <ad unit-id="adunit-bfe68df45d61cc37"></ad>
       </view>
     </form>
