@@ -7,7 +7,6 @@ var autoCopyString = {};
 Page({
   data: {
     uid: 0,
-    uname: "",
     is_haader_recent30day: false,
     header_day: 21,
     header_month: 5,
@@ -22,6 +21,7 @@ Page({
     all_in_money: 0.00,
     all_out_money: 0.00,
     main_tool_config: [],
+    ad_function_config: {},
   },
 
   btnAdd: function() {
@@ -180,6 +180,7 @@ function updataPageData(data) {
   var now = new Date();
   var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
   var mainToolConfig = app.GetMainToolConfig();
+  var adFunctionConfig = app.AdFunctionConfig;
   var topId = app.MainPageConfig.top;
   console.log('获取主页工具栏：', mainToolConfig);
   that.setData({
@@ -200,6 +201,7 @@ function updataPageData(data) {
     all_in_money: app.ValueToMoney(data['SumInMoney']),
     all_out_money: app.ValueToMoney(data['SumOutMoney']),
     main_tool_config: mainToolConfig,
+    ad_function_config: adFunctionConfig,
   });
 }
 
