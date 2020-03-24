@@ -119,7 +119,7 @@
     </navigator>
   </view>
 
-  <view class="weui-flex" style="margin:10px">
+  <view wx:if="{{ad_function_config.enable && ad_function_config.tool}}" class="weui-flex" style="margin:10px">
     <view class="weui-flex__item" wx:for="{{main_tool_config}}" wx:key="id">
       <navigator url="{{item.path}}" class="main-placeholder weui-btn weui-btn-{{item.button}}" hover-class="weui-cell_active" bindlongpress="btnGoToToolSite" data-id="{{item.id}}">{{item.name}}</navigator>
     </view>
