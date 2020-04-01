@@ -20,6 +20,8 @@ Page({
     ToolCountListIndex: 1,
     ToolCountList: [0, 3, 6, 9],
     ToolConfigList: [],
+
+    adFunctionConfig: {},
   },
 
   /**
@@ -152,5 +154,6 @@ function InitShow() {
     TopList: topList,
     TypeItems: typeItems,
     ToolConfigList: app.GetMainToolConfig(),
+    adFunctionConfig: app.AdFunctionConfig,
   });
 }
