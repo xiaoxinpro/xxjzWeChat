@@ -39,32 +39,39 @@
 		<p></p>
 
 		<!-- 主页底部工具栏 -->
-		<view class="weui-cells__title">工具栏设置</view>
-		<view class="weui-cells weui-cells_after-title">
-			<view class="weui-cell weui-cell_select" hidden="true">
-				<view class="weui-cell__hd weui-cell__hd_in-select-after">
-					<view class="weui-label">按钮数量</view>
+		<block wx:if="{{adFunctionConfig.enable && adFunctionConfig.tool}}">
+			<view class="weui-cells__title">工具栏设置</view>
+			<view class="weui-cells weui-cells_after-title">
+				<view class="weui-cell weui-cell_select" hidden="true">
+					<view class="weui-cell__hd weui-cell__hd_in-select-after">
+						<view class="weui-label">按钮数量</view>
+					</view>
+					<view class="weui-cell__bd">
+						<picker bindchange="bindToolCountList" value="{{ToolCountListIndex}}" range="{{ToolCountList}}">
+							<view class="weui-select weui-select_in-select-after">{{ToolCountList[ToolCountListIndex]}}</view>
+						</picker>
+					</view>
 				</view>
-				<view class="weui-cell__bd">
-					<picker bindchange="bindToolCountList" value="{{ToolCountListIndex}}" range="{{ToolCountList}}">
-						<view class="weui-select weui-select_in-select-after">{{ToolCountList[ToolCountListIndex]}}</view>
-					</picker>
-				</view>
-			</view>
-			<view class="weui-cell" wx:if="{{ToolCountListIndex > 0}}">
-				<view class="weui-cell__bd">
-					<view class="weui-flex">
-						<view class="weui-flex__item" wx:for="{{ToolConfigList}}" wx:key="id">
-							<navigator url="../tool/site?id={{item.id}}" class="main-placeholder weui-btn weui-btn-{{item.button}}" hover-class="weui-cell_active">{{item.name}}</navigator>
+				<view class="weui-cell" wx:if="{{ToolCountListIndex > 0}}">
+					<view class="weui-cell__bd">
+						<view class="weui-flex">
+							<view class="weui-flex__item" wx:for="{{ToolConfigList}}" wx:key="id">
+								<navigator url="../tool/site?id={{item.id}}" class="main-placeholder weui-btn weui-btn-{{item.button}}" hover-class="weui-cell_active">{{item.name}}</navigator>
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-		</view>
-		<p></p>
+			<p></p>
+		</block>
 
 		<view class="weui-btn-area">
 			<button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+		</view>
+
+		<!-- 广告 -->
+		<view class="weui-ad-area" wx:if="{{adFunctionConfig.enable}}">
+			<ad unit-id="adunit-bfe68df45d61cc37"></ad>
 		</view>
 	</view>
 </view>
