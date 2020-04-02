@@ -5,14 +5,10 @@ var util = require('../../utils/util.js')
 
 var isLoading = false;
 var lastListDate = "";
-var varYear = 0;
-var varMonth = 0;
 var varPage = 1;
 var varPageMax = 1;
 var varScroll = 0;
 var addMoney = 0.00;
-var sumInMoney = 0;
-var sumOutMoney = 0;
 var FindData = "";
 
 Page({
@@ -43,6 +39,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    varScroll = 0;
     var strData = options.strData;
     strData = strData.replace(/;/g, '=');
     console.log(strData);
