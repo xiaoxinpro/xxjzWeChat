@@ -10,8 +10,6 @@ var varPage = 1;
 var varPageMax = 1;
 var varScroll = 0;
 var addMoney = 0.00;
-var sumInMoney = 0;
-var sumOutMoney = 0;
 
 Page({
 
@@ -84,6 +82,7 @@ Page({
     //加载页面数据
     varYear = parseInt(options.year);
     varMonth = parseInt(options.month);
+    varScroll = 0;
     that = this;
 
     //验证页面数据
