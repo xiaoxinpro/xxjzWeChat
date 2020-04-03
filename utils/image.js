@@ -11,6 +11,34 @@ function getHeader() {
   return header;
 }
 
+/** 下载图片 */
+function downloadImage(info, callback, isCDN = true) {
+  const config = getApp().ImageConfig;
+  var imageUrl = getApp().URL + config.path + '/' + info.savepath + info.savename;
+  if (isCDN && config.cdn.indexOf('http') === 0) {
+    imageUrl = imageUrl.replace(getApp().URL, config.cdn);
+  }
+  console.log('当前待下载图片URL：', imageUrl);
+  wx.getImageInfo({
+    src: imageUrl,
+    success (res) {
+      info.path = res.path;
+      console.log('图片下载成功：', info);
+      callback(info);
+    }, 
+    fail (res) {
+      console.log('图片下载失败：', res);
+      if (isCDN) {
+        downloadImage(info, function (ret) {
+          callback(ret);
+        }, false);
+      } else {
+        //图片下载失败
+      }
+    }
+  })
+}
+
 /** 获取服务器图片 */
 function getServerImage(acid, callback) {
   wx.request({
@@ -20,9 +48,18 @@ function getServerImage(acid, callback) {
     header: getHeader(),
     success: function (res) {
       console.log('获取服务器图片Get：', res);
-      if (res.hasOwnProperty('data')) {
-        let ret = res['data'];
-        callback(ret);
+      if (res.hasOwnProperty('data') && res.data.hasOwnProperty('data') && res.data.data.hasOwnProperty('ret')) {
+        if (res.data.data.ret == true) {
+          var delay = 10;
+          res.data.data.msg.forEach(item => {
+            setTimeout(function () {
+              downloadImage(item, function (ret) {
+                callback(ret);
+              });
+            }, delay);
+            delay += 200;
+          });
+        }
       } else {
         callback({
           uid: 0,
