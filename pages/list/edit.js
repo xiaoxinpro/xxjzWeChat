@@ -516,6 +516,7 @@ function initForm(objData, isReload = true) {
 
   getFunds(objData.fid);
 
+  var files = [];
   if (isReload) {
     that.setData({
       typeValue: typeValue,
@@ -527,20 +528,15 @@ function initForm(objData, isReload = true) {
       dateStr: util.strDateFormat(objData.actime, 'yyyy年m月d日'),
       files: [],
     }, Image.get(varId, function (ret) {
-      if (ret.data.ret === true) {
-        var files = [];
-        arrUpload = ret.data.msg;
-        arrUpload.forEach(item => {
-          files.push({
-            url: that.data.imageConfig.url + item.savepath + item.savename,
-            loading: true,
-            percent: 0,
-          });
-        });
-        that.setData({
-          files: files,
-        })
-      }
+      arrUpload.push(ret);
+      files.push({
+        url: ret.path,
+        loading: true,
+        percent: 0,
+      });
+      that.setData({
+        files: files,
+      });
     }));
   }
 }
