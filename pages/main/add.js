@@ -485,6 +485,7 @@ function initForm(isReload = true) {
 
   var FundsList = getFunds();
 
+  var files = [];
   if (isReload){
     inputMoney = '';
     arrUpload = [];
@@ -503,20 +504,15 @@ function initForm(isReload = true) {
       isHiddenFunds: (FundsList.name.length <= 1),
       files: [],
     }, Image.get(0, function (ret) {
-      if (ret.data.ret === true) {
-        var files = [];
-        arrUpload = ret.data.msg;
-        arrUpload.forEach(item => {
-          files.push({
-            url: that.data.imageConfig.url + item.savepath + item.savename,
-            loading: true,
-            percent: 0,
-          });
-        });
-        that.setData({
-          files: files,
-        })
-      }
+      arrUpload.push(ret);
+      files.push({
+        url: ret.path,
+        loading: true,
+        percent: 0,
+      });
+      that.setData({
+        files: files,
+      });
     }));
   } else if (inputMoney == '') {
     that.setData({
