@@ -527,16 +527,32 @@ function initForm(objData, isReload = true) {
       date: objData.actime,
       dateStr: util.strDateFormat(objData.actime, 'yyyy年m月d日'),
       files: [],
-    }, Image.get(varId, function (ret) {
-      arrUpload.push(ret);
-      files.push({
-        url: ret.path,
-        loading: true,
-        percent: 0,
-      });
-      that.setData({
-        files: files,
-      });
+    }, Image.get(varId, function (retFiles) {
+      if (retFiles.uid > 0) {
+        retFiles.data.forEach(item => {
+          arrUpload.push(item);
+          files.push({
+            id: item.id,
+            url: '',
+            loading: true,
+            percent: 0,
+          });
+        });
+        that.setData({
+          files: files,
+        }, Image.download(retFiles.data, function (retImage) {
+          for (let index = 0; index < files.length; index++) {
+            if (files[index].id === retImage.id) {
+              files[index].url = retImage.path;
+            }
+          }
+          that.setData({
+            files: files,
+          });
+        }));
+      } else {
+        console.log('图片获取失败：', retFiles);
+      }
     }));
   }
 }
