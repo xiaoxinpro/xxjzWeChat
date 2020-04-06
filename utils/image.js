@@ -39,6 +39,19 @@ function downloadImage(info, callback, isCDN = true) {
   })
 }
 
+/** 下载服务器图片 */
+function downloadServerImage(arrFiles, callback) {
+  var delay = 100;
+  arrFiles.forEach(item => {
+    setTimeout(function () {
+      downloadImage(item, function (ret) {
+        callback(ret);
+      });
+    }, delay);
+    delay += 100;
+  });
+}
+
 /** 获取服务器图片 */
 function getServerImage(acid, callback) {
   wx.request({
@@ -50,20 +63,16 @@ function getServerImage(acid, callback) {
       console.log('获取服务器图片Get：', res);
       if (res.hasOwnProperty('data') && res.data.hasOwnProperty('data') && res.data.data.hasOwnProperty('ret')) {
         if (res.data.data.ret == true) {
-          var delay = 10;
-          res.data.data.msg.forEach(item => {
-            setTimeout(function () {
-              downloadImage(item, function (ret) {
-                callback(ret);
-              });
-            }, delay);
-            delay += 200;
+          callback({
+            uid: res.data.uid,
+            data: res.data.data.msg,
           });
         }
       } else {
+        console.warn('获取图片时发未知错误:', res);
         callback({
           uid: 0,
-          data: err['msg'] + '（请联系管理员）'
+          data: '获取图片时发未知错误请联系管理员。'
         });
       }
     }
@@ -129,3 +138,4 @@ function uploadImage(acid, filesUrl, callback, cnt = 0) {
 export const get = getServerImage;
 export const remove = delServerImage;
 export const upload = uploadImage;
+export const download = downloadServerImage;
