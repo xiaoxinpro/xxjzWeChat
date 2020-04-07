@@ -40,11 +40,11 @@
 }
 .weui-btn-none {
 	color: #ffffff !important;
-	background-color: #dcdcdc !important;
+	background-color: #c8c8c8 !important;
 }
 .weui-btn-none:active {
 	color: #ffffff !important;
-	background-color: #cfcfcf !important;
+	background-color: #bfbfbf !important;
 }
 
 .weui-ad-area {
