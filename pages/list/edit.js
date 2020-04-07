@@ -6,10 +6,8 @@ var util = require('../../utils/util.js')
 var Image = require('../../utils/image.js')
 var varId = 0;
 var varAccount = null;
+var videoAd = null;
 var arrUpload = [];
-
-import {VideoAd} from '../../utils/videoAd.js'
-var objVideoAd = new VideoAd();
 
 Page({
 
@@ -118,15 +116,7 @@ Page({
    */
   bindAddFileCount: function(e) {
     that = this;
-    objVideoAd.start(function () {
-      let config = that.data.imageConfig;
-      if (config.freeCount < config.maxCount) {
-        config.freeCount += 1;
-      }
-      that.setData({
-        imageConfig: config,
-      });
-    });
+    showAd();
   },
 
   /**
@@ -197,11 +187,24 @@ Page({
     var that = this;
     var files = that.data.files;
     var image = that.data.imageConfig;
-    if (files.length >= image.freeCount) {
+    if (files.length >= image.maxCount) {
       wx.showModal({
         title: '无法上传',
         content: '可上传数量已满，无法继续上传。',
         showCancel: false,
+      })
+      return;
+    } else if (files.length >= image.freeCount) {
+      wx.showModal({
+        title: '上传受限',
+        content: '免费上传图片数量已用完，可长按图片删除已有图片，或观看一次视频广告增加上传次数。',
+        cancelText: '取消上传',
+        confirmText: '观看广告',
+        success(res) {
+          if (res.confirm) {
+            showAd();
+          }
+        }
       })
       return;
     }
@@ -473,7 +476,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    objVideoAd.close();
+
   },
 
   /**
@@ -538,8 +541,13 @@ function initForm(objData, isReload = true) {
             percent: 0,
           });
         });
+        var imageConfig = that.data.imageConfig;
+        if (imageConfig.freeCount < arrUpload.length) {
+          imageConfig.freeCount = arrUpload.length;
+        }
         that.setData({
           files: files,
+          imageConfig: imageConfig,
         }, Image.download(retFiles.data, function (retImage) {
           for (let index = 0; index < files.length; index++) {
             if (files[index].id === retImage.id) {
@@ -640,6 +648,83 @@ function getIdData(jsonData, callback) {
       }
     }
   });
+}
+
+/** 加载激励广告组件 */
+function loadAd(callback) {
+  if (wx.createRewardedVideoAd) {
+    videoAd = wx.createRewardedVideoAd({
+      adUnitId: 'adunit-7ccaa4a589fd311a'
+    })
+    wx.showLoading({
+      title: '加载中',
+    });
+    videoAd.onLoad(() => {
+      console.log("激励广告加载完成！");
+      callback({
+        enable: true,
+        error: '加载完成',
+      });
+      wx.hideLoading();
+      videoAd.offLoad();
+    })
+    videoAd.onError((err) => {
+      console.log('激励广告加载失败:', err);
+      callback({
+        enable: false,
+        error: err.errMsg,
+      });
+      wx.hideLoading();
+    })
+    videoAd.onClose((res) => {
+      console.log('激励广告关闭事件:', res);
+      if (res.isEnded) {
+        let config = that.data.imageConfig;
+        if (config.freeCount < config.maxCount) {
+          config.freeCount += 1;
+        }
+        that.setData({
+          imageConfig: config,
+        });
+      }
+    })
+  } else {
+    callback({
+      enable: false,
+      error: '微信版本过低，部分组件无法加载，请升级微信再试。',
+    });
+  }
+}
+
+/** 显示广告 */
+function showAd() {
+  if (videoAd == null) {
+    loadAd(function (ret) {
+      if (ret.enable) {
+        showAd();
+      } else {
+        videoAd = null;
+        wx.showModal({
+          title: '无法增加',
+          content: ret.error,
+          showCancel: false,
+        });
+      }
+    });
+  } else {
+    videoAd.show().catch(() => {
+      // 失败重试
+      videoAd.load()
+        .then(() => videoAd.show())
+        .catch(err => {
+          wx.showModal({
+            title: '无法增加',
+            content: '广告显示失败，请关闭后再试。',
+            showCancel: false,
+          });
+        })
+    });
+  }
 }
 
 /** 错误提示 */
