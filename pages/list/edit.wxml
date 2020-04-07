@@ -102,8 +102,7 @@
                   <view class="weui-label">附件</view>
                 </view>
                 <view class="weui-cell__bd">
-                  <!-- 暂时无法解决页面返回时报错的问题，取消编辑页面增加上传 -->
-                  <!-- <view class="weui-input-btn weui-btn-info" bindtap="bindAddFileCount" hidden="{{imageConfig.freeCount >= imageConfig.maxCount}}">增加可上传文件数量</view> -->
+                  <view class="weui-input-btn weui-btn-none" bindtap="bindAddFileCount" hidden="{{imageConfig.freeCount >= imageConfig.maxCount}}">增加可上传文件数量</view>
                 </view>
 								<view class="weui-cell__ft" style="padding-right: 6px; ">{{files.length}}/{{imageConfig.freeCount}}</view>
 							</view>
