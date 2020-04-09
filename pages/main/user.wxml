@@ -29,7 +29,7 @@
         <view class="weui-cell__bd">资金账户</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </navigator>
-      <navigator url="../user/ad" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="../user/ad?source=user" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">高级功能</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </navigator>
