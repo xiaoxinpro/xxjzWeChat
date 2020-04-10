@@ -381,7 +381,7 @@ icon {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
@@ -395,6 +395,7 @@ icon {
   color: #B2B2B2;
 }
 .weui-uploader__bd {
+  padding-top: 10px;
   margin-bottom: -4px;
   margin-right: -9px;
   overflow: hidden;
