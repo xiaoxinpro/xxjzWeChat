@@ -21,6 +21,7 @@ Page({
     outMoneyList: [],
     overMoneyList: [],
     isLoadMore: true,
+    adFunctionConfig: getApp().AdFunctionConfig,
   },
 
   /**
@@ -114,6 +115,7 @@ function initData() {
     outMoneyList: [],
     overMoneyList: [],
     isLoadMore: true,
+    adFunctionConfig: getApp().AdFunctionConfig,
   });
 
   //获取列表数据
