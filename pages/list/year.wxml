@@ -7,7 +7,7 @@
         <view class="list-card-title-h1">{{overMoney}}</view>
         <view class="list-card-text">￥剩余</view>
       </view>
-      <view class="list-card-title-h1">
+      <view class="list-card-title-h1" wx:if="{{adFunctionConfig.enable && adFunctionConfig.chart}}">
         <navigator class="button-chart" url="../chart/year?year={{year}}">
           <text class="iconfont icon-licai" style="font-size: 36px;"></text>
         </navigator>
