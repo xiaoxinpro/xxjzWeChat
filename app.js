@@ -13,7 +13,7 @@ App({
   ClassAllData: null,
   MainPageConfig: {top: 'Recent30Day', type: 2},
   AdFunctionConfig: {enable: false, chart: true, image: true, tool: true},
-  ImageConfig: {freeCount: 5, maxCount: 9, maxSize: 2*1024*1024, path: '/Uploads', cdn: ''},
+  ImageConfig: {freeCount: 2, maxCount: 9, maxSize: 2*1024*1024, path: '/Uploads', cdn: ''},
 
   onLaunch: function() {
     wx.getSystemInfo({
