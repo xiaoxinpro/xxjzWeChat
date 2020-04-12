@@ -115,7 +115,9 @@
 									<view class="weui-cell__ft" style="padding-right: 6px; ">{{files.length}}/{{imageConfig.freeCount}}</view>
 								</block>
 								<block wx:else>
-									<view class="weui-cell__bd"></view>
+									<view class="weui-cell__bd" hover-class="button-hover" bindtap="chooseImage">
+										<text style="color:#888">最多可上传{{imageConfig.freeCount}}张图片</text>
+									</view>
 									<view class="weui-cell__ft" hover-class="button-hover" bindtap="chooseImage">
 										<view style="transform: rotate(45deg);">
 											<text class="iconfont icon-shibai input-button"></text>
