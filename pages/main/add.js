@@ -302,14 +302,7 @@ Page({
     DataObj['add_funds'] = that.data.FundsList.value[DataObj['add_funds']];
     DataObj['add_classname'] = that.data.ClassList.name[DataObj['add_class']];
     DataObj['add_class'] = that.data.ClassList.value[DataObj['add_class']];
-    DataObj['add_typename'] = that.data.typeValue;
-    if (that.data.typeValue == '收入') {
-      DataObj['add_type'] = 1;
-    } else if (that.data.typeValue == '支出') {
-      DataObj['add_type'] = 2;
-    } else {
-      DataObj['add_type'] = 0;
-    }
+    DataObj['add_type'] = parseInt(that.data.typeId);
 
     //上报事件表单
     wx.reportAnalytics('xxjz_main_add', DataObj);
@@ -471,12 +464,15 @@ function initForm(isReload = true) {
   var defaultClass = getApp().GetDefaultClass();
   var ClassList;
   var ClassIndex = 0;
+  var typeValue;
   if (typeId == 1) {
+    typeValue = '收入';
     ClassList = getClass('收入');
     if (defaultClass) {
       ClassIndex = ClassList.value.indexOf(defaultClass['in']);
     }
   } else { //支出 
+    typeValue = '支出';
     ClassList = getClass('支出');
     if (defaultClass) {
       ClassIndex = ClassList.value.indexOf(defaultClass['out']);
@@ -493,6 +489,7 @@ function initForm(isReload = true) {
     that.setData({
       adFunctionConfig: getApp().AdFunctionConfig,
       typeId: typeId,
+      typeValue: typeValue,
       typeItems: typeItems,
       money: "",
       mark: "",
@@ -540,6 +537,7 @@ function initForm(isReload = true) {
     that.setData({
       adFunctionConfig: getApp().AdFunctionConfig,
       typeId: typeId,
+      typeValue: typeValue,
       typeItems: typeItems,
       ClassIndex: ClassIndex,
       ClassList: ClassList,
