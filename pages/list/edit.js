@@ -426,9 +426,20 @@ Page({
           });
         }
       });
-      return;
     }
+  },
 
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
     //获取页面数据
     wx.showLoading({
       title: '加载中',
@@ -445,24 +456,6 @@ Page({
       initForm(varAccount);
       wx.hideLoading();
     });
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    that = this;
-    if (varAccount) {
-      initForm(varAccount, false);
-    }
   },
 
   /**
@@ -529,6 +522,7 @@ function initForm(objData, isReload = true) {
       mark: objData.acremark,
       date: objData.actime,
       dateStr: util.strDateFormat(objData.actime, 'yyyy年m月d日'),
+      adFunctionConfig: getApp().AdFunctionConfig,
       files: [],
     }, Image.get(varId, function (retFiles) {
       if (retFiles.uid > 0) {
