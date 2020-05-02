@@ -68,7 +68,7 @@
   <view style="padding: 0.25rem;"></view>
   <!-- 反馈 -->
   <view style="padding: 0.5rem;">
-    <button type="primary" open-type="feedback">问题反馈</button>
+    <button type="primary" open-type="feedback" bindlongpress="bindDebug">问题反馈</button>
   </view>
 
   <!-- 退出 -->
