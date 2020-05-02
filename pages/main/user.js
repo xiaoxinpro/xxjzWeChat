@@ -17,6 +17,20 @@ Page({
   },
 
   /**
+   * 开启Debug功能
+   */
+  bindDebug: function (e) {
+    wx.setEnableDebug({
+      enableDebug: true,
+      success: function (res) {
+        wx.showToast({
+          title: 'Debug已开启',
+        })
+      }
+    });
+  },
+
+  /**
    * 打开意见反馈
    */
   bindOpenFeedback: function () {
