@@ -647,41 +647,44 @@ function getIdData(jsonData, callback) {
 /** 加载激励广告组件 */
 function loadAd(callback) {
   if (wx.createRewardedVideoAd) {
-    videoAd = wx.createRewardedVideoAd({
-      adUnitId: 'adunit-7ccaa4a589fd311a'
-    })
     wx.showLoading({
       title: '加载中',
-    });
-    videoAd.onLoad(() => {
-      console.log("激励广告加载完成！");
-      callback({
-        enable: true,
-        error: '加载完成',
-      });
-      wx.hideLoading();
-      videoAd.offLoad();
-    })
-    videoAd.onError((err) => {
-      console.log('激励广告加载失败:', err);
-      callback({
-        enable: false,
-        error: err.errMsg,
-      });
-      wx.hideLoading();
-    })
-    videoAd.onClose((res) => {
-      console.log('激励广告关闭事件:', res);
-      if (res.isEnded) {
-        let config = that.data.imageConfig;
-        if (config.freeCount < config.maxCount) {
-          config.freeCount += 1;
-        }
-        that.setData({
-          imageConfig: config,
+      success: function () {
+        videoAd = wx.createRewardedVideoAd({
+          adUnitId: 'adunit-7ccaa4a589fd311a'
         });
+        console.log(videoAd);
+        videoAd.onLoad(() => {
+          console.log("激励广告加载完成！");
+          callback({
+            enable: true,
+            error: '加载完成',
+          });
+          wx.hideLoading();
+          videoAd.offLoad();
+        })
+        videoAd.onError((err) => {
+          console.log('激励广告加载失败:', err);
+          callback({
+            enable: false,
+            error: err.errMsg,
+          });
+          wx.hideLoading();
+        })
+        videoAd.onClose((res) => {
+          console.log('激励广告关闭事件:', res);
+          if (res.isEnded) {
+            let config = that.data.imageConfig;
+            if (config.freeCount < config.maxCount) {
+              config.freeCount += 1;
+            }
+            that.setData({
+              imageConfig: config,
+            });
+          }
+        })
       }
-    })
+    });
   } else {
     callback({
       enable: false,
