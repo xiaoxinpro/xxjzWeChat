@@ -154,7 +154,7 @@
 
 			<!-- 广告 -->
 			<view class="weui-ad-area" wx:if="{{adFunctionConfig.enable}}">
-				<ad unit-id="adunit-bfe68df45d61cc37"></ad>
+				<ad unit-id="adunit-bfe68df45d61cc37" ad-intervals="30"></ad>
 			</view>
 		</form>
 	</view>
