@@ -11,7 +11,7 @@
     </view>
     <!-- 广告显示 -->
     <!-- <view style="margin-top:12px;" hidden="{{getApp().AdFunctionConfig.enable == false}}">
-      <ad unit-id="adunit-bfe68df45d61cc37"></ad>
+      <ad unit-id="adunit-bfe68df45d61cc37" ad-intervals="30"></ad>
     </view> -->
   </template>
 
