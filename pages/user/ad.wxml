@@ -45,7 +45,7 @@
     <view class="weui-cells__title">广告示例</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
-        <ad unit-id="adunit-bfe68df45d61cc37"></ad>
+        <ad unit-id="adunit-bfe68df45d61cc37" ad-intervals="30"></ad>
       </view>
     </view>
     <view class="weui-cells__tips">
