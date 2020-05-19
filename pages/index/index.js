@@ -62,6 +62,14 @@ Page({
       windowHeight: app.globalData.windowHeight,
       screenHeight: app.globalData.screenHeight,
     });
+    if (getApp().URL.indexOf('http') === -1) {
+      wx.showModal({
+        title: '无法启动',
+        content: '请先配置app.js文件，再编译小程序。',
+        showCancel: false,
+      });
+      return;
+    }
     console.log('加载小程序，检测URL：', getApp().URL, e);
     var sessid = wx.getStorageSync('PHPSESSID');
     var user = wx.getStorageSync('user');
