@@ -1,8 +1,7 @@
 //app.js
 App({
   //全局常量
-  // URL: 'https://ide.xiaoxin.pro/xxjzApp',
-  URL: 'https://jz.xiaoxin.pro/xxjzApp',
+  URL: '请配置服务器地址',
   AdminUid: 1,
   MinServerVersion: '2.1.0',
   Demo:{username:'demo',password:'xxgzs.org'},
