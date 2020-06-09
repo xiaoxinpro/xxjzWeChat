@@ -14,9 +14,9 @@ function getHeader() {
 /** 下载图片 */
 function downloadImage(info, callback, isCDN = true) {
   const config = getApp().ImageConfig;
-  var imageUrl = getApp().URL + config.path + '/' + info.savepath + info.savename;
+  var imageUrl = getApp().Config.URL + config.path + '/' + info.savepath + info.savename;
   if (isCDN && config.cdn.indexOf('http') === 0) {
-    imageUrl = imageUrl.replace(getApp().URL, config.cdn);
+    imageUrl = imageUrl.replace(getApp().Config.URL, config.cdn);
   }
   console.log('当前待下载图片URL：', imageUrl);
   wx.getImageInfo({
@@ -55,7 +55,7 @@ function downloadServerImage(arrFiles, callback) {
 /** 获取服务器图片 */
 function getServerImage(acid, callback) {
   wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/account',
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/account',
     method: 'GET',
     data: { type: 'get_image', data: encoder(JSON.stringify({acid: acid}))},
     header: getHeader(),
@@ -82,7 +82,7 @@ function getServerImage(acid, callback) {
 /** 删除服务器图片 */
 function delServerImage(acid, id, callback) {
   wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/account',
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/account',
     method: 'POST',
     data: { type: 'del_image', data: encoder(JSON.stringify({acid: acid, id: id}))},
     header: getHeader(),
@@ -106,7 +106,7 @@ function uploadImage(acid, filesUrl, callback, cnt = 0) {
   if (cnt < filesUrl.length) {
     let file = filesUrl[cnt];
     wx.uploadFile({
-      url: getApp().URL + '/index.php?s=/Home/Add/upload',
+      url: getApp().Config.URL + '/index.php?s=/Home/Add/upload',
       name: 'file[]',
       filePath: file,
       formData: {acid: acid},

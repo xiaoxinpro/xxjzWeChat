@@ -211,7 +211,7 @@ function updataAutoCopyData(webData, callback) {
   }
   webData.type = 'updata';
   wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/autocopy',
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/autocopy',
     method: 'POST',
     data: webData,
     header: header,

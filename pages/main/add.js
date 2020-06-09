@@ -724,7 +724,7 @@ function sendAddData(data, callback) {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
   wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/account',
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/account',
     method: 'POST',
     data: { type: 'add', data: data },
     header: header,

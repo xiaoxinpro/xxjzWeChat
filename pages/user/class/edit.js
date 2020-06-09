@@ -563,7 +563,7 @@ function sendClassData(data, type, callback) {
     }
   }
   wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/aclass',
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/aclass',
     method: 'POST',
     data: {
       type: type,

@@ -62,7 +62,7 @@ Page({
       windowHeight: app.globalData.windowHeight,
       screenHeight: app.globalData.screenHeight,
     });
-    if (getApp().URL.indexOf('http') === -1) {
+    if (getApp().Config.URL.indexOf('http') === -1) {
       wx.showModal({
         title: '无法启动',
         content: '请先配置app.js文件，再编译小程序。',
@@ -70,7 +70,7 @@ Page({
       });
       return;
     }
-    console.log('加载小程序，检测URL：', getApp().URL, e);
+    console.log('加载小程序，检测URL：', getApp().Config.URL, e);
     var sessid = wx.getStorageSync('PHPSESSID');
     var user = wx.getStorageSync('user');
     if (sessid && user) {
@@ -209,7 +209,7 @@ function Login(that) {
         code = res.code;
         console.log('获取用户登录态成功：' + res.code)
         wx.request({
-          url: getApp().URL + '/index.php?s=/Home/Login/login_weixin',
+          url: getApp().Config.URL + '/index.php?s=/Home/Login/login_weixin',
           data: {
             js_code: res.code
           },

@@ -120,7 +120,7 @@ function sendPostRegist(username, password, email, callback) {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
   wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Login/regist_weixin',
+    url: getApp().Config.URL + '/index.php?s=/Home/Login/regist_weixin',
     data: {
       js_code: code,
       regist_username: username,

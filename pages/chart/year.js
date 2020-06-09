@@ -444,7 +444,7 @@ function getData(data, callback) {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
   wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/chart',
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/chart',
     method: 'GET',
     data: data,
     header: header,

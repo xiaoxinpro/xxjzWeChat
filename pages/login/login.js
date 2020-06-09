@@ -143,7 +143,7 @@ function LoginProcess(username, password) {
 
 /** 发送登录命令 */
 function sendPostLogin(username, password, callback) {
-  var url = getApp().URL + '/index.php?s=/Home/Login/login_api';
+  var url = getApp().Config.URL + '/index.php?s=/Home/Login/login_api';
   var data = {
     username: username,
     password: password,
@@ -161,7 +161,7 @@ function sendPostLogin(username, password, callback) {
     }
   }
   if (code) {
-    url = getApp().URL + '/index.php?s=/Home/Login/bind_weixin';
+    url = getApp().Config.URL + '/index.php?s=/Home/Login/bind_weixin';
     data.js_code = code;
     data.submit = 'weixin';
   }

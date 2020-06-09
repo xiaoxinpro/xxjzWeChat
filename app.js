@@ -5,6 +5,7 @@ App({
   AdminUid: 1,
   MinServerVersion: '2.1.0',
   Demo:{username:'demo',password:'xxgzs.org'},
+  Config: require("config.js"),
 
   //全局变量（初始化时自动赋值）
   ServerVersion: '0.0.1',
@@ -39,7 +40,7 @@ App({
   getVersion: function() {
     var that = this;
     wx.request({
-      url: that.URL + '/index.php?s=/Home/Api/version',
+      url: that.Config.URL + '/index.php?s=/Home/Api/version',
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -52,21 +53,21 @@ App({
           if (that.ChangeVersion(that.ServerVersion, that.MinServerVersion)) {
             //符合版本要求
           } else {
-            console.error('服务端版本过低', '检测到 ' + that.URL + ' 服务器版本过低，请安装最新版本小歆记账。');
+            console.error('服务端版本过低', '检测到 ' + that.Config.URL + ' 服务器版本过低，请安装最新版本小歆记账。');
             setTimeout(function () {
               wx.showModal({
                 title: '服务端版本过低',
-                content: '检测到 ' + that.URL + ' 服务器版本过低，请安装最新版本小歆记账。',
+                content: '检测到 ' + that.Config.URL + ' 服务器版本过低，请安装最新版本小歆记账。',
                 showCancel: false,
               })
             }, 1000);
           }
         } else {
-          console.error('无法访问服务端', '请检查服务端地址 ' + that.URL + ' 是否正确，或小程序后台正确添加服务器域名。');
+          console.error('无法访问服务端', '请检查服务端地址 ' + that.Config.URL + ' 是否正确，或小程序后台正确添加服务器域名。');
           setTimeout(function () {
             wx.showModal({
               title: '无法访问服务端',
-              content: '请检查服务端地址 ' + that.URL + ' 是否正确，或小程序后台正确添加服务器域名。',
+              content: '请检查服务端地址 ' + that.Config.URL + ' 是否正确，或小程序后台正确添加服务器域名。',
               showCancel: false,
             })
           }, 2000);
@@ -178,7 +179,7 @@ App({
       callback(false, 0, "用户登陆超时，请重新登陆。");
     }
     wx.request({
-      url: getApp().URL + '/index.php?s=/Home/Api/funds',
+      url: getApp().Config.URL + '/index.php?s=/Home/Api/funds',
       data: {
         type: 'get'
       },
@@ -235,7 +236,7 @@ App({
         return (false, 0, "内存数据出错，请登陆后再试。");
       }
       wx.request({
-        url: getApp().URL + '/index.php?s=/Home/Api/aclass',
+        url: getApp().Config.URL + '/index.php?s=/Home/Api/aclass',
         data: {
           type: 'getalldata'
         },
@@ -352,7 +353,7 @@ App({
       }
     }
     wx.request({
-      url: getApp().URL + '/index.php?s=/Home/Api/autocopy',
+      url: getApp().Config.URL + '/index.php?s=/Home/Api/autocopy',
       method: 'GET',
       data: {
         type: 'get'

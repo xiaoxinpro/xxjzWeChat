@@ -172,7 +172,7 @@ function changeUsername(uid, data, callback) {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
   wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/user',
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/user',
     method: 'POST',
     data: { uid: uid, type: 'updataUsername', data: data },
     header: header,

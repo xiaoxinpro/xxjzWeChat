@@ -160,7 +160,7 @@ function changePassword(uid, data, callback) {
     var header = { 'content-type': 'application/x-www-form-urlencoded' }
   }
   wx.request({
-    url: getApp().URL + '/index.php?s=/Home/Api/user',
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/user',
     method: 'POST',
     data: { uid: uid, type: 'updataPassword', data: data },
     header: header,
