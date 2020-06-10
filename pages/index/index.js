@@ -10,7 +10,7 @@ Page({
     regist: '新建帐号',
     lock: true,
     refresh: false,
-    demo: app.Demo,
+    demo: app.Config.Demo,
     windowHeight: 0,
     screenHeight: 0,
     userInfo: {}

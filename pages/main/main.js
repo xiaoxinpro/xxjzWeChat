@@ -69,7 +69,7 @@ Page({
     }
 
     // Demo账号提醒
-    if (app.Demo.username == username) {
+    if (app.Config.Demo.username == username) {
       wx.showModal({
         title: '体验账号',
         content: '您当前使用的是体验账号，\r\n任何添加的数据均为公开浏览，\r\n建议体验后注册正式账号继续使用。',

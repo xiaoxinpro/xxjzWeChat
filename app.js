@@ -79,7 +79,7 @@ App({
   // 清除体验账号信息
   clearDemoInfo: function() {
     var user = wx.getStorageSync('user');
-    if (user && user['username'] == this.Demo['username']) {
+    if (user && user['username'] == this.Config.Demo['username']) {
       wx.removeStorageSync('user');
     }
   },

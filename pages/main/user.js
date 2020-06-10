@@ -98,7 +98,7 @@ Page({
     user = wx.getStorageSync('user');
 
     // Demo用户
-    if (app.Demo.username == user.username) {
+    if (app.Config.Demo.username == user.username) {
       getUserData(user.uid, function (res) {
         user.email = res.email ? res.email : '';
         wx.setStorage({
