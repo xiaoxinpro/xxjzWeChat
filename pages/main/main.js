@@ -58,7 +58,7 @@ Page({
     if(option.hasOwnProperty('url')) {
       url = option.url;
     }
-
+    
     // 获取用户信息
     var user = wx.getStorageSync('user');
     if (user.hasOwnProperty('uid') && user.hasOwnProperty('username')) {
@@ -220,7 +220,7 @@ function getData(valType, callback) {
     }
   }
   wx.request({
-    url: app.URL + '/index.php?s=/Home/Api/statistic',
+    url: app.Config.URL + '/index.php?s=/Home/Api/statistic',
     data: {
       type: valType
     },
