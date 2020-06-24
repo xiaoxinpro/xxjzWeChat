@@ -50,7 +50,7 @@ Page({
     files: [],
 
     adFunctionConfig: getApp().AdFunctionConfig,
-    imageConfig: getApp().ImageConfig,
+    imageConfig: getApp().Config.ImageConfig,
   },
 
   /**

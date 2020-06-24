@@ -13,7 +13,7 @@ function getHeader() {
 
 /** 下载图片 */
 function downloadImage(info, callback, isCDN = true) {
-  const config = getApp().ImageConfig;
+  const config = getApp().Config.ImageConfig;
   var imageUrl = getApp().Config.URL + config.path + '/' + info.savepath + info.savename;
   if (isCDN && config.cdn.indexOf('http') === 0) {
     imageUrl = imageUrl.replace(getApp().Config.URL, config.cdn);
