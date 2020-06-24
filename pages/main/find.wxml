@@ -99,9 +99,9 @@
       </view>
 
       <!-- 广告 -->
-      <view class="weui-ad-area" wx:if="{{adFunctionConfig.enable}}">
+      <!-- <view class="weui-ad-area" wx:if="{{adFunctionConfig.enable}}">
         <ad unit-id="adunit-bfe68df45d61cc37" ad-intervals="30"></ad>
-      </view>
+      </view> -->
     </form>
   </view>
 </view>
