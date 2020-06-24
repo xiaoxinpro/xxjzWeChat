@@ -228,6 +228,7 @@ function Login(that) {
                 title: '登陆失败',
                 content: uname,
               });
+              LoadDone();
             } else if (uid > 0) {
               wx.showToast({
                 title: '登陆成功',
