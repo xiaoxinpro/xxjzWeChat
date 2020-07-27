@@ -110,7 +110,7 @@
 								</view>
 								<block wx:if="{{files.length > 0}}">
 									<view class="weui-cell__bd">
-										<view class="weui-input-btn weui-btn-none" bindtap="bindAddFileCount" hidden="{{imageConfig.freeCount >= imageConfig.maxCount}}">增加可上传文件数量</view>
+										<!-- <view class="weui-input-btn weui-btn-none" bindtap="bindAddFileCount" hidden="{{imageConfig.freeCount >= imageConfig.maxCount}}">增加可上传文件数量</view> -->
 									</view>
 									<view class="weui-cell__ft" style="padding-right: 6px; ">{{files.length}}/{{imageConfig.freeCount}}</view>
 								</block>
