@@ -1,10 +1,6 @@
 //app.js
 App({
-  //全局常量
-  URL: '请配置服务器地址',
-  AdminUid: 1,
-  MinServerVersion: '2.1.0',
-  Demo:{username:'demo',password:'xxgzs.org'},
+  //全局配置
   Config: require("config.js"),
 
   //全局变量（初始化时自动赋值）
@@ -13,7 +9,6 @@ App({
   ClassAllData: null,
   MainPageConfig: {top: 'Recent30Day', type: 2},
   AdFunctionConfig: {enable: false, chart: true, image: true, tool: true},
-  ImageConfig: {freeCount: 2, maxCount: 9, maxSize: 2*1024*1024, path: '/Uploads', cdn: ''},
 
   onLaunch: function() {
     wx.getSystemInfo({
@@ -50,7 +45,7 @@ App({
         if (res.statusCode == 200) {
           //比较版本号
           that.ServerVersion = res.data['version'];
-          if (that.ChangeVersion(that.ServerVersion, that.MinServerVersion)) {
+          if (that.ChangeVersion(that.ServerVersion, that.Config.MinServerVersion)) {
             //符合版本要求
           } else {
             console.error('服务端版本过低', '检测到 ' + that.Config.URL + ' 服务器版本过低，请安装最新版本小歆记账。');
