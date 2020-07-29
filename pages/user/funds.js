@@ -45,7 +45,6 @@ Page({
   onLoad: function(options) {
     that = this;
     uid = wx.getStorageSync('user').uid;
-    initData(function(data) {});
   },
 
   /**
@@ -131,6 +130,9 @@ function fundsDataProcess(fundsList) {
   var key = 0;
   for (var i in fundsList) {
     if (fundsList[i]) {
+      if (fundsList.length==1 && parseInt(fundsList[i].id)==-1) {
+        break;
+      }
       let money = {
         in: getApp().ValueToMoney(fundsList[i].money.in),
         out: getApp().ValueToMoney(fundsList[i].money.out),
