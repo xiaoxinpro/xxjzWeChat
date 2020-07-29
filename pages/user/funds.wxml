@@ -8,10 +8,18 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
-            <view class="weui-label">名称</view>
+            <view class="weui-label">账户名称</view>
           </view>
           <view class="weui-cell__bd">
             <input class="weui-input" name="funds_name" value="{{FundsName}}" placeholder="输入资金账户名称" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">默认金额</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="funds_name" value="{{FundsName}}" placeholder="输入资金账户默认金额" />
           </view>
         </view>
       </view>
@@ -20,7 +28,7 @@
       </view>
     </form>
     <p></p>
-    <view class='page__list'>
+    <view class='page__list' wx:if="{{FundsList.length > 0}}">
       <view class="weui-cells__title">资金账户列表</view>
       <view class="weui-cells weui-cells_after-title">
         <navigator url="./funds/edit?id={{item.id}}" class="weui-cell" wx:for="{{FundsList}}" wx:key="key">
