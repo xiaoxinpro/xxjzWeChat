@@ -28,7 +28,7 @@
       </view>
     </form>
 
-    <form class="page__form" bindsubmit="submit_delete">
+    <form class="page__form" bindsubmit="submit_delete" wx:if="{{FundsList.length > 0}}">
       <view class="weui-cells__title">删除资金账户</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_select">
