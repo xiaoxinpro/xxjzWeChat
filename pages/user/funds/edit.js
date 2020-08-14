@@ -86,6 +86,7 @@ Page({
       for (var i in FundsArr) {
         if (FundsArr[i].id == FundsId) {
           FundsData = FundsArr[i];
+          console.log(FundsData);
         } else {
           FundsList.id.push(FundsArr[i].id);
           FundsList.name.push(FundsArr[i].name);
@@ -94,6 +95,7 @@ Page({
       if (FundsData) {
         that.setData({
           FundsCount: parseInt(FundsData.money.count),
+          FundsMoney: FundsData.money.init,
           FundsName: FundsData.name,
           FundsList: FundsList
         });
