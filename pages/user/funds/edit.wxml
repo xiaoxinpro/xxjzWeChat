@@ -48,8 +48,10 @@
       </view>
       <view class="weui-btn-area">
         <button class="weui-btn weui-btn-danger" formType="submit">转移并删除</button>
-        <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
       </view>
     </form>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
+    </view>
   </view>
 </view>
