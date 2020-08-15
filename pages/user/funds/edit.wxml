@@ -19,7 +19,7 @@
             <view class="weui-label">默认金额</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" name="funds_name" value="{{FundsMoney}}" placeholder="输入资金账户默认金额" />
+            <input class="weui-input" name="funds_money" value="{{FundsMoney}}" placeholder="输入资金账户默认金额" />
           </view>
         </view>
       </view>
