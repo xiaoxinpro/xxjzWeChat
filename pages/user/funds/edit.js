@@ -38,7 +38,7 @@ Page({
    */
   submit_edit: function(res) {
     that = this;
-    cmdEditFunds(res.detail.value.funds_name);
+    cmdEditFunds(res.detail.value.funds_name, res.detail.value.funds_money);
   },
 
   /**
@@ -86,7 +86,6 @@ Page({
       for (var i in FundsArr) {
         if (FundsArr[i].id == FundsId) {
           FundsData = FundsArr[i];
-          console.log(FundsData);
         } else {
           FundsList.id.push(FundsArr[i].id);
           FundsList.name.push(FundsArr[i].name);
@@ -214,7 +213,7 @@ function checkFundsName(FundsName) {
 /**
  * 编辑资金账户命令
  */
-function cmdEditFunds(FundsName) {
+function cmdEditFunds(FundsName, FundsMoney) {
   if (!checkFundsName(FundsName)) {
     showTopTips('资金账户名称格式错误，请重新输入。')
     return;
@@ -222,6 +221,7 @@ function cmdEditFunds(FundsName) {
   var editData = {
     fundsid: FundsId,
     fundsname: FundsName,
+    fundsmoney: FundsMoney,
     uid: uid
   };
   var strData = Base64.encoder(JSON.stringify(editData));
