@@ -94,7 +94,7 @@ Page({
       if (FundsData) {
         that.setData({
           FundsCount: parseInt(FundsData.money.count),
-          FundsMoney: FundsData.money.init,
+          FundsMoney: getApp().ValueToMoney(FundsData.money.init),
           FundsName: FundsData.name,
           FundsList: FundsList
         });
