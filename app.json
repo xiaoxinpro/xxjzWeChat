@@ -31,7 +31,8 @@
     "pages/tool/aromaLamp",
     "pages/user/class/edit",
     "pages/user/main",
-    "pages/user/ad"
+    "pages/user/ad",
+    "pages/user/funds/transfer"
   ],
   "tabBar": {
     "color": "#919191",
