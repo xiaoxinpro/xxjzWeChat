@@ -41,7 +41,7 @@
         <view hidden="{{isHiddenFunds}}" class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">
-              <navigator url="../user/funds" style="margin-right:45px; height: 36px; line-height: 36px;">
+              <navigator url="../user/funds" style="height: 36px; line-height: 36px;">
                 <text>账户 </text>
                 <span class="iconfont icon-shezhi"></span>
               </navigator>
@@ -58,7 +58,7 @@
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">
-              <navigator url="../user/class?type={{typeId % 2}}" style="margin-right:45px; height: 36px; line-height: 36px;">
+              <navigator url="../user/class?type={{typeId % 2}}" style="height: 36px; line-height: 36px;">
                 <text>分类 </text>
                 <span class="iconfont icon-shezhi"></span>
               </navigator>
