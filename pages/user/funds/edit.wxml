@@ -2,31 +2,33 @@
 <view class="page">
   <view class="page__bd">
     <!--错误提示-->
-    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{textTopTips}}</view>
-    <form class="page__form" bindsubmit="submit_edit">
-      <view class="weui-cells__title">编辑资金账户</view>
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">账户名称</view>
+    <block wx:if="{{FundsId > 0}}">
+      <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{textTopTips}}</view>
+      <form class="page__form" bindsubmit="submit_edit">
+        <view class="weui-cells__title">编辑资金账户</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">账户名称</view>
+            </view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" name="funds_name" value="{{FundsName}}" placeholder="输入资金账户名称" />
+            </view>
           </view>
-          <view class="weui-cell__bd">
-            <input class="weui-input" name="funds_name" value="{{FundsName}}" placeholder="输入资金账户名称" />
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">默认金额</view>
+            </view>
+            <view class="weui-cell__bd">
+              <input class="weui-input" name="funds_money" type="digit" value="{{FundsMoney}}" placeholder="输入资金账户默认金额" />
+            </view>
           </view>
         </view>
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">默认金额</view>
-          </view>
-          <view class="weui-cell__bd">
-            <input class="weui-input" name="funds_money" type="digit" value="{{FundsMoney}}" placeholder="输入资金账户默认金额" />
-          </view>
+        <view class="weui-btn-area">
+          <button class="weui-btn weui-btn-primary" formType="submit">编辑</button>
         </view>
-      </view>
-      <view class="weui-btn-area">
-        <button class="weui-btn weui-btn-primary" formType="submit">编辑</button>
-      </view>
-    </form>
+      </form>
+    </block>
 
     <form class="page__form" bindsubmit="submit_delete" wx:if="{{FundsList.id.length > 0}}">
       <view class="weui-cells__title">删除资金账户</view>
