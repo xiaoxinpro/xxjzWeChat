@@ -73,6 +73,10 @@
 	border-radius: 3px;
 }
 
+.weui-label {
+  width: 85px;
+}
+
 .weui-navbar__item.weui-bar__item_on {
   color: #03a9f4 !important;
 }
