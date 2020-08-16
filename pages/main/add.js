@@ -81,6 +81,13 @@ Page({
   },
 
   /**
+   * 转账按钮事件
+   */
+  bindTransfer: function(e) {
+    wx.navigateTo({url: '../user/funds/transfer'});
+  },
+
+  /**
    * 金额输入事件
    */
   bingMoneyInput: function(e) {
@@ -542,6 +549,7 @@ function initForm(isReload = true) {
       ClassIndex: ClassIndex,
       ClassList: ClassList,
       FundsList: FundsList,
+      isHiddenFunds: (FundsList.name.length <= 1),
       // moneyFocus: true,
     });
   } else {
@@ -549,6 +557,7 @@ function initForm(isReload = true) {
       adFunctionConfig: getApp().AdFunctionConfig,
       ClassList: ClassList,
       FundsList: FundsList,
+      isHiddenFunds: (FundsList.name.length <= 1),
     });
   }
 }
