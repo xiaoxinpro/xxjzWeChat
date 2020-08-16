@@ -65,14 +65,14 @@ Page({
   onLoad: function(options) {
     that = this;
     uid = wx.getStorageSync('user').uid;
-    FundsId = options.id;
-    if (!FundsId || FundsId < 1) {
+    FundsId = parseInt(options.id);
+    if (!FundsId) {
       wx.showModal({
         title: '无法编辑',
-        content: '抱歉，默认资金账户不可编辑！',
+        content: '抱歉，未找到可编辑的资金账户！',
         showCancel: false,
         confirmText: '返回',
-        success: function() {
+        success: function () {
           wx.navigateBack({});
         }
       })
@@ -93,20 +93,16 @@ Page({
       }
       if (FundsData) {
         that.setData({
+          FundsId: FundsId,
           FundsCount: parseInt(FundsData.money.count),
           FundsMoney: getApp().ValueToMoney(FundsData.money.init),
           FundsName: FundsData.name,
           FundsList: FundsList
         });
       } else {
-        wx.showModal({
-          title: '无法编辑',
-          content: '抱歉，未找到可编辑的资金账户！',
-          showCancel: false,
-          confirmText: '返回',
-          success: function () {
-            wx.navigateBack({});
-          }
+        that.setData({
+          FundsId: FundsId,
+          FundsList: FundsList
         })
       }
     }
@@ -269,6 +265,7 @@ function cmdDeleteFunds(newFundsId) {
     uid: uid
   };
   var strData = Base64.encoder(JSON.stringify(deleteData));
+  console.log('删除资金账户命令:', deleteData, strData);
   //发送数据
   wx.showLoading({
     title: '删除中',
