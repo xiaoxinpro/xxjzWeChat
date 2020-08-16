@@ -15,16 +15,19 @@
 					<view class="weui-cell__hd">
 						<view class="weui-label">类型</view>
 					</view>
-					<radio-group bindchange="typeChange">
-						<view class="weui-cell__bd">
+					<view class="weui-cell__bd">
+						<radio-group bindchange="typeChange">
 							<label class="weui-cell__hd" wx:for="{{typeItems}}" wx:key="value">
 								<radio class="weui-check" name="add_type" value="{{item.value}}" checked="{{item.checked}}" />
 								<icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
 								<icon class="weui-icon-checkbox_success" type="success" size="23" color="#03a9f4" wx:if="{{item.checked}}"></icon>
 								<text class="weui-input">{{item.name}} </text>
 							</label>
-						</view>
-					</radio-group>
+						</radio-group>
+					</view>
+					<view class="weui-cell__ft" hidden="{{isHiddenFunds}}">
+						<button size="mini" style="margin-top: 7.5px;" bindtap="bindTransfer">转账</button>
+					</view>
 				</view>
 
 				<!--金额输入-->
@@ -43,7 +46,7 @@
 				<view hidden="{{isHiddenFunds}}" class="weui-cell weui-cell_select">
 					<view class="weui-cell__hd weui-cell__hd_in-select-after">
 						<view class="weui-label">
-							<navigator url="../user/funds" style="margin-right:45px; height: 36px; line-height: 36px;">
+							<navigator url="../user/funds" style="height: 36px; line-height: 36px;">
 								<text>账户 </text>
 								<span class="iconfont icon-shezhi"></span>
 							</navigator>
@@ -59,7 +62,7 @@
 				<view class="weui-cell weui-cell_select">
 					<view class="weui-cell__hd weui-cell__hd_in-select-after">
 						<view class="weui-label">
-							<navigator url="../user/class?type={{typeId % 2}}" style="margin-right:45px; height: 36px; line-height: 36px;">
+							<navigator url="../user/class?type={{typeId % 2}}" style="height: 36px; line-height: 36px;">
 								<text>分类 </text>
 								<span class="iconfont icon-shezhi"></span>
 							</navigator>
