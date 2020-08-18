@@ -488,6 +488,11 @@ function initForm(isReload = true) {
   console.log('defaultClass', defaultClass, ClassIndex);
 
   var FundsList = getFunds();
+  var FundsIndex = that.data.FundsIndex;
+  if (FundsList.name.length <= FundsIndex) {
+    FundsIndex = FundsList.name.length - 1;
+  }
+  console.log('FundsIndex', FundsIndex, FundsList);
 
   var files = [];
   if (isReload){
@@ -549,6 +554,7 @@ function initForm(isReload = true) {
       ClassIndex: ClassIndex,
       ClassList: ClassList,
       FundsList: FundsList,
+      FundsIndex: FundsIndex,
       isHiddenFunds: (FundsList.name.length <= 1),
       // moneyFocus: true,
     });
@@ -557,6 +563,7 @@ function initForm(isReload = true) {
       adFunctionConfig: getApp().AdFunctionConfig,
       ClassList: ClassList,
       FundsList: FundsList,
+      FundsIndex: FundsIndex,
       isHiddenFunds: (FundsList.name.length <= 1),
     });
   }
