@@ -26,7 +26,7 @@
 						</radio-group>
 					</view>
 					<view class="weui-cell__ft" hidden="{{isHiddenFunds}}">
-						<button size="mini" style="margin-top: 7.5px;" bindtap="bindTransfer">转账</button>
+						<button size="mini" style="display: inline-block; vertical-align: middle;" bindtap="bindTransfer">转账</button>
 					</view>
 				</view>
 
