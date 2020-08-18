@@ -61,7 +61,7 @@
   height: 2.58823529em;
   min-height: 2.58823529em;
   line-height: 2.58823529em;
-  color: #838383;
+  color: #7F7F7F;
 }
 
 .weui-input-btn {
@@ -75,6 +75,10 @@
 
 .weui-label {
   width: 85px;
+}
+
+.weui-placeholder {
+	color: #7F7F7F;
 }
 
 .weui-navbar__item.weui-bar__item_on {
