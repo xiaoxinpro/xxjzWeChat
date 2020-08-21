@@ -36,7 +36,7 @@
 
 在这里需要记录你的`AppID(小程序ID)`和`AppSecret(小程序密钥)`，后面在服务端配置与小程序配置中需要用到。
 
-接下来在下面找到`服务器域名`，点击右侧的修改按钮，分别将你的`https://服务端域名`添加到`request合法域名`、`uploadFile合法域名`、`downloadFile合法域名`中，另外还需要将`https://wx.qlogo.cn`域名添加到`downloadFile合法域名`中用于下载微信头像。
+接下来在下面找到`服务器域名`，点击右侧的修改按钮，分别将你的`https://服务端域名`添加到`request合法域名`、`uploadFile合法域名`、`downloadFile合法域名`中，另外还需要将`https://thirdwx.qlogo.cn`域名添加到`downloadFile合法域名`中用于下载微信头像。
 
 ![服务器域名配置](https://upload-images.jianshu.io/upload_images/1568014-3e94f6d78e42a86d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
