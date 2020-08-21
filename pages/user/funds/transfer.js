@@ -9,9 +9,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    FundsIndexOut: 0,
-    FundsIndexIn: 0,
+    FundsIndexOut: false,
+    FundsIndexIn: false,
     FundsList: {name:[], value:[]},
+  },
+
+  bindFundsChange: function (res) {
+    console.log(res);
   },
 
   /**
@@ -74,6 +78,22 @@ Page({
 
 /** 初始化表单 */
 function initForm(isReload = true) {
+  var FundsList = getFunds();
+  var FundsIndexOut = that.data.FundsIndexOut;
+  var FundsIndexIn = that.data.FundsIndexIn;
+
+  that.setData({
+    dateStr: getNowDate(),
+    adFunctionConfig: getApp().AdFunctionConfig,
+    FundsList: FundsList,
+    FundsIndexOut: FundsIndexOut,
+    FundsIndexIn: FundsIndexIn,
+    moneyFocus: true,
+  });
+}
+
+/** 获取今日日期 */
+function getNowDate() {
   var now = new Date();
   var year = now.getFullYear();
   var month = now.getMonth() + 1;
@@ -85,19 +105,7 @@ function initForm(isReload = true) {
   if (day < 10) {
     day = '0' + day;
   }
-  var strNow = "" + year + "-" + month + "-" + day;
-
-  var FundsList = getFunds();
-  var FundsIndexOut = that.data.FundsIndexOut;
-  var FundsIndexIn = that.data.FundsIndexIn;
-
-  that.setData({
-    adFunctionConfig: getApp().AdFunctionConfig,
-    FundsList: FundsList,
-    FundsIndexOut: FundsIndexOut,
-    FundsIndexIn: FundsIndexIn,
-    // moneyFocus: true,
-  });
+  return "" + year + "-" + month + "-" + day;
 }
 
 /** 获取资金账户 */
