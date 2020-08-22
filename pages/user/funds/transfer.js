@@ -15,7 +15,16 @@ Page({
   },
 
   bindFundsChange: function (res) {
-    console.log(res);
+    that = this;
+    // console.log(res);
+    const funds = res.currentTarget.dataset.funds;
+    const value = parseInt(res.detail.value);
+    if (funds == 'out') {
+      that.setData({FundsIndexOut: value});
+    }
+    if (funds == 'in') {
+      that.setData({FundsIndexIn: value});
+    }
   },
 
   /**
