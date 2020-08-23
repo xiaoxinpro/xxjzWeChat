@@ -14,6 +14,9 @@ Page({
     FundsList: {name:[], value:[]},
   },
 
+  /**
+   * 账户控件改变事件
+   */
   bindFundsChange: function (res) {
     that = this;
     // console.log(res);
@@ -29,6 +32,20 @@ Page({
     if (funds == 'in') {
       that.setData({FundsIndexIn: value});
     }
+  },
+
+  /**
+   * 日期改变事件
+   */
+  bindDateChange: function (e) {
+    var date = new Date(e.detail.value);
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    this.setData({
+      date: e.detail.value,
+      dateStr: "" + year + "年" + month + "月" + day + "日"
+    })
   },
 
   /**
