@@ -128,7 +128,8 @@ function initForm(isReload = true) {
   var FundsIndexIn = that.data.FundsIndexIn;
 
   that.setData({
-    dateStr: getNowDate(),
+    date: getNowDate(),
+    dateStr: getNowDate('china'),
     adFunctionConfig: getApp().AdFunctionConfig,
     FundsList: FundsList,
     FundsIndexOut: FundsIndexOut,
@@ -138,11 +139,14 @@ function initForm(isReload = true) {
 }
 
 /** 获取今日日期 */
-function getNowDate() {
+function getNowDate(format='') {
   var now = new Date();
   var year = now.getFullYear();
   var month = now.getMonth() + 1;
   var day = now.getDate();
+  if (format == 'china') {
+    return "" + year + "年" + month + "月" + day + "日";
+  }
   if (month < 10) {
     month = '0' + month;
   }
