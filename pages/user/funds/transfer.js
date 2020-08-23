@@ -18,7 +18,11 @@ Page({
     that = this;
     // console.log(res);
     const funds = res.currentTarget.dataset.funds;
-    const value = parseInt(res.detail.value);
+    let value = parseInt(res.detail.value);
+    if (value === that.data.FundsIndexOut || value === that.data.FundsIndexIn) {
+      showTopTips("账户错误：转入与转出账户不能相同！");
+      value = false;
+    }
     if (funds == 'out') {
       that.setData({FundsIndexOut: value});
     }
@@ -85,6 +89,21 @@ Page({
   }
 })
 
+/** 错误提示 */
+function showTopTips(text) {
+  //var that = this;
+  that.setData({
+    showTopTips: true,
+    textTopTips: text
+  });
+  setTimeout(function () {
+    that.setData({
+      showTopTips: false,
+      textTopTips: ""
+    });
+  }, 3000);
+}
+
 /** 初始化表单 */
 function initForm(isReload = true) {
   var FundsList = getFunds();
@@ -107,7 +126,6 @@ function getNowDate() {
   var year = now.getFullYear();
   var month = now.getMonth() + 1;
   var day = now.getDate();
-  var txtNow = "" + year + "年" + month + "月" + day + "日";
   if (month < 10) {
     month = '0' + month;
   }
