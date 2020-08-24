@@ -15,6 +15,26 @@ Page({
   },
 
   /**
+   * 金额输入事件
+   */
+  bingMoneyInput: function(e) {
+    // inputMoney = e.detail.value;
+  },
+
+  /**
+   * 清除文本按钮事件
+   */
+  bindResiteInput: function (event) {
+    var value = event.currentTarget.dataset.value;
+    var obj = {};
+    if (value) {
+      obj[value] = "";
+      this.setData(obj);
+    }
+    console.log(event, value, obj);
+  },
+
+  /**
    * 账户控件改变事件
    */
   bindFundsChange: function (res) {
