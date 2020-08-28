@@ -67,6 +67,13 @@ Page({
       dateStr: "" + year + "年" + month + "月" + day + "日"
     })
   },
+
+  /**
+   * 转账按钮
+   */
+  submit: function(e) {
+    console.log(e.detail.value);
+  },
   
   /**
    * 返回按钮
