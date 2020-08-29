@@ -101,6 +101,13 @@ function cheakClass(value) {
 }
 
 /** 
+ * 校验账户
+ */
+function cheakFunds(value) {
+  return (Number(value) > 0);
+}
+
+/** 
  * 校验输入备注 
  */
 function cheakMark(value) {
@@ -123,6 +130,7 @@ module.exports = {
   strDateFormat: strDateFormat,
   cheakMoney: cheakMoney,
   cheakClass: cheakClass,
+  cheakFunds: cheakFunds,
   cheakMark: cheakMark,
   cheakTime: cheakTime
 }
