@@ -72,7 +72,35 @@ Page({
    * 转账按钮
    */
   submit: function(e) {
-    console.log(e.detail.value);
+    that = this;
+    var DataObj = e.detail.value;
+
+    //整理发送内容
+    var TransferData = {};
+    TransferData.money = parseFloat(DataObj.add_money);
+    TransferData.mark = DataObj.add_mark;
+    TransferData.source_fid = parseInt(DataObj.add_funds_out);
+    TransferData.target_fid = parseInt(DataObj.add_funds_in);
+    TransferData.time = DataObj.add_time;
+
+    //校验发送数据
+    if (!checkTransferData(TransferData)) {
+      return;
+    }
+
+    //发送数据加密
+    console.log(JSON.stringify(TransferData));
+    var strData = Base64.encoder(JSON.stringify(TransferData));
+    console.log(strData);
+
+    //发送数据
+    wx.showLoading({
+      title: '记账中',
+      success: function () {
+        wx.hideLoading();
+      }
+    });
+
   },
   
   /**
@@ -204,4 +232,34 @@ function getFunds() {
   }
   console.log('加载资金账户数据:', FundsList);
   return FundsList;
+}
+
+/** 转账表单数据验证 */
+function checkTransferData(data) {
+  if (!util.cheakMoney(data['money'])) {
+    showTopTips("请输入一个有效的金额!");
+    return false;
+  }
+
+  if (!util.cheakFunds(data['add_funds_out'])) {
+    showTopTips("请务必选择一个转出账户，若没有账户请先新建账户！");
+    return false;
+  }
+
+  if (!util.cheakFunds(data['add_funds_in'])) {
+    showTopTips("请务必选择一个转入账户，若没有账户请先新建账户！");
+    return false;
+  }
+
+  if (!util.cheakMark(data['mark'])) {
+    showTopTips("备注信息不能为空!");
+    return false;
+  }
+
+  if (!util.cheakTime(data['time'])) {
+    showTopTips("时间格式有误，请重新输入!");
+    return false;
+  }
+
+  return true;
 }
