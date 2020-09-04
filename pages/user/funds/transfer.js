@@ -75,12 +75,17 @@ Page({
     that = this;
     var DataObj = e.detail.value;
 
+    if (DataObj.add_funds_out === false || DataObj.add_funds_in === false) {
+      showTopTips("请务必选择转入转出账户，若没有账户请先新建账户！");
+      return false;
+    }
+
     //整理发送内容
     var TransferData = {};
     TransferData.money = parseFloat(DataObj.add_money);
     TransferData.mark = DataObj.add_mark;
-    TransferData.source_fid = parseInt(DataObj.add_funds_out);
-    TransferData.target_fid = parseInt(DataObj.add_funds_in);
+    TransferData.source_fid = parseInt(that.data.FundsList.value[DataObj.add_funds_out]);
+    TransferData.target_fid = parseInt(that.data.FundsList.value[DataObj.add_funds_in]);
     TransferData.time = DataObj.add_time;
 
     //校验发送数据
@@ -97,7 +102,36 @@ Page({
     wx.showLoading({
       title: '记账中',
       success: function () {
-        wx.hideLoading();
+        sendTransferData(strData, function(ret){
+          wx.hideLoading();
+          if (ret && ret.uid) {
+            if (ret.data.ret) {
+              //显示转账完成提示框
+              wx.showToast({
+                title: '转账完成',
+              });
+              //延时页面跳转
+              initForm();
+              setTimeout(function () {
+                wx.navigateBack({
+                  delta: 1
+                });
+              }, 500);
+            } else {
+              //转账失败
+              wx.showModal({
+                title: '转账失败',
+                content: ret.data.msg,
+                showCancel: false
+              });
+            }
+          } else {
+            initForm();
+            wx.showToast({
+              title: '未登录',
+            });
+          }
+        });
       }
     });
 
@@ -241,12 +275,12 @@ function checkTransferData(data) {
     return false;
   }
 
-  if (!util.cheakFunds(data['add_funds_out'])) {
+  if (!util.cheakFunds(data['source_fid'])) {
     showTopTips("请务必选择一个转出账户，若没有账户请先新建账户！");
     return false;
   }
 
-  if (!util.cheakFunds(data['add_funds_in'])) {
+  if (!util.cheakFunds(data['target_fid'])) {
     showTopTips("请务必选择一个转入账户，若没有账户请先新建账户！");
     return false;
   }
@@ -262,4 +296,32 @@ function checkTransferData(data) {
   }
 
   return true;
+}
+
+/** 发送记账数据(data数组, 回调函数) */
+function sendTransferData(data, callback) {
+  var session_id = wx.getStorageSync('PHPSESSID');//本地取存储的sessionID  
+  if (session_id != "" && session_id != null) {
+    var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'PHPSESSID=' + session_id }
+  } else {
+    var header = { 'content-type': 'application/x-www-form-urlencoded' }
+  }
+  wx.request({
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/transfer',
+    method: 'POST',
+    data: { type: 'add', data: data },
+    header: header,
+    success: function (res) {
+      console.log('发送转账POST：', res);
+      if (res.hasOwnProperty('data')) {
+        let ret = res['data'];
+        callback(ret);
+      } else {
+        callback({
+          uid: 0,
+          data: err['msg'] + '（请联系管理员）'
+        });
+      }
+    }
+  });
 }
