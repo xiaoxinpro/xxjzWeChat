@@ -46,6 +46,9 @@
           </view>
         </navigator>
       </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn weui-btn-info" bindtap="bindTransfer">转账明细</button>
+      </view>
     </view>
     <view class="weui-btn-area">
       <button class="weui-btn" type="default" bindtap="bindBack">返回</button>
