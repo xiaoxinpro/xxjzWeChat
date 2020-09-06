@@ -15,6 +15,15 @@ Page({
   },
 
   /**
+   * 转账明细按钮
+   */
+  bindTransfer: function() {
+    wx.navigateTo({
+      url: '../list/transfer',
+    });
+  },
+
+  /**
    * 返回按钮
    */
   bindBack: function() {
