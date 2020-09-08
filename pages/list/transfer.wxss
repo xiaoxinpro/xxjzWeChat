@@ -1,1 +1,2 @@
 /* pages/list/transfer.wxss */
+@import './base/list.wxss';
