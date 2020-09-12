@@ -1,2 +1,12 @@
 <!--pages/list/transfer.wxml-->
-<text>pages/list/transfer.wxml</text>
+<view class="page">
+  <!-- 列表页账单 -->
+  <import src="./base/list_account.wxml"/>
+  <template is="account_list" data="{{arrList: arrList, isHiddenFunds: isHiddenFunds}}" />
+
+  <!-- 列表加载动画 -->
+  <view class="view-loading">
+    <image wx:if="{{isLoadMore}}" class="image-loading" src="../../image/loading.gif"></image>
+    <button wx:else class="weui-btn" type="default" bindtap="bindBack">返回</button>
+  </view>
+</view>
