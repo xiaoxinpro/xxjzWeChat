@@ -1,0 +1,35 @@
+  <!-- 记账入口按钮 -->
+  <template name="transfer_button">
+    <view class="weui-cells weui-cells_after-title" style="margin-top: 12px;">
+      <navigator url="../user/funds/transfer" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">{{text}}</view>
+        <view class="weui-cell__ft">
+          <text style="color: #ffc107">添加转账</text>
+          <span class="iconfont icon-gengduo1" style="font-size:18px; color: #ffc107"></span>
+        </view>
+      </navigator>
+    </view>
+  </template>
+
+  <!--列表页账单-->
+  <template name="transfer_list">
+    <view wx:for="{{arrList}}" wx:key="key">
+      <view class="weui-cells weui-cells_after-title">
+        <navigator url="./edit?id={{item.tid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+            <image lazy-load="true" src="../../image/transfer.png" style="width: 50px; height: 50px; display: block; border-radius:50%; background-color: #03a9f4;" />
+          </view>
+          <view class="weui-cell__bd">
+            <view wx:if="{{item.source_fname}}" class="list-item-title">{{item.source_fname}} 转入</view>
+            <view wx:else class="list-item-title">{{item.target_fname}}</view>
+            <view class="list-item-mark">备注：{{item.mark}}</view>
+          </view>
+          <view class="weui-cell__ft">
+            <view class="list-text-ft" style="color:#222;">{{item.money}}</view>
+            <view wx:if="{{item.source_fname}}" class="list-item-mark">{{item.target_fname}}</view>
+            <view wx:else class="list-item-mark">默认金额</view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </template>
