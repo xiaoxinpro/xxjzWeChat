@@ -84,6 +84,14 @@ Page({
         }
       })
     }
+
+    //延时获取记账相关数据
+    setTimeout(function() {
+      // 获取分类数据
+      getClassData();
+      // 获取资金账户数据
+      getFundsData();
+    }, 500);
   },
 
   onShow: function() {
@@ -106,11 +114,6 @@ Page({
             break;
         }
       }
-      // 获取分类数据
-      getClassData();
-
-      // 获取资金账户数据
-      getFundsData();
     });
 
     //自动复制文本
@@ -178,11 +181,14 @@ function initData(callback) {
 /** 更新页面数据 */
 function updataPageData(data) {
   var now = new Date();
-  var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
-  var mainToolConfig = app.GetMainToolConfig();
-  var adFunctionConfig = app.AdFunctionConfig;
   var topId = app.MainPageConfig.top;
-  console.log('获取主页工具栏：', mainToolConfig);
+  var MonthOverMoney = data['MonthInMoney'] - data['MonthOutMoney'];
+  var mainToolConfig = [];
+  var adFunctionConfig = app.AdFunctionConfig;
+  if (adFunctionConfig.enable) {
+    mainToolConfig = app.GetMainToolConfig();
+    console.log('获取主页工具栏：', mainToolConfig);
+  }
   that.setData({
     header_day: now.getDate(),
     header_month: now.getMonth() + 1,
