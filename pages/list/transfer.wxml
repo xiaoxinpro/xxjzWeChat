@@ -1,8 +1,9 @@
 <!--pages/list/transfer.wxml-->
 <view class="page">
   <!-- 列表页账单 -->
-  <import src="./base/list_account.wxml"/>
-  <template is="account_list" data="{{arrList: arrList, isHiddenFunds: isHiddenFunds}}" />
+  <import src="./base/list_transfer.wxml"/>
+  <template wx:if="{{!isAddData}}" is="transfer_button" data="{{text: '目前还没有转账记录哦'}}" />
+  <template is="transfer_list" data="{{arrList: arrList}}" />
 
   <!-- 列表加载动画 -->
   <view class="view-loading">
