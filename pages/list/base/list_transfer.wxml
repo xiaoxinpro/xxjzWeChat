@@ -1,3 +1,4 @@
+  <!-- /pages/list/base/list_transfer.wxml -->
   <!-- 记账入口按钮 -->
   <template name="transfer_button">
     <view class="weui-cells weui-cells_after-title" style="margin-top: 12px;">
@@ -13,6 +14,16 @@
 
   <!--列表页账单-->
   <template name="transfer_list">
+    <view class="weui-cells__title">
+      <view class="weui-flex">
+        <view class="weui-flex__item">
+          <view class="list-header-left">转账明细</view>
+        </view>
+        <view class="weui-flex__item">
+          <view class="list-header-right"></view>
+        </view>
+      </view>
+    </view>
     <view wx:for="{{arrList}}" wx:key="key">
       <view class="weui-cells weui-cells_after-title">
         <navigator url="./edit?id={{item.tid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
