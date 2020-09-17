@@ -25,7 +25,7 @@ Page({
    */
   onLoad: function (options) {
     //设置页面标题
-    wx.setNavigationBarTitle({ title: '转账明细' });
+    // wx.setNavigationBarTitle({ title: '转账明细' });
     that = this;
   },
 
