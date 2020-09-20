@@ -2,46 +2,57 @@
 	color: #ffffff !important;
 	background-color: #1aad19 !important;
 }
+
 .weui-btn-primary:active {
 	color: #ffffff !important;
 	background-color: #179b16 !important;
 }
+
 .weui-btn-success {
 	color: #ffffff !important;
 	background-color: #009688 !important;
 }
+
 .weui-btn-success:active {
 	color: #fff !important;
 	background-color: #00897b !important;
 }
+
 .weui-btn-info {
 	color: #ffffff !important;
 	background-color: #03a9f4 !important;
 }
+
 .weui-btn-info:active {
 	color: #fff !important;
 	background-color: #039be5 !important;
 }
+
 .weui-btn-warning {
 	color: #ffffff !important;
 	background-color: #ffc107 !important;
 }
+
 .weui-btn-warning:active {
 	color: #ffffff !important;
 	background-color: #ffb300 !important;
 }
+
 .weui-btn-danger {
 	color: #ffffff !important;
 	background-color: #e51c23 !important;
 }
+
 .weui-btn-danger:active {
 	color: #ffffff !important;
 	background-color: #dd191b !important;
 }
+
 .weui-btn-none {
 	color: #ffffff !important;
 	background-color: #c8c8c8 !important;
 }
+
 .weui-btn-none:active {
 	color: #ffffff !important;
 	background-color: #bfbfbf !important;
@@ -52,16 +63,16 @@
 }
 
 .weui-icon-checkbox_success-info {
-  margin-left: 4.6px;
-  margin-right: 4.6px;
-  color: #03a9f4 !important;
+	margin-left: 4.6px;
+	margin-right: 4.6px;
+	color: #03a9f4 !important;
 }
 
 .weui-input-null {
-  height: 2.58823529em;
-  min-height: 2.58823529em;
-  line-height: 2.58823529em;
-  color: #7F7F7F;
+	height: 2.58823529em;
+	min-height: 2.58823529em;
+	line-height: 2.58823529em;
+	color: #7F7F7F;
 }
 
 .weui-input-btn {
@@ -74,7 +85,7 @@
 }
 
 .weui-label {
-  width: 85px;
+	width: 85px;
 }
 
 .weui-placeholder {
@@ -82,9 +93,33 @@
 }
 
 .weui-navbar__item.weui-bar__item_on {
-  color: #03a9f4 !important;
+	color: #03a9f4 !important;
 }
 
 .weui-navbar__slider {
-  background-color: #03a9f4 !important;
+	background-color: #03a9f4 !important;
+}
+
+.weui-icon {
+	position: relative;
+	margin-right: 10px;
+}
+
+.weui-icon>image {
+	width: 50px;
+	height: 50px;
+	display: block;
+	border-radius: 50%;
+}
+
+.weui-icon-in {
+	background-color: #BFE57F;
+}
+
+.weui-icon-out {
+	background-color: #FCE190;
+}
+
+.weui-icon-transfer {
+	background-color: #50B1FF;
 }
