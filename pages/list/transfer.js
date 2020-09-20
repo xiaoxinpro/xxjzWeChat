@@ -62,7 +62,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    that = this;
+    initList();
   },
 
   /**
@@ -90,18 +91,25 @@ function initList(callback) {
       isLoadMore: true,
       isAddData: false,
     });
-  
-    //获取列表数据
-    getTransferListData(varPage, function (ListData) {
-      if (Array.isArray(ListData) && ListData.length > 0) {
-        that.setData({
-          arrList: ListData,
-          isLoadMore: false,
-          isAddData: true,
+    wx.showLoading({
+      title: '加载中',
+      success: function(){
+        //获取列表数据
+        getTransferListData(varPage, function (ListData) {
+          if (Array.isArray(ListData) && ListData.length > 0) {
+            that.setData({
+              arrList: ListData,
+              isLoadMore: false,
+              isAddData: true,
+            });
+          }
+          setTimeout(() => {
+            wx.hideLoading();
+          }, 300);
+          if (callback) {
+            callback();
+          }
         });
-      }
-      if (callback) {
-        callback();
       }
     });
 }
