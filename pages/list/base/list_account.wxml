@@ -33,8 +33,9 @@
         <navigator url="./edit?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
 
           <!--<view class="weui-cell">-->
-          <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-            <image lazy-load="true" src="../../image/icon_class/{{item.icon}}" style="width: 50px; height: 50px; display: block; border-radius:50%; " />
+          <view class="weui-cell__hd weui-icon">
+            <image wx:if="{{item.type == '收入'}}" class="weui-icon-in" lazy-load="true" src="../../image/icon_class/{{item.icon}}" />
+            <image wx:else class="weui-icon-out" lazy-load="true" src="../../image/icon_class/{{item.icon}}" />
           </view>
           <view class="weui-cell__bd">
             <view class="list-item-title">{{item.class}}</view>
