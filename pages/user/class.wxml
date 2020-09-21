@@ -39,8 +39,8 @@
             <view class="weui-cells__title">支出分类列表</view>
             <view class="weui-cells weui-cells_after-title">
               <view class="weui-cell" hover-class="weui-cell_active" wx:for="{{outClassList}}" wx:key="key" bindtap="btnClassEditPage" bindlongpress="btnClassMenu" data-id="{{item.id}}" data-name="{{item.name}}" data-icon="{{item.icon}}" data-type="out">
-                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                  <image class="weui-icon-out" src="../../image/icon_class/{{item.icon}}" style="width: 37px; height: 37px; display: block; border-radius:50%; " />
+                <view class="weui-cell__hd weui-icon">
+                  <image class="weui-icon-out" src="../../image/icon_class/{{item.icon}}" style="width: 37px; height: 37px;" />
                 </view>
                 <view class="weui-cell__bd">
                   <text>{{item.name}}</text>
@@ -76,8 +76,8 @@
             <view class="weui-cells__title">收入分类列表</view>
             <view class="weui-cells weui-cells_after-title">
               <view class="weui-cell" hover-class="weui-cell_active" wx:for="{{inClassList}}" wx:key="key" bindtap="btnClassEditPage" bindlongpress="btnClassMenu" data-id="{{item.id}}" data-name="{{item.name}}" data-icon="{{item.icon}}" data-type="in">
-                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                  <image class="weui-icon-in" src="../../image/icon_class/{{item.icon}}" style="width: 37px; height: 37px; display: block; border-radius:50%; " />
+                <view class="weui-cell__hd  weui-icon">
+                  <image class="weui-icon-in" src="../../image/icon_class/{{item.icon}}" style="width: 37px; height: 37px;" />
                 </view>
                 <view class="weui-cell__bd">
                   <text>{{item.name}}</text>
