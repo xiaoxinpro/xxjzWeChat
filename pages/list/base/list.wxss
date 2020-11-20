@@ -46,6 +46,13 @@
   color: #888888;
 }
 
+.mark-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 50vw;
+}
+
 .list-text-ft {
   font-size: 18px;
   color: #888888;
