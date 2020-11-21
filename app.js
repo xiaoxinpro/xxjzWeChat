@@ -522,17 +522,17 @@ App({
 
   //显示字符串处理（字符串内容，最大长度）
   ShowString: function (str, len = 16) {
-    if (len > 2) {
-      var l = 0;
-      for (var i = 0; i < str.length; i++) {
-        l = (escape(str.charAt(i)).length > 4) ? l + 1.75 : l + 1;
-        if (l > len) {
-          return (str.substring(0, i - 1) + "..");
-        }
-      }
-    } else {
-      str = ".."
-    }
+    // if (len > 2) {
+    //   var l = 0;
+    //   for (var i = 0; i < str.length; i++) {
+    //     l = (escape(str.charAt(i)).length > 4) ? l + 1.75 : l + 1;
+    //     if (l > len) {
+    //       return (str.substring(0, i - 1) + "..");
+    //     }
+    //   }
+    // } else {
+    //   str = ".."
+    // }
     return str;
   },
 
