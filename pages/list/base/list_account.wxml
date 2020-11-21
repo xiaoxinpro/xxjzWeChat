@@ -39,7 +39,7 @@
           </view>
           <view class="weui-cell__bd">
             <view class="list-item-title">{{item.class}}</view>
-            <view class="list-item-mark">{{item.mark}}</view>
+            <view class="list-item-mark mark-text">{{item.mark}}</view>
           </view>
           <view class="weui-cell__ft">
             <view wx:if="{{item.type == '收入'}}" class="list-text-ft" style="color:#e51c23;">+{{item.money}}</view>
