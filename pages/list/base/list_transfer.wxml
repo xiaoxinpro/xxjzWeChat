@@ -33,7 +33,7 @@
           <view class="weui-cell__bd">
             <view wx:if="{{item.source_fname}}" class="list-item-title">{{item.source_fname}} 转入</view>
             <view wx:else class="list-item-title">{{item.target_fname}}</view>
-            <view class="list-item-mark">{{item.mark}}</view>
+            <view class="list-item-mark mark-text">{{item.mark}}</view>
           </view>
           <view class="weui-cell__ft">
             <view class="list-text-ft" style="color:#222;">{{item.money}}</view>
