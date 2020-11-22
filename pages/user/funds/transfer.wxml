@@ -84,7 +84,6 @@
 			<!-- 按钮 -->
 			<view class="weui-btn-area">
 				<button data-type='add' class="weui-btn weui-btn-primary" formType="submit">转账</button>
-				<!-- <button data-type='end' class="weui-btn weui-btn-info" formType="submit">保存并返回</button> -->
 				<button class="weui-btn" type="default" bindtap="bindBack">返回</button>
 			</view>
 
