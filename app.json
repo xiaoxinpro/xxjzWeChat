@@ -33,7 +33,8 @@
     "pages/user/main",
     "pages/user/ad",
     "pages/user/funds/transfer",
-    "pages/list/transfer"
+    "pages/list/transfer",
+    "pages/user/transfer/add"
   ],
   "tabBar": {
     "color": "#919191",
