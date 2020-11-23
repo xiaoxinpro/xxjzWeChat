@@ -2,7 +2,7 @@
   <!-- 记账入口按钮 -->
   <template name="transfer_button">
     <view class="weui-cells weui-cells_after-title" style="margin-top: 12px;">
-      <navigator url="../user/funds/transfer" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="../user/transfer/add" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">{{text}}</view>
         <view class="weui-cell__ft">
           <text style="color: #ffc107">添加转账</text>
