@@ -84,7 +84,7 @@ Page({
    * 转账按钮事件
    */
   bindTransfer: function(e) {
-    wx.navigateTo({url: '../user/funds/transfer'});
+    wx.navigateTo({url: '../user/transfer/add'});
   },
 
   /**
