@@ -32,7 +32,6 @@
     "pages/user/class/edit",
     "pages/user/main",
     "pages/user/ad",
-    "pages/user/funds/transfer",
     "pages/list/transfer",
     "pages/user/transfer/add"
   ],
