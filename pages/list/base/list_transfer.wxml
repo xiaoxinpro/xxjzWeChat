@@ -26,7 +26,7 @@
     </view>
     <view wx:for="{{arrList}}" wx:key="key">
       <view class="weui-cells weui-cells_after-title">
-        <navigator url="./edit?id={{item.tid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <navigator url="../user/transfer/edit?id={{item.tid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
           <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
             <image lazy-load="true" src="../../image/transfer.png" style="width: 50px; height: 50px; display: block; border-radius:50%; background-color: #03a9f4;" />
           </view>
