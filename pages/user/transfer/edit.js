@@ -23,6 +23,22 @@ Page({
   },
 
   /**
+   * 资金账户改变事件
+   */
+  bindFundsChange: function(e) {
+    const type = e.currentTarget.dataset.type;
+    const index = e.detail.value;
+    let FundsIndex = {};
+    if (type === 'out') {
+      FundsIndex['FundsOutIndex'] = index;
+    }
+    if (type === 'in') {
+      FundsIndex['FundsInIndex'] = index;
+    }
+    this.setData(FundsIndex);
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
@@ -144,13 +160,43 @@ Page({
   }
 })
 
-function initForm(objData, isReload = true) {
+function initForm(objData) {
+  let FundsList = getFunds();
   that.setData({
+    FundsList: FundsList,
+    FundsInIndex: getFundsIndex(FundsList, objData.target_fid),
+    FundsOutIndex: getFundsIndex(FundsList, objData.source_fid),
     money: objData.money,
     mark: objData.mark,
     date: objData.time,
     dateStr: util.intTimeFormat(objData.time, 'yyyy年m月d日'),
   });
+}
+
+/** 获取资金账户 */
+function getFunds() {
+  var FundsObj = wx.getStorageSync('Funds');
+  var FundsList = {
+    value: [],
+    name: []
+  };
+  for (var i in FundsObj) {
+    if (FundsObj[i]) {
+      FundsList.value.push(parseInt(FundsObj[i].id));
+      FundsList.name.push(FundsObj[i].name);
+    }
+  }
+  return FundsList;
+}
+
+/** 获取资金账户索引 */
+function getFundsIndex(FundsList, FundsId) {
+  for (let index = 0; index < FundsList.value.length; index++) {
+    if (FundsList.value[index] == parseInt(FundsId)) {
+      return index;
+    }
+  }
+  return null;
 }
 
 /** 获取网络数据 */
