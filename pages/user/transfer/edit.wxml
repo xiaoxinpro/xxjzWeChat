@@ -29,7 +29,7 @@
             </view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="bindFundsChange" name="edit_funds" value="{{FundsOutIndex}}" range="{{FundsList.name}}">
+            <picker bindchange="bindFundsChange" data-type="out" name="edit_funds_out" value="{{FundsOutIndex}}" range="{{FundsList.name}}">
               <view class="weui-select weui-select_in-select-after">{{FundsList.name[FundsOutIndex]}}</view>
             </picker>
           </view>
@@ -45,7 +45,7 @@
             </view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="bindFundsChange" name="edit_funds" value="{{FundsInIndex}}" range="{{FundsList.name}}">
+            <picker bindchange="bindFundsChange" data-type="in" name="edit_funds_in" value="{{FundsInIndex}}" range="{{FundsList.name}}">
               <view class="weui-select weui-select_in-select-after">{{FundsList.name[FundsInIndex]}}</view>
             </picker>
           </view>
