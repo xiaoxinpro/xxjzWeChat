@@ -26,7 +26,16 @@ Page({
   onLoad: function (options) {
     //设置页面标题
     // wx.setNavigationBarTitle({ title: '转账明细' });
+    console.log("加载转账明细页面：", options);
     that = this;
+    if (this.getOpenerEventChannel) {
+      const eventChannel = this.getOpenerEventChannel();
+      eventChannel.on('EventTransferChange', (res) => {
+        console.log(res.data)
+        initList();
+      });
+      initList();
+    }
   },
 
   /**
@@ -41,7 +50,11 @@ Page({
    */
   onShow: function () {
     that = this;
-    initList();
+    if (this.getOpenerEventChannel) {
+      //通过事件刷新列表
+    } else {
+      initList();
+    }
   },
 
   /**
