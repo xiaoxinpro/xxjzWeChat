@@ -79,6 +79,75 @@ Page({
   },
 
   /**
+   * 提交表单
+   */
+  submit: function(e) {
+    that = this;
+    console.log("提交编辑数据：", e.detail.value);
+
+    //获取表单并转换数据
+    var DataObj = e.detail.value;
+    DataObj['edit_funds_out'] = that.data.FundsList.value[DataObj['edit_funds_out']];
+    DataObj['edit_funds_in'] = that.data.FundsList.value[DataObj['edit_funds_in']];
+
+    //整理发送内容
+    var EditData = {};
+    EditData.tid = varId;
+    EditData.money = DataObj['edit_money'];
+    EditData.source_fid = DataObj['edit_funds_out'];
+    EditData.target_fid = DataObj['edit_funds_in'];
+    EditData.time = DataObj['edit_time'];
+    EditData.mark = DataObj['edit_mark'];
+    console.log('表单处理后结果：', EditData);
+
+    //验证表单数据
+    if (!cheakEditData(EditData)) {
+      return;
+    }
+
+    //发送数据加密
+    var strData = Base64.encoder(JSON.stringify(EditData));
+
+    //发送数据
+    wx.showLoading({
+      title: '编辑中',
+      success: function() {
+        sendEditData(strData, function(ret) {
+          wx.hideLoading();
+          if (ret) {
+            if (ret.uid) {
+              if (ret.data.ret) {
+                //显示记账完成提示框
+                wx.showToast({
+                  title: '编辑完成',
+                });
+
+                //延时页面跳转
+                setTimeout(function() {
+                  wx.navigateBack({
+                    delta: 1
+                  });
+                }, 500);
+              } else {
+                //记账失败
+                wx.showModal({
+                  title: '编辑失败',
+                  content: ret.data.msg,
+                  showCancel: false
+                })
+              }
+            } else {
+              wx.showToast({
+                title: '未登录',
+              });
+            }
+          }
+        });
+      }
+    });
+  },
+
+  /**
    * 返回按钮
    */
   bindBack: function() {
@@ -229,6 +298,78 @@ function getIdData(jsonData, callback) {
     header: header,
     success: function(res) {
       console.log('获取转账id数据：', res);
+      if (res.hasOwnProperty('data')) {
+        let ret = res['data'];
+        callback(ret);
+      } else {
+        callback({
+          uid: 0,
+          data: err['msg'] + '（请联系管理员）'
+        });
+      }
+    }
+  });
+}
+
+  /** 校验记账数据 */
+function cheakEditData(data) {
+  
+  if (!util.cheakMoney(data['money'])) {
+    showTopTips("请输入一个有效的金额!");
+    return false;
+  }
+  
+  if (!util.cheakFunds(data['source_fid'])) {
+    showTopTips("请选择一个有效的转出账户!");
+    return false;
+  }
+
+  if (!util.cheakFunds(data['target_fid'])) {
+    showTopTips("请选择一个有效的转入账户!");
+    return false;
+  }
+
+  if (data['source_fid'] == data['target_fid']) {
+    showTopTips("转入与转出的资金账户不可相同!");
+    return false;
+  }
+
+  if (!util.cheakMark(data['mark'])) {
+    showTopTips("备注信息不能为空!");
+    return false;
+  }
+
+  if (!util.cheakTime(data['time'])) {
+    showTopTips("时间格式有误，请重新输入!");
+    return false;
+  }
+
+  return true;
+}
+
+/** 发送记账数据(data数组, 回调函数) */
+function sendEditData(data, callback) {
+  var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
+  if (session_id != "" && session_id != null) {
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'Cookie': 'PHPSESSID=' + session_id
+    }
+  } else {
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded'
+    }
+  }
+  wx.request({
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/transfer',
+    method: 'POST',
+    data: {
+      type: 'edit',
+      data: data
+    },
+    header: header,
+    success: function(res) {
+      console.log('发送编辑POST：', res);
       if (res.hasOwnProperty('data')) {
         let ret = res['data'];
         callback(ret);
