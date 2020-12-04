@@ -121,7 +121,8 @@ Page({
                 wx.showToast({
                   title: '编辑完成',
                 });
-
+                //设定列表更新标志
+                getApp().listUpdata.isUpdata = true;
                 //延时页面跳转
                 setTimeout(function() {
                   wx.navigateBack({
@@ -309,6 +310,21 @@ function getIdData(jsonData, callback) {
       }
     }
   });
+}
+
+/** 错误提示 */
+function showTopTips(text) {
+  //var that = this;
+  that.setData({
+    showTopTips: true,
+    textTopTips: text
+  });
+  setTimeout(function() {
+    that.setData({
+      showTopTips: false,
+      textTopTips: ""
+    });
+  }, 3000);
 }
 
   /** 校验记账数据 */
