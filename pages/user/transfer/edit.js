@@ -68,6 +68,7 @@ Page({
    * 日期改变事件
    */
   bindDateChange: function(e) {
+    console.log("改变日期：", e.detail.value);
     var date = new Date(e.detail.value);
     var year = date.getFullYear()
     var month = date.getMonth() + 1
@@ -248,7 +249,7 @@ function initForm(objData) {
     FundsOutIndex: getFundsIndex(FundsList, objData.source_fid),
     money: objData.money,
     mark: objData.mark,
-    date: objData.time,
+    date: util.intTimeFormat(objData.time, 'yyyy-mm-dd'),
     dateStr: util.intTimeFormat(objData.time, 'yyyy年m月d日'),
   });
 }
