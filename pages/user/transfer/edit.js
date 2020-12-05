@@ -150,6 +150,63 @@ Page({
   },
 
   /**
+   * 删除按钮
+   */
+  bindDelete: function() {
+    wx.showModal({
+      title: '确认删除',
+      content: '你确定要删除该转账记录？',
+      confirmText: '删除',
+      confirmColor: '#E64340',
+      success: function(res) {
+        if (res.confirm) {
+          //触发删除命令
+          var EditData = {};
+          EditData.tid = varId;
+          var strData = Base64.encoder(JSON.stringify(EditData));
+          wx.showLoading({
+            title: '删除中',
+            success: function() {
+              sendDelData(strData, function(ret) {
+                wx.hideLoading();
+                if (ret) {
+                  if (ret.uid) {
+                    if (ret.data.ret) {
+                      //显示转账删除完成提示框
+                      wx.showToast({
+                        title: '删除成功',
+                      });
+                      //设定列表更新标志
+                      getApp().listUpdata.isUpdata = true;
+                      //延时页面跳转
+                      setTimeout(function() {
+                        wx.navigateBack({
+                          delta: 1
+                        });
+                      }, 500);
+                    } else {
+                      //记账失败
+                      wx.showModal({
+                        title: '删除失败',
+                        content: ret.data.msg,
+                        showCancel: false
+                      })
+                    }
+                  } else {
+                    wx.showToast({
+                      title: '未登录',
+                    });
+                  }
+                }
+              });
+            }
+          });
+        }
+      }
+    })
+  },
+
+  /**
    * 返回按钮
    */
   bindBack: function() {
@@ -387,6 +444,42 @@ function sendEditData(data, callback) {
     header: header,
     success: function(res) {
       console.log('发送编辑POST：', res);
+      if (res.hasOwnProperty('data')) {
+        let ret = res['data'];
+        callback(ret);
+      } else {
+        callback({
+          uid: 0,
+          data: err['msg'] + '（请联系管理员）'
+        });
+      }
+    }
+  });
+}
+
+/** 发送删除记账命令(data数组, 回调函数) */
+function sendDelData(data, callback) {
+  var session_id = wx.getStorageSync('PHPSESSID'); //本地取存储的sessionID  
+  if (session_id != "" && session_id != null) {
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'Cookie': 'PHPSESSID=' + session_id
+    }
+  } else {
+    var header = {
+      'content-type': 'application/x-www-form-urlencoded'
+    }
+  }
+  wx.request({
+    url: getApp().Config.URL + '/index.php?s=/Home/Api/transfer',
+    method: 'POST',
+    data: {
+      type: 'del',
+      data: data
+    },
+    header: header,
+    success: function(res) {
+      console.log('发送删除POST：', res);
       if (res.hasOwnProperty('data')) {
         let ret = res['data'];
         callback(ret);
