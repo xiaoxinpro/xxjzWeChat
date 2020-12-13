@@ -68,6 +68,14 @@ Page({
   },
 
   /**
+   * 监听用户滑动页面事件
+   */
+  onPageScroll:function(e) {
+    // console.log(e);
+    varScroll = e.scrollTop;
+  },
+
+  /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
