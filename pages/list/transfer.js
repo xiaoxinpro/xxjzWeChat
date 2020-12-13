@@ -4,13 +4,17 @@ var Base64 = require('../../utils/base64.js')
 var util = require('../../utils/util.js')
 var varPage = 1;
 var varPageMax = 1;
+var lastListDate = "";
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    srollHeight: 500,
+    arrList: [],
+    isLoadMore: true,
+    isAddData: false,
   },
 
   /**
@@ -25,7 +29,7 @@ Page({
    */
   onLoad: function (options) {
     //设置页面标题
-    // wx.setNavigationBarTitle({ title: '转账明细' });
+    wx.setNavigationBarTitle({ title: '转账明细' });
     console.log("加载转账明细页面：", options);
     that = this;
     initList();
@@ -103,7 +107,7 @@ function initList(callback) {
         getTransferListData(varPage, function (ListData) {
           if (Array.isArray(ListData) && ListData.length > 0) {
             that.setData({
-              arrList: ListData,
+              arrList: JsonToList(ListData),
               isLoadMore: false,
               isAddData: true,
             });
@@ -117,6 +121,33 @@ function initList(callback) {
         });
       }
     });
+}
+
+/** 网络数据转为网页数组 */
+function JsonToList(ListData) {
+  var json = [];
+  var strDate = "";
+  var key = that.data.arrList.length;
+  for (var i = 0; i < ListData.length; i++) {
+    strDate = util.intTimeFormat(ListData[i].time, 'yyyy年m月d日 星期w ');
+    //添加日期头
+    if (lastListDate != strDate) {
+      //初始化日期头
+      lastListDate = strDate;
+      json.push({
+        key: key++,
+        isTitle: true,
+        date: strDate,
+      });
+    }
+    //添加账单数据
+    ListData[i]['key'] = key++;
+    ListData[i]['isTitle'] = false;
+    ListData[i]['date'] = strDate;
+    json.push(ListData[i]);
+  }
+  console.log("转账明细数据处理：", json);
+  return json;
 }
 
 /** 获取列表数据 */
