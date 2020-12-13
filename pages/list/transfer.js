@@ -72,7 +72,9 @@ Page({
    */
   onPullDownRefresh: function () {
     that = this;
-    initList();
+    initList(()=>{
+      wx.stopPullDownRefresh();
+    });
   },
 
   /**
