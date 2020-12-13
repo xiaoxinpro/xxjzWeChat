@@ -25,20 +25,33 @@
       </view>
     </view>
     <view wx:for="{{arrList}}" wx:key="key">
-      <view class="weui-cells weui-cells_after-title">
+      <view wx:if="{{item.source_fname}}" class="weui-cells weui-cells_after-title">
         <navigator url="../user/transfer/edit?id={{item.tid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
           <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
             <image lazy-load="true" src="../../image/transfer.png" style="width: 50px; height: 50px; display: block; border-radius:50%; background-color: #03a9f4;" />
           </view>
           <view class="weui-cell__bd">
-            <view wx:if="{{item.source_fname}}" class="list-item-title">{{item.target_fname}} - 转入</view>
-            <view wx:else class="list-item-title">{{item.target_fname}}</view>
+            <view class="list-item-title">{{item.target_fname}} - 转入</view>
             <view class="list-item-mark mark-text">{{item.mark}}</view>
           </view>
           <view class="weui-cell__ft">
             <view class="list-text-ft" style="color:#222;">{{item.money}}</view>
-            <view wx:if="{{item.source_fname}}" class="list-item-mark">{{item.source_fname}}</view>
-            <view wx:else class="list-item-mark">默认金额</view>
+            <view class="list-item-mark">{{item.source_fname}} - 转出</view>
+          </view>
+        </navigator>
+      </view>
+      <view wx:else class="weui-cells weui-cells_after-title">
+        <navigator url="../user/funds/edit?id={{item.target_fid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+            <image lazy-load="true" src="../../image/transfer.png" style="width: 50px; height: 50px; display: block; border-radius:50%; background-color: #03a9f4;" />
+          </view>
+          <view class="weui-cell__bd">
+            <view class="list-item-title">{{item.target_fname}}</view>
+            <view class="list-item-mark mark-text">{{item.mark}}</view>
+          </view>
+          <view class="weui-cell__ft">
+            <view class="list-text-ft" style="color:#222;">{{item.money}}</view>
+            <view class="list-item-mark">默认金额</view>
           </view>
         </navigator>
       </view>
