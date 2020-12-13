@@ -234,6 +234,8 @@ function cmdEditFunds(FundsName, FundsMoney) {
               title: '修改成功',
             });
             console.log('修改数据完成：', ret);
+            //设定列表更新标志
+            getApp().listUpdata.isUpdata = true;
             //返回
             wx.navigateBack({});
           } else {
@@ -279,6 +281,8 @@ function cmdDeleteFunds(newFundsId) {
               title: '删除成功',
             });
             console.log('删除数据完成：', ret);
+            //设定列表更新标志
+            getApp().listUpdata.isUpdata = true;
             //返回
             wx.navigateBack({});
           } else {
