@@ -5,6 +5,7 @@ var util = require('../../utils/util.js')
 var varPage = 1;
 var varPageMax = 1;
 var lastListDate = "";
+var isLoading = false;
 Page({
 
   /**
@@ -68,14 +69,6 @@ Page({
   },
 
   /**
-   * 监听用户滑动页面事件
-   */
-  onPageScroll:function(e) {
-    // console.log(e);
-    varScroll = e.scrollTop;
-  },
-
-  /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
@@ -89,7 +82,27 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    if (isLoading || (varPageMax <= varPage)) {
+      return;
+    }
+    isLoading = true;
 
+    //获取下一页数据
+    varPage = varPage + 1;
+    getTransferListData(varPage, function (ListData) {
+      isLoading = false;
+      //隐藏加载更多按钮
+      if (Array.isArray(ListData) && ListData.length > 0) {
+        that.setData({
+          arrList: that.data.arrList.concat(JsonToList(ListData)),
+          isLoadMore: varPageMax !== varPage,
+        });
+      } else {
+        that.setData({
+          isLoadMore: false,
+        });
+      }
+    });
   },
 
   /**
