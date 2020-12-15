@@ -97,10 +97,6 @@ Page({
           arrList: that.data.arrList.concat(JsonToList(ListData)),
           isLoadMore: varPageMax !== varPage,
         });
-      } else {
-        that.setData({
-          isLoadMore: false,
-        });
       }
     });
   },
@@ -120,7 +116,6 @@ function initList(callback) {
     varPageMax = 1;
     that.setData({
       arrList: [],
-      isLoadMore: true,
       isAddData: false,
     });
     wx.showLoading({
@@ -131,7 +126,6 @@ function initList(callback) {
           if (Array.isArray(ListData) && ListData.length > 0) {
             that.setData({
               arrList: JsonToList(ListData),
-              isLoadMore: false,
               isAddData: true,
             });
           }
