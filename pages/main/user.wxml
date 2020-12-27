@@ -1,19 +1,19 @@
 <!--user.wxml-->
 <view class="page">
   <!-- 头像 -->
-  <view class="page__hd" style="padding-top: 1rem;">
-    <view class="weui-panel weui-panel_access">
-      <view class="weui-panel__bd">
-        <navigator url="../user/user" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" src="{{avatarPath}}" background-size="cover"></image>
-          </view>
-          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-            <view class="weui-media-box__title">{{uname}}</view>
-            <view class="weui-media-box__desc">{{email}}</view>
-          </view>
-        </navigator>
-      </view>
+  <view class="page__bd" style="padding-top: 0.33rem;">
+    <view class="weui-cells__title"></view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator url="../user/user" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+          <image src="{{avatarPath}}" background-size="cover" style="width: 66px; height: 66px; display: block;"></image>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="list-item-title">{{uname}}</view>
+          <view class="list-item-mark mark-text">{{email}}</view>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
     </view>
   </view>
 
