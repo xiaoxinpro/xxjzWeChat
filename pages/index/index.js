@@ -65,7 +65,7 @@ Page({
     if (getApp().Config.URL.indexOf('http') === -1) {
       wx.showModal({
         title: '无法启动',
-        content: '请先配置app.js文件，再编译小程序。',
+        content: '请先配置config.js文件，再编译小程序。',
         showCancel: false,
       });
       return;
